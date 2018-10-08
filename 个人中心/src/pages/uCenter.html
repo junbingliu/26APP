@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<!-- vendor css -->
+<link rel="stylesheet" href="@{res/css/common.css}@">
+<link rel="stylesheet" type="text/css" href="@{res/css/huaruntong.css}@"/>
+</head>
+<body>
+<div class="container">
+
+</div>
+<article class="">
+<div class="ucenter" style="padding-bottom: 2.178rem;">
+<div class="user">
+<div class="head-ico">
+<img src="@{res/case/157x157.png}@"/>
+</div>
+<p class="name">我搜GV你深V</p>
+</div>
+<div class="ucenter-order" data-type="textLinkList" data-id="ucenter_order">
+<%if(ucenter_order&&ucenter_order.length>0){%>
+<%for(var x=0;x< ucenter_order.length;x++){ var value=ucenter_order[x];%>
+<a class="tab" href="<%=value.linkTo%>"><em class="amount">2</em><span class="txt"><%=value.content%></span></a>
+<%}%>
+<%}else{%>
+<a class="tab" href="#"><em class="amount">2</em><span class="txt">待付款</span></a>
+<a class="tab"  href="#"><span class="ico wait-shipment"><em class="amount">333</em></span><span class="txt">待发货</span></a>
+<a class="tab"  href="#"><span class="ico wait_receipt "></span><span class="txt">待收货</span></a>
+<a class="tab"  href="#"><span class="ico wait_evaluate"><em class="amount">5</em></span><span class="txt">待评价</span></a>
+<a class="tab"  href="#"><span class="ico wait-return"></span><span class="txt">退换货</span></a>
+<%}%>
+</div>
+<div class="ucenter-mod">
+<ul>
+<li class="list">
+<em class="ico" data-type="imgLink" data-id="ucenter_mod_img2">
+<%if(ucenter_mod_img2&&ucenter_mod_img2.imgUrl){%>
+<img src="<%=ucenter_mod_img2.imgUrl%>"/>
+<%}else{%>
+<img src="@{res/image/ucenter-ico-2.png}@"/>
+<%}%>
+</em>
+<div class="tab" data-type="textLink" data-id="ucenter_mod_text2">
+<%if(ucenter_mod_text2&&ucenter_mod_text2.content){%>
+<span><%=ucenter_mod_text2.content%></span>
+<%}else{%>
+<span>电子礼品卡</span>
+<%}%>
+<i class="icon-arrows"></i>
+</div>
+</li>
+<li class="list">
+<em class="ico" data-type="imgLink" data-id="ucenter_mod_img3">
+<%if(ucenter_mod_img3&&ucenter_mod_img3.imgUrl){%>
+<img src="<%=ucenter_mod_img3.imgUrl%>"/>
+<%}else{%>
+<img src="@{res/image/ucenter-ico-3.png}@"/>
+<%}%>
+</em>
+<div class="tab" data-type="textLink" data-id="ucenter_mod_text3">
+<%if(ucenter_mod_text3&&ucenter_mod_text3.content){%>
+<span><%=ucenter_mod_text3.content%></span>
+<%}else{%>
+<span>精品试用</span>
+<%}%>
+<i class="icon-arrows"></i>
+</div>
+</li>
+<li class="list">
+<em class="ico" data-type="imgLink" data-id="ucenter_mod_img1">
+<%if(ucenter_mod_img1&&ucenter_mod_img1.imgUrl){%>
+<img src="<%=ucenter_mod_img1.imgUrl%>"/>
+<%}else{%>
+<img src="@{res/image/ucenter-ico-1.png}@"/>
+<%}%>
+</em>
+<div class="tab" data-type="textLink" data-id="ucenter_mod_text1">
+<%if(ucenter_mod_text1&&ucenter_mod_text1.content){%>
+<span><%=ucenter_mod_text1.content%></span>
+<%}else{%>
+<span>收藏</span>
+<%}%>
+<i class="icon-arrows"></i>
+</div>
+</li>
+<li class="list">
+<em class="ico" data-type="imgLink" data-id="ucenter_mod_img5">
+<%if(ucenter_mod_img5&&ucenter_mod_img5.imgUrl){%>
+<img src="<%=ucenter_mod_img5.imgUrl%>"/>
+<%}else{%>
+<img src="@{res/image/ucenter-ico-5.png}@"/>
+<%}%>
+</em>
+<div class="tab" data-type="textLink" data-id="ucenter_mod_text5">
+<%if(ucenter_mod_text5&&ucenter_mod_text5.content){%>
+<span><%=ucenter_mod_text5.content%></span>
+<%}else{%>
+<span>优惠券</span>
+<%}%>
+<i class="icon-arrows"></i>
+</div>
+</li>
+<li class="list">
+<em class="ico" data-type="imgLink" data-id="ucenter_mod_img4">
+<%if(ucenter_mod_img4&&ucenter_mod_img4.imgUrl){%>
+<img src="<%=ucenter_mod_img4.imgUrl%>"/>
+<%}else{%>
+<img src="@{res/image/ucenter-ico-4.png}@"/>
+<%}%>
+</em>
+
+<div class="tab" data-type="textLink" data-id="ucenter_mod_text4">
+<%if(ucenter_mod_text4&&ucenter_mod_text4.content){%>
+<span><%=ucenter_mod_text4.content%></span>
+<%}else{%>
+<span>收货地址</span>
+<%}%>
+<i class="icon-arrows"></i>
+</div>
+</li>
+<li class="list">
+<em class="ico" data-type="imgLink" data-id="ucenter_mod_img6">
+<%if(ucenter_mod_img6&&ucenter_mod_img6.imgUrl){%>
+<img src="<%=ucenter_mod_img6.imgUrl%>"/>
+<%}else{%>
+<img src="@{res/image/ucenter-ico-6.png}@"/>
+<%}%>
+</em>
+<div class="tab" data-type="textLink" data-id="ucenter_mod_text6">
+<%if(ucenter_mod_text6&&ucenter_mod_text6.content){%>
+<span><%=ucenter_mod_text6.content%></span>
+<%}else{%>
+<span>服务与反馈</span>
+<%}%>
+<i class="icon-arrows"></i>
+</div>
+</li>
+
+</ul>
+</div>
+</div>
+
+
+</article>
+<footer class="home-footer">
+<section class="foot-nav">
+<ul>
+<li class="active" data-type="textLink" data-id="foot_nav1">
+<%if(foot_nav1&&foot_nav1.linkTo){%>
+<a href="<%=foot_nav1.linkTo%>">
+<%}else{%>
+<a href="#">
+<%}%>
+<span class="ico ico-home"></span>
+<%if(foot_nav1&&foot_nav1.content){%>
+<span class="txt"><%=foot_nav1.content%></span>
+<%}else{%>
+<span class="txt">商店</span>
+<%}%>
+</a>
+</li>
+<li class="" data-type="textLink" data-id="foot_nav2">
+<%if(foot_nav2&&foot_nav2.linkTo){%>
+<a href="<%=foot_nav2.linkTo%>">
+<%}else{%>
+<a href="#">
+<%}%>
+<span class="ico ico-nearby"></span>
+<%if(foot_nav2&&foot_nav2.content){%>
+<span class="txt"><%=foot_nav2.content%></span>
+<%}else{%>
+<span class="txt">精品</span>
+<%}%>
+</a>
+</li>
+<li class="" data-type="textLink" data-id="foot_nav3">
+<%if(foot_nav3&&foot_nav3.linkTo){%>
+<a href="<%=foot_nav3.linkTo%>">
+<%}else{%>
+<a href="#">
+<%}%>
+<span class="ico ico-agent"></span>
+<%if(foot_nav3&&foot_nav3.content){%>
+<span class="txt"><%=foot_nav3.content%></span>
+<%}else{%>
+<span class="txt">购物篮</span>
+<%}%>
+</a>
+</li>
+
+<li class="" data-type="textLink" data-id="foot_nav4">
+<%if(foot_nav4&&foot_nav4.linkTo){%>
+<a href="<%=foot_nav4.linkTo%>">
+<%}else{%>
+<a href="#">
+<%}%>
+<span class="ico ico-user"></span>
+<%if(foot_nav4&&foot_nav4.content){%>
+<span class="txt"><%=foot_nav4.content%></span>
+<%}else{%>
+<span class="txt">个人</span>
+<%}%>
+</a>
+</li>
+</ul>
+</section>
+</footer>
+</div>
+</body>
+
+</html>

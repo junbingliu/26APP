@@ -1,0 +1,24 @@
+{
+  "libs_namespace": "oleH5Api",
+  "libs": [
+    "services/PosService.jsx",
+    "services/OrderListQuery.jsx",
+    "services/WxTokenService.jsx"
+  ],
+  "obj_prefixes": ["pos","wechat"],
+  "list_prefixes": [],
+  "eventHandlers": [
+    {
+      "eventName": "orderPaidAfter",
+      "pageId": "eventHandlers/order_paid_give_coupon.jsx",
+      "handlerId": "order_paid_after_order_paid_give_coupon",
+      "description": "订单支付后，赠送积分和购物券"
+    },
+    {
+      "eventName": "orderPaidAutoAfter",
+      "pageId": "eventHandlers/order_paid_give_coupon.jsx",
+      "handlerId": "order_paid_auto_after_order_paid_give_coupon",
+      "description": "订单自动支付后，赠送积分和购物券"
+    }
+  ]
+}

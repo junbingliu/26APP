@@ -1,0 +1,67 @@
+{
+    "context":"normalIndex",
+    "appEditor":{"enabled":true},
+    "pages" : [
+        {"url":"/index.jsp","name":"首页","pageId":"homePage","template":"pages/index_design.html","dataProcessor":"@pages/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.levelNum","dataValue":{"name":"显示楼层","value":"6"},"dataSpec":{"id":"config.levelNum","type":"int"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"T"},"dataSpec":{"id":"config.showCategory","type":"string"}},
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}},
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+
+            ]},
+        {"url":"/defaultHeader.html","name":"默认页头","pageId":"defaultHeader","template":"pages/header_design.html","dataProcessor":"@pages/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.levelNum","dataValue":{"name":"显示楼层","value":"1,2,3,4,5,6,7"},"dataSpec":{"id":"config.levelNum","type":"int"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"F"},"dataSpec":{"id":"config.showCategory","type":"string"}},
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}},
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+            ]},
+        {"url":"/defaultFooter.html","name":"默认页脚","pageId":"defaultFooter","template":"pages/footer_design.html","dataProcessor":"@pages/index_process.jsx","dependsOn":"header",
+            "initData":[{"dataId":"config.footerCode","dataValue":{"name":"统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}]}
+
+    ],
+    "templates" : [
+        {"template":"pages/index_design.html","name":"主页模版","description":"复杂的页面，可以作为首页，频道页等。","dataProcessor":"@pages/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.levelNum","dataValue":{"name":"显示楼层","value":"6"},"dataSpec":{"id":"config.levelNum","type":"int"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"T"},"dataSpec":{"id":"config.showCategory","type":"string"}},
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}}
+
+
+            ]},
+        {"template":"pages/header_design.html","name":"默认页头模版","description":"默认页头","dataProcessor":"@pages/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.levelNum","dataValue":{"name":"显示楼层","value":"1,2,3,4,5,6,7"},"dataSpec":{"id":"config.levelNum","type":"int"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"F"},"dataSpec":{"id":"config.showCategory","type":"string"}},
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}},
+                {"dataId":"config.headerCode","dataValue":{"name":"统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}}
+            ]},
+        {"template":"pages/footer_design.html","name":"默认页脚模版","description":"默认页脚","dataProcessor":"@pages/index_process.jsx","dependsOn":"header",
+            "initData":[{"dataId":"config.footerCode","dataValue":{"name":"统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}]}
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

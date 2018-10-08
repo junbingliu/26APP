@@ -1,0 +1,196 @@
+{{?!it.productionMode}}
+<link href="@{res/style/header.css}@" rel="stylesheet">
+{{?}}
+<!--页尾-->
+<div class="footer">
+    {{?it.footer&&it.footer.service&&it.footer.service.length>0}}
+    <div class="service wbox"  data-id="footer:service" data-type="imgLinkList" imgSize="268X100">
+        <div class="link">
+            {{~it.footer.service:value:index}}
+            {{?index<4}}
+            <a href="{{=value.linkTo}}" target="{{=value.openInNewPage}}" class="lk{{=index+1}}"><img width="268" height="100" src="{{=value.imgUrl}}"></a>
+            {{?}}
+            {{~}}
+        </div>
+    </div>
+    {{??}}
+    <div class="service wbox"  data-id="footer:service" data-type="imgLinkList" imgSize="268X100">
+        <div class="link">
+            <a class="lk1"></a>
+            <a class="lk2"></a>
+            <a  class="lk3"></a>
+            <a  class="lk4"></a>
+        </div>
+    </div>
+    {{?}}
+
+    <div class="helper wbox clearfix">
+        <dl data-id="footer:help" data-type="textLinkList">
+            {{?it.footer&&it.footer.help&&it.footer.help.length>0}}
+            {{~it.footer.help:value:index}}
+            {{?index==0}}
+            <dt><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dt>
+            {{??}}
+            <dd><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dd>
+            {{?}}
+            {{~}}
+            {{??}}
+            <dt>新手指南</dt>
+            <dd><a href="#">购物券使用</a></dd>
+            <dd><a href="#">会员制度</a></dd>
+            <dd><a href="#">注册与登录</a></dd>
+            <dd><a href="#">购物流程</a></dd>
+            {{?}}
+        </dl>
+        <dl data-id="footer:wl" data-type="textLinkList">
+            {{?it.footer&&it.footer.wl&&it.footer.wl.length>0}}
+            {{~it.footer.wl:value:index}}
+            {{?index==0}}
+            <dt><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dt>
+            {{??}}
+            <dd><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dd>
+            {{?}}
+            {{~}}
+            {{??}}
+            <dt>物流配送</dt>
+            <dd><a href="#">闪电送</a></dd>
+            <dd><a href="#">宅夜送</a></dd>
+            <dd><a href="#">闪电发货</a></dd>
+            <dd><a href="#">欢乐提</a></dd>
+            {{?}}
+        </dl>
+        <dl  data-id="footer:payments" data-type="textLinkList">
+            {{?it.footer&&it.footer.payments&&it.footer.payments.length>0}}
+            {{~it.footer.payments:value:index}}
+            {{?index==0}}
+            <dt><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dt>
+            {{??}}
+            <dd><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dd>
+            {{?}}
+            {{~}}
+            {{??}}
+            <dt>支付方式</dt>
+            <dd><a href="#">在线支付</a></dd>
+            <dd><a href="#">货到付款</a></dd>
+            <dd><a href="#">亚泰币兑换</a></dd>
+            <dd><a href="#">手机支付</a></dd>
+            {{?}}
+        </dl>
+        <dl data-id="footer:after" data-type="textLinkList">
+            {{?it.footer&&it.footer.after&&it.footer.after.length>0}}
+            {{~it.footer.after:value:index}}
+            {{?index==0}}
+            <dt><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dt>
+            {{??}}
+            <dd><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dd>
+            {{?}}
+            {{~}}
+            {{??}}
+            <dt>售后服务</dt>
+            <dd><a href="#">退换货流程</a></dd>
+            <dd><a href="#">安装与维修</a></dd>
+            <dd><a href="#">退换货原则</a></dd>
+            <dd><a href="#">退款流程</a></dd>
+            {{?}}
+        </dl>
+        <dl data-id="footer:zc" data-type="textLinkList">
+            {{?it.footer&&it.footer.zc&&it.footer.zc.length>0}}
+            {{~it.footer.zc:value:index}}
+            {{?index==0}}
+            <dt><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dt>
+            {{??}}
+            <dd><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dd>
+            {{?}}
+            {{~}}
+            {{??}}
+            <dt>会员政策</dt>
+            <dd><a href="#">会员等级</a></dd>
+            <dd><a href="#">优惠券使用</a></dd>
+            <dd><a href="#">会员积分</a></dd>
+            {{?}}
+        </dl>
+        <dl data-id="footer:kefu" data-type="textLinkList">
+            {{?it.footer&&it.footer.kefu&&it.footer.kefu.length>0}}
+            {{~it.footer.kefu:value:index}}
+            {{?index==0}}
+            <dt><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dt>
+            {{??}}
+            <dd><a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a></dd>
+            {{?}}
+            {{~}}
+            {{??}}
+            <dt>客服中心</dt>
+            <dd><a href="#">在线客服</a></dd>
+            <dd><a href="#">常见问题</a></dd>
+            <dd><a href="#">发票制度</a></dd>
+            {{?}}
+        </dl>
+        <div class="foot_grcode" data-id="footer:code" data-type="imgLinkList">
+            {{?it.footer&&it.footer.code&&it.footer.code.length>0}}
+            {{~it.footer.code:value:index}}
+            {{?index<2}}
+            {{?index==0}}
+            <p class="weibo">{{??}} <p class="weixin">{{?}}
+               <a href="{{=value.linkTo}}" target="{{=value.openInNewPage}}"> <img src="{{=value.imgUrl}}"  /></p>
+            {{?}}
+            {{~}}
+            {{??}}
+            <p class="weibo"><img src="@{res/case/footer_weibo.png}@"  /></p>
+            <p class="weixin"><img src="@{res/case/footer_weixin.png}@" /></p>
+            {{?}}
+        </div>
+    </div>
+
+    <div class="footer_info">
+        <div class="menu" class="wbox" data-id="footer:about" data-type="textLinkList">
+            {{?it.footer&&it.footer.about&&it.footer.about.length>0}}
+            {{~it.footer.about:value:index}}
+            {{?index< it.footer.about.lengt-1}}
+            <a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a>|
+            {{??}}
+            <a target="{{=value.openInNewPage}}" href="{{=value.linkTo}}">{{=value.content}}</a>
+            {{?}}
+            {{~}}
+            {{??}}
+            <a href="#">关于我们</a>|
+            <a href="#">联系我们</a>|
+            <a href="#">客户服务</a>|
+            <a href="#">诚聘英才</a>|
+            <a href="#">商务合作</a>
+            {{?}}
+        </div>
+        <div class="copyright" data-type="htmlSource" data-id="footer:copyright">
+            {{?it.footer && it.footer.copyright}}
+            {{=it.footer.copyright}}
+            {{??}}
+            时尚商城网站 All Rights Reserved 2012 本站网络实名： 时尚网<br/>ICP证:沪ICP备00200022号 <br />技术支持：广州市信景技术有限公司
+            {{?}}
+        </div>
+        <div class="footer_pic_link" data-id="footer:pic" data-type="imgLinkList">
+            {{?it.footer&&it.footer.pic&&it.footer.pic.length>0}}
+            {{~it.footer.pic:value:index}}
+            <a href="{{=value.linkTo}}" target="{{=value.openInNewPage}}"><img src="{{=value.imgUrl}}" height="35"></a>
+            {{~}}
+            {{??}}
+            {{?!it.productionMode}}
+            <a href="#"><img src="@{res/case/footer_pic1.jpg}@"></a>
+            <a href="#"><img src="@{res/case/footer_pic2.jpg}@"></a>
+            <a href="#"><img src="@{res/case/footer_pic3.jpg}@"></a>
+            <a href="#"><img src="@{res/case/footer_pic4.jpg}@"></a>
+            {{?}}
+            {{?}}
+        </div>
+    </div>
+
+</div>
+<!--end 页尾-->
+
+
+{{?it.productionMode}}
+{{?it.config&&it.config.footerCode}}
+{{=it.config.footerCode.value}}
+{{?}}
+{{?}}
+
+</body>
+</html>

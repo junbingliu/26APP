@@ -1,0 +1,14 @@
+<table class="table table-bordered table-hover">
+    <thead>
+    <th>文件名</th>
+    <th>操作</th>
+    </thead>
+    <tbody>
+    {{~it.histories:value:index}}
+    <tr>
+        <td>{{=value.fileName}}</td>
+        <td><a href="{{=value.url}}" target="_blank">下载</a></td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>

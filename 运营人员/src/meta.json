@@ -1,0 +1,6 @@
+{
+  "libs_namespace": "merchantOperator",
+  "libs": ["services/merchantOperatorService.jsx"],
+  "obj_prefixes": ["merchantOperator"],
+  "list_prefixes": ["merchantOperator"]
+}

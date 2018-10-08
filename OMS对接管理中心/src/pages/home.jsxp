@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/resources/bootstrap3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="@{res/style/app.css}@" rel="stylesheet">
+    <script src="/resources/bootstrap3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+{{=$.inc("pages/include_navbar.jsx")}}
+<div class="container-fluid">
+    <div style="line-height: 20px;">
+        <div class="panel panel-danger">
+            <div class="panel-heading">e万家对接日志</div>
+            <div class="panel-body" style="line-height: 38px;">
+                <!--<a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_product&logTypeName=商品对接日志">商品对接日志</a>-->
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_Order&logTypeName=订单对接日志">订单对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_SkuQuantity&logTypeName=商品库存对接日志">商品库存对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_column&logTypeName=分类栏目对接日志">分类栏目对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_productCategory&logTypeName=SKU与分类关系对接日志">SKU与分类关系对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_product&logTypeName=商品对接日志">商品对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_afterSale&logTypeName=售后退货单对接日志">售后退货单对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsEsb_refundOrder&logTypeName=售后退款单对接日志">售后退款单对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=omsESB_wjsApp&logTypeName=o2o拣配app对接日志">o2o拣配app对接日志</a>
+            </div>
+        </div>
+
+        <!--<div class="panel panel-warning">
+            <div class="panel-heading">大卖场对接日志</div>
+            <div class="panel-body" style="line-height: 38px;">
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=dmcOms_order&logTypeName=大卖场订单对接">大卖场订单对接</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=dmcOmsAfterSale_ReturnOrder&logTypeName=大卖场退货单对接">大卖场退货单对接</a>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">跨境对接日志</div>
+            <div class="panel-body" style="line-height: 38px;">
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_bh_getProduct&logTypeName=查询产品信息服务">查询产品信息服务</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_bh_getProductStock&logTypeName=查询多个产品信息服务">查询多个产品信息服务</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_bh_addOrder&logTypeName=创建订单">创建订单</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_bh_getOrderLogisticsInfo&logTypeName=查询订单跟踪信息">查询订单跟踪信息</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_bh_getOrder&logTypeName=查询单个订单信息">查询单个订单信息</a>
+            </div>
+        </div>
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">Ole对接日志</div>
+            <div class="panel-body" style="line-height: 38px;">
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=ole_OmsOrder&logTypeName=Ole订单对接">Ole订单对接</a>
+            </div>
+        </div>
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">会员卡积分对接日志</div>
+            <div class="panel-body" style="line-height: 38px;">
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_memberCard&logTypeName=会员卡对接日志">会员卡对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=oms_memberCard_points&logTypeName=会员卡积分对接">会员卡积分对接</a>
+            </div>
+        </div>
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">微信分销对接日志</div>
+            <div class="panel-body" style="line-height: 38px;">
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=DPM_goodsListLog&logTypeName=选品对接日志">选品对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=DPM_goodsPriceLog&logTypeName=商品价格对接日志">商品价格对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=DPM_goodsStatusLog&logTypeName=商品上下架状态对接日志">商品上下架状态对接日志</a>
+                <a class="btn btn-primary" href="logList.jsx?m={{=it.merchantId}}&type=DPM_orderLog&logTypeName=订单对接日志">订单对接日志</a>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+</body>
+</html>

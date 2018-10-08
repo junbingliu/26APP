@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>申请退-商品</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="@{res/style/ole.css}@">
+</head>
+<body>
+<div class="container">
+
+    <article class="">
+        <div class="industry">
+            <div class="industry-cont">
+                <div class="industry-img" data-type="imgLink" data-id="skillImg" imgSize="750X1090" >
+                    <%if(skillImg&&skillImg.imgUrl){%>
+                    <img src="<%=skillImg.imgUrl%>">
+                    <%}else{%>
+                    <img src="@{res/img/tu750x1090.png}@"/>
+                    <%}%>
+
+                </div>
+                <div class="cont">
+                    <input class="input" type="text" placeholder="32222"/>
+                    <div class="">
+                        <input class="input  number" type="text" placeholder="15388558856"/> <a class=" send" href="">发送</a>
+                    </div>
+                    <input class="input" type="text" placeholder="您收到的验证码"/>
+
+                    <a class="industry-bnt" href="">领取您的优惠券</a>
+                    <a class="industry-bnt bnt-2"   data-type="textLink" data-id="industry">
+                        <%if(industry&&industry.content){%>
+                        <%=industry.content%>
+                        <%}else{%>
+                        查看我的卡包
+                        <%}%>
+                    </a>
+                    <p class="tab-txt" data-type="htmlSource" data-id="tabTxt" >
+                        <%if(tabTxt){%>
+                        <%=tabTxt%>
+                        <%}else{%>
+                        此优惠券仅限Ole西安中大国际店使用，2018年6月23日使用权，Ole精品超市在法律范围内具有最终行使权。
+                        <%}%>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+</div>
+</body>
+</html>

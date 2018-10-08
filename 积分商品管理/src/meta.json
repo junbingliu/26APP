@@ -1,0 +1,27 @@
+{
+  "libs_namespace": "integralProductManage",
+  "libs": [
+    "services/IntegralRuleService.jsx",
+    "services/IntegralRuleQuery.jsx",
+    "services/priceUtil.jsx",
+    "services/IntegralRuleLogService.jsx",
+    "services/IntegralRuleLogQuery.jsx"
+  ],
+  "obj_prefixes": [
+    "integralRule_",
+    "integralRuleLog_"
+  ],
+  "list_prefixes": [
+    "integralRule_",
+    "integralRuleLog_"
+  ],
+  "eventHandlers": [
+  ],
+  "rules": [
+    {
+      "id": "fullControl",
+      "name": "",
+      "pattern": "pages/.*"
+    }
+  ]
+}

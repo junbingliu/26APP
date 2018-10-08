@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="zh-CN" lang="zh-CN">
+<head>
+    <link href="@{client/res/css/paymentForm.css}@" rel="stylesheet"/>
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script>
+        $(document).ready(function(){
+            $("#payToPlatformGo").click(function(){
+                var payi = $('input:radio[name=payments_payToPlatform]:checked').val();
+                if(!payi){
+                    alert("请选择一个支付方式。");
+                }
+                else{
+                    var payToPlatformOrderIds = $("#payToPlatformOrderIds").val();
+                    //alert(payi+ " [ " + payToPlatformOrderIds + " ]");
+                    var mode = "p";
+                    window.open("payHandler.jsx?payi=" + payi + "&orderIds=" +payToPlatformOrderIds + "&mode=" + mode,"_blank" );
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="paymentsContainer">
+    <%if(payToPlatform.payToPlatformRecs.length>0){%>
+            <input type="hidden" id="payToPlatformOrderIds" value="<%=payToPlatform.payToPlatformOrderIds%>"/>
+            <div class="payment">
+                    <div class="paymentInfo">
+                        <div class="paymentStatus">
+                            <h1>订单已提交，请尽快完成支付，感谢您对我们的支持！</h1>
+                            <p class="paymentOrders">
+                                <span>订单号：</span>
+                                <% for(var i=0; i < payToPlatform.payToPlatformRecs.length; i++){%>
+                                <% var payment = payToPlatform.payToPlatformRecs[i]; %>
+                                <span><%=payment.orderAliasCode%></span>&nbsp;
+                                <%}%>
+                            </p>
+                            <p class="paymentAmount"><span>应付金额：</span><span class="money"><%=payToPlatform.totalNeedPayAmount%></span></p>
+                        </div>
+                        <div class="paymentWarning">
+                            <p>请在1小时内完成支付，否则订单会自动取消。</p>
+                        </div>
+                    </div>
+                    <div class="paymentBanksChooser">
+                        <ul class="payInterfaces">
+                            <%for(var j=0;j < payToPlatform.payToPlatformPayments.length;j++){%>
+                            <% var payment = payToPlatform.payToPlatformPayments[j] %>
+                            <li>
+                                <label>
+                                    <input type="radio" name="payments_payToPlatform" value="<%=payment.objectMap.payInterfaceId%>">
+                                    <img style="margin-top:20px" width="140" height="40" src="<%=payment.objectMap.payInterface.objectMap.logoUrl%>" alt="<%=payment.objectMap.paymentName%>"/>
+                                </label>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </div>
+            </div>
+            <div class="command_panel">
+                <a href="javascript:void(0)" class="btn_02" id="payToPlatformGo">去支付</a>
+            </div>
+
+    <%}%>
+    <%if(codPayRecs.length>0){%>
+        <div class="payment">
+            <div class="paymentInfo">
+                <div class="paymentStatus">
+                    <h1>订单已提交，感谢您对我们的支持！</h1>
+                    <p class="paymentOrders">
+                        <span>订单号：</span>
+                        <% for(var i=0; i < codPayRecs.length; i++){%>
+                        <% var payment = codPayRecs[i]; %>
+                        <span><%=payment.aliasCode%></span>&nbsp;
+                        <%}%>
+                    </p>
+                </div>
+                <div class="paymentWarning">
+                    <p>请保持通讯畅通，我们将尽快送货。</p>
+                </div>
+            </div>
+        </div>
+    <%}%>
+
+</div>
+</body>
+</html>

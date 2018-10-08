@@ -1,0 +1,13 @@
+<div id="skuSelector" style="display: none">
+    <table class="table table-stripped table-bordered" style="font-size: 14px;margin:25px;width:620px">
+        <tbody data-bind="foreach:skuSelector.inventoryAttrs">
+            <tr>
+                <td style="padding-top:16px">选择<span data-bind="text:name"></span></td>
+                <td  data-bind="foreach:standardValues">
+                    <span class="attrOption" data-bind="css:{selectedAttr:selected,enabled:enabled},click:function(data,event){$root.skuSelector.selectValue($data,$parent);}"><a href="#" ><span data-bind="text:name" ></span><i></i></a></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div data-bind="click:ok" class="btn btn-danger" style="margin-left:60px">确定</div>
+</div>

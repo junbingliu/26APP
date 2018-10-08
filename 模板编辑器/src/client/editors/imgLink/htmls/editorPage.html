@@ -1,0 +1,89 @@
+<div class="page modal" id="ImgLinkEditor">
+    <style>
+        .modal-header{background: #353535;padding: 8px}
+        .modal-title{color: #ffffff}
+        .modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+        .modal-header .close{opacity: 0.8;color: #ffffff}
+        .modal-body{background: #F1F1F1;padding-bottom: 5px}
+        .panel{margin-bottom: 10px}
+        .selected{background: bisque}
+    </style>
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 500px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeImgLinkEditor">×</button>
+                <h5 class="modal-title">图片设置</h5>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-4" style="padding-left: 0px"><img data-bind="attr:{src:selectedImg}" class="img-thumbnail"></div>
+                        <div class="col-md-8">从电脑或者网络上选择要展示的图片  <span style="color: red">图片尺寸<!-- ko text: imgSize --><!-- /ko --></span><button type="button" class="btn btn-primary btn-block" data-bind="click:photoGalleryEditor.openSelectImgView.bind($data,false)">选择图片</button></div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="linkTo">图片链接</label>
+                            <input data-bind="value:selectedImg" type="url" class="form-control" id="imgUrl" placeholder="链接地址">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="linkTo">链接到</label>
+                            <input data-bind="value:linkTo" type="url" class="form-control" id="linkTo" placeholder="链接地址">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="description">描述</label>
+                            <input data-bind="value:description" type="url" class="form-control" id="description" placeholder="描述内容">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" style="padding: 0px">新窗口打开</label>
+                            <div class="col-md-8">
+                                <div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+                                <div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-body">-->
+                        <!--<div class="form-group" style="height: 40px">-->
+                            <!--<label  class="col-md-3 control-label" style="line-height: 34px;padding: 0">开始时间</label>-->
+                            <!--<div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:00" data-link-field="startDate">-->
+                                <!--<input data-bind="value:startDate"  class="form-control" size="16" type="text" value="" readonly>-->
+                                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+                                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label  class="col-md-3 control-label"  style="line-height: 34px;padding: 0">结束时间</label>-->
+                            <!--<div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:59" data-link-field="endDate">-->
+                                <!--<input data-bind="value:endDate"  class="form-control" size="16" type="text" value="" readonly>-->
+                                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+                                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeImgLinkEditor">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

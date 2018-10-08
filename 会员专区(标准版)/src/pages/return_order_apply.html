@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="ch">
+	<head>
+        <title>退<%=isApplyForReplacement != 'false' ? '换' : ''%>货申请 - 我的专区 - <%=webName%></title>
+        <link rel="stylesheet" type="text/css" href="@{res/css/return_order_apply.css}@" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="@{res/css/return_order_apply_custom.css}@" rel="stylesheet" />
+        <script src="/resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="/js/selecttree.js"></script>
+        <script type="text/javascript" src="/resources/jquery.validate.min.js"></script>
+        <script src="/resources/jquery.form.js" type="text/javascript"></script>
+        <script src="@{res/js/artTemplate.js}@" type="text/javascript"></script>
+        <script>var rappId = "<%=rappId%>",isApplyForReplacementValue = "<%=isApplyForReplacement%>",orderType = "<%=order.orderType%>",merchantId = "<%=order.merchantId%>";</script>
+        <script src="@{res/js/return_order_apply.js}@"></script>
+    </head>
+    <body>
+        <%=#importUrl("/ucenter/header.html")%>
+        <!-- main -->
+        <div class="center">
+            <!-- sidebar -->
+            <div class="sidebar float_l enableSelect">
+
+            </div>
+            <!-- sidebar -->
+            <!-- main -->
+            <div class="float_l myRefunding"><!-- myRefunding -->
+                <div class="crumb">
+                    <a href="/">首页</a><span class="arrow"></span><a href="/ucenter/index.html">我的专区</a><span class="arrow"></span><a class="active">申请退换货</a>
+                </div>
+                <!-- center -->
+                <div class="center">
+                    <div class="panelHd">
+                        <h1>申请退换货详细</h1>
+                    </div>
+                    <!-- panelBd-->
+                    <div class="panelBd myRefundingCont" >
+                        <form id="returnOrderForm" name="returnOrderForm" action="/<%=rappId%>/handler/order_return_handler.jsx" method="post" autocomplete="off">
+                            <input type="hidden" value="<%=token%>" name="token"/>
+                            <input type="hidden" value="<%=order.id%>" name="orderId"/>
+                            <input type="hidden" value="<%=newItemsCount%>" id="itemCount" name="itemCount"/>
+                            <div class="productInfo"><!-- productInfo -->
+                                <h3>确认退换货商品信息</h3>
+                                <table>
+                                    <tr class="tablehd">
+                                        <th width="8%">
+                                            <input type="checkbox" id="checkboxall" name="checkboxall"/>
+
+                                        </th>
+                                        <th width="11.23%">商品图片</th>
+                                        <th width="26.44%">商品名称</th>
+                                        <th width="43.38%">申请数量</th>
+                                        <th>退换货商品金额</th>
+                                    </tr>
+                                    <%if(newItemsCount > 0){%>
+                                    <%for(var i=0;i < newItemsCount;i++){%>
+                                    <%var item = newItems[i];%>
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" value="<%=item.priceInfo.fUnitPrice%>" id="orderPriceUnitPrice_<%=i%>" name="orderPriceUnitPrice_<%=i%>"/>
+                                            <input type="hidden" value="<%=item.needAmount > 1 ?'1' : item.needAmount%>" id="count_<%=i%>" name="count_<%=i%>"/>
+                                            <input type="hidden" value="false" id="isCheck_<%=i%>" name="isCheck_<%=i%>" class="isCheckValue"/>
+                                            <input id="check_<%=i%>" type="checkbox" name="ck" onClick="isCheck('<%=i%>','<%=newItemsCount%>')"/>
+                                        </td>
+                                        <td><a href="/product.html?id=<%=item.productId%>&mid=<%=item.orderProduct.merchantId%>" target="_blank"><img src="<%=item.orderProduct.pics[0]%>" alt="<%=item.name%>"></a></td>
+                                        <td>
+                                            <a href="/product.html?id=<%=item.productId%>&mid=<%=item.orderProduct.merchantId%>" target="_blank" style="color:inherit;"><%=item.name%></a>
+                                            <%if(item.attrs && item.attrsValue != ""){%>
+                                            <br/><span style="color: #555;">[<%=item.attrsValue%>]</span>
+                                            <%}%>
+                                        </td>
+                                        <td>(数量共<%=item.needAmount%>件)
+                                            <select class="select" name="select_<%=i%>" id="select_<%=i%>" onchange="checkAmount('<%=i%>');">
+                                                <%for(var j=1;j <= item.needAmount;j++){%>
+                                                <option value="<%=j%>" <%=item.needAmount==1 ? 'selected' : ''%> ><%=j%></option>
+                                                <%}%>
+                                            </select>
+                                            <input type="hidden" id="amout_<%=i%>" name="amout_<%=i%>" value="1"/>
+                                        </td>
+                                        <td class="money"><em>￥</em><%=item.priceInfo.fUnitPrice%></td>
+                                    </tr>
+                                    <%}%>
+                                    <%}%>
+
+                                </table>
+                            </div><!-- end productInfo -->
+
+                            <!-- operation -->
+                            <div class="operation mt30" >
+                                <h3>确定处理方式<span><i class="colore14041"> * </i>必填选项</span></h3>
+                                <div class="operationCont">
+                                    <p><i class="colore14041"> * </i>期望处理方式&nbsp;:
+                                        <label><input type="radio" name="opertType" onclick='showOpertType("<%=isCanReturn ? 'true' : 'false'%>","returnProduct")' value="<%=isCanReturn ? 'returnProduct' : 'return'%>" <%=isApplyForReplacement == 'false' ? 'checked' : ''%>/> 退货退款 </label>
+                                        <label><input type="radio" name="opertType" onclick="showOpertType('<%=isCanBarter ? 'true' : 'false'%>','barterProduct')" value="<%=isCanBarter ? 'barterProduct' : 'barter'%>" /> 换货补发 </label>
+                                    </p>
+                                    <p style="padding-left: 28px;" class="mt10"><i class="colore14041"> * </i>申请原因&nbsp;:
+                                        <select name="selectReason" id="selectReason" class="select">
+                                            <option value="请选择">请选择</option>
+                                            <option value="re_50001">误购、多购</option>
+                                            <option value="re_50002">非质量方面不满意</option>
+                                            <option value="re_50003">生产商问题</option>
+                                            <option value="re_50004">物流商/自提点问题，如服务态度，配送延误、包装损坏等</option>
+                                            <option value="re_50005">库管问题，如备货出错</option>
+                                            <option value="re_50006">质量问题</option>
+                                            <option value="re_50007">物流遗失</option>
+                                            <option value="re_50008">物流破损</option>
+                                            <option value="re_50009">仓库少发货</option>
+                                            <option value="re_50010">物流破损</option>
+                                            <option value="re_50011">实物与网站描述不符</option>
+                                        </select>
+                                    </p>
+                                    <p class="textareaWrap mt8" ><i class="colore14041"> * </i>原因详细描述&nbsp;:
+                                        <textarea name="remark" id="remark" maxlength="100" placeholder="请在此详细描述您遇到的问题，您的描述将有助于客服人员更快处理您的申请。"></textarea>
+                                        <span class="textNumber">0/100</span>
+                                    </p>
+                                    <!--<p style="padding-left:10px;" class="mt10">上传图片凭证&nbsp;:-->
+                                        <!--<input type="file" class="btnfile">-->
+                                    <!--</p>-->
+                                    <!--<p class="p">您还可以上传实拍照片或者其他图片证据，说明您遇到的问题。</p>-->
+                                    <!--<p class="p">最多可以上传5张bmp／jpg／jpeg／gif／png格式的图片，每张图片最大不超过5m</p>-->
+                                    <!--<p class="p">为保证上传速度，建议您在上传前对过大图片进行压缩处理。</p>-->
+
+                                </div>
+                            </div><!-- end operation -->
+
+                            <!-- operation -->
+                            <div class="operation mt30">
+                                <h3>确定收货信息<span><i class="colore14041"> * </i>必填选项</span></h3>
+                                <div class="operationCont">
+                                    <p style="display: none;" id="returnMode"><i class="colore14041"> * </i>期望返回方式&nbsp;:
+
+                                        <%if(returnPolicyList && returnPolicyList.length > 0){%>
+                                        <%for(var i=0;i < returnPolicyList.length;i++){%>
+                                        <label><input type="radio" name="skuWay" value="1" /> <%=returnPolicyList[i].name%>(<%=returnPolicyList[i].description%>) </label>
+                                        <%}%>
+                                        <%}else{%>
+                                        <%if(isApplyForReplacementValue != 'false'){%>
+                                        <label><input id="skuWay" name="skuWay" type="radio" value="1" checked /> 自行寄回 （由您自行寄回仓库，然后为您退款，申请核准后会告知您寄回的地址) </label>
+                                        <%}%>
+                                        <label><input id="skuWay2" name="skuWay" type="radio" value="1" <%=isApplyForReplacementValue == "false" ? 'checked' : ''%> /> 上门取货 （申请核准后，商家会主动联系您取回货物) </label>
+                                        <%}%>
+                                    </p>
+                                    <p style="display: none;" id="refundMode" class="mt15"><i class="colore14041"> * </i>期望退款方式&nbsp;:
+                                        <lable><input type="radio" checked="true" name="refundInfo" value="oldPay"/> 原支付方式退回</lable>
+                                    </p>
+                                    <p style="padding-left:52px;" class="mt15">联系人&nbsp;:
+                                        <input name="contactPerson" id="contactPerson" value="<%=order.deliveryInfo.userName%>" class="textInput username">
+                                    </p>
+                                    <p style="padding-left:39px;" class="mt15">手机号码&nbsp;:
+                                        <input name="mobilePhone" id="mobilePhone" value="<%=order.deliveryInfo.mobile%>" class="textInput userphone">
+                                    </p>
+                                    <%if(isApplyForReplacementValue != 'false'){%>
+                                    <p id="barterAddress" style="display: none" class="mt15"><i class="colore14041"> * </i>换货配送方式&nbsp;:
+                                        <lable><input type="radio" class="radio" name="barterAddress" value="oldBarterAddress" checked onclick="showNewAddress('old')"/>按原配送地址</lable>
+                                        <lable><input type="radio" class="radio" name="barterAddress" value="newBarterAddress" onclick="showNewAddress('new')"/>使用新地址</lable>
+                                    </p>
+                                    <%}%>
+                                    <%if(isApplyForReplacementValue != 'false'){%>
+                                    <div style="display: none;" id="newbarterDeliveryAddress">
+                                        <div id="barterDeliveryAddress">
+                                            <p style="padding-left: 28px;" class="mt10"><i class="colore14041"> * </i>收货地址&nbsp;:
+
+                                            <span class="put" id="loadBarterAddress"></span>
+                                            <a href="javascript:void(0);" onclick="deliveryCustomAddress();" style="color:blue;padding-left: 20px;">使用其他地址</a>
+
+                                                <!--<select class="select">-->
+                                                    <!--<option>商品质量问题</option>-->
+                                                    <!--<option>商品质量问题2</option>-->
+                                                    <!--<option>商品质量问题3</option>-->
+                                                <!--</select>-->
+                                            </p>
+                                            <div id="mask" class="mask" style="position: absolute; top: 0px; filter: alpha(opacity = 60); background-color: #777; z-index: 1002; left: 0px; opacity: 0.5; -moz-opacity: 0.5;"></div>
+                                            <div class="msglayer3 address"  id="loadDeliveryAddress"></div>
+                                        </div>
+                                        <p style="padding-left:52px;" class="mt15">联系人&nbsp;:
+                                            <input name="changeContactPerson" id="changeContactPerson" disabled="disabled" value="" class="textInput username">
+                                        </p>
+                                        <p style="padding-left:39px;" class="mt15">手机号码&nbsp;:
+                                            <input id="changeMobile" name="changeMobile" disabled="disabled" value="" class="textInput userphone">
+                                        </p>
+                                        <p style="padding-left:39px;" class="mt15">固定电话&nbsp;:
+                                            <input id="changePhone" name="changePhone" disabled="disabled" value="" class="textInput userphone">
+                                        </p>
+                                        <p id="isDeveryWay" style="padding-left:39px;display: none;" class="mt15">配送方式&nbsp;:
+                                            <select class="select" id="changeType" name="changeType" style="width: 155px;" onchange="return changePointByWay()">
+                                            </select>
+                                        </p>
+                                        <p id="isDelvery" style="padding-left:39px;display: none;" class="mt15">
+                                            自提点&nbsp;:
+                                            <select name="deliveryPoint" id="deliveryPoint" style="width: 155px;"></select>
+
+                                        </p>
+                                    </div>
+                                    <%}%>
+
+
+
+                                </div>
+                            </div><!-- end operation -->
+                            <p class="clearfix">
+                                <!--<a href="#" class="btnPrimary" id="submit_button">提交申请</a>-->
+                                <button type="submit" class="btnPrimary" id="submit_button" style="height: 49px;">提交申请</button>
+                            </p>
+                        </form>
+                    </div><!-- end panelBd -->
+                </div><!-- end center -->
+
+
+            </div>
+            <!--end main -->
+        </div><!-- end main -->
+        <div class="clear"></div>
+
+        <script id="newAddressTemplate" type="text/html">
+            <div  id="myAddressBookForm" name="myAddressBookForm">
+
+                <div class="bd">
+                    <div class="closed"><a href="javascript:hideAll('#loadDeliveryAddress');"></a></div>
+                    <div class="mc">
+                        <ul>
+                            <li>
+                                <label><span>*</span>联系人：</label>
+                                <div class="fl">
+                                    <input type="text" id="userName" name="userName" value=""/>
+                                </div>
+                            </li>
+                            <li>
+                                <label><span>*</span>手机号码：</label>
+                                <div class="fl">
+                                    <input type="text" id="mobile" name="mobile" value=""/>
+                                </div>
+                            </li>
+                            <li>
+                                <label>固定电话：</label>
+                                <div class="fl">
+                                    <input type="text" id="phone" name="phone" value=""/>
+                                </div>
+                                <div class="fl ml10">格式：( 012-12345678或1234-1234567）</div>
+                            </li>
+                            <li>
+                                <label><span>*</span>所在地区：</label>
+                                <div class="fl">
+                                    <div class="inp fixAreaSel">
+                                        <div id='regionCanvas'></div>
+                                        <input type="hidden" value="" id="RegionId" name="RegionId"
+                                               treeName="region" class="selectTree"/>
+                                        <input type="hidden" id="region_0" valueElemId='RegionId' value="c_region_1602" level='0'/>
+
+                                        <div id="showload"></div>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <label><span>*</span>详细地址：</label>
+                                <div class="fl">
+                                    <textarea class="area" name="address" id="address"></textarea>
+                                </div>
+                            </li>
+                            <!--<li>-->
+                                <!--<label>邮政编码：</label>-->
+                                <!--<div class="fl">-->
+                                    <!--<input type="text" id="Zip" name="Zip" />-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <li>
+                                <label>&nbsp;</label>
+                                <div class="fl">
+                                    <!--<a href="javaScript:void(0);" class="btn_01 mr5" id="button1">&nbsp;保存&nbsp;</a>-->
+                                    <!--<a href="javaScript:void(0);" class="btn_gray" id="button2">&nbsp;重置&nbsp;</a>-->
+                                    <button id="button1" class="tableBtn tableBtnPrimary" type="button">保存</button>
+                                    <button style="line-height: 22px;" id="button2" class="tableBtn tableBtnDefault" type="button">重置</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <input type="hidden" id="addressId" name="addressId" value=""/>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <%=#importUrl("/ucenter/footer.html")%>
+    </body>
+</html>

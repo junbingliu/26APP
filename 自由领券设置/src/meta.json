@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "freeGetCardSetting",
+    "libs": ["services/FreeGetCardSettingService.jsx"],
+    "obj_prefixes": ["freeGetCardSettingObj"],
+    "list_prefixes": ["freeGetCardSettingList"]
+}

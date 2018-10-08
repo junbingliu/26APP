@@ -1,0 +1,57 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th><input type="checkbox" id="checkboxAll"></th>
+        <th>商品ID</th>
+        <th>SKU编码</th>
+        <th>商品名称</th>
+        <th>分类</th>
+        <th>所属渠道</th>
+        <th>所属商家</th>
+        <th>是否在售</th>
+        <th>可卖数</th>
+        <th>操作</th>
+    </tr>
+    {{~it.resultList:productValue:xindex}}
+    <tr>
+        <td><input type="checkbox" name="subcheck" value="{{=productValue.productId}}"></td>
+        <td>{{=productValue.productId}}</td>
+        <td>{{=productValue.skuNo}}</td>
+        <td>{{=productValue.productName}}</td>
+        <td>{{=productValue.categoryName}}</td>
+        <td> {{? productValue.channel=="h5"}}
+            微商城
+            {{?? productValue.channel=="app"}}
+            APP
+            {{?? productValue.channel=="all"}}
+            微商城，APP
+            {{?}}
+        </td>
+        <td>{{=productValue.merchantName}}</td>
+        <td> {{? productValue.publishState=="1"}}
+            在售中
+            {{?? productValue.publishState=="0"}}
+            待上架
+            {{?}}
+        </td>
+        <td>{{=productValue.sellableCount}}</td>
+        <td>
+        {{? productValue.publishState=="0"}}
+        <a href="javascript:void(0);" class="putaway" data-a="{{=productValue.productId}}">上架</a>
+        {{?}}
+         {{? productValue.publishState=="1"}}
+          <a href="javascript:void(0);" class="soldOut" data-a="{{=productValue.productId}}">下架</a>
+         {{?}}
+        </td>
+    </tr>
+    {{~}}
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}" enableToPage="false">
+</div>

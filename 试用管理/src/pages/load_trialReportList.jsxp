@@ -1,0 +1,49 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr class="active">
+        <th width="160px;">序号</th>
+        <th width="120px;">用户</th>
+        <th width="120px;">申请时间</th>
+        <th width="120px;">试用商品</th>
+        <th width="120px;">一句话总结</th>
+        <th width="120px;">审核结果</th>
+        <th width="120px;">操作账户</th>
+        <th width="120px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.resultList.list:value:index}}
+    <tr>
+        <td>{{=value.id}}</td>
+        <td>{{=value.userName}}</td>
+        <td>{{=value.formatTime}}</td>
+        <td>{{=value.productName}}</td>
+        <td>{{=value.oneSentence}}</td>
+        {{? value.examineInfo.examineStatus == 0}}
+        <td>未审核</td>
+        {{?? value.examineInfo.examineStatus == 1}}
+        <td>审核通过</td>
+        {{??}}
+        <td>审核不通过</td>
+        {{?}}
+        <td>{{=value.examineInfo.examineUser}}</td>
+        <td>
+            <a class="btn btn-default" href="reportDetail.jsx?m={{=it.merchantId}}&id={{=value.id}}">查看</a>
+            {{? value.examineInfo.examineStatus == 0}}
+            <button class="btn btn-default pass" data-a="{{=value.id}}" data-toggle="modal" data-target="#myModal2">审核通过</button>
+            <button class="btn btn-default reject" data-toggle="modal" data-a="{{=value.id}}" data-target="#myModal2">审核不通过</button>
+            {{?}}
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>
+
+
+

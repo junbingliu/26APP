@@ -1,0 +1,120 @@
+.center{
+    color: #555555;
+    font-size: 14px;
+}
+.panelBd {
+    padding: 20px 25px;
+    background: #fff url("@{res/images/panelBdBgMask.png}@") repeat-x;
+}
+.balance{
+    border: #fde1b4 1px solid;
+    background: #fff4e8;
+    padding: 0px 20px;
+    line-height: 50px;
+}
+
+.panelBox{
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+}
+.panelBox .mcH4{
+    background: #F5F5F5 none repeat scroll 0 0;
+    border: 1px solid #EAEAEA;
+    line-height: 40px;
+    padding: 0 20px;
+}
+.panelBox .mc{
+    background: #FFFFFF none repeat scroll 0 0;
+    border: 1px solid #EAEAEA;
+    border-top: 0;
+    padding: 0 20px 20px;
+    overflow: hidden;
+}
+.panelBox .mc .p_title{
+    width: 100%;
+    line-height: 40px;
+    float: left;
+}
+.panelBox .mc .put1{
+    margin-right: 10px;
+    width: 600px;
+    height: 23px;
+    line-height: 23px;
+    padding-left: 5px;
+    border: #bab9bd 1px solid;
+    float: left;
+}
+.panelBox .mc .btn_invite{
+    color: #333;
+    background: url("@{res/images/btnBg.png}@") repeat-x;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0 11px;
+    height: 25px;
+    transition: all 0.25s ease 0s;
+}
+.panelBox .mc .btn_invite:hover{
+    color: #00B5BE;
+    border-color: #00B5BE;
+}
+.panelBox .mc .area{
+    width: 600px;
+    line-height: 25px;
+    height: 50px;
+    border: 1px solid #bab9bd;
+}
+.panelBox .mc .mt10{
+    float: left;
+    margin-top: 10px;
+}
+.invite_link ul li{
+    float: left;
+    width: 120px;
+    height: 60px;
+    border: #dcdcdc 1px solid;
+    margin: 0 20px 20px 0;
+    overflow: hidden;
+}
+
+/* 扫二维码加好友*/
+.qrcode_overlayBG { background:rgba(0,0,0,0.5)!important;  background:#000;  filter:alpha(opacity=50); position: fixed; z-index:999; top: 0px; height:100%; width:100%;}
+.TB_window{ position: fixed;  left:0%;  top:0%;  width:100%;  z-index:10000; }
+
+.qrcodeLayer{
+    border-radius: 10px;
+    width:400px;
+    background:#fff;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 10000;
+    margin-left: -200px;
+    margin-top: -208px;
+    padding: 40px 0 60px;
+}
+
+.qrcodeLayer .closed {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    display: inline-block;
+    background: url(@{res/images/closed.png}@) no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.qrcodeLayer .qrcode{
+    width: 200px;
+    height: 200px;
+    margin: 50px auto 10px;
+}
+
+.qrcodeLayer .txt{
+    font-size: 14px;
+    text-align: center;
+}
+/* end 扫二维码加好友*/

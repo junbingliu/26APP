@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>增加预售规则</title>
+    <script type="text/javascript">
+        var m = "{{m}}"
+    </script>
+    {{#inc("pages/include_base.jsx")}}
+    <link href="/resources/zTree3.5/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
+    <script src="/resources/zTree3.5/jquery.ztree.core-3.5.js"></script>
+    <script src="/brandSelector/jsloader.jsx?m={{m}}"></script>
+    <script src="/productSelector/jsloader.jsx?m={{m}}"></script>
+    <script src="@{res/js/preSale_rule_update.js}@"></script>
+    <script src="@{res/js/jsmath.js}@"></script>
+</head>
+<body class="well" style="border:0px">
+<div class="container" id="preSaleRuleUpdatePage">
+    <div class="fieldset">
+        <form class="form-inline" role="form">
+            <input type="hidden" name="ruleId" id="ruleId" value="{{preSaleRule.id}}" data-bind="value:id">
+            <div class="section row">
+                <div class="col-md-5" style="margin-top: 15px">
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">规则名称:</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" value="{{preSaleRule.name}}" data-bind="value:name"
+                                   placeholder="请填写规则名称"/>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">预定人数:</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="displayAmount" value="{{preSaleRule.displayAmount}}" data-bind="value:displayAmount"
+                                   placeholder="页面显示的预定人数,不填写显示真实预定人数"/>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">预定数量比例:</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="rate" value="{{preSaleRule.rate}}" data-bind="value:rate"
+                                   placeholder="预定一个，计算数量时按比例相乘，默认是1"/>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">预售类型:</label>
+
+                        <div class="col-md-8 input-group">
+                            <select id="type" name="type" class="form-control" data-bind="value:type,event:{change:typeChange}">
+                                <option value="1">先付定金,固定尾款</option>
+                                <option value="2">先付定金,尾款按人数定</option>
+                                <option value="3">一次性付清全款</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">定金开始支付时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="depositBeginTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="depositBeginTime" id="depositBeginTime"
+                                       data-bind="value:depositBeginTime,enable:$root.approveState() == '0'" value="{{preSaleRule.depositBeginTime}}">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">定金支付结束时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="depositEndTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="depositEndTime" id="depositEndTime" data-bind="value:depositEndTime,enable:$root.approveState() == '0'"
+                                       value="{{preSaleRule.depositEndTime}}">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px" id="beginTimeDiv">
+                        <label class="col-md-4 control-label">尾款开始支付时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="beginTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="beginTime" id="beginTime" data-bind="value:beginTime,enable:$root.approveState() == '0'"
+                                       value="{{preSaleRule.beginTime}}">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px" id="endTimeDiv">
+                        <label class="col-md-4 control-label">尾款支付结束时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="endTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="endTime" id="endTime" data-bind="value:endTime,enable:$root.approveState() == '0'"
+                                       value="{{preSaleRule.endTime}}">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">开始对接时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="stockingTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="stockingTime" id="stockingTime" data-bind="value:stockingTime,enable:$root.approveState() == '0'" placeholder="开始对接时间">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">开始发货时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="deliveryBeginTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="deliveryBeginTime" id="deliveryBeginTime" data-bind="value:deliveryBeginTime,enable:$root.approveState() == '0'" placeholder="顾客前台选择的时间">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">结束发货时间:</label>
+
+                        <div class="col-md-8 input-group">
+                            <div class="input-group date form_date" data-date=""
+                                 data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="deliveryEndTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input type="text" class="form-control"  name="deliveryEndTime" id="deliveryEndTime" data-bind="value:deliveryEndTime,enable:$root.approveState() == '0'" placeholder="顾客前台选择的时间">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="totalPriceDiv" class="row" style="margin-bottom: 10px">
+                        <label class="col-md-4 control-label">预售价:</label>
+
+                        <div class="col-md-8 input-group">
+                            <input type="text" class="form-control" name="totalPrice" value="{{preSaleRule.totalPrice}}"
+                                   data-bind="value:totalPrice,event:{change:changePrice},enable:$root.approveState() == '0'" placeholder="请填写预售价"id="totalPrice"/>
+                        </div>
+                    </div>
+                    <div id="depositDiv" class="row" style="margin-bottom: 10px;">
+                        <label class="col-md-4 control-label">定金:</label>
+
+                        <div class="col-md-8 input-group">
+                            <input type="text" class="form-control" name="deposit" value="{{preSaleRule.deposit}}"
+                                   data-bind="value:deposit,event:{change:changePrice},enable:$root.approveState() == '0'" placeholder="请填写定金" id="deposit" />
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                    <div id="balanceDiv" class="row" style="margin-bottom: 10px;">
+                        <label class="col-md-4 control-label">尾款:</label>
+
+                        <div class="col-md-8 input-group">
+                            <input type="text" class="form-control" name="balance" value="{{preSaleRule.balance}}" id="balance"
+                                   data-bind="value:balance,enable:$root.approveState() == '0'" placeholder="请填写尾款"/>
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 control-label" style="padding-top: 0px">发布渠道:</label>
+                        <div class="col-md-8">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="app" value="app" data-bind="checked:channel"> OleApp
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="app" value="h5" data-bind="checked:channel"> Ole微商城
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <label class="col-md-4 control-label">备注:</label>
+
+                        <div class="col-md-8">
+                            <textarea name="textarea" class="form-control" rows="5"
+                                      data-bind="value:desc" placeholder="请填写备注">{{preSaleRule.desc}}</textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center;margin-top: 10px">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" name="save" data-bind="click:save"
+                                    style="margin-right: 20px">保存
+                            </button>
+                            <button class="btn btn-danger" name="reset" data-bind="click:close">关闭</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div id="btnDiv" class="row" style="margin-bottom: 10px;display:none">
+                        <input type="button" class="addContent btn btn-default" value="增加预售价范围">
+                        <input type="button" class="deleteContent btn btn-danger" value="删除预售价范围">
+                    </div>
+                    <div id="sections" class="sections row" style="margin-bottom: 10px;display:none"></div>
+                    <div class="panel panel-info" style="min-height: 240px;margin-top:15px">
+                        <div class="panel-heading">
+                            <div>
+                                <button class="btn btn-success" data-bind="click:addProducts,enable:$root.approveState() == '0'" id="chooseProduct">选择商品...</button>
+                                <button class="btn btn-danger clearProduct" data-bind="click:clearProducts,enable:$root.approveState() == '0'" style="margin-left: 15px" id="clearProduct">清空商品</button>
+                                &nbsp;&nbsp;&nbsp;选择的商品 共<span
+                                    data-bind="text:totalProducts">0</span>个
+                            </div>
+                        </div>
+                        <div class="panel-body" data-bind="foreach:products">
+                            <div style="text-align: center;float: left;width:140px;border:1px solid #ababab;margin:3px;">
+                                <div style="padding: 10px;margin-bottom:10px;position: relative">
+                                    <img style="height: 80px" data-bind="attr:{src:imgUrl}" alt="..."
+                                         class="img-thumbnail">
+
+                            <span style="text-align: center;display: block;height: 35px;font-size: 12px;overflow: hidden"
+                                  data-bind="html:name"></span>
+
+                                    <div style="position: absolute;top:0px;left:3px;color:#ff3300;cursor: pointer"
+                                         data-bind="click:$root.deleteProduct,visible:$root.approveState() == '0'">X
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="template" style="display: none">
+    <div class="section" style="margin-bottom: 10px">
+        满<input type="text" class="" name="end" placeholder="" data-bind="value:end" size="3"/>(含)人预定,预售价是
+        <input type="text" class="" name="scopeTotalPrice" placeholder="" data-bind="value:scopeTotalPrice,event:{change:priceChange}" size="3"/>元,尾款是
+        <input type="text" class="" name="scopeBalance" placeholder="" data-bind="value:scopeBalance" size="3"/>元
+    </div>
+</div>
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii:ss',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

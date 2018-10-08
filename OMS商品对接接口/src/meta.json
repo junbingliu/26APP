@@ -1,0 +1,76 @@
+{
+    "libs_namespace": "OmsEsbProduct",
+    "libs": ["services/OmsEsbProductService.jsx"],
+    "obj_prefixes": ["omsEsbProductObj"],
+    "list_prefixes": ["omsEsbProductList"],
+    "eventHandlers":[
+        {
+            "eventName":"columnAdded",
+            "pageId":"eventHandlers/ColumnAddToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnColumnAdded",
+            "description":"商品分类添加对接给OMS"
+        },
+        {
+            "eventName":"columnUpdated",
+            "pageId":"eventHandlers/ColumnUpdateToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnColumnUpdated",
+            "description":"商品分类修改对接给OMS"
+        },
+        {
+            "eventName":"columnDeleted",
+            "pageId":"eventHandlers/ColumnDeleteToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnColumnDeleted",
+            "description":"商品分类删除对接给OMS"
+        },
+
+        {
+            "eventName":"productAdded",
+            "pageId":"eventHandlers/ProductAddToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductAdded",
+            "description":"商品添加后对接给OMS"
+        },
+        {
+            "eventName":"productUpdated",
+            "pageId":"eventHandlers/ProductUpdateToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductUpdated",
+            "description":"商品修改后对接给OMS"
+        },
+        {
+            "eventName":"skuUpdated",
+            "pageId":"eventHandlers/ProductUpdateToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnSkuUpdated",
+            "description":"SKU修改后对接给OMS"
+        },
+        {
+            "eventName":"productDeleted",
+            "pageId":"eventHandlers/ProductDeleteToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductDeleted",
+            "description":"商品删除后对接给OMS"
+        },
+        {
+            "eventName":"productCatAdded",
+            "pageId":"eventHandlers/ProductCatAddToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductCatAdded",
+            "description":"商品主分类添加后，对接给OMS"
+        },
+        {
+            "eventName":"productCatDeleted",
+            "pageId":"eventHandlers/ProductCatDeleteToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductCatDeleted",
+            "description":"商品主分类删除后，对接给OMS"
+        },
+        {
+            "eventName":"productMultiCatAdded",
+            "pageId":"eventHandlers/ProductCatAddToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductMultiCatAdded",
+            "description":"商品多分类添加后，对接给OMS"
+        },
+        {
+            "eventName":"productMultiCatDeleted",
+            "pageId":"eventHandlers/ProductCatDeleteToOMS.jsx",
+            "handlerId":"OmsEsbProduct_OnProductMultiCatDeleted",
+            "description":"商品多分类删除后，对接给OMS"
+        }
+    ]
+
+}

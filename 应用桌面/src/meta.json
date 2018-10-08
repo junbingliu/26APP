@@ -1,0 +1,7 @@
+{
+    "isWidget":true,
+    "libs_namespace": "shell20",
+    "libs": ["service/service.jsx"],
+    "obj_prefixes": ["shell20"],
+    "list_prefixes": ["shell20"]
+}

@@ -1,0 +1,32 @@
+{
+    "context":"normalProductList",
+    "appEditor":{"enabled":true},
+    "pages" : [
+        {"url":"/product_list.jsp","name":"商品搜索列表","pageId":"productList","template":"pages/productList.html","dataProcessor":"@process/productList_process.jsx","dependsOn":"header,widget",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"F"},"dataSpec":{"id":"config.showCategory","type":"string"}}
+            ]
+        }
+
+
+    ],
+    "templates" : [
+        {"template":"pages/productList.html","name":"商品搜索列表","description":"商品搜索列表","dataProcessor":"@process/productList_process.jsx","dependsOn":"header,widget",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"F"},"dataSpec":{"id":"config.showCategory","type":"string"}}
+            ]
+        }
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

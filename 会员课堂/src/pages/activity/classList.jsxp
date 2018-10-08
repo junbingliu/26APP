@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.11.min.js"></script>
+    <link rel="stylesheet" href="@{static/style/commom.css}@">
+</head>
+<body>
+{{=$.inc("pages/include_nav/include_nav.jsx")}}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="100px;" style="display: none;">ID</th>
+        <th>课堂排序</th>
+        <th>报名开始时间</th>
+        <th>报名结束时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.recordList:value:index}}
+    <tr>
+        <td style="display: none;">{{=value.id}}</td>
+        <td>{{='课堂'+(index+1)}}</td>
+        <td>{{=value.beginTime}}</td>
+        <td>{{=value.endTime}}</td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" id="delBtnClick" data-a="{{=value.id}}">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"><strong style="padding-left: 5px">删除</strong></span>
+            </button>
+            <a href="classDetail.jsx?classId={{=value.id+'&m='+it.merchantId}}">
+                <button type="button" class="btn btn-danger btn-sm" id="showClass" data-a="{{=value.id}}">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"><strong
+                            style="padding-left: 5px">查看详情</strong></span>
+                </button>
+            </a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<script>
+    $("#delBtnClick").click(function () {
+        let $this = $(this);
+        let id = $this.attr("data-a");
+        $.post("../../handler/delClass.jsx", {id: id}, function (ret) {
+
+        }, 'json');
+    })
+</script>
+</body>
+</html>

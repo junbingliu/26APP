@@ -1,0 +1,66 @@
+<div id="realPayRecListPage" class="page">
+    <div class="row">
+        <div class="col-lg-8">
+            <ul class="paymentSelector">
+                <!-- ko foreach:payments -->
+                <li>
+                    <a href="#" data-bind="text:objectMap.paymentName,click:$root.goPayment"></a>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <span>只显示已支付:</span><span><input type="checkbox" data-bind="checked:paidOnly"></span>
+            &nbsp;
+            <span>日期：</span><span><input type="text" size="16" data-bind="value:dateString"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered table-stripped">
+                <thead>
+                    <tr>
+                        <th>支付单号</th>
+                        <th>对应订单号</th>
+                        <th>支付方式</th>
+                        <th>支付方式Id</th>
+                        <th>支付金额</th>
+                        <th>生成时间</th>
+                        <th>支付时间</th>
+                        <th>状态</th>
+                        <th>交易流水</th>
+                        <th>已付金额</th>
+                        <th>操作</th>
+
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:list">
+                    <tr>
+                        <td data-bind="text:outerId"></td>
+                        <td data-bind="text:orderAliasCodes"></td>
+                        <td data-bind="text:paymentName"></td>
+                        <td data-bind="text:payInterfaceId"></td>
+                        <td data-bind="text:needPayMoneyAmount"></td>
+                        <td data-bind="text:createTimeString"></td>
+                        <td data-bind="text:paidTimeString"></td>
+                        <td data-bind="text:payStateString"></td>
+                        <td data-bind="text:bankSN"></td>
+                        <td data-bind="text:paidMoneyAmount"></td>
+                        <td><a hef="#" data-bind="click:$root.edit">修改</a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination" >
+                <!-- ko foreach:$root.pager.pages -->
+                <li data-bind="css:{active:isCurrent},click:$root.pager.onPage"><a href="#" data-bind="text:pageName,click:$root.pager.onPage"></a></li>
+                <!-- /ko -->
+                <li style="margin-left:10px;margin-top:5px"><span>共<span data-bind="text:pager.total"></span>条</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

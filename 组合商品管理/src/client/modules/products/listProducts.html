@@ -1,0 +1,76 @@
+<div class="page" id="listProductsPage">
+    <div class="dashhead m-t-md">
+        <div class="dashhead-titles">
+            <h2 class="dashhead-title">组合套餐</h2>
+        </div>
+        <div class="dashhead-toolbar">
+            <div class="flextable">
+                <div class="flextable-item flextable-primary">
+                    <input type="text" class="form-control" placeholder="输入关键字" data-bind="value:keyword">
+                </div>
+                <div class="flextable-item">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary-outline" title="go" data-bind="click:doSearch">
+                            <span class="icon icon-flash"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th style="width:40px">选择</th>
+                <th class="colId">id</th>
+                <th class="colId">系列Id</th>
+                <th class="colId">系列名</th>
+                <th class="colName">组合商品名称</th>
+                <th class="colPrice">总价格</th>
+                <th class="colTime">创建时间</th>
+                <th class="colTime">修改时间</th>
+                <th class="colState">已审核</th>
+                <th class="colState">已上架</th>
+                <th style="width:60px">功能</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:combiProducts">
+            <tr>
+                <td>
+                    <div class="checkbox custom-control custom-checkbox">
+                        <label>
+                            <input type="checkbox" data-bind="checked:checked">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </div>
+                </td>
+                <td class="colId" data-bind="text:id">cp_23123</td>
+                <td class="colId" data-bind="text:seriesCode">cp_23123</td>
+                <td class="colId" data-bind="text:seriesDiffName">cp_23123</td>
+                <td class="colName" data-bind="text:title">欧式风格大三居全套含家电</td>
+                <td class="colPrice" data-bind="text:priceTO">￥120,000</td>
+                <td class="colTime" data-bind="text:createTimeText">2015-10-22 21:30:12</td>
+                <td class="colTime" data-bind="text:lastModifiedTimeText">2015-10-25 21:30:12</td>
+                <td class="colState" data-bind="text:certified">已上架</td>
+                <td class="colState" data-bind="text:published">已审核</td>
+                <td><button class="btn btn-info-outline" data-bind="click:$root.edit">编辑</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="pagination" >
+        <!-- ko foreach:$root.pager.pages -->
+        <li data-bind="css:{active:isCurrent},click:$root.pager.onPage"><a href="#" data-bind="text:pageName,click:$root.pager.onPage"></a></li>
+        <!-- /ko -->
+        <li style="margin-left:10px;margin-top:5px"><span>共<span data-bind="text:pager.total"></span>条</span></li>
+        <li>
+            <button class="btn btn-danger-outline" data-bind="click:deleteProducts">删除</button>
+            <button class="btn btn-danger-outline" data-bind="click:refresh">刷新</button>
+            <!-- ko if:mID()=="head_merchant" -->
+            <button class="btn btn-warning-outline" data-bind="click:upProducts">上架</button>
+            <button class="btn btn-warning-outline" data-bind="click:downProducts">下架</button>
+            <button class="btn btn-success-outline" data-bind="click:certifyProducts">审核通过</button>
+            <button class="btn btn-success-outline" data-bind="click:rejectProducts">审核不通过</button>
+            <!-- /ko -->
+        </li>
+    </ul>
+</div>

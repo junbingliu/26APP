@@ -1,0 +1,973 @@
+<%if(!productionMode){%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<link href="@{res/style/main.css}@" rel="stylesheet"/>
+</head>
+<%}%>
+<link href="@{res/style/main.css}@" rel="stylesheet"/>
+
+<body class="bd_bg">
+
+<div class="container" style="padding-bottom: 2.5rem;">
+<div class="home-head">
+<div class="home-nav pr">
+<div class="nav-left">
+<button class="city pr fz28 fl">广州</button>
+<span class="icon-city fl"></span>
+
+</div>
+<div class="home-search pr">
+<i class="ico-magnifier"></i>
+<input type="text" class="put" placeholder="想要啥，你就搜 ">
+</div>
+<div class="nav-right1 nav-right">
+<div class="nav-side">
+<span class="ico-saoma"></span>
+<span class="txt fz18">扫一扫</span>
+</div>
+</div>
+<div class="nav-right2 nav-right">
+<div class="nav-side pr">
+<span class="ico-msg"></span>
+<span class="txt fz18">消息</span>
+<span class="remind-msg"></span>
+</div>
+</div>
+</div>
+
+</div>
+
+<article class="rowTop">
+<!--轮播广告-->
+<div class="slider-wrapper">
+<div class="slider-pic" >
+<ul data-type="imgLinkList" data-id="rotate" imgSize="640x200" >
+<%if(rotate && rotate.length>0){%>
+<%if(!productionMode){%>
+<li>
+<a href="<%=rotate[0].linkTo%>" target="<%=rotate[0].openInNewPage%>">
+<img src="<%=rotate[0].imgUrl%>" style="display: block;"  class="item" width="640" height="200">
+</a>
+</li>
+<%}else{%>
+<%for(var i=0;i < rotate.length;i++){%>
+<%var value=rotate[i];%>
+<li>
+<a href="<%=value.linkTo%>" target="<%=value.openInNewPage%>">
+<img src="<%=value.imgUrl%>"  style="display: block;" class="item" width="640" height="200">
+</a>
+</li>
+<%}%>
+<%}%>
+<%}else{%>
+<li class="item" style="display: block;">
+<a href="#"><img src="@{res/case/slider_adv.jpg}@" /></a>
+</li>
+<%}%>
+</ul>
+</div>
+<div class="slider-btn">
+<%if(rotate && rotate.length>0){%>
+<%for(var i=0;i < rotate.length;i++){%>
+<%if(i==0){%>
+<span class="focus-btn active"></span>
+<%}else{%>
+<span class="focus-btn"></span>
+<%}%>
+<%}%>
+<%}else{%>
+<span class="focus-btn"></span>
+<span class="focus-btn"></span>
+<span class="focus-btn active"></span>
+<span class="focus-btn"></span>
+<%}%>
+</div>
+</div>
+<!--end 轮播广告-->
+<div class="quick-nav">
+<ul class="wk-flex" data-type="imgLinkList" data-id="combin1">
+<%if(combin1 && combin1.length>0){
+for(var i=0;i < combin1.length;i++){
+var value=combin1[i];%>
+<li>
+<a href="<%=value.linkTo%>" target="<%=value.openInNewPage%>"></a>
+<span class="img">  <img src="<%=value.imgUrl%>"  width="76" height="76"></span>
+<span class="fz24 cor666"><%=value.description%></span>
+</li>
+<%}%>
+<%}else{%>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx1.png}@" /></span>
+<span class="fz24 cor666">共享服务</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx2.png}@" /></span>
+<span class="fz24 cor666">共享闲置</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx3.png}@" /></span>
+<span class="fz24 cor666">共享虚拟</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx4.png}@" /></span>
+<span class="fz24 cor666">共享活动</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx5.png}@" /></span>
+<span class="fz24 cor666">共享智慧</span>
+</a>
+</li>
+<%}%>
+</ul>
+<ul class="wk-flex" data-type="imgLinkList" data-id="overTop1"  >
+<%if(overTop1 && overTop1.length>0){
+for(var i=0;i < overTop1.length;i++){
+var values=overTop1[i];%>
+<li>
+<a href="<%=values.linkTo%>" target="<%=values.openInNewPage%>"></a>
+<span class="img">  <img src="<%=values.imgUrl%>"  width="76" height="76"></span>
+<span class="fz24 cor666"><%=values.description%></span>
+</li>
+<%}%>
+<%}else{%>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx6.png}@" /></span>
+<span class="fz24 cor666">共享爸爸</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx7.png}@" /></span>
+<span class="fz24 cor666">共享叔叔</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx8.png}@" /></span>
+<span class="fz24 cor666">共享阿姨</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx9.png}@" /></span>
+<span class="fz24 cor666">共享奶奶</span>
+</a>
+</li>
+<li>
+<a href="#">
+<span class="img"><img src="@{res/images/icon-gx10.png}@" /></span>
+<span class="fz24 cor666">共享爷爷</span>
+</a>
+</li>
+<%}%>
+</ul>
+</div>
+
+<!--技能服务-->
+<div class="home-module">
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="skillImg">
+<%if(skillImg&&skillImg.imgUrl){%>
+<img src="<%=skillImg.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit1.png}@">
+<%}%>
+</em>
+<%if(skill&&skill.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="skill"><%=skill.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="skill">家政服务</a>
+<%}%>
+</div>
+<div class="home-Mmarket" >
+<div class="item-top" data-type="imgLink" data-id="itemTop01">
+<%if(itemTop01 && itemTop01.imgUrl){%>
+<a href="<%=itemTop01.linkTo ? itemTop01.linkTo : 'javascript:;'%>">
+<img src="<%=itemTop01.imgUrl%>" />
+</a>
+<%}else{%>
+<img src="@{res/case/640x300.jpg}@" />
+<%}%>
+</div>
+<ul class="wk-flex" data-type="productGroup" data-id="arrival" data-spec="280x280">
+<%if(arrival && arrival.length>0){%>
+<%  for(var y=0;y< arrival.length;y++){%>
+<% var value = arrival[y];%>
+<li class="item bdr-r" >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item bdr-r">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+<ul class="wk-flex" data-type="productGroup" data-id="skill22" data-spec="280x280">
+<%if(skill22 && skill22.length>0){%>
+<%  for(var y=0;y< skill22.length;y++){%>
+<% var value = skill22[y];%>
+<li class="item bdr-r" >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item bdr-r">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<div class="home-module">
+<div class="module-hd fz28 pr" >
+
+<em class="tit-ico" data-type="imgLink" data-id="houseKeeping">
+<%if(houseKeeping&&houseKeeping.imgUrl){%>
+<img src="<%=houseKeeping.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit2.png}@">
+<%}%>
+</em>
+<%if(houseKeepingLink&&houseKeepingLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="houseKeepingLink"><%=houseKeepingLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="houseKeepingLink">技能共享</a>
+<%}%>
+</div>
+<div class="home-Mmarket" >
+<!--<div class="item-top" data-type="imgLink" data-id="itemTop02">-->
+<!--<%if(itemTop02 && itemTop02.imgUrl){%>-->
+<!--<a href="<%=itemTop02.linkTo ? itemTop02.linkTo : 'javascript:;'%>">-->
+<!--<img src="<%=itemTop02.imgUrl%>" />-->
+<!--</a>-->
+<!--<%}else{%>-->
+<!--<img src="@{res/case/640x300.jpg}@" />-->
+<!--<%}%>-->
+<!--</div>-->
+<ul class="wk-flex" data-type="productGroup" data-id="arrival2" data-spec="280x280">
+<%if(arrival2 && arrival2.length>0){%>
+<%  for(var y=0;y< arrival2.length;y++){%>
+<% var value = arrival2[y];%>
+<li class="item bdr-r" >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item bdr-r">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+<ul class="wk-flex" data-type="productGroup" data-id="arrival3" data-spec="280x280">
+<%if(arrival3 && arrival3.length>0){%>
+<%  for(var y=0;y< arrival3.length;y++){%>
+<% var value = arrival3[y];%>
+<li class="item " >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item ">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 技能服务-->
+
+<!--共享教育-->
+<div class="home-module education">
+<div class="module-hd fz28 pr">
+<em class="tit-ico" data-type="imgLink" data-id="EducationImg">
+<%if(EducationImg&&EducationImg.imgUrl){%>
+<img src="<%=EducationImg.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit3.png}@">
+<%}%>
+</em>
+<%if(EducationLink&&EducationLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="EducationLink"><%=EducationLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="EducationLink">共享教育</a>
+<%}%>
+</div>
+
+<div class="home-Mmarket">
+<div class="item-top">
+<ul class="clearfix" data-type="imgLinkList" data-id="shareEducation"  >
+<%if(shareEducation && shareEducation.length>0){
+for(var i=0;i < shareEducation.length;i++){
+var value=shareEducation[i];%>
+<li class="pic fl"><a href="<%value.imgLinkTo%>"><img src="<%=value.imgUrl%>" /></a></li>
+<%}%>
+<%}else{%>
+<li class="pic fl">
+<a href=""><img src="@{res/case/315x315.jpg}@" /></a>
+</li>
+<li class="pic fr">
+<a href=""><img src="@{res/case/315x315.jpg}@" /></a>
+</li>
+<%}%>
+</ul>
+</div>
+<ul class="wk-flex" data-type="productGroup" data-id="arrival4" data-spec="280x280">
+<%if(arrival4 && arrival4.length>0){%>
+<%  for(var y=0;y< arrival4.length;y++){%>
+<% var value = arrival4[y];%>
+<li class="item " >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item ">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+<ul class="wk-flex" data-type="productGroup" data-id="arrival5" data-spec="280x280">
+<%if(arrival5 && arrival5.length>0){%>
+<%  for(var y=0;y< arrival5.length;y++){%>
+<% var value = arrival5[y];%>
+<li class="item " >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item ">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 共享教育-->
+
+<!--共享闲置-->
+<div class="home-module">
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="free">
+<%if(free&&free.imgUrl){%>
+<img src="<%=free.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit4.png}@">
+<%}%>
+</em>
+<%if(freeLink&&freeLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="freeLink"><%=freeLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="freeLink">共享闲置</a>
+<%}%>
+</div>
+<div class="home-Mmarket" >
+<div class="item-top" data-type="imgLink" data-id="itemFree">
+<%if(itemFree && itemFree.imgUrl){%>
+<a href="<%=itemFree.linkTo ? itemFree.linkTo : 'javascript:;'%>">
+<img src="<%=itemFree.imgUrl%>" />
+</a>
+<%}else{%>
+<img src="@{res/case/640x300.jpg}@" />
+<%}%>
+</div>
+<ul class="wk-flex" data-type="productGroup" data-id="arrival6" data-spec="280x280">
+<%if(arrival6 && arrival6.length>0){%>
+<%  for(var y=0;y< arrival6.length;y++){%>
+<% var value = arrival6[y];%>
+<li class="item bdr-r" >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item bdr-r">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 共享闲置-->
+
+
+<!--房屋租赁-->
+<div class="home-module">
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="houseLive">
+<%if(houseLive&&houseLive.imgUrl){%>
+<img src="<%=houseLive.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit5.png}@">
+<%}%>
+</em>
+<%if(houseLiveLink&&houseLiveLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="houseLiveLink"><%=houseLiveLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="houseLiveLink">房屋租赁</a>
+<%}%>
+</div>
+<div class="home-Mmarket" >
+<div class="item-top" data-type="imgLink" data-id="itemHouseLive">
+<%if(itemHouseLive && itemHouseLive.imgUrl){%>
+<a href="<%=itemHouseLive.linkTo ? itemHouseLive.linkTo : 'javascript:;'%>">
+<img src="<%=itemHouseLive.imgUrl%>" />
+</a>
+<%}else{%>
+<img src="@{res/case/640x300.jpg}@" />
+<%}%>
+</div>
+<ul class="wk-flex" data-type="productGroup" data-id="arrivalHouse" data-spec="280x280">
+<%if(arrivalHouse && arrivalHouse.length>0){%>
+<%  for(var y=0;y< arrivalHouse.length;y++){%>
+<% var value = arrivalHouse[y];%>
+<li class="item bdr-r" >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item bdr-r">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 房租租赁-->
+
+
+<!--数码家居-->
+<div class="home-module home-shuma">
+
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="houseFurniture">
+<%if(houseFurniture&&houseFurniture.imgUrl){%>
+<img src="<%=houseFurniture.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit6.png}@">
+<%}%>
+</em>
+<%if(houseFurnitureLink&&houseFurnitureLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="houseFurnitureLink"><%=houseFurnitureLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="houseFurnitureLink">数码家居</a>
+<%}%>
+</div>
+
+<div class="home-Mmarket clearfix">
+<div class="item-left fl">
+<ul class="" data-type="imgLinkList" data-id="Digital" >
+<%if(Digital && Digital.length>0){
+for(var i=0;i < Digital.length;i++){
+var value=Digital[i];%>
+<li class="item">
+<a href="<%=value.linkTo ? value.linkTo : 'javascript:;'%>">
+<img src="<%=value.imgUrl%>" />
+</a>
+</li>
+<%}%>
+<%}else{%>
+<li class="item">
+<a href=""><img src="@{res/case/315x315.jpg}@" /></a>
+</li>
+<li class="item ">
+<a href=""><img src="@{res/case/315x315.jpg}@" /></a>
+</li>
+<%}%>
+</ul>
+</div>
+<ul class="item-right fr" data-type="productGroup" data-id="digitalHouse" data-spec="280x280">
+<%if(digitalHouse && digitalHouse.length>0){%>
+<%  for(var y=0;y< digitalHouse.length;y++){%>
+<% var value = digitalHouse[y];%>
+<li class="item " >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180-1.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸港荣蒸奶香蛋糕</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+
+</div>
+</li>
+<li class="item ">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 数码家居-->
+
+
+<!--活动中心-->
+<div class="home-module ">
+
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="activityImg">
+<%if(activityImg&&activityImg.imgUrl){%>
+<img src="<%=activityImg.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit7.png}@">
+<%}%>
+</em>
+<%if(activityLink&&activityLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="activityLink"><%=activityLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="activityLink">活动中心</a>
+<%}%>
+</div>
+
+<div class="home-Mmarket">
+<div class="item-top" data-type="imgLink" data-id="CenterO">
+<%if(CenterO && CenterO.imgUrl){%>
+<a href="<%=CenterO.linkTo ? CenterO.linkTo : 'javascript:;'%>">
+<img src="<%=CenterO.imgUrl%>" />
+</a>
+<%}else{%>
+<img src="@{res/case/640x300.jpg}@" />
+<%}%>
+</div>
+<ul class="wk-flex" data-type="productGroup" data-id="combin2" data-spec="280x280">
+<%if(combin2 && combin2.length>0){%>
+<%  for(var y=0;y< combin2.length;y++){%>
+<% var value = combin2[y];%>
+
+<li class="item " >
+<div class="pic"><a href="#/productDetailPage/<%=id%>"><img src="<%=value.imgUrl%>" /></a></div>
+<div class="name"><%=value.name%></div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;<%=value.memberPrice%></span>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item ">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<li class="item">
+<div class="pic"><img src="@{res/case/180x180.jpg}@" /></div>
+<div class="name">港荣蒸奶香蛋糕整箱800g 蒸</div>
+<div class="prices fz24">
+<span class="gb-price corBright">&yen;55.00</span>
+</div>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 活动中心-->
+
+<!--活动中心-->
+<div class="home-module">
+
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="shareMomImg">
+<%if(shareMomImg&&shareMomImg.imgUrl){%>
+<img src="<%=shareMomImg.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit8.png}@">
+<%}%>
+</em>
+<%if(shareMomLink&&shareMomLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="shareMomLink"><%=shareMomLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="shareMomLink">共享妈妈</a>
+<%}%>
+</div>
+
+<div class="home-Mmarket" data-type="imgLinkList" data-id="activityCenter" >
+<ul class="gx-mom clearfix">
+<%if(activityCenter && activityCenter.length>0){
+for(var i=0;i < activityCenter.length;i++){
+var value=activityCenter[i];%>
+<%if(i>0&&i%3==0){%>
+<li class="item no-magrin"><a href="<%value.imgLinkTo%>"><img src="<%=value.imgUrl%>" /></a></li>
+<%}else{%>
+<li class="item "><a href="<%value.imgLinkTo%>"><img src="<%=value.imgUrl%>" /></a></li>
+<%}%>
+<%}%>
+<%}else{%>
+<li class="item"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item no-magrin"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item no-magrin"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<li class="item no-magrin"><a href=""><img src="@{res/case/200x200.jpg}@"/></a> </li>
+<%}%>
+</ul>
+</div>
+</div>
+<!--end 活动中心-->
+
+<!--为你推荐-->
+<div class="home-module mt20">
+
+
+<div class="module-hd fz28 pr" >
+<em class="tit-ico" data-type="imgLink" data-id="forYouImg">
+<%if(forYouImg&&forYouImg.imgUrl){%>
+<img src="<%=forYouImg.imgUrl%>">
+<%}else{%>
+<img src="@{res/images/ico-gxtit9.png}@">
+<%}%>
+</em>
+<%if(forYouLink&&forYouLink.content){%>
+<a href="javascript:void (0)" data-type="textLink" data-id="forYouLink"><%=forYouLink.content%></a>
+<%}else{%>
+<a href="javascript:void (0)" data-type="textLink" data-id="forYouLink">为你推荐</a>
+<%}%>
+</div>
+
+<div class="home-commend">
+<div class="list">
+<ul data-type="productGroup" data-id="arrival23" data-spec="300x300" data-height="1000px">
+<%if(arrival23 && arrival23.length>0){%>
+<%  for(var y=0;y< arrival23.length;y++){%>
+<% var value = arrival23[y];%>
+<li class="item " >
+<div class="con"><a href="#/productDetailPage/<%=id%>"> <img src="<%=value.imgUrl%>" /> </a></div>
+<div class="bottom">
+<div class="name"><%=value.name%></div>
+<div class="prices fz24 corBright">&yen;<%=value.memberPrice%></div>
+</div>
+</li>
+<%}%>
+<%}else{%>
+<li class="item">
+<div class="con">
+<div class="pic"><img src="@{res/case/290x290.jpg}@" /></div>
+<div class="bottom">
+<div class="name">进口丹麦蓝罐牛油曲奇进口丹麦蓝罐牛油曲奇</div>
+<div class="prices fz24 corBright">&yen;299.00</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="con">
+<div class="pic"><img src="@{res/case/290x290.jpg}@" /></div>
+<div class="bottom">
+<div class="name">进口丹麦蓝罐牛油曲奇</div>
+<div class="prices fz24 corBright">&yen;299.00</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="con">
+<div class="pic"><img src="@{res/case/290x290.jpg}@" /></div>
+<div class="bottom">
+<div class="name">进口丹麦蓝罐牛油曲奇</div>
+<div class="prices fz24 corBright">&yen;299.00</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="con">
+<div class="pic"><img src="@{res/case/290x290.jpg}@" /></div>
+<div class="bottom">
+<div class="name">进口丹麦蓝罐牛油曲奇</div>
+<div class="prices fz24 corBright">&yen;299.00</div>
+</div>
+</div>
+</li>
+<%}%>
+
+</ul>
+</div>
+</div>
+
+</div>
+<!--end 为你推荐-->
+</article>
+
+</div>
+
+
+<%if(!productionMode){%>
+<footer class="home-footer">
+<section class="foot-nav">
+<ul>
+<li class="active">
+<a href="#">
+<span class="ico ico-home"></span>
+<span class="txt">首页</span>
+</a>
+</li>
+<li class="">
+<a href="#">
+<span class="ico ico-nearby"></span>
+<span class="txt">附近</span>
+</a>
+</li>
+
+<li class="">
+<a href="#">
+<span class="ico ico-live"></span>
+<span class="txt">直播</span>
+</a>
+</li>
+<li class="">
+<a href="#">
+<span class="ico ico-cart"></span>
+<span class="txt">购物车</span>
+<span class="remind-num count">9</span>
+</a>
+</li>
+<li class="">
+<a href="#">
+<span class="ico ico-user"></span>
+<span class="txt">我的173</span>
+</a>
+</li>
+</ul>
+</section>
+</footer>
+<div class="side-backtop">
+<a href="#">
+<span>顶部</span>
+</a>
+</div>
+
+
+</body>
+</html>
+<%}%>

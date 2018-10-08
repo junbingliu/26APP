@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+body{  margin:0; padding:0; font-size:12px; word-wrap:break-word; color:#fff; font-family:"Arial","宋体";background:url(@{client/res/images/Sky_3200x2000.jpg}@) no-repeat center top;}
+ul,li,dl,dt,dd,span,del,b,font,label,ol{ padding:0px; margin:0px; list-style-type:none;}
+p,input,form{ margin:0px; padding:0px;}
+h1,h2,h3,h4,h5,h6{ margin:0px; padding:0px; font-weight:normal; font-size:12px;}
+img{border:0;}
+em,i,s{ font-style:normal; text-decoration:none;}
+a{ text-decoration:none; color:#fff;}
+a:hover{ text-decoration:underline; color:#fff;}
+.clear{ clear:both; height:0; line-height:0; font-size:0; overflow:hidden;}
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix {display: inline-table;}
+* html .clearfix {height: 1%;} 
+*+html .clearfix{height: 1%;}
+.clearfix { display: block;}
+
+
+.fl{ float:left;}
+.fr{ float:right;}
+.mt5{ margin-top:5px;}
+.mt10{ margin-top:10px;}
+.mt15{ margin-top:15px;}
+.mt20{ margin-top:20px;}
+.mt25{ margin-top:25px;}
+.mr5{ margin-right:5px;}
+.mr10{ margin-right:10px;}
+.mr15{ margin-right:15px;}
+.ml5{ margin-left:5px;}
+.ml10{ margin-left:10px;}
+.ml15{ margin-left:15px;}
+
+h1{ font: 24px "microsoft yahei","宋体"; }
+h2,h3{ font-size: 14px; font-weight:bold;}
+h4,h5,h6 { font-size: 12px; font-weight:bold;}
+
+/* 宽度限制模块 */
+.wbox{width:1440px; margin:0 auto;clear:both;}
+.wbox:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.wbox { display:inline-block; }/* Hides from IE-mac \*/
+* html .wbox { zoom:1; }
+.wbox { display:block; }/* End hide from IE-mac */
+
+
+.login{ width:413px; margin:70px auto 0;}
+.login h1.logo{ margin-left:22px; background:url(@{client/res/images/logo.png}@) no-repeat 0 0; width:368px; height:102px;}
+.login .theme{ background:url(@{client/res/images/login_bg.png}@) no-repeat 0 0; width:413px; height:275px; margin-top:20px;}
+.login .mc{ height:174px; padding-top:33px; width:100%;}
+.login .mc ul{ padding-left:68px; }
+.login .mc li{ width:100%; vertical-align:top; margin-bottom:14px; position: relative;}
+.login .mc li s{ position:absolute; left:18px; top:15px; width:16px; height:16px; background:url(@{client/res/images/login_ui.png}@) no-repeat 0 0;}
+.login .mc li.username s{ background-position:0 0;}
+.login .mc li.password s{ background-position:-23px 0;}
+.login .mc li.v_code s{ background-position:-45px 0;}
+
+.login .mc input{ background:url(@{client/res/images/put_shadow.png}@) no-repeat 0 0; border:#4a658e 1px solid; border-bottom:#6586b1 1px solid; margin:1px; width:275px; width:225px; padding-left:50px; height:41px; color:#7b8490; font:16px/41px microsoft yahei;}
+.login .mc li.v_code input{ background-position:0 -44px; width:165px; width:115px; }
+.login .mc .codeimg{ display:inline; margin:2px 0 0 18px;}
+.login .mc input:focus{ 
+    background:#0d141d; 
+    color:#fff;
+	margin:0\9;
+    border-color: rgba(82, 168, 236, 0.8);
+	border-width:2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+    outline: 0 none;
+	}
+.login .mb{ height:68px;}
+.login_btn{ width:278px; height:42px;  margin:13px auto;}
+.login_btn input{ background:url(@{client/res/images/btn_login.png}@) no-repeat 0 0; border:0; width:278px; height:42px; cursor:pointer;}
+.copyright{ margin-top:225px; text-align:center; color:#a4a2b3;}
+
+

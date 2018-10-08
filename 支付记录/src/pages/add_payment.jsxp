@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{#inc("pages/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/payment_add.js}@"></script>
+    <title>修改支付记录</title>
+    <script type="text/javascript">
+        var m = "{{m}}"
+    </script>
+</head>
+<body>
+{{#inc("pages/include_navbar.jsx")}}
+<div class="container" id="paymentAddPage" style="margin-top: 60px">
+    <div class="well fieldset">
+        <h2>增加支付方式</h2>
+        <hr class="titleHr"/>
+
+        <div class="section row">
+            <div class="col-md-4" style="margin-top: 15px">
+                <div id="totalPriceDiv" class="row" style="margin-bottom: 10px">
+                    <label class="col-md-4 control-label">支付接口ID:</label>
+
+                    <div class="col-md-8">
+                            <input type="text" class="form-control" name="payInterfaceId" placeholder="请选择填写支付方式ID" id="payInterfaceId" data-bind="value:id"/>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-4 control-label">支付接口名称:</label>
+                    <div class="col-md-8">
+                            <input type="text" class="form-control" name="paymentName" placeholder="请选择填写支付方式名称" id="paymentName" data-bind="value:name"/>
+
+                    </div>
+                </div>
+                <div class="row" style="text-align:center;margin-top: 10px">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" id="save" name="save" style="margin-right: 20px" data-bind="click:save">保存</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="member">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>支付方式ID</th>
+                                <th>支付方式名称</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{each resultList as value i}}
+                            <tr>
+                                <td>{{value.payInterfaceId}}</td>
+                                <td>{{value.name}}</td>
+                                <td>
+                                    <a href="javascript:void(0)" class="deleteClass" target="_blank" data-a="{{value.id}}">删除</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

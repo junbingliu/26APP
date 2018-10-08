@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cn" style="height:100%;margin:0px;padding:0px;border:0px">
+<head>
+    <meta charset="utf-8"/>
+    <title>网页编辑</title>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/bootbox.min.js}@"></script>
+    <script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+    <script src="@{client/res/lib/knockout.mapping-latest.js}@"></script>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+</head>
+<body style="margin-top:50px">
+<div class="container">
+    <div class="panel panel-primary" style="margin:auto;width:95%">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{=it.rapp.name}}:{{=it.page.name}}</h3>
+        </div>
+        <div class="panel-body">
+            {{?it.state=='ok'}}
+            <div class="alert alert-success">
+                <strong>成功!</strong> 保存"{{=it.page.name}}"成功。
+            </div>
+            <div >
+                <a class="btn btn-warning" style="margin-left:60px" href="listPages.jsx?m={{=it.m}}&rappId={{=it.rappId}}">返回页面列表</a>
+            </div>
+            {{??}}
+            <div class="alert alert-danger">
+                <strong>失败!</strong> 保存"{{=it.page.name}}"失败。原因：{{=it.msg}}
+            </div>
+            <div >
+                <a class="btn btn-warning" style="margin-left:60px" href="listPages.jsx?m={{=it.m}}&rappId={{=it.rappId}}">返回页面列表</a>
+                <a class="btn btn-primary" style="margin-left:60px" href="javascript:history.back()">返回修改</a>
+            </div>
+            {{?}}
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+

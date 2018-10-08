@@ -1,0 +1,39 @@
+<!--您可能感兴趣的商品-->
+<%if(viewAlsoView&&viewAlsoView.length>0){%>
+<div class="goodRecommend">
+    <div class="tabs">
+        <ul>
+            <li class="active">您可能感兴趣的商品</li>
+        </ul>
+    </div>
+
+    <div class="tabcon">
+        <div class="conList" style="display:block;">
+            <a href="#" class="prev"></a>
+            <a href="#" class="next"></a>
+            <div class="scroll" style="position:relative;">
+                <ul style="width:2000px; overflow:hidden; position:absolute; left:0; ">
+                    <%for(var i=0;i < viewAlsoView.length;i++){%>
+                    <%if(i<5){%>
+                    <%var value = viewAlsoView[i];%>
+                    <%var splitMemberPrice = (value.memberPrice + "").split(".");%>
+                    <li>
+                        <div class="pic">
+                            <a href="/product.jsp?id=<%=value.id%>" target="_blank">
+                                <img src="<%= value.pics.length==0 ? '/upload/nopic_200.jpg' : value.pics[0] %>" alt="<%=value.name%>"/>
+                            </a>
+                        </div>
+                        <div class="name"><a href="/product.jsp?id=<%=value.id%>" target="_blank"><%=value.name%></a></div>
+                        <div class="price">&yen;<%=value.memberPrice%></div>
+                    </li>
+                    <%}%>
+                    <%}%>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<%}%>
+<!--end 您可能感兴趣的商品-->

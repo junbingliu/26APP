@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <link href="@{res/style/detail.css}@" rel="stylesheet">
+</head>
+<body>
+<!-- 为您推荐 -->
+<div class="r_commend" data-id="widget:productRecommend" data-type="productGroup">
+    <h2>为您推荐</h2>
+    <div class="box" style="height: 300px;">
+        <ul>
+            {{?it.widget&&it.widget.productRecommend&&it.widget.productRecommend.length>0}}
+            {{~it.widget.productRecommend:value:index}}
+            <li>
+                <p class="pic"><a href="/product.jsp?id={{=value.id}}" title="{{=value.name}}"><img src="{{=value.imgUrl}}" width="180" height="180" /></a></p>
+                <p class="name"><a href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></p>
+                <p class="price">&yen;{{=value.memberPrice}}</p>
+            </li>
+
+            {{~}}
+            {{??}}
+            <li>
+                <p class="pic"><a href="#"><img src="@{res/case/180x180.jpg}@" width="180" height="180" /></a></p>
+                <p class="name"><a href="#">自然之宝 无味蒜精软胶囊200粒大蒜精油 软胶囊</a></p>
+                <p class="price">&yen;0000.00</p>
+            </li>
+            <li>
+                <p class="pic"><a href="#"><img src="@{res/case/180x180.jpg}@" width="180" height="180" /></a></p>
+                <p class="name"><a href="#">自然之宝 无味蒜精软胶囊200粒大蒜精油 软胶囊</a></p>
+                <p class="price">&yen;0000.00</p>
+            </li>
+            <li>
+                <p class="pic"><a href="#"><img src="@{res/case/180x180.jpg}@" width="180" height="180" /></a></p>
+                <p class="name"><a href="#">自然之宝 无味蒜精软胶囊200粒大蒜精油 软胶囊</a></p>
+                <p class="price">&yen;0000.00</p>
+            </li>
+            <li>
+                <p class="pic"><a href="#"><img src="@{res/case/180x180.jpg}@" width="180" height="180" /></a></p>
+                <p class="name"><a href="#">自然之宝 无味蒜精软胶囊200粒大蒜精油 软胶囊</a></p>
+                <p class="price">&yen;0000.00</p>
+            </li>
+            <li>
+                <p class="pic"><a href="#"><img src="@{res/case/180x180.jpg}@" width="180" height="180" /></a></p>
+                <p class="name"><a href="#">自然之宝 无味蒜精软胶囊200粒大蒜精油 软胶囊</a></p>
+                <p class="price">&yen;0000.00</p>
+            </li>
+            {{?}}
+        </ul>
+    </div>
+</div>
+<!-- end 为您推荐 -->
+</body>
+</html>

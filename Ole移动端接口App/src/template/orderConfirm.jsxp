@@ -1,0 +1,9 @@
+<Request service='OrderConfirmService' lang='zh-CN'>
+    <Head>{{=it.head}}</Head>
+    <Body>
+    <OrderConfirm orderid="{{=it.orderid}}" mailno="{{=it.mailno}}" dealtype="{{=it.dealtype}}">
+        <OrderConfirmOption weight="{{=it.weight}}" volume="{{=it.volume}}"></OrderConfirmOption>
+    </OrderConfirm>
+    <Extra e1=”abc” e2=”abc”></Extra>
+    </Body>
+</Request>

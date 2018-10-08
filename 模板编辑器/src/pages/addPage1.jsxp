@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="cn" style="height:100%;margin:0px;padding:0px;border:0px">
+<head>
+    <meta charset="utf-8"/>
+    <title>网页编辑</title>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/bootbox.min.js}@"></script>
+    <script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+    <script src="@{client/res/lib/knockout.mapping-latest.js}@"></script>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#theForm").submit(function(){
+                if($("input[name='templateIdx']:checked").length==0){
+                    bootbox.alert("请选择一个模版！",null);
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
+</head>
+<body style="margin-top:50px">
+<form action="addPage2.jsx" method="post" id="theForm">
+    <div class="panel panel-primary" style="margin:auto;width:95%">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{=it.rapp.name}}：添加页面第一步，选择页面模版</h3>
+        </div>
+        <div class="panel-body">
+
+                <input type="hidden" name="m" value="{{=it.m}}"/>
+                <input type="hidden" name="rappId" value="{{=it.rappId}}"/>
+
+                <table class="table table-primary" style="width:99%">
+                    <tr class="warning">
+                        <th>选择</th>
+                        <th>#</th>
+                        <th>名称</th>
+                        <th>模版</th>
+                        <th>说明</th>
+                    </tr>
+                    {{~it.templates:template:index}}
+                    <tr>
+                        <td>
+                            <input type="radio" name="templateIdx" value="{{=index}}"/>
+                        </td>
+                        <td>{{=index}}</td>
+                        <td>{{=template.name}}</td>
+                        <td>{{=template.template}}</td>
+                        <td>{{=template.description}}</td>
+                    </tr>
+                    {{~}}
+                </table>
+        </div>
+    </div>
+
+    <div style="margin-top:30px">
+        <a class="btn btn-warning" style="margin-left:60px" href="listPages.jsx?m={{=it.m}}&rappId={{=it.rappId}}">返回页面列表</a>
+        <button class="btn btn-primary" style="margin-left:20px" type="submit">下一步</button>
+    </div>
+</form>
+
+</body>
+</html>
+

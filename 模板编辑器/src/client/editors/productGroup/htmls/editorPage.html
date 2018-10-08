@@ -1,0 +1,166 @@
+<div id=ProductGroupEditorModel>
+<div class="page modal" id="ProductGroupEditor">
+    <style>
+        .modal-header{background: #353535;padding: 8px}
+        .modal-title{color: #ffffff}
+        .modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+        .modal-header .close{opacity: 0.8;color: #ffffff}
+        .modal-body{background: #F1F1F1;padding-bottom: 5px}
+        .panel{margin-bottom: 10px}
+        .selected{background: bisque}
+        .panelCheck{background-color: lightskyblue}
+    </style>
+
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeProductGroupView">×</button>
+                <h5 class="modal-title">已选商品</h5>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="background: rgb(232, 233, 236);padding: 5px;text-align: right">
+                        <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bind="click:openSelectProductView">选择商品</button>
+                    </div>
+                </div>
+                <div style="height: 400px;overflow-y: auto" data-bind="foreach:products">
+                    <div class="panel panel-default" data-bind="click:$root.updateProduct">
+                        <div class="panel-body" style="cursor: pointer" data-bind="css:{panelCheck:isCheck}">
+                            <div class="col-md-3" style="padding-left: 0px;"><img data-bind="attr:{src:imgUrl}"  alt="..." class="img-thumbnail"></div>
+                            <div class="col-md-8" style="padding-left: 0px;">
+                                <h5 style="height: 30px;overflow: hidden" data-bind="html:name"></h5>
+                                <h5 style="color: red" data-bind="text:memberPriceString"></h5>
+                                <input type="text" data-bind="click:$root.editSort,clickBubble: false,value:shortIndex," style="float: right;width: 30px;"/>
+                            </div>
+                            <div class="col-md-1"  style="padding-left: 0px;float: right">
+                                <span data-bind="click:$root.delete,clickBubble: false" style="color: red;margin:10px 0 10px 0px;cursor: pointer;display: block" class="glyphicon glyphicon-minus-sign" title="删除"></span>
+                                <span data-bind="click:$root.up,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+                                <span data-bind="click:$root.down,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+                                <span data-bind="click:$root.check,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-check" title="选中"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info btn-sm" data-bind="click:checkAll" style="float: left;">全选</button>
+                <button type="button" class="btn btn-danger btn-sm" data-bind="click:deleteProduct" style="float: left;margin-left: 20px;">删除</button>
+                <button type="button" class="btn btn-success btn-sm" data-bind="click:uploadExcel" style="float: left;margin-left: 20px;">批量上传</button>
+
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeProductGroupView">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    <div class="modal" id="ProductSelect" style="left: -400px">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 1000px">
+                <div class="modal-header" style="height: 45px">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectProductView">×</button>
+                    <h5 class="modal-title" style="float:left;line-height: 30px">选择商品</h5>
+
+                    <div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+                        <input type="text" class="form-control input-sm search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+                        <span class="input-group-btn">
+                            <button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+                        </span>
+                    </div>
+
+
+
+                    <div class="btn-group" style="float: right;margin-right: 20px">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="height: 32px;">
+                            高级搜索 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">
+                                <input  type="checkbox" id="isSpecialPrice"  style="margin-right: 5px" data-bind="checked:isSpecialPrice">
+                                <label for="isSpecialPrice" style="line-height: 30px">只显示特价</label></a></li>
+                            <li><a href="#">
+                                <input  type="checkbox" id="isPublic"  style="margin-right: 5px" data-bind="checked:isPublic">
+                                <label for="isPublic" style="line-height: 30px">显示未发布</label>
+                            </a></li>
+                            <li><a href="#">
+                                <input type="text" name="lowTotalPrice" style="width: 40px" data-bind="value:lowTotalPrice">元 至
+                                <input type="text" name="highTotalPrice" style="width: 40px"  data-bind="value:highTotalPrice">元
+                            </a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2" style="padding-left: 0px;overflow: auto;height: 630px">
+                            <ul id="treeDemo" class="ztree"></ul>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="panel panel-default" style="min-height: 630px">
+                                <div id="loading" data-bind="visible:displayLoading()">
+                                    <img src="res/image/loading.gif" style="margin:150px 0 0 250px"/>
+                                </div>
+                                <div class="panel-body" data-bind="foreach:productList,visible:!displayLoading()" style="margin-bottom: 30px;">
+                                    <div class="col-md-3" style="text-align: center">
+                                        <div style="padding: 10px;margin-bottom:10px" data-bind="click:$root.selectProduct,css:{selected:selected}">
+                                        <img style="height: 150px;"  data-bind="attr:{src:imgUrl}" alt="..." class="img-thumbnail">
+                                        <span style="text-align: left;display: block;height: 35px;font-size: 12px;overflow: hidden;margin-top: 10px;" data-bind="html:name"></span>
+                                        <span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >商品Id：<!-- ko text:id--><!--/ko--></span>
+                                        <span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;color: red" >会员价：<!-- ko text:memberPriceString--><!--/ko--></span>
+                                        <span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >市场价：<!-- ko text:marketPriceString--><!--/ko--></span>
+                                        <span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >库存：<!-- ko text:sellableCount--><!--/ko--></span>
+                                        <span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >商家：<!-- ko text:merchantName--><!--/ko--></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+                                    <ul class="pagination">
+                                        <li data-bind="click:$root.prePage"><a href="#">«</a></li>
+                                        <li><a href="#">当前第<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="height: 20px;text-align: center;width: 25px;">页/共<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+                                        <li data-bind="click:$root.nextPage"><a href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div></div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectProductView">取消</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="uploadExcelHtml">
+        <div class="modal-dialog">
+            <div class="modal-content" style="">
+                <div class="modal-header" style="height: 45px">
+                </div>
+                <form id="uploadExcelForm" action="client/editors/productGroup/serverhandler/uploadExcel.jsx?m=<%=m%>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <h3>请选择需要上传的Excel文件</h3>
+                        <input type="file" name="file" id="file"/>
+                        <label style="margin-top: 20px;"><input type="checkbox" id="isClearProducts" data-bind="checked:isKeepProducts"/>保留当前商品列表</label>
+                        <label style="margin: 20px 0 0 20px;"><input type="checkbox" id="isInProductCheck" data-bind="checked:isInProductCheck"/>跳过已存在的商品</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-sm" id="uploadExcelFormBtn" data-bind="click:doUpload,text:uploadText">上传</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="uploadExcelOkHtml">
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin: 100px 0 0 20px;">
+                <div class="modal-body" style="text-align: center;padding-bottom: 30px;">
+                    <h3>正在上传请稍后...</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

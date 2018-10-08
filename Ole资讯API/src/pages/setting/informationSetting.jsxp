@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>OLE资讯设置</title>
+    <!-- Bootstrap core CSS -->
+    <link href="@{res/bootstrap/css/bootstrap.min.css}@" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="@{res/css/navbar-fixed-top.css}@" rel="stylesheet">
+    <link rel="stylesheet" href="@{res/bootstrap/css/bootstrap-datetimepicker.min.css}@"/>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <a class="navbar-brand" href="../setting/index.jsx?tatle=0">OLE资讯设置</a>
+</nav>
+<div class="container index">
+    <div class="jumbotron">
+        <div class="header">
+            <h2 style="align-content: center " class="page-header">OLE资讯设置</h2>
+        </div>
+        <form class="form-horizontal argsForm">
+            <div class="form-group">
+                <label for="infoColumnId" class="col-sm-2 control-label">OLE资讯分类ID:</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="infoColumnId" placeholder="资讯分类总ID"
+                           value="{{=it.data || ''}}">
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary info-save">保存</button>
+                <button type="button" class="btn btn-success info-reset">重 置</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]>
+<script src="@{res/js/assets/js/ie8-responsive-file-warning.js}@"></script>
+<![endif]-->
+<script src="@{res/js/assets/js/ie-emulation-modes-warning.js}@"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="@{res/js/html5shiv/3.7.2/html5shiv.min.js}@"></script>
+<script src="@{res/js/respond/1.4.2/respond.min.js}@"></script>
+<![endif]-->
+<script src="@{res/js/jquery-1.10.2.min.js}@"></script>
+<script src="@{res/bootstrap/js/bootstrap.min.js}@"></script>
+<script src="@{res/bootstrap/js/bootstrap-datetimepicker.js}@" charset="UTF-8"></script>
+<script src="@{res/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js}@" charset="UTF-8"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="@{res/js/assets/js/ie10-viewport-bug-workaround.js}@"></script>
+<script src="@{res/js/information/information.js}@"></script>
+</html>
+

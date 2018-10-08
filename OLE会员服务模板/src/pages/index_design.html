@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>2_会员服务</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<!-- vendor css -->
+<link rel="stylesheet" type="text/css" href="@{resource/css/ole.css}@"/>
+</head>
+
+<body>
+<div class="container">
+<article class="">
+<div class="ucenter">
+<div class="service">
+<div class="carousel" data-type="imgLinkList" data-id="rotate" imgSize="710x430">
+
+<div class="pic">
+<ul>
+<%if(rotate && rotate.length>0){%>
+<%for(var i=0;i < rotate.length;i++){%>
+<%var value=rotate[i];%>
+<li class="item" style="display: block;"><a href="<%=value.linkTo%>" target="<%=value.openInNewPage%>"><img src="<%=value.imgUrl%>"></a></li>
+<%}%>
+<%}else{%>
+<li class="item "style="display: block;"><a href=""><img src="@{resource/image/710x430.jpg}@"/></a></li>
+<li class="item"><a href=""><img src="@{resource/image/710x430.jpg}@"/></a></li>
+<li class="item"><a href=""><img src="@{resource/image/710x430-2.jpg}@"/></a></li>
+<li class="item"><a href=""><img src="@{resource/image/710x430.jpg}@"/></a></li>
+<%}%>
+</ul>
+</div>
+<div class="slider-btn">
+<%if(rotate && rotate.length>0){%>
+<%for(var i=0;i < rotate.length;i++){%>
+<%var value=rotate[i];%>
+<span class="focus-btn"></span>
+<%}%>
+<%}else{%>
+<span class="focus-btn"></span>
+<span class="focus-btn active"></span>
+<span class="focus-btn"></span>
+<span class="focus-btn"></span>
+<span class="focus-btn"></span>
+<%}%>
+</div>
+</div>
+<div class="member">
+<ul>
+<li class="item "><a href="">
+<em class="ico ico-1"></em><i>我的积分：1682</i> <em class="icon-arrows"></em>
+</a></li>
+<li class="item item-2"><a href="">
+<em class="ico ico-3"></em><i>会员课堂</i> <em class="icon-arrows"></em>
+</a></li>
+<li class="item item-3"><a href="">
+<em class="ico ico-2"></em><i>母婴俱乐部</i> <em class="icon-arrows"></em>
+</a></li>
+</ul>
+</div>
+<div class="feature">
+<ul>
+<li class="list sole"><a href="">
+<em class="ico ico-2"></em>华润卡激活 <span class="txt-r fl-r"> <i>激活获得更多权益</i> <em class="icon-arrows"></em></span>
+</a></li>
+<li class="list"><a href="">
+<em class="ico ico-2"></em>会员卡 <span class="txt-r fl-r"> <i>查看会员及权益活动</i> <em class="icon-arrows"></em></span>
+</a></li>
+<li class="list"><a href="">
+<em class="ico ico-3"></em>我的卡包 <span class="txt-r fl-r"> <i>更多优惠</i> <em class="icon-arrows"></em></span>
+</a></li>
+<li class="list"><a href="">
+<em class="ico ico-4"></em>我的订单 <span class="txt-r fl-r"> <i></i> <em class="icon-arrows"></em></span>
+</a></li>
+<li class="list"><a href="">
+<em class="ico ico-5"></em>抽奖记录 <span class="txt-r fl-r"> <i></i> <em class="icon-arrows"></em></span>
+</a></li>
+<li class="list"><a href="">
+<em class="ico ico-6"></em>个人资料 <span class="txt-r fl-r"> <i>睡大觉</i> <em class="icon-arrows"></em></span>
+</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+</article>
+
+</div>
+</body>
+
+</html>

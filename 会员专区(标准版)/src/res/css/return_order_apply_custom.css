@@ -1,0 +1,69 @@
+#barterDeliveryAddress .address {  width: 550px;  }
+.msglayer3 {
+    background: none repeat scroll 0 0 #fff;
+    border: 5px solid #e5e5e5;
+    display: none;
+    width: 472px;
+    z-index: 1003;
+    font-size: 14px;
+    color: #333;
+}
+.msglayer3 .closed {
+    display: inline;
+    float: right;
+    height: 16px;
+    margin: 8px 10px 0 0;
+}
+.msglayer3 .closed a {
+    background: url("@{res/images/msgbox_fix.png}@") no-repeat scroll -45px -37px rgba(0, 0, 0, 0);
+    display: block;
+    height: 11px;
+    overflow: hidden;
+    width: 11px;
+}
+.address {
+    width: 550px;
+}
+.address .mc {
+    padding-bottom: 30px;
+}
+.address li {
+    margin-top: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+.address li label {
+    float: left;
+    padding-top: 6px;
+    text-align: right;
+    width: 100px;
+}
+.address li label span {
+    color: #f30;
+    margin-right: 5px;
+}
+.address li input {
+    height: 25px;
+    line-height: 25px;
+    padding-left: 5px;
+    width: 120px;
+}
+.address li .fl {
+    line-height: 27px;
+}
+.address li select {
+    padding: 4px;
+}
+.address li .area {
+    height: 60px;
+    padding: 5px 0 0 5px;
+    width: 410px;
+
+    /*border: none;*/
+    font-size: 14px;
+    margin-left: 0px;
+}
+.address li select {
+    padding: 4px;
+    width: 140px;
+}

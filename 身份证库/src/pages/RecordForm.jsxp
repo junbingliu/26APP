@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../res/style/app.css">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <script src="/resources/layer/layer.min.js"></script>
+    <script type="text/javascript" src="@{js/RecordForm.js}@"></script>
+    <script>
+        var merchantId = '{{=it.merchantId}}';
+    </script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid" id="dataContainer">
+    <div class="row" style="margin-left: 25px;width: 610px;">
+        <table class="table table-bordered table-over">
+            <tbody>
+            <tr>
+                <td class="active" style="width: 120px;">姓名</td>
+                <td>{{=it.jRecord.name}}</td>
+            </tr>
+            <tr>
+                <td class="active">身份证号</td>
+                <td>{{=it.jRecord.idCard}}</td>
+            </tr>
+            <tr>
+                <td class="active">所属用户</td>
+                <td>{{=it.jRecord.userId}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row" style="margin-left: 10px;">
+        <div class="col-sm-6 col-md-2" style="width: 320px;">
+            <div class="thumbnail">
+                <a href="{{=it.jRecord.idCardFrontPicFullPath}}" target="_blank" id="idCardFrontPicPreviewFullPath">
+                    <img id="idCardFrontPicPreviewPath" src="{{=it.jRecord.idCardFrontPicRelPath}}" style="height: 200px; width: 320px; display: block;">
+                </a>
+                <div class="caption">
+                    <h3>身份证正面</h3>
+
+                    <form id="idCardBackPic_form" action="uploadIdCardPic.jsx" enctype="multipart/form-data" method="post" target="idCardBackPic_frame">
+                        <input type="file" id="idCardBackPic" name="idCardBackPic" style="display: none;" onchange="idCardPicOnChane('back')" />
+                        <input type="hidden" name="dataType" value="html"/>
+                        <input type="hidden" name="picType" value="back"/>
+                        <input type="hidden" name="spex" value="320X200"/>
+                    </form>
+                    <iframe name='idCardBackPic_frame' id="idCardBackPic_frame" style="display: none;"></iframe>
+                    <p><a href="javascript:;" class="btn btn-success" role="button" onclick="selectIdCardFrontPic()">浏览...</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-2" style="width: 320px;">
+            <div class="thumbnail">
+                <a href="{{=it.jRecord.idCardBackPicFullPath}}" target="_blank" id="idCardBackPicPreviewFullPath">
+                    <img id="idCardBackPicPreviewPath" src="{{=it.jRecord.idCardBackPicRelPath}}" style="height: 200px; width: 320px; display: block;">
+                </a>
+                <div class="caption">
+                    <h3>身份证反面</h3>
+                    <form id="idCardFrontPic_form" action="uploadIdCardPic.jsx" enctype="multipart/form-data" method="post" target="idCardFrontPic_frame">
+                        <input type="file" id="idCardFrontPic" name="idCardFrontPic" style="display: none;" onchange="idCardPicOnChane('front')" />
+                        <input type="hidden" name="dataType" value="html"/>
+                        <input type="hidden" name="picType" value="front"/>
+                        <input type="hidden" name="spex" value="320X200"/>
+                    </form>
+                    <iframe name='idCardFrontPic_frame' id="idCardFrontPic_frame" style="display: none;"></iframe>
+                    <p><a href="javascript:;" class="btn btn-success" role="button" onclick="selectIdCardBackPic()">浏览...</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-left: 10px;">
+        <div class="col-sm-12 col-md-12">
+            <input type="hidden" id="idCardId" value="{{=it.jRecord.id}}"/>
+            <input type="hidden" id="idCardFrontPicFileId" value="{{=it.idCardFrontPicFileId}}"/>
+            <input type="hidden" id="idCardBackPicFileId" value="{{=it.idCardBackPicFileId}}"/>
+            <button type="button" class="btn btn-default btn-lg" onclick="history.back()">返回</button>
+            <button type="button" class="btn btn-primary btn-lg" id="saveUpdateBtn">保存修改</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

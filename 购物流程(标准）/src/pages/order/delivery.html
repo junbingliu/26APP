@@ -1,0 +1,26 @@
+<div class="show_od">
+    <!-- ko foreach:ocs -->
+    <span class="l_mag" ><!-- ko text:merchantName --><!-- /ko -->    <!-- ko text:selectedDeliveryRuleName --><!-- /ko --></span>
+    <!-- /ko -->
+   
+<!--     <span class="l_mag peisongT">
+        <span class="float_l">温馨提示：</span>
+        <span class="tt">
+            您选择的时间可能会因为库存不足等多反面因素导致订单延迟，敬请谅解！ 
+            我们会在您选定提货日期的前一天处理您的订单，在此之前您的订单处于暂停状态.
+        </span>
+    </span> -->
+</div>
+<div class="table_od padding20_0" >
+    <!-- ko foreach:ocs -->
+    <div data-bind="text:merchantName" style="padding-left: 20px;"></div>
+    <ul class="pay_list" data-bind="foreach:deliveryResults" >
+        <li>
+            <input class="radio" type="radio"  data-bind="attr:{name:'deliveryRule' + $parent.merchantId()},value:ruleId,checked:$parent.selectedDeliveryRuleId"/>
+            <label data-bind="click:$parent.setDeliveryRule,text:name"></label>
+        </li>
+
+    </ul>
+    <!-- /ko -->
+    <a class="bute14041 mal" data-bind="click:saveSelectedPaymentAndDeliveryRule">保存支付和配送信息</a>
+</div>

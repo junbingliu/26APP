@@ -1,0 +1,115 @@
+    <!DOCTYPE html>
+        <html lang="cn">
+        <head>
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="../bootstrap/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        {{=$.inc('pages/common/include_base.jsx')}}
+        <script>var m = '{{=it.merchantId}}';</script>
+        <link rel="stylesheet" href="@{res/css/lrtk.css}@" />
+        <script type="text/javascript" src="@{res/js/reportDetail.js}@"></script>
+        <script type="text/javascript" src="@{res/js/jquery.min.js}@"></script>
+        <script type="text/javascript" src="@{res/js/jquery.imgbox.pack.js}@"></script>
+            <script type="text/javascript">
+            $(document).ready(function(){
+            $(".img").imgbox({
+            'speedIn'		: 0,
+            'speedOut'		: 0,
+            'alignment'		: 'center',
+            'overlayShow'	: true,
+            'allowMultiple'	: false
+            });
+            });
+            </script>
+        </head>
+        <body>
+        {{=$.inc('pages/common/include_navbar.jsx')}}
+        <div id="reportDetail" style="margin-top: 69px">
+
+        <div class="form-group">
+        <b> 作者:</b>
+        <nobr>{{=it.obj.userInfo.nickName}}</nobr>
+        </div>
+        <br>
+        <div class="form-group">
+        <b>头像:</b>
+        {{?it.obj.userInfo.userLogoUrl }}
+        <img width="250px" src="{{=it.obj.userInfo.userLogoUrl }}"/>
+        {{??}}
+        <img width="250px" src="http://10.0.147.163/upload/user_none_100.gif"/>
+        {{?}}
+        </div>
+
+        <br>
+        <div class="form-group">
+        <b>文章主体:</b>
+            <p>
+                <label>一句话评论:</label>
+                <input class="form-control"  id="oneSentence" value="{{=it.obj.oneSentence}}"/>
+            </p>
+            <p>
+                <label>收到时的心情:</label>
+                <textarea class="form-control" rows="3"  id="moodWords">{{=it.obj.moodWords}}</textarea>
+            </p>
+            <p>
+                <label>该商品的XX感:</label>
+                <textarea class="form-control" rows="3" id="feelingWords">{{=it.obj.feelingWords}}</textarea>
+            </p>
+            <p>
+                <label>与其他商品比较:</label>
+                <textarea class="form-control" rows="3" id="compareWords">{{=it.obj.compareWords}}</textarea>
+            </p>
+            <p>
+                <label>自由发言:</label>
+                <textarea class="form-control" rows="3" id="freeWords">{{=it.obj.freeWords}}</textarea>
+            </p>
+            <p>
+                <label>总汇：</label>
+                <textarea class="form-control" rows="3" id="wordContent" readonly>{{=it.obj.wordContent}}</textarea>
+            </p>
+        </div>
+
+            <div class="form-group">
+            {{~it.obj.fileIdList :value:index }}
+             <input class="form-control imageIndex" style="width: 100px;display:initial" value="{{=index}}"/>
+            <a class = "img" title="" href="{{=value}}"> <img class="imageContent" src="{{=value}}" height="100" width="100"/></a>
+            {{~}}
+            </div>
+            <div class="form-group" style="margin-left: 601px">
+         <button class="btn-lg btn-default" data-a="{{=it.obj.id}}" id="saveContent">保存</button>
+                {{? it.obj.examineInfo.examineStatus == 0}}
+        <button class="btn btn-default pass" data-toggle="modal" data-a="{{=it.obj.id}}" data-target="#myModal2">审核通过</button>
+        <button class="btn btn-default reject" data-toggle="modal" data-a="{{=it.obj.id}}" data-target="#myModal2">审核不通过</button>
+                {{?}}
+            <a href="trialReportList.jsx?m={{=it.merchantId}}&activeId={{=it.obj.activityId}}">返回</a>
+            </div>
+        </div>
+        </body>
+        </html>
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            ×
+                                    </button>
+                                    <input id="examineId" type="hidden"/>
+                                    <input id="isPass" type="hidden">
+                                    <h4 class="modal-title">
+                                            审核备注填写
+                                    </h4>
+                            </div>
+                            <div class="modal-body">
+                                    <textarea id="examineReason"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button class="btn btn-default" id="update">提交审核</button>
+                            </div>
+                    </div>
+            </div>
+    </div>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8"/>
+    <title>网客通桌面</title>
+
+    <meta name="description" content="saas 网客通桌面"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- basic styles -->
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+    <script src="@{client/res/lib/knockoutmapping.js}@"></script>
+    <script src="@{client/res/lib/jquery-ui-1.9.2.custom.min.js}@"></script>
+    <script src="@{client/res/lib/jquery-ui-timepicker.js}@"></script>
+    <script src="@{client/res/lib/jquery-slider-access.js}@"></script>
+    <script src="@{client/res/lib/timepicker-binding.js}@"></script>
+    <script src="@{client/res/lib/sammy-0.7.4.min.js}@"></script>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="@{client/res/lib/jquery-ui-1.10.0.custom.css}@" rel="stylesheet"/>
+    <link href="@{client/res/lib/jquery.ui.1.10.0.ie.css}@" rel="stylesheet"/>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+    <script src="@{client/res/lib/bootbox.min.js}@"></script>
+    <script src="res/js/app.js"></script>
+    <link href="res/css/app.css" rel="stylesheet"/>
+    <script>
+        var m = "{{=it.m}}"
+    </script>
+
+</head>
+<body>
+<div class="navbar navbar-default" id="navbar">
+    <div class="navbar-container" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <i class="glyphicon glyphicon-cog"></i>
+                    商品批量上架
+                </small>
+            </a>
+        </div>
+    </div>
+    <!-- /.navbar-header -->
+</div>
+
+<nav id="sidebar" class="sidebar" data-spy="affix" data-offset-top="0" style="margin-top:20px">
+    <ul id="side-nav " class="side-nav">
+        <li id="applicationModule" class="module">
+            <a href="#/application/list">
+                <i class="glyphicon glyphicon-user"></i>
+                <span>上架申请</span>
+            </a>
+        </li>
+        <li id="privilegeModule" class="module">
+            <a href="#/privilege">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                <span>权限</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div id="main">
+    //#import modules/application/applicationList.html
+    //#import modules/application/applicationForm.html
+    //#import modules/privilege/privilegeForm.html
+</div>
+
+
+
+</body>
+
+</html>

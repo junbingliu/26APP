@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.4/css/bootstrap.css" rel="stylesheet">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.4/js/bootstrap.js"></script>
+    <script>
+        var merchantId='{{=it.merchantId}}';
+        $(document).ready(function () {
+            $("body").on("click", ".down", function () {
+                $.get("downExcel.jsx?m=" + merchantId, function (res) {
+                    if (res.state == "ok") {
+                        window.location = res.url;
+                    } else {
+                        alert(res.msg);
+                    }
+                }, "json");
+            });
+        });
+    </script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <p>
+            <a href="javascript:;" class="btn btn-primary down">下载</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<div class="page" id="aboutFangXingPage">
+    <div class="row">
+        <h3>品牌</h3>
+        <div class="col-md-12 col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td>品牌ID</td>
+                    <td>品牌名称</td>
+                    <td>添加人Id</td>
+                    <td>功能</td>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach: aboutFangXings">
+                <tr>
+                    <td data-bind="text:id"></td>
+                    <td data-bind="text:name"></td>
+                    <td data-bind="text:userId"></td>
+                    <td>
+                        <button class="btn btn-primary" data-bind="click:$root.updated">修改...</button>&nbsp;&nbsp;
+                        <button class="btn btn-primary" data-bind="click:$root.deleted">删除...</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="help-block" data-bind="visible:isEmpty">还没有配置任何品牌，请先添加</p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <button class="btn btn-success" data-bind="click:add">添加...</button>&nbsp;&nbsp;
+            <button class="btn btn-success" data-bind="click:getAbouts">刷新...</button>
+        </div>
+    </div>
+</div>

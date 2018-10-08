@@ -1,0 +1,175 @@
+{{if msg}}
+{{msg}}
+{{else}}
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Api_ID</th>
+        <th>Api名称</th>
+        <th>Api所属系统</th>
+        <th>Api调用URL</th>
+        <th>Api状态</th>
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{each resultList as value i}}
+    {{if value}}
+    <tr>
+        <td>{{i+1}}</td>
+        <td>{{value.apiId}}</td>
+        <td>{{value.apiName}}</td>
+        <td>{{value.apiSys}}</td>
+        <td>{{value.apiUrl}}</td>
+        <td>{{if value.apiState == 0}}可用{{else}}不可用{{/if}}</td>
+        <td>{{value.content}}</td>
+        <td>
+            <button class="btn btn-default updateClass" data-a="{{value.id}}">修改接口</button>
+            <button class="btn btn-default deleteClass" data-a="{{value.id}}">删除接口</button>
+        </td>
+    </tr>
+    {{/if}}
+    {{/each}}
+    </tbody>
+</table>
+<div style="margin-top: 5px;padding-top: 10px;">
+    <div style="float:left;text-align: left;width: 400px;margin-top:20px">
+    </div>
+    <div style="float:right;">
+        <div class="pagination_params" id="pagination_params" totalPages="{{pageParams.totalPages}}"
+             currentPage="{{pageParams.currentPage}}" totalRecords="{{pageParams.totalRecords}}"
+             displayNum="{{pageParams.displayNum}}" pageLimit="{{pageParams.pageLimit}}"
+             recordType="{{pageParams.recordType}}">
+        </div>
+    </div>
+</div>
+<div id="export_data" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h3>导出数据</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="exportExcel" href="#export_tab" data-toggle="tab">导出</a></li>
+                    <li><a id="excelListHistory" href="#export_history" data-toggle="tab">导出历史</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="export_tab">
+                        <form class="form-horizontal form-inline">
+                            <div class="form-group" style="margin-top:10px">
+                                <label class="control-label col-md-5" for="export_fileName"
+                                       style="float: left;">导出文件名称：</label>
+
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="export_fileName" name="export_fileName"
+                                           placeholder="不填则以导出时间命名">
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                                <button type="button" class="btn btn-primary" id="upload_file_smt"
+                                        data-loading-text="处理中...">
+                                    确定
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="export_history">
+                        <div id="excelListHistoryDiv" style="height: 350px;overflow: hidden;overflow-y: auto;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".updateClass").on("click", function () {
+        var id = $(this).data("a");
+        document.getElementById("addForm").reset();
+        $("#myModalLabel").text("修改API接口");
+        $.get("handler/get_by_id.jsx", {id: id}, function (result) {
+            if (result.state == "ok") {
+                var data = result.data;
+                var id = data.id;
+                var apiId = data.apiId;
+                var apiName = data.apiName;
+                var apiUrl = data.apiUrl;
+                var content = data.content;
+
+                $("#id").val(id);
+                $("#apiId").val(apiId);
+                $("#apiName").val(apiName);
+                $("#apiUrl").val(apiUrl);
+                $("#content").val(content);
+                $("#myModal").modal("show");
+            } else {
+                bootbox.alert(result.msg);
+            }
+        }, "json");
+    });
+    $(".deleteClass").on("click", function () {
+        var id = $(this).data("a");
+        if (confirm("接口删除后不可恢复，是否确认该操作")) {
+            $.get("handler/delete_api.jsx", {id: id}, function (result) {
+                if (result.state == "ok") {
+                    bootbox.alert("删除成功");
+                    reloadList();
+                } else {
+                    bootbox.alert(result.msg);
+                }
+            }, "json");
+        }
+    });
+    $(document).ready(function () {
+        $("#upload_file_smt").bind("click", function () {
+            $(this).button('loading');
+
+            var keyword = $("#keyword").val();
+            var beginCreateTime = $.trim($("#beginCreateTime").val());
+            var endCreateTime = $.trim($("#endCreateTime").val());
+            var state = $.trim($("#state").val());
+            var day = $.trim($("#day").val());
+            var export_fileName = $("#export_fileName").val();
+
+            var postData = {
+                export_fileName: export_fileName,
+                keyword: keyword,
+                state: state,
+                day: day,
+                beginCreateTime: beginCreateTime,
+                endCreateTime: endCreateTime
+            };
+            $.post("handler/export.jsx", postData, function (data) {
+                if (data.state == "ok") {
+                    bootbox.alert(data.msg + "　您可以在【导出历史】中查看并下载。");
+                } else {
+                    bootbox.alert(data.msg);
+                }
+                $('#upload_file_smt').button('reset');
+            }, "json");
+        });
+
+        $("#excelListHistory").bind("click", function () {
+            $.ajax({
+                        url: "load_export_histories.jsx",
+                        data: {t: "open_api_list"},
+                        type: "post",
+                        success: function (data) {
+                            var divShow = $("#excelListHistoryDiv");
+                            divShow.html("");
+                            divShow.append(data);
+                        }
+                    }
+            );
+        });
+    });
+</script>
+{{/if}}

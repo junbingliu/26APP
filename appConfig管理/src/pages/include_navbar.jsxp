@@ -1,0 +1,26 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header pull-right">
+            <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-cog">APP更新文件管理</i></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar">
+                <li data-a="appConfig.jsx?m="><a href="appConfig.jsx?m={{m}}"><i class="glyphicon glyphicon-list">&nbsp;查看配置信息</i></a></li>
+                <li data-a="appConfig.jsx?type="><a href="appConfig.jsx?type=ole&m={{m}}"><i class="glyphicon glyphicon-list">&nbsp;查看ole配置信息</i></a></li>
+                <li data-a="log_list"><a  href="log_list.jsx?m={{m}}"><i class="glyphicon glyphicon-list">查看日志</i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var currentUrl = window.location.href;
+        $('#navbar').find('li').each(function (item) {
+            var $this = $(this);
+            var href = $this.data('a');
+            if (currentUrl.indexOf(href) > 0) {
+                $this.addClass("active");
+            }
+        });
+    });
+</script>

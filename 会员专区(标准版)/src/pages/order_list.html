@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="ch">
+	<head>
+        <title>我的订单 - 我的专区 - <%=webName%></title>
+        <link rel="stylesheet" type="text/css" href="@{res/css/order_list.css}@" rel="stylesheet" />
+        <style>
+            .tableGoodInfoThumb {  height: 90px;  text-align: center;  width: 90px;}
+            .tableHd th{vertical-align: middle !important;}
+            .myOrderTable .tableBd td{vertical-align: middle !important;}
+            .myOrderTable .orderTotal,.myOrderTable .tableOperate{margin-top: 0;}
+            .cancel_mail {  overflow: hidden;  width: 100%;font-size: 14px;  }
+            .cancel_mail ul {  padding: 10px 0 15px;  }
+            .cancel_mail li {  float: left;  height: 20px;  margin-top: 12px;  overflow: hidden;  padding-left: 50px;  width: 230px;  }
+            .cancel_mail li input {  margin-right: 5px;  vertical-align: -2px;  }
+            .cancel_mail .btns{text-align: center;}
+        </style>
+        <link rel="stylesheet" type="text/css" href="@{res/css/pay_layer.css}@" rel="stylesheet" />
+        <script src="/resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="/resources/jquery.form.js" type="text/javascript"></script>
+        <script src="@{res/js/artTemplate.js}@" type="text/javascript"></script>
+        <script>var rappId = "<%=rappId%>",loginId = "<%=user.loginId%>";</script>
+        <script type="text/javascript" src="@{res/js/order_list.js}@"></script>
+        <script type="text/javascript" src="@{res/js/page.js}@"></script>
+        <script type="text/javascript" src="@{res/js/pay_layer.js}@"></script>
+    </head>
+    <body>
+        <%=#importUrl("/ucenter/header.html")%>
+        <link rel="stylesheet" type="text/css" href="@{res/css/page.css}@" rel="stylesheet" />
+        <!-- main -->
+        <div class="center">
+            <!-- sidebar -->
+            <div class="sidebar float_l enableSelect">
+                <div class="crumb">
+                    <a href="/">首页</a><span class="arrow"></span><a href="/ucenter/index.html">我的专区</a><span class="arrow"></span><a class="active">我的订单</a>
+                </div>
+                <%=#importUrl("/ucenter/sidebar.html")%>
+            </div>
+            <!-- sidebar -->
+            <!-- main -->
+            <div class="main float_r">
+                <!-- my order -->
+                <div class="panel myOrder">
+                    <div class="panelHd enableSelect">
+                        <div class="panelHdSearch float_r">
+                            <form id="orderSearchForm" method="get" action="<%=requestURI%>">
+                                <input class="panelHdSearchTxt ableSelect" type="text" name="orderKeyword" value="<%=orderKeyword%>" placeholder="输入您的订单号"/>
+                                <button class="panelHdSearchBtn" type="submit" id="searchBtn">搜索</button>
+                            </form>
+                        </div>
+                        <h2 class="panelHdTitle">我的订单</h2>
+                    </div>
+                    <div class="panelBd" style="padding-bottom: 90px;">
+                        <!-- order header -->
+                        <div class="myOrderHeader enableSelect">
+                            <table>
+                                <th width="283"><p style="margin-left: 39px;">商品</p></th>
+                                <th width="92"><p style="margin-left: 12px;">单价</p></th>
+                                <th width="92"><p style="margin-left: 3px">数量</p></th>
+                                <th width="126">总价</p></th>
+                                <th width="126">
+                                    <div class="select" style="margin-left: 31px;">
+                                        <div class="selectHd">
+                                            <%if(orderType=="all"){%>所有订单<%}else if(orderType=="112"){%>已完成<%}else if(orderType=="101"){%>待支付<%}else if(orderType=="102"){%>待发货<%}else if(orderType=="103"){%>已发货<%}else if(orderType=="111"){%>已取消<%}else if(orderType=="br100"){%>待评论<%}%><span class="split">|</span>
+                                            <i class="arrow"></i>
+                                        </div>
+                                        <div class="selectBd">
+                                            <a href="<%=requestURI%>">所有订单</a>
+                                            <a href="<%=requestURI%>?state=112">已完成</a>
+                                            <a href="<%=requestURI%>?state=101">待支付</a>
+                                            <a href="<%=requestURI%>?state=102">待发货</a>
+                                            <a href="<%=requestURI%>?state=103">已发货</a>
+                                            <a href="<%=requestURI%>?state=111">已取消</a>
+                                            <!--<a href="<%=requestURI%>?state=br100">待评论</a>-->
+                                        </div>
+                                    </div>
+                                </th>
+                                <th width="140"><p style="margin-left: 36px;">订单操作</p></th>
+                            </table>
+                        </div><!-- end order header -->
+
+                        <!-- order body -->
+
+                        <%if(orderMap && orderMap.count > 0){%>
+                        <%for(var i=0;i < orderMap.lists.length;i++){%>
+                        <%var order = orderMap.lists[i],orderStates = order.states;%>
+                        <table class="table tableDetail myOrderTable mt20" orderId="<%=order.id%>">
+                            <tr class="tableHd">
+                                <th>
+                                    <p><span class="date"><%=order.createTimeFormat%></span>订单号：<%=order.aliasCode%></p>
+                                </th>
+                                <th colspan="3"></th>
+                            </tr>
+                            <tr class="tableBd">
+                                <td>
+                                    <%for(var j=0;j < order.itemList.length;j++){%>
+                                    <%var item = order.itemList[j];%>
+                                    <%var splitUnitPrice = (item.priceInfo.fUnitPrice + "").split(".");%>
+                                    <div class="tableGoodInfo">
+                                        <a href="/product.html?id=<%=item.productId%>&mid=<%=item.orderProduct.merchantId%>" target="_blank" class="tableGoodInfoThumb"><img src="<%=item.orderProduct && item.orderProduct.pics ? item.orderProduct.pics[0] : ''%>" alt="" /></a>
+                                        <span class="tableGoodInfoName">
+                                            <a href="/product.html?id=<%=item.productId%>&mid=<%=item.orderProduct.merchantId%>" target="_blank"><%=item.name%></a>
+                                            <%if(item.attrs && item.attrsValue && item.attrsValue != ""){%>
+                                            <span style="color: #555;font-size: 12px;">&nbsp;&nbsp;[<%=item.attrsValue%>]</span>
+                                            <%}%>
+                                            <%var subItems = item.childrenItems;%>
+                                            <%if(subItems && subItems.length > 0){%>
+                                            <%for(var k=0;k < subItems.length;k++){%>
+                                            <%var subItem = subItems[k],isPresent = subItem && subItem.isPresent == "1" ? true :false;%>
+                                            <%if(isPresent){%>
+                                            <br/>
+                                            <small style="color: #555;font-size:12px;">[赠品] <%=subItem.name%> x <%=subItem.amount%></small>
+                                            <%}%>
+                                            <%}%>
+                                            <%}%>
+                                        </span>
+                                        <span class="textNormal orderGoodPrice">¥<strong><%=splitUnitPrice[0]%></strong>.<%=splitUnitPrice[1]%></span>
+                                        <span class="orderGoodCount"><%=item.amount%></span>
+                                    </div>
+                                    <%}%>
+                                </td>
+                                <td class="tableBdColumn">
+                                    <%var oTPriceSplit = (order.priceInfo.fTotalOrderRealPrice + "").split(".");%>
+                                    <p class="textPrimary orderTotal">
+                                        ¥<strong><%=oTPriceSplit[0]%></strong>.<%=oTPriceSplit[1]%>
+                                    </p>
+                                </td>
+                                <td class="tableBdColumn" style="vertical-align: middle;">
+                                    <!--<div class="orderStatue">-->
+                                        <!--已完成-->
+                                    <!--</div>-->
+                                    <%if(!(orderStates.processState.state == "p100" && !order.isCashOnDelivery)){%>
+                                    <%=orderStates.processState.desc%><br/>
+                                    <%}%>
+                                    <%if(orderStates.processState.state != "p111" && !order.isCashOnDelivery){%>
+                                    <%=orderStates.payState.desc%><br/>
+                                    <%}%>
+                                    <!--<%=orderStates.approvalState.desc%><br/>-->
+                                    <!--<%=orderStates.refundState.desc%>-->
+                                </td>
+                                <td class="tableBdColumn">
+                                    <div class="tableOperate">
+                                        <p class="tableOperateDetail"><a href="/ucenter/order_detail.html?id=<%=order.id%>" target="_blank">查看订单</a></p>
+                                        <%if(orderStates.processState.state != "p111" && orderStates.payState.state == "p200" && orderStates.approvalState.state != "a101" && !order.isCashOnDelivery){%>
+                                        <p><button class="tableBtn tableBtnPrimary payOrderBtn">支付</button></p>
+                                        <%}%>
+                                        <%if(orderStates.processState.state == "p102"){%>
+                                        <!--<p><button class="tableBtn tableBtnDefault">签收</button></p>-->
+                                        <%}%>
+
+
+                                        <%if(orderStates.processState.state == "p112" && orderStates.payState.state == "p201"){%>
+                                        <%if((orderStates.buyerReviewState && orderStates.buyerReviewState.state == "br101") || order.appraise){%>
+                                        <p><a>已评价</a></p>
+                                        <%}%>
+                                        <!--<p><button class="tableBtn tableBtnDefault">评价</button></p>-->
+                                        <%}%>
+
+                                        <!--<p class="tableOperateBuyAgain"><a href="">再次购买</a></p>-->
+
+                                        <%if(orderStates.processState.state == "p112" && orderStates.payState.state == "p201"){%>
+                                        <%if(order.approve && (order.approve.isApply || order.approve.isApproveStatus)){%>
+                                        <%if(order.approve && order.approve.notDelVouchers){%>
+                                        <p class="tableOperateChange"><a href="/ucenter/return_order_apply.html?id=<%=order.id%>">申请退<%= isApplyForReplacementValue != 'false' ? '换' : ''%>货</a></p>
+                                        <%}%>
+                                        <%}else{%>
+                                        <p class="tableOperateChange"><a>已申请售后</a></p>
+                                        <%}%>
+
+                                        <%}%>
+
+                                        <%if(orderStates.processState.state == "p100" && orderStates.payState.state == "p200" && orderStates.approvalState.state != "a101"){%>
+                                        <p class="tableOperateCancel"><a href="javascript:;" class="cancelOrderBtn">取消订单</a></p>
+                                        <%}%>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <%}%>
+                        <%}else{%>
+                        <table class="table tableDetail myOrderTable mt20">
+                            <tr class="tableHd">
+                                <th colspan="4" align="center">您还没有订单数据</th>
+                            </tr>
+                        </table>
+                        <%}%>
+
+                        <!-- end order body -->
+
+                        <!-- pagination -->
+                        <div class="pagination" id="pageList" total="<%= orderMap ? orderMap.count : '0'%>" size="5"></div>
+                        <!-- end pagination -->
+                    </div>
+                </div><!-- end my order -->
+            </div><!--end main -->
+        </div><!-- end main -->
+        <div class="clear"></div>
+
+        <div class="messagePanel successPanel recommend1" id="orderLayer"></div>
+
+        <script type="text/html" id="cancelLayerTemplate">
+            <div class="messagePanelHd">提示 <i class="closeBtn"></i></div>
+            <div class="messagePanelBd">
+                <div class="hd">
+                    <form id="cancelForm" method="POST">
+                        <input type="hidden" name="orderId" value="{{orderId}}"/>
+                        <input type="hidden" name="userName" value="{{loginId}}"/>
+                        <input type="hidden" name="toStateType" value="processState"/>
+                        <input type="hidden" name="toState" value="p111"/>
+
+                        <div class="cancel_mail">
+                            <ul class="clearfix">
+                                <li>
+                                    <input type="radio" name="refundReason" value="1"/>现在不想购
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="2"/>支付不成功
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="3"/>商品价格较贵
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="4"/>等待时间过长
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="5"/>有商品缺货
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="6"/>更换或添加新商品
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="7"/>错误或重复下单
+                                </li>
+                                <li>
+                                    <input type="radio" name="refundReason" value="8"/>其它
+                                </li>
+                            </ul>
+                            <div class="btns">
+                                <input type="submit" class="btn_01" value="&nbsp;确定&nbsp;"/>
+                            </div>
+                            <div style="color: red;text-align:center;" class="showMsg"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </script>
+
+        <%=#importUrl("/ucenter/footer.html")%>
+    </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>支付配置</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+
+<link href="/resources/jquery-ui-bootstrap/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
+<link href="/resources/jquery-ui-bootstrap/jquery-ui-1.10.3.theme.css" rel="stylesheet"/>
+<link href="/resources/zTree3.5/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
+
+
+<!-- Custom Fonts -->
+<link href="/resources/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="/resources/bootstrap300/html5shiv.js"></script>
+<script src="/resources/bootstrap300/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="navbar navbar-default" id="navbar">
+<div class="navbar-container" id="navbar-container">
+<div class="navbar-header pull-right">
+<a href="#" class="navbar-brand">
+<small>
+<i class="glyphicon glyphicon-shopping-cart"></i>
+支付相关配置
+</small>
+</a>
+</div>
+
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li>
+<a href="#/merchantList" id="merchantList">
+<i class="glyphicon glyphicon-user"></i>
+<span style="margin-left:3px">按商家配置</span>
+</a>
+</li>
+
+<li>
+<a href="#/integralSettings" id="integralSettings">
+<i class="glyphicon glyphicon-user"></i>
+<span style="margin-left:3px">积分相关配置</span>
+</a>
+</li>
+
+</ul>
+</div>
+</div>
+<!-- /.navbar-header -->
+</div>
+<div class="container-fluid" style="margin-top:20px">
+<div class="row-fluid">
+<div class="lg-col-12">
+<div id="merchantListPage" class="page">
+<div class="row-fluid">
+<div class="col-lg-12">
+<div class="well">
+<form class="form-inline" role="form">
+<div class="form-group" style="margin-right: 10px;">
+<span style="margin-right: 10px;">商家关键字</span>
+<input type="text" class="form-control" id="keyword" name="keyword" style="width: 200px;" data-bind="value:keyword">
+</div>
+<button type="button" class="btn btn-default" data-bind="click:refresh">搜索</button>
+</form>
+</div>
+<table class="table table-bordered table-stripped">
+<thead>
+<tr>
+<th>商家id</th>
+<th>商家名称</th>
+<th>继承平台支付方式</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody data-bind="foreach:merchantList">
+<tr>
+<td data-bind="text:id"></td>
+<td data-bind="text:name"></td>
+<td data-bind="text:inheritPlatform"></td>
+<td>
+<a href="#" data-bind="click:$parent.edit">设置是否平台代</a>&nbsp;|&nbsp;
+<a href="#" data-bind="click:$parent.editPayments">配置支付方式</a> &nbsp;
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="row-fluid">
+<div class="col-lg-12">
+<ul class="pagination" >
+<!-- ko foreach:$root.pager.pages -->
+<li data-bind="css:{active:isCurrent}"><a href="javascript:;" data-bind="text:pageName,click:$root.pager.onPage"></a></li>
+<!-- /ko -->
+<li style="margin-left:10px;margin-top:5px"><span>共<span data-bind="text:pager.total"></span>条</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="editSettingPage" class="page">
+<div class="row-fluid">
+<div class="col-lg-12">
+<div  class="panel panel-default">
+<div class="panel-heading">
+<h3 data-bind="text:name"></h3>
+</div>
+<div class="panel-body">
+<form role="form">
+
+<div class="form-group">
+<div>是否平台代收</div>
+<div class="radio">
+<label>
+<input type="radio" name="inheritPlatform" value="Y" data-bind="checked:inheritPlatform">
+由平台代收
+</label>
+</div>
+
+<div class="radio">
+<label>
+<input type="radio" name="inheritPlatform" value="N" data-bind="checked:inheritPlatform">
+不由平台代收
+</label>
+</div>
+</div>
+<div>
+<span>
+<button type="submit" class="btn btn-default" data-bind="click:saveSetting">保存</button>
+</span>
+<span style="margin-left:20px">
+<a href="#/merchantList" >返回列表</a>
+</span>
+</div>
+
+</form>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<div id="integralSettingsPage" class="page">
+<div class="row-fluid">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3>积分相关设置</h3>
+</div>
+<div class="panel-body">
+<form role="form">
+<div class="form-group">
+<label for="integralMoneyRatio">1积分等于多少元</label>
+<input type="text" class="form-control" id="integralMoneyRatio" data-bind="value:integralMoneyRatio">
+</div>
+<div class="form-group">
+<label>是否支持商家负积分</label>
+<div class="radio">
+<label>
+<input type="radio" name="supportNegativeIntegral" value="true" data-bind="checked:supportNegativeIntegral">
+是
+</label>
+</div>
+<div class="radio">
+<label>
+<input type="radio" name="supportNegativeIntegral" value="false" data-bind="checked:supportNegativeIntegral">
+否
+</label>
+</div>
+</div>
+<button type="button" data-bind="click:save">保存</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+var m = "{{=it.m}}";
+</script>
+<script src="/resources/jquery-1.10.2.min.js"></script>
+<script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+<script src="@{client/res/lib/underscore-min.js}@"></script>
+<script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+<script src="@{client/res/lib/knockoutmapping.js}@"></script>
+<script src="@{client/res/lib/jquery-ui-1.9.2.custom.min.js}@"></script>
+<script src="@{client/res/lib/date-zh-CN.js}@"></script>
+<script src="@{client/res/lib/bootbox.min.js}@"></script>
+<script src="@{client/res/lib/jquery-ui-timepicker.js}@"></script>
+<script src="@{client/res/lib/jquery-slider-access.js}@"></script>
+<script src="@{client/res/lib/timepicker-binding.js}@"></script>
+<script src="@{client/res/lib/sammy-0.7.4.min.js}@"></script>
+<script src="@{client/res/lib/highcharts.js}@"></script>
+<script src="@{client/res/lib/spin.min.js}@"></script>
+<script src="/resources/zTree3.5/jquery.ztree.core-3.5.js"></script>
+<link href="/resources/zTree3.5/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
+<script src="@{client/index.js}@"></script>
+
+<div id="spinholder"></div>
+</body>
+</html>

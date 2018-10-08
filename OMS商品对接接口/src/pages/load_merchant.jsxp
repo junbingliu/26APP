@@ -1,0 +1,53 @@
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="160px;">ID</th>
+        <th width="200px;">商家名称</th>
+        <th width="250px;">ShipNode</th>
+        <th width="150px;">taskId</th>
+        <th width="170px;">执行时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.logList:value:index}}
+    <tr>
+        <td>{{=value.merchantId}}</td>
+        <td>{{=value.name_cn}}</td>
+        <td>{{=value.shipNode}}</td>
+        <td>{{=value.taskId || ""}}</td>
+        <td>{{=value.when || ""}}</td>
+        <td>
+            <a href="javascript:void(0)" class="saveBtn" data-mid="{{=value.merchantId}}">立即同步</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>
+<script>
+    $('.saveBtn').click(function () {
+        doSave($(this));
+    });
+    function doSave(el) {
+        var $that = $(el);
+        var mid = $that.data("mid");
+        $.post("tools/doSendSkuQuantityToOMS.jsx", {
+            doMerchantId: mid,
+            isAll: 'N'
+        }, function (result) {
+            if (result.code == "0") {
+                alert(result.msg);
+                if (typeof loadData == "function") {
+                    loadData();
+                }
+            } else {
+                alert("对接失败!" + result.msg);
+            }
+        }, "JSON");
+    }
+</script>

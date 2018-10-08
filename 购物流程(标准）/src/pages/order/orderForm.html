@@ -1,0 +1,1049 @@
+<%=#importUrl("/cartHeader.html")%>
+<script src="/resources/layer/layer.min.js"></script>
+<link href="@{res/style/shopcart.css}@" rel="stylesheet">
+<link href="@{res/style/orderform.css}@" rel="stylesheet">
+<script>
+var orderFormPage = null;
+$(document).on("koInit", function () {
+var elem = document.getElementById("orderFormPage");
+if (elem) {
+orderFormPage = new OrderForm();
+var defs = [];
+if (typeof orderFormExtras != 'undefined') {
+defs = $.map(orderFormExtras, function (extra) {
+return extra.onReady(orderFormPage, elem);
+});
+}
+$.when.apply($, defs).then(function () {
+ko.applyBindings(orderFormPage, document.getElementById("orderFormPage"));
+orderFormPage.loadOrderForm();
+});
+}
+});
+$(document).ready(function () {
+$("ul.headerShoppingStep > li").eq(1).addClass("active");
+});
+
+$(document).on("orderFormLoaded", function () {
+$("#orderFormPage").show();
+});
+function primary(n) {
+//返回整数部分
+return Math.floor(n);
+}
+function junior(n) {
+//返回小数部分
+var j = n - Math.floor(n);
+j = j.toFixed(2);
+return j.substring(1, 4);
+}
+$(document).ready(function () {
+$(document).attr("title", "订单结算页");
+});
+</script>
+<div id="buyFlowOrderForm">
+<div class="page" id="orderFormPage" style="display:none">
+
+<div class="slide"></div>
+<div class="shopcart_wrap">
+<div class="w">
+<div class="order">
+<div class="orderTit">填写并核对订单信息</div>
+<!--收货人信息-->
+<div class="panl_order">
+<div class="step_tit">
+<span class="tt">收货人信息</span>
+<span class="tip" data-bind="visible:$root.editingConsignee()">保存收货人信息</span>
+<a class="but"
+data-bind="click:$root.editConsignee,visible:!$root.editingConsignee()">选择地址</a>
+</div>
+<div class="show_od" data-bind="css:{editingStepContent:$root.editingConsignee()}">
+<!-- ko ifnot:$root.editingConsignee -->
+<p class="l_mag"><!-- ko text:deliveryAddress.userName --><!-- /ko -->
+<!-- ko text:deliveryAddress.mobile --><!-- /ko --></p>
+
+<p class="l_mag"><!-- ko text:deliveryAddress.regionName --><!-- /ko -->
+<!-- ko text:deliveryAddress.address --><!-- /ko --></p>
+<!-- /ko -->
+</div>
+<div class="table_od" data-bind="with:$root.consignee,visible:editingConsignee">
+<ul class="addrs_list">
+<!-- ko foreach:consigneeList -->
+<li>
+<label><input type="radio"  data-bind="value:id,checked:$parent.selectedAddressId"/></label>
+<span><em><!-- ko text:userName --><!-- /ko --></em><em data-bind="text:fullAddress"></em><!-- ko text:mobile --><!-- /ko --></span>
+<a href="#">设为默认地址</a>
+<a href="#" data-bind="click:$parent.edit">编辑</a>
+<a href="#" data-bind="click:$parent.deleteAddress,clickBubble:false">删除</a>
+</li>
+<!-- /ko -->
+<li>
+<label><input type="radio"  value="none" data-bind="checked:selectedAddressId"/></label>
+<span><em>使用新地址</em></span>
+</li>
+</ul>
+
+<div class="new_addrs" data-bind="with: currConsignee,visible:editFormVisible()">
+<div class="item">
+<label><i>*</i>收件人：</label>
+<div class="fl"><input type="text" class="put" data-bind="value:userName"/></div>
+</div>
+<div class="item">
+<label><i>*</i>所在地区：</label>
+<div class="fl">
+<!--选择地区层-->
+<div class="region_list"><!--点击时添加 "active" 样式-->
+<!--  ko foreach: $parent.regionSelector.optionLevels() -->
+<select style="display:inline-block;margin-right:10px; padding:6px 5px; border:#d9d9d9 1px solid;"  data-bind="options:options,optionsText:'name',optionsValue:'id',optionsCaption:'请选择...',value:currentOptionId"></select>
+<!-- /ko -->
+</div>
+</div>
+</div>
+<div class="item">
+<label><i>*</i>详细地址：</label>
+<div class="fl"><input type="text" class="put putAdd" data-bind="value:address"/></div>
+</div>
+<div class="item">
+<label><i>*</i>手机号码：</label>
+<div class="fl"><input type="text" data-bind="value:mobile" class="put" /></div>
+</div>
+</div>
+<div class="btn_save"><a href="#" class="od_btn" data-bind="click:saveData">保存收货人信息</a> </div>
+</div>
+</div>
+<div class="panl_order" data-bind="visible:isCrossBorder">
+<div class="step_tit">
+<span class="tt">您选择了跨境的商品，请输入您的身份证信息</span>
+</div>
+<div class="show_od">
+<div class="identity" data-bind="visible:!editingUserName()">
+收货人姓名：
+<span style="margin-right: 10px;" data-bind="text:receiveUserName"></span>
+<a class="but" data-bind="click:$root.updateUserName">修改</a>
+</div>
+<div class="identity" data-bind="visible:editingUserName()">
+收货人姓名：
+<input type="text" class="receiveUserName" data-bind="value:receiveUserName" placeholder="请输入收货人真实姓名"/>
+<a class="od_btn" data-bind="click:saveUserName">保存</a>
+</div>
+<div class="identity" data-bind="visible:!editingCertificate()">
+身份证号码：
+<span style="margin-right: 10px;" data-bind="text:convertCertificate()"></span>
+<a class="but" data-bind="click:$root.updateCertificate">修改</a>
+</div>
+<div class="identity" data-bind="visible:editingCertificate()">
+身份证号码：
+<input type="text" class="certificate" data-bind="value:certificate" id="certificate" maxlength="18" placeholder="请输入收货人的身份证号码"/>
+<a class="od_btn" data-bind="click:confirmCertificate">保存</a>
+</div>
+<!--身份证-->
+<div class="idcard" data-bind="visible:isCrossDirectMail">
+<div class="idcard_top clearfix">
+
+<p class="fl">身份证正面：</p>
+<div class="idcard_border fl">
+<div class="idcard_img1">
+<!-- ko if:idCardFrontPicPreviewPath()=='' -->
+<img src="@{res/images/id-1.jpg}@"/>
+<!-- /ko -->
+<!-- ko if:idCardFrontPicPreviewPath()!='' -->
+<a  data-bind="attr:{href:idCardFrontPicPreviewFullPath}" target="_blank"><img data-bind="attr:{src:idCardFrontPicPreviewPath}"/></a>
+<!-- /ko -->
+</div>
+</div>
+<form id="idCardFrontPic_form" action="/buyflowApi/handler/order/uploadIdCardPic.jsx?dataType=html" enctype="multipart/form-data" method="post" target="idCardFrontPic_frame">
+<input type="file" id="idCardFrontPic" name="idCardFrontPic" style="display: none;" onchange="idCardPicOnChane('front')" />
+<input type="hidden" name="dataType" value="html"/>
+<input type="hidden" name="addressId" data-bind="value:deliveryAddress.id()"/>
+<input type="hidden" name="picType" value="front"/>
+<input type="hidden" name="spex" value="144X90"/>
+</form>
+<iframe name='idCardFrontPic_frame' id="idCardFrontPic_frame" style="display: none;"></iframe>
+<a href="javascript:void(0)" class="idcard_top_right fl" data-bind="click:selectIdCardFrontPic"></a>
+</div>
+
+<div class="idcard_top clearfix">
+
+<p class="fl">身份证反面：</p>
+<div class="idcard_border fl">
+<div class="idcard_img1">
+<!-- ko if:idCardFrontPicPreviewPath()=='' -->
+<img src="@{res/images/id-1.jpg}@"/>
+<!-- /ko -->
+<!-- ko if:idCardFrontPicPreviewPath()!='' -->
+<a  data-bind="attr:{href:idCardBackPicPreviewFullPath}" target="_blank"><img data-bind="attr:{src:idCardBackPicPreviewPath}"/></a>
+<!-- /ko -->
+</div>
+</div>
+<form id="idCardBackPic_form" action="/buyflowApi/handler/order/uploadIdCardPic.jsx?dataType=html" enctype="multipart/form-data" method="post" target="idCardBackPic_frame">
+<input type="file" id="idCardBackPic" name="idCardBackPic" style="display: none;" onchange="idCardPicOnChane('back')" />
+<input type="hidden" name="dataType" value="html"/>
+<input type="hidden" name="addressId" data-bind="value:deliveryAddress.id()"/>
+<input type="hidden" name="picType" value="back"/>
+<input type="hidden" name="spex" value="144X90"/>
+</form>
+<iframe name='idCardBackPic_frame' id="idCardBackPic_frame" style="display: none;"></iframe>
+<a href="javascript:void(0)" class="idcard_top_right fl" data-bind="click:selectIdCardBackPic">
+</a>
+</div>
+</div>
+<!--<div class="identity" style="margin-top: 5px;">-->
+<!--<input type="checkbox" class="bute14041" style="vertical-align:-10px;" data-bind="checked:saveCertificate">-->
+<!--<span>保存身份证信息，以便下次不需要重新输入</span>-->
+<!--</div>-->
+</div>
+<div class="text_note cert_note" style="line-height: 22px;margin-right: 30px;">温馨提示：收货人请使用真实姓名和对应身份证信息（必须为二代18位，含字母X请大写），身份证图片上传请将大小控制在50K以内；<br>
+根据海关要求，购买跨境商品需对收货人身份证信息（含图片信息）进行实名认证，此处身份证信息仅在海关清关环节作为个人物品入境的必须凭证，武商网将确保您的个人隐私权利不受侵犯。有任何身份认证的问题请咨询我们400-848-1228 （周一至周日 09:00-21:00）
+</div>
+</div>
+
+<div class="panl_order" id="orderFormExtra1" style="display: none;">
+
+</div>
+
+<!--支付信息-->
+<div class="panl_order">
+<div class="step_tit">
+<span class="tt">支付和配送信息</span>
+<span class="tip" data-bind="visible:$root.editingDeliveryAndPayment()">保存支付和配送信息</span>
+<a class="but"
+data-bind="click:editDeliveryAndPayment,visible:!$root.editingDeliveryAndPayment() && !$root.firstTime()">修改</a>
+</div>
+
+<!-- ko ifnot:editingDeliveryAndPayment -->
+<div class="show_od">
+<span class="l_mag" data-bind="visible:!paymentSelected()">
+没有选定支付方式！
+</span>
+
+
+<div data-bind="visible:paymentSelected()">
+<!-- ko foreach:selectedPayments -->
+<span class="l_mag" data-bind="text:payment.name">
+</span>
+<!-- /ko -->
+</div>
+</div>
+<div class="show_od">
+<span class="l_mag">
+<span data-bind="text:selectedDeliveryTimeName"></span>
+</span>
+</div>
+<div class="show_od" data-bind="foreach:ocs">
+<div class="l_mag">
+<span data-bind="text:merchantName" class="merchantName"></span>：
+<span data-bind="text:selectedDeliveryRuleName"></span>
+，运费：<span data-bind="text:selectedDeliveryRulePrice"></span>元
+</div>
+<!-- ko if:(selectedDeliveryRule() && selectedDeliveryRule().supportDP) -->
+<div class="l_mag">
+自提点名称：<span data-bind="text:selectedDeliveryPointName"></span>
+</div>
+<!--/ko-->
+</div>
+<!-- /ko --><!-- foreach:selectedPayments -->
+<div class="show_od">
+<!-- ko if:editingDeliveryAndPayment -->
+<div class="table_od">
+<div class="subTitle">支付</div>
+<ul class="pay_list" data-bind="foreach:availablePayments">
+<li data-bind="css:{active:$parent.selectedPayInterfaceId()==payInterfaceId}">
+<label>
+<label>
+<input class="radio" type="radio" name="selectedPayInterfaceId"
+data-bind="value:payInterfaceId,checked:$parent.selectedPayInterfaceId"/>
+</label>
+<span>
+<!-- ko text:name --><!-- /ko -->&nbsp;&nbsp;
+<!-- ko text:desc --><!-- /ko -->
+</span>
+</label>
+</li>
+</ul>
+<br/>
+
+<div class="subTitle">配送</div>
+<ul class="pay_list" data-bind="foreach:deliveryTimes">
+<li>
+<label data-bind="click:$parent.setDeliveryTime">
+<label>
+<input class="radio" type="radio"
+data-bind="attr:{name:'name'},value:id,checked:$parent.selectedDeliveryTimeId,click:$parent.setDeliveryTime"/>
+</label>
+<span>
+<span data-bind="text:name"></span>
+</span>
+</label>
+</li>
+</ul>
+<!-- ko foreach:ocs -->
+<div class="merchantHeader"><span></span><span data-bind="text:merchantName" class="merchantName"></span></div>
+<ul class="pay_list" data-bind="foreach:deliveryResults">
+<li>
+<label data-bind="click:$parent.setDeliveryRule">
+<label>
+<input class="radio" type="radio"
+data-bind="attr:{name:'deliveryRule' + $parent.merchantId()},value:ruleId,checked:$parent.selectedDeliveryRuleId,click:$parent.setDeliveryRule"/>
+</label>
+<span>
+<!-- ko text:name --> <!-- /ko -->  &nbsp;
+<!-- ko text:remark --> <!-- /ko -->
+
+&nbsp;运费：<!-- ko text:totalPriceString --> <!-- /ko -->
+</span>
+</label>
+</li>
+</ul>
+<!-- ko if:(!hasDeliveryRule()) -->
+<div style="color:red;margin-bottom: 5px;"><span>该地区暂不支持配送，请重新选择配送地址</span></div>
+<!--<span style="color:red">-->
+<!--该地区不支持配送，请重新选择配送地区-->
+<!--</span>-->
+<!-- /ko -->
+
+<!-- ko if:(selectedDeliveryRule() != null && selectedDeliveryRule().supportDP() ) -->
+<div class="merchantHeader"><span></span><span class="merchantName">选择自提点</span></div>
+<!--  ko foreach: selectedDeliveryRule().deliveryPointSelector.regionSelector.optionLevels() -->
+<select style="display:inline-block;margin-right:10px;width:120px; padding:6px 5px; border:#d9d9d9 1px solid;"  data-bind="options:options,optionsText:'name',optionsValue:'id',optionsCaption:'请选择...',value:currentOptionId"></select>
+<!-- /ko -->
+<span style="color:red" data-bind="visible:!selectedDeliveryRule().deliveryPointSelector.hasDeliveryPoint()">
+<!-- ko text:selectedDeliveryRule().deliveryPointSelector.noDeliveryPointDesc --> <!-- /ko -->
+</span>
+<ul class="pay_list" data-bind="foreach:selectedDeliveryRule().deliveryPointSelector.deliveryPointList">
+<li>
+<label data-bind="click:$parent.setDeliveryPoint">
+<label>
+<input class="radio" type="radio" data-bind="attr:{name:'deliveryPointId'+ $parent.cartId},value:id,checked:$parent.selectedDeliveryPointId,click:$parent.setDeliveryPoint"/>
+</label>
+<span>
+<!-- ko text:name --> <!-- /ko -->
+</span>
+</label>
+</li>
+</ul>
+<!-- /ko-->
+<!-- /ko -->
+
+<a class="od_btn" data-bind="click:saveSelectedPaymentAndDeliveryRule">保存支付和配送信息</a>
+</div>
+<!-- /ko --> <!-- if:editingDeliveryAndPayment -->
+</div>
+
+</div>
+<!--配送信息-->
+
+<!--发票信息-->
+<div class="panl_order">
+<div class="step_tit">
+<span class="tt">发票信息</span>
+<span class="tip" data-bind="visible:editingInvoice()">保存发票信息</span>
+<a class="but"
+data-bind="click:editInvoice,visible:!editingInvoice() && !$root.firstTime()">修改</a>
+</div>
+<div class="show_od">
+<span class="l_mag" data-bind="html:invoice().shortDesc()"></span>
+<!--<span class="l_mag peisongT">
+<span class="float_l colore999">温馨提示：</span>
+<span class="tt">
+发票金额为现金支付金额(扣除礼品卡余额、抵用券、返利金额等) <br />
+</span>
+</span>-->
+</div>
+<!-- ko if:editingInvoice -->
+<div class="show_od">
+<!-- ko with:$root.invoiceChooser -->
+<div class="table_od padding20_0">
+<ul class="pay_list">
+<li data-bind="click:$parent.select,css:{active:selectedInvoiceId()=='none'}" >
+<label>
+<input class="radio" name="selectedInvoice" value="none"  type="radio" data-bind="checked:selectedInvoiceId"/>
+</label>
+<label>不需要发票</label>
+</li>
+<!-- ko foreach:invoiceList -->
+<li data-bind="css:{active:$parent.selectedInvoiceId()==id()}" >
+<label>
+<input class="radio"  type="radio" name="selectedInvoice" data-bind="value:id,checked:$parent.selectedInvoiceId"/>
+</label>
+<span data-bind="click:$parent.select"><!-- ko text:invoiceTitle --><!-- /ko -->  <!-- ko text:invoiceContent --><!-- /ko --><!-- ko text:invoicePostAddress --><!-- /ko --></span>
+<a class="actionLink" data-bind="click:$parent.editInvoice,clickBubble:false">编辑</a>
+<a class="actionLink" data-bind="click:$parent.deleteInvoice,clickBubble:false">删除</a>
+</li>
+<!-- /ko -->
+<li data-bind="click:$parent.select,css:{active:selectedInvoiceId()=='newInvoice'}">
+<label>
+<input class="radio" name="selectedInvoice" value="newInvoice"  type="radio" data-bind="checked:selectedInvoiceId"/>
+</label>
+<span>使用新发票信息</span>
+</li>
+</ul>
+<table class="peison" cellpadding="5" data-bind="with:currentInvoice,visible:editFormVisible()">
+<tr>
+<td>
+发票抬头：
+</td>
+<td>
+<input  class="txt28" type="text" data-bind="value:invoiceTitle"/>
+</td>
+</tr>
+<tr>
+<td>
+发票内容：
+</td>
+<td>
+<select  class="sect"  data-bind="value:invoiceContent">
+<option value="明细">明细</option>
+<option value="办公用品">办公用品</option>
+<option value="电脑配件">电脑配件</option>
+<option value="耗材">耗材</option>
+</select>
+
+</td>
+</tr>
+
+</table>
+<!--     <div class="wxts">
+温馨提示：<br />
+1.您选择的时间可能会因为库存不足等多反面因素导致订单延迟，敬请谅解！<br />
+2.我们会在您选定提货日期的前一天处理您的订单，在此之前您的订单处于暂停状态.
+</div> -->
+<a class="od_btn"  data-bind="click:saveData">保存发票信息</a>
+</div>
+<!-- /ko -->
+</div>
+<!-- /ko --><!-- if:editingInvoice -->
+</div>
+<!--商品信息-->
+<div class="panl_order">
+<div class="step_tit">
+<span class="tt">商品信息</span>
+<a class="but2" data-bind="click:goCart">返回购物车修改</a>
+</div>
+
+</div>
+
+
+<div class="clear"></div>
+<!-- ko with:carts -->
+<div class="product">
+<div class="regionTo clearfix" data-bind="visible:!readOnly()">
+<div class="cart_tit">购物车</div>
+<a href="/" class="fr but">继续购物&nbsp;></a>
+</div>
+<div class="cartMain">
+<div class="cartTh">
+<div class="c_check">
+<div class="checkbox enableSelect" data-bind="css:{active:allChecked},click:toggle,visible:!readOnly()" >
+<i></i>
+</div><!--ko if:!readOnly()-->全选<!-- /ko -->&nbsp;
+
+</div>
+<div class="c_name">商品</div>
+<div class="c_attrs">规格属性</div>
+<div class="c_price">单价</div>
+<div class="c_num">数量</div>
+<div class="c_total">小计（元）</div>
+<div class="c_operate" data-bind="visible:!readOnly()">操作</div>
+</div>
+
+<!-- ko foreach: carts -->
+<ul class="cartTd" data-bind="visible:!($parent.readOnly() && (checkedNumber() == 0))">
+<div class="merchantHeader">
+<div class="checkbox fl" data-bind="css:{active:allChecked},click:toggle,visible:!$parent.readOnly()">
+<i></i>
+</div>
+<!--<span><a data-bind="attr:{href:'/shop/index.jsp?m=' + merchantId()}"><span data-bind="text:merchantName" class="merchantName"></span></a>-->
+<a data-bind="attr:{href:'/shop/index.jsp?m=' + merchantId()}" class="fl"><span class="merchantName" data-bind="text:merchantName">武商网跨境购</span></a>
+
+<div class="shop-coupon active" data-bind="visible:freeCardList().length>0">
+<div class="shop-coupon-tit" data-bind="click:showFreeCard"><em>领&nbsp;&nbsp;券</em><span class="arrow"></span></div>
+<!--领券层 -->
+<div class="shop-coupon-cont" data-bind="visible:freeCardShow">
+<span class="arrow"></span>
+<a class="close-x" data-bind="click:showFreeCard">close</a>
+<!--<div class="coupon-summary">已领取 <em>0</em> 张优惠券，有新优惠券可领取</div>-->
+<div class="coupon-list" data-bind="foreach:freeCardList">
+
+<!--<div class="item">-->
+<!--<div class="coupon-amount"><span class="rmb">&yen;</span><strong>20</strong></div>-->
+<!--<div class="coupon-detail">-->
+<!--<div class="coupon-info">-->
+<!--<p class="coupon-title">日常 20&nbsp;满219减20</p>-->
+
+<!--<p class="coupon-time">2016.08.07-2016.08.14</p>-->
+<!--</div>-->
+<!--<div class="coupon-op">-->
+<!--<span class="coupon-received">领取成功</span>-->
+<!--</div>-->
+<!--<div class="coupon-op">-->
+<!--<span class="coupon-btn">领 取</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+<div class="item">
+<div class="coupon-amount"><span class="rmb">&yen;</span><strong data-bind="text:money">20</strong></div>
+<div class="coupon-detail">
+<div class="coupon-info">
+<p class="coupon-title" data-bind="text:name">日常 20&nbsp;满219减20</p>
+
+<p class="coupon-time" data-bind="text:duration">2016.08.07-2016.08.14</p>
+</div>
+<div class="coupon-op">
+<span class="coupon-btn" data-bind="visible:!isGet,click:$parent.getFreeCard">领 取</span>
+<span class="coupon-received" data-bind="visible:isGet">领取成功</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<!--end 领券层 -->
+</div>
+
+
+
+</div>
+<!-- ko foreach:buyItems -->
+<!--ko if:isFreeGroupProduct -->
+<div class="taocanCont" data-bind="visible:!($parents[1].readOnly() && !checked())">
+<li class="taocanMt clearfix">
+<div class="c_check">
+<div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[1].readOnly()">
+<i></i>
+</div>
+
+</div>
+<div class="taocanSuit">
+<div class="taocanName">
+<span class="ttp">套餐</span>
+<a data-bind="text:productName,click:$parents[1].toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+</div>
+<div class="c_price">
+&yen;<!-- ko text:unitPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:integralPrice --><!--/ko-->积分
+<!--/ko-->
+</div>
+<div class="c_num">
+<span class="numbox midde">
+<a class="mins" data-bind="click:$root.minus,visible:!$parents[1].readOnly()"></a>
+<input data-bind="value:acceptedNumber"/>
+<a class="add" data-bind="click:$root.add,visible:!$parents[1].readOnly()"></a>
+</span>
+</div>
+<div class="c_total">
+<p class="textPrimary">
+&yen;<!-- ko text:totalPayPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+<!--/ko-->
+</p>
+</div>
+<div class=" c_operate" data-bind="visible:!$parents[1].readOnly()">
+<span class="midde">
+<a data-bind="click:$root.remove">删除</a>
+</span>
+</div>
+</div>
+</li>
+<!-- ko foreach:combiItems -->
+<li class="taocanItem">
+<div class="c_check">
+<div class="checkbox">
+<i></i>
+</div>
+<div class="img_view">
+<img data-bind="attr:{src:icon}"/>
+</div>
+</div>
+<div class="c_name">
+<a data-bind="text:productName,click:$parents[2].toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+</div>
+<div class="c_price">
+&yen;<!-- ko text:totalPayPrice --><!-- /ko -->
+</div>
+<div class="c_num">
+<!-- ko text:number --><!-- /ko -->件/套
+</div>
+<div class="c_total">
+<p class="textPrimary cor333">
+</p>
+</div>
+<div class=" c_operate">
+</div>
+</li>
+<!-- /ko --><!-- for combiItems -->
+</div>
+<!--/ko-->
+<!--ko if:!isFreeGroupProduct -->
+<li data-bind="visible:!($parents[1].readOnly() && !checked())">
+<div class="c_check">
+<div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[1].readOnly()">
+<i></i>
+</div>
+<div class="img_view">
+<img data-bind="attr:{src:icon}"/>
+</div>
+</div>
+<div class="c_name">
+<a data-bind="text:productName,click:$parents[1].toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+<!-- ko if:(hasMultiSkus && !$parents[1].readOnly()) -->
+&nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+<!-- /ko -->
+</div>
+<div class="c_price">
+¥<!-- ko text:unitPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:integralPrice --><!--/ko-->积分
+<!--/ko-->
+</div>
+<div class="c_num">
+<span class="numbox midde">
+<a class="mins" data-bind="click:$root.minus,visible:!$parents[1].readOnly()"></a>
+<input data-bind="value:acceptedNumber"/>
+<a class="add" data-bind="click:$root.add,visible:!$parents[1].readOnly()"></a>
+</span>
+</div>
+<div class="c_total">
+<p class="textPrimary">
+¥<!-- ko text:totalPayPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+<!--/ko-->
+</p>
+</div>
+<div class=" c_operate" data-bind="visible:!$parents[1].readOnly()">
+<span class="midde">
+<a data-bind="click:$root.remove">删除</a>
+</span>
+</div>
+<div class="clear"></div>
+<div class="giftWrap">
+<!-- ko foreach:userFriendlyMessages -->
+<div class="item normal">
+<span>
+<!-- ko text:actionType --><!-- /ko -->
+<i></i>
+</span>
+<a data-bind="html:msg"></a>
+<!--<a class="actionLink" data-bind="click:$parent.chooseRules,visible:!$parents[2].readOnly()">修改优惠</a>-->
+</div>
+<!-- /ko -->
+
+<!-- ko foreach: freePresents -->
+<div class="item normal">
+<span>赠品<i></i>
+</span>
+<a data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a> x<!-- ko text:number --><!-- /ko -->
+</div>
+<!-- /ko --><!-- foreach: freePresents -->
+<!-- ko foreach:lowPricePresentRuleResults -->
+<!-- ko if:selectedPresents.length==0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<a data-bind="text:rule.name"></a>
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+选择商品
+</a>
+</div>
+<!-- /ko -->
+
+<!-- ko if:selectedPresents.length>0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<!-- ko foreach: selectedPresents -->
+<a href="" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank" ></a> x<!-- ko text:number --><!-- /ko -->
+<!-- /ko --><!--foreach: selectedPresents-->
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+重选
+</a>
+</div>
+<!-- /ko --><!-- if:selectedPresents.length>0  -->
+
+<!-- /ko --> <!--foreach:lowPricePresentRuleResults-->
+
+<!-- ko foreach:orderInclusiveRules -->
+<div class="item normal">
+<span>全单活动<i></i></span>
+<a data-bind="html:name"></a>
+</div>
+<!-- /ko -->
+</div>
+</li>
+<!--/ko-->
+<!-- /ko --><!-- for buyItems -->
+</ul>
+<!-- 现在开始订单级别的活动 -->
+<!-- ko foreach:orderRuleTargets -->
+<div class="tip" data-bind="visible:$parent.checkedNumber()>0">
+<span class="ttp"><i></i>
+<!-- ko text:ruleResult.actionType--><!-- /ko -->
+</span>
+<span class="fl ttpDesc" data-bind="html:userFriendlyMessages"></span>
+<!-- ko if:isLowPricePresentRule -->
+<a class="but exchangeBtn" data-bind="click:chooseLowPriceBuyPresents" >加价购商品</a>
+<div class="clear"></div>
+<div class="otherGoodsList">
+<ul>
+<!-- ko foreach: selectedlowPricePresents -->
+<li class="clearfix">
+<span class="title">[加购商品]</span><a class="name fl" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a>
+X<span class="presentNumber" data-bind="text:number"></span>
+</li>
+<!-- /ko --> <!-- foreach: selectedlowPricePresents -->
+</ul>
+</div>
+<!-- /ko --> <!-- if:isLowPricePresentRule -->
+
+<!-- ko if:isFreePresentRule -->
+<div class="clear"></div>
+<div class="otherGoodsList">
+<ul>
+<!-- ko foreach: freePresents -->
+<li class="clearfix">
+<span class="title">[赠品]</span><a class="name fl" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a>
+X<span class="presentNumber" data-bind="text:number"></span>
+</li>
+<!-- /ko --> <!-- foreach: freePresents -->
+</ul>
+</div>
+<!-- /ko --> <!-- if:isFreePresentRule -->
+<div class="clear"></div>
+</div>
+<!--订单级别-->
+<ul class="cartTd">
+<!-- ko foreach:items -->
+<li data-bind="visible:!($parents[2].readOnly() && !checked())">
+<div class="c_check">
+<div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[2].readOnly()">
+<i></i>
+</div>
+<div class="img_view">
+<img data-bind="attr:{src:icon}"/>
+</div>
+</div>
+<div class="c_name">
+<a data-bind="text:productName,click:$root.toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+<!-- ko if:(hasMultiSkus && !$parents[2].readOnly()) -->
+&nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+<!-- /ko -->
+</div>
+<div class="c_price">
+¥<!-- ko text:unitPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:integralPrice --><!--/ko-->积分
+<!--/ko-->
+<!-- ko if:(!$parents[2].readOnly()) -->
+<br>
+<a class="youhui" data-bind="click:chooseOrderRule">更多优惠</a>
+<!-- /ko -->
+</div>
+<div class="c_num">
+<span class="numbox midde">
+<a class="mins" data-bind="click:$root.minus,visible:!$parents[2].readOnly()"></a>
+<input data-bind="value:acceptedNumber"/>
+<a class="add" data-bind="click:$root.add,visible:!$parents[2].readOnly()"></a>
+</span>
+</div>
+<div class="c_total">
+<p class="textPrimary">
+¥<!-- ko text:totalPayPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+<!--/ko-->
+</p>
+</div>
+<div class=" c_operate">
+<span class="midde" data-bind="visible:!$parents[2].readOnly()">
+<a data-bind="click:$root.remove">删除</a>
+</span>
+</div>
+<div class="clear"></div>
+<div class="giftWrap">
+<!-- ko foreach:userFriendlyMessages -->
+<div class="item normal">
+<span>
+<!-- ko text:actionType --><!-- /ko -->
+<i></i>
+</span>
+<a data-bind="html:msg"></a>
+</div>
+<!-- /ko -->
+
+<!-- ko foreach: freePresents -->
+<div class="item normal">
+<span>赠品<i></i>
+</span>
+<a data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a> x<!-- ko text:number --><!-- /ko -->
+</div>
+<!-- /ko --><!-- foreach: freePresents -->
+<!-- ko foreach:lowPricePresentRuleResults -->
+<!-- ko if:selectedPresents.length==0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<a data-bind="text:rule.name"></a>
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+选择商品
+</a>
+</div>
+<!-- /ko -->
+
+<!-- ko if:selectedPresents.length>0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<!-- ko foreach: selectedPresents -->
+<a href="" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank" ></a> x<!-- ko text:number --><!-- /ko -->
+<!-- /ko --><!--foreach: selectedPresents-->
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+重选
+</a>
+</div>
+<!-- /ko --><!-- if:selectedPresents.length>0  -->
+
+<!-- /ko --> <!--foreach:lowPricePresentRuleResults-->
+
+<!-- ko foreach:orderInclusiveRules -->
+<div class="item normal">
+<span>全单活动<i></i></span>
+<a data-bind="html:name"></a>
+</div>
+<!-- /ko -->
+</div>
+</li>
+<!-- /ko --><!-- for buyItems -->
+</ul>
+<!-- /ko --><!-- foreach:orderRuleTargets -->
+<!-- /ko --><!-- for carts -->
+
+<!-- 去结算 -->
+<div class="upjiesuan" data-bind="visible:!readOnly()">
+<div class="options">
+<div class="checkbox" data-bind="css:{active:allChecked},click:toggle">
+<i></i>
+</div>全选
+</div>
+<div class="fr btn_area"><a href="#" data-bind="click:checkOut">去结算</a></div>
+<div class="fr price_sum">
+<div>
+<span class="txt">总价（不含运费）：</span>
+<span class="price sumPrice">&yen;<b data-bind="text:totalPayPrice()">259.00</b>
+<!--ko if:totalIntegralPrice() > 0 -->
++<b data-bind="text:totalIntegralPrice()"></b>积分
+<!-- /ko-->
+</span>
+</div>
+</div>
+<div class="fr amount_sum">已选择<b data-bind="text:checkedNumber">6</b>件商品/</div>
+</div>
+<!-- end 去结算 -->
+</div>
+</div>
+<!-- /ko -->
+<!--商品信息-->
+<div class="clear"></div>
+<div class="panl_order">
+<div class="beizhu">
+备注：
+<input type="text" data-bind="value:memo" class="put"/>
+</div>
+</div>
+<div class="order_coupon">
+<!-- ko if:supportIntegral -->
+<!-- ko with:pluginItems.integralPay -->
+<div class="item" data-bind="css:{active:detailVisible}">
+<div class="tit" data-bind="click:toggle">
+<span class="os_ico"></span>使用积分
+</div>
+<div class="panle" data-bind="visible:detailVisible">
+<div class="jf_panl">
+<span class="jf_left">
+当前可使用积分 <b class="colore14041" data-bind="text:integralBalance"></b>，
+可抵扣<b class="colore14041">￥<span data-bind="text:canUseMoney"></span></b>元
+</span>
+<!-- ko if:!confirmed() -->
+<span class="jf_right">用积分抵扣：<input class="put" data-bind="value:useMoney"/>元</span>
+<!-- /ko -->
+<!-- ko if:confirmed() -->
+
+<span class="jf_right">使用积分抵扣：<span data-bind="text:useMoney"></span>元
+<a style="margin-left:30px; color:blue; cursor: pointer" data-bind="click:edit">修改</a>
+</span>
+<!-- /ko -->
+</div>
+<!-- ko if:!confirmed() -->
+<div class="btnbox">
+<a class="od_btn" style="margin-left:30px;" data-bind="click:setUseMoney">确认</a>
+</div>
+<!-- /ko -->
+</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- ko if:supportPreDeposit -->
+<!-- ko with:pluginItems.preDeposit -->
+<div class="item" data-bind="css:{active:detailVisible}">
+<div class="tit" data-bind="click:toggle">
+<span class="os_ico"></span>使用预存款
+</div>
+<div class="panle" data-bind="visible:detailVisible">
+<div class="jf_panl">
+<span class="jf_left">
+当前可使用预存款 <b class="colore14041" data-bind="text:depositBalance"></b>，
+可抵扣<b class="colore14041">￥<span data-bind="text:canUseMoney"></span></b>元
+</span>
+<!-- ko if:!confirmed() -->
+<span class="jf_right">用预存款抵扣：<input class="put" data-bind="value:useMoney"/>元</span>
+<!-- /ko -->
+<!-- ko if:confirmed() -->
+
+<span class="jf_right">使用预存款抵扣：<span data-bind="text:useMoney"></span>元
+<a style="margin-left:30px; color:blue; cursor: pointer" data-bind="click:edit">修改</a>
+</span>
+<!-- /ko -->
+</div>
+<!-- ko if:!confirmed() -->
+<div class="btnbox">
+<a class="od_btn" style="margin-left:30px;" data-bind="click:setUseMoney">确认</a>
+</div>
+<!-- /ko -->
+</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- ko if:supportTicket -->
+<!-- ko with:pluginItems.useTicket -->
+<div class="item" data-bind="css:{active:detailVisible}">
+<div class="tit" data-bind="click:toggle" style="color: #e60000;">
+<span class="os_ico"></span>使用优惠券
+</div>
+<div class="user_card user_coupon" data-bind="visible:detailVisible">
+<table width="90%" cellpadding="0" cellspacing="0">
+<tr>
+<th align="left" width="100">&nbsp;
+</th>
+<th width="310">
+面值
+</th>
+<th width="135">
+可用张数
+</th>
+<th width="135">
+类别
+</th>
+<th>
+有效期
+</th>
+</tr>
+<!-- ko foreach:maxAvailableCardBatches -->
+<tr>
+<td align="left">
+<input type="checkbox" data-bind="checkedValue:$data,checked:checked,disable:disabled">
+</td>
+<td>
+￥<!-- ko text:faceValue --><!-- /ko -->
+</td>
+<td>
+<span><select data-bind="options:options,value:selectedNumber"></select></span>
+</td>
+<td data-bind="text:name">
+</td>
+<td>
+<span data-bind="text:begin"></span>-<span data-bind="text:end"></span>
+</td>
+</tr>
+<!-- /ko -->
+<!-- ko if:noAvailableCards -->
+<tr>
+<td colspan="7">本次支付没有可用的优惠券。</td>
+</tr>
+<!-- /ko -->
+</table>
+<div class="v_tit">
+共使用了<span data-bind="text:totalUsedNumber"></span>张优惠券，可以优惠<span data-bind="text:totalUsedMoney"></span>元
+</div>
+</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+</div>
+
+<div class="order_summary">
+<div class="statistic">
+<ul>
+<li><span>商品金额：￥<em class="price" data-bind="text:totalOrderProductPrice"></em>元
+<!-- ko if:totalIntegralPrice() > 0-->
++<em class="price" data-bind="text:totalIntegralPrice"></em>积分
+<!-- /ko-->
+</span></li>
+<li><span>配送费：￥<em class="price" data-bind="text:totalDeliveryFee"></em>元</span></li>
+<li><span>优惠：-￥<em class="price" data-bind="text:totalDiscount()"></em>元</span></li>
+<!-- ko foreach:payRecs -->
+<li><span><!-- ko text:name -->优惠：<!-- /ko -->-￥<em class="price"
+data-bind="text:money"></em>元</span>
+</li>
+<!-- /ko -->
+</ul>
+</div>
+
+</div>
+<div class="order_total">
+<a class="od_btn fr pay" data-bind="click:addOrder,text:addOrderState">提交订单</a>
+
+<div class="price">您需要为订单支付:<em class="c_e60000">
+￥<span data-bind="text:leftPayAmount"></span>元
+<!-- ko if:totalIntegralPrice() > 0-->
++<span data-bind="text:totalIntegralPrice"></span>积分
+<!-- /ko-->
+</em>
+</div>
+
+</div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<%=#importUrl("/cartFooter.html")%>
+
+<!-- 提示框 -->
+<div class="msgPanel shanchu" id="confirmDialog">
+<div class="hd">提示 <i class="close" data-bind="click:cancel"></i></div>
+<div class="bd">
+<div class="schu_con">
+<i class="sc_icon"></i>
+<h2 data-bind="text:message">删除商品？</h2>
+</div>
+
+<div class="btnBox">
+<a class="od_btn ml10" data-bind="click:ok">确定</a>
+<a class="odgray_btn" data-bind="click:cancel">取消</a>
+</div>
+</div>
+</div>
+<!-- end 提示框 -->
+<script src="/buyflowApp/loadOrderForm.jsx"></script>
+<script>
+AppConfig.cartUrl = "/cart.html";
+AppConfig.payUrl = "/payOrders.html";
+AppConfig.cartUrl = "/cart.html";
+AppConfig.spec = "80X80";
+AppConfig.mobile = "<%=mobile%>";
+</script>
+</body>
+</html></div>

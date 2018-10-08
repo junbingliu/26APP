@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script>var m = '{{=it.merchantId}}';</script>
+    <script type="text/javascript" src="@{res/js/modelList.js}@"></script>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<div id="newModel" style="margin-top: 69px">
+    <form class="form-inline" role="search">
+        <div class="form-group">
+            <label class="sr-only">商品分类</label>
+            <input id="columnId" type="text" class="form-control" id="title" placeholder="商品分类">
+        </div>
+        <button type="button" class="btn btn-default" id="search">搜 索</button>
+    </form>
+    <div>
+        <a class="btn btn-default" data-toggle="modal" data-target="#addModel">新建模板</a>
+    </div>
+    <div class="row-fluid">
+        <div id="record_list" class="record_list span12">
+        </div>
+    </div>
+
+    <!--分页部分-->
+    <div class="row-fluid">
+        <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+            <div class="pagination" style="margin: 0; ">
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title">
+                        模板编辑
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                            <label class="control-label" style="padding-top: 0px;">商品类别ID:</label>
+                        <div>
+                            <input class="form-control" id="columnIds" data-bind="value:columnIds" style="width: 538px" placeholder="商品分类id，如:c_10000"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label" style="padding-top: 0px;">提示语1</label>
+                        <div>
+                            <input class="form-control" id="statement1" data-bind="value:statement1" style="width: 538px"/>
+                        </div>
+                    </div>
+                    <div  class="form-group">
+                            <label class="control-label" style="padding-top: 0px;">提示语2:</label>
+                        <div>
+                            <input class="form-control" id="statement2" data-bind="value:statement2" style="width: 538px"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label" style="padding-top: 0px;">提示语3：</label>
+                        <div>
+                            <input class="form-control" id="statement3" data-bind="value:statement3" style="width: 538px"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="padding-top: 0px;">提示语4：</label>
+                        <div>
+                            <input class="form-control" id="statement4" data-bind="value:statement4" style="width: 538px"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="padding-top: 0px;">提示语5：</label>
+                        <div>
+                            <input class="form-control" id="statement5" data-bind="value:statement5" style="width: 538px"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-default" data-bind="click:addModel">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{#inc("pages/include_base.jsx")}}
+    <script>
+        var merchantId = '{{merchantId}}';
+        var logId = '{{logId}}';
+    </script>
+    <script type="text/javascript" src="@{res/js/logView.js}@"></script>
+</head>
+<body>
+{{#inc("pages/include_navbar.jsx")}}
+<div class="container" id="dataPanel" style="margin-top:60px">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="javascript:;" class="list-group-item disabled">最近10次的修改记录</a>
+                {{each recordList as value i}}
+                    {{if i == 0}}
+                        <a href="javascript:;" class="importLog list-group-item active" data-a="{{value.id}}">{{value.executeTime}} {{value.operatorUserName}}</a>
+                    {{else}}
+                        <a href="javascript:;" class="importLog list-group-item" data-a="{{value.id}}">{{value.executeTime}} {{value.operatorUserName}}</a>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <a class="btn btn-success btn-sm" href="javascript:;" id="refreshLogDetail" data-a="{{logId}}">刷 新</a>
+            <br>
+            <br>
+            <div id="logDetail"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

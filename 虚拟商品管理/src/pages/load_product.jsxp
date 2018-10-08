@@ -1,0 +1,54 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-striped table-bordered table-over" id="record_table">
+    <thead>
+    <tr>
+        <th width="60px;">图片</th>
+        <th width="100px;">商品ID</th>
+        <th width="200px;">商品名称</th>
+        <th width="120px;">关联卡批次</th>
+        <th width="140px;">分类</th>
+        <th width="80px;">上架状态</th>
+        <th width="80px;">市场价</th>
+        <th width="80px;">现价</th>
+        <th width="100px;">实际库存</th>
+        <th width="100px;">可卖数</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.recordList:value:index}}
+    <tr>
+        <td ><img src="{{=value.logo}}"/> </td>
+        <td >{{=value.productId}}</td>
+        <td >{{=value.name}}</td>
+        <td >{{=value.cardBatchId}}</td>
+        <td >{{=value.columnPath}}</td>
+        <td >
+            {{? value.publishState == '1'}}
+            <span class="label label-success">已上架</span>
+            {{??}}
+            <span class="label label-default">已下架</span>
+            {{?}}
+        </td>
+        <td >{{=value.marketPrice}}</td>
+        <td style="color: #F65327;">{{=value.memberPrice}}</td>
+        <td >{{=value.realAmount}}</td>
+        <td >{{=value.sellableCount}}</td>
+        <td>
+            {{? value.publishState == '1'}}
+            <a class="btn btn-danger btn-sm OnShelf" id="downShelf" href="javascript:;" data-id="{{=value.productId}}" data-a="0">下架</a>
+            {{??}}
+            <a class="btn btn-success btn-sm OnShelf" id="onShelf" href="javascript:;" data-id="{{=value.productId}}" data-a="1">上架</a>
+            {{?}}
+            <a class="btn btn-default btn-sm editBtn" href="javascript:void(0)" data-id="{{=value.productId}}" >修改</a>
+
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

@@ -1,0 +1,27 @@
+<div class="dialog"  id="lowPricePresentSelector" style="display:none">
+    <div class="highlightText">您共可以选择<span data-bind="text:allowedNumber"></span>件赠品,还剩余<span data-bind="text:remainNumber"></span>件赠品。</div>
+    <table class="presentTable">
+        <tbody data-bind="foreach:presents" >
+            <tr>
+                <td width="30px"><input type="checkbox" data-bind="checked:checked"></td>
+                <td width="50px"><img data-bind="attr:{src:icon}"></td>
+                <td width="300px">
+                    <span data-bind="text:name"></span>
+                    <p>
+                        ￥<span data-bind="text:price"></span>
+                    </p>
+                </td>
+                <td>
+                    <p class="amount unSelecctable" >
+                        <div data-bind="click:$root.minus" style="display: inline-block; border: 1px solid #dddddd; margin-right:3px" ><div style="padding:3px 4px 3px 4px;cursor: pointer" unselectable="on" class="unSelecctable">-</div></div>
+                        <input type="text" data-bind="value:selectedNumber" style="display:inline-block;width:46px;text-align: center" readonly>
+                        <div data-bind="click:$root.add" style="display: inline-block;border: 1px solid #dddddd; margin-left:3px"><div style="padding:3px;cursor: pointer " unselectable="on" class="unSelecctable">+</div></div>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="margin-left:30px">
+        <span class="buttonOk" data-bind="click:ok">确定</span> &nbsp; <span class="btnCancel">取消</span>
+    </div>
+</div>

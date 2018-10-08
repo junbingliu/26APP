@@ -1,0 +1,31 @@
+
+
+<div class="messagePanelHd">订单支付，订单号<%=order ? order.aliasCode : ''%> <i class="closeBtn"></i></div>
+<div class="messagePanelBd">
+    <div class="hd">
+        <div id="pay_box">
+            <%if(paymentCount == 0){%>
+            <div style="width:550px;color:#CC0000;height:24px;padding:10px 0px 0px 20px;">对不起，没有可用的支付方式。</div>
+            <%}else{%>
+            <div class="clearfix">
+                <h4 style="font-size: 14px;">个人帐户支付:</h4>
+                <div class="box1">
+                    <ul>
+                        <%for(var i=0;i < payments.length;i++){%>
+                        <%var payment = payments[i],payInterface = payment.payInterface;%>
+                        <%if(payInterface.id != "payi_201" && payInterface.id != "payi_119" && payInterface.isMobile != 'Y'){%>
+                        <li>
+                            <a href="javascript:;" onclick="_goTo('<%=payment.id%>','<%=orderId%>','<%=payInterface.id%>');" title="<%=payment.paymentName%>">
+                                <img src="<%=payInterface.logoUrl%>" alt="<%=payment.paymentName%>" width="140" height="40"/>
+                            </a>
+                        </li>
+                        <%}%>
+                        <%}%>
+                    </ul>
+                </div>
+            </div>
+
+            <%}%>
+        </div>
+    </div>
+</div>

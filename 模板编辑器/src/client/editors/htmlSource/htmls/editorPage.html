@@ -1,0 +1,27 @@
+<div class="page modal" id="SourceEditor" >
+    <style>
+        .modal-header{background: #353535;padding: 8px}
+        .modal-title{color: #ffffff}
+        .modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+        .modal-header .close{opacity: 0.8;color: #ffffff}
+        .modal-body{background: #F1F1F1;padding-bottom: 5px}
+        .panel{margin-bottom: 10px}
+        .selected{background: bisque}
+    </style>
+    <div class="modal-dialog" style="width: 800px">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:returnMainFrame">×</button>
+                <h5 class="modal-title">源码</h5>
+            </div>
+            <div class="modal-body" style="height:300px">
+               <textarea style="width:98%;height:98%" data-bind="value:source"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:returnMainFrame">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+

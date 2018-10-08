@@ -1,0 +1,9 @@
+<link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="@{res/css/bootstrap-datetimepicker.min.css}@" rel="stylesheet">
+<script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/resources/bootbox.min.js"></script>
+<script type="text/javascript" src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/resources/layer/layer.min.js"></script>
+<script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.min.js"></script>
+<script type="text/javascript" src="@{res/lib/bootstrap-datetimepicker.js}@" charset="UTF-8"></script>
+<script type="text/javascript" src="@{res/lib/bootstrap-datetimepicker.zh-CN.js}@" charset="UTF-8"></script>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script>var m = '{{=it.merchantId}}';</script>
+    <script type="text/javascript" src="@{res/js/trialReportList.js}@"></script>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<form class="form-inline" role="search">
+    <div id="goodProductList" style="margin-top: 69px">
+        <input type="hidden" id="activeId" value="{{=it.activeId}}">
+        <div class="form-group">
+            <label>商品:</label>
+            <select id="selectL" class="form-control" style="width: 150px;height: 34px;font-size: 12px">
+                <option value="">全部</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>审核状态:</label>
+            <select class="form-control" style="width: 100px;height: 34px;font-size: 12px" id="state">
+                <option value="">全部</option>
+                <option value="-1">审核未通过</option>
+                <option value="1">审核通过</option>
+                <option value="0">未审核</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-default" id="search">搜 索</button>
+        <br>
+        导出文件名称：<input id="exportName"/>
+        <button type="button" class="btn btn-default" id="export">导出名单</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1" id="getHistory"
+                data-a="applicationProductExport">导出历史
+        </button>
+</form>
+
+<div class="row-fluid">
+    <div id="record_list" class="record_list span12">
+    </div>
+</div>
+
+<!--分页部分-->
+<div class="row-fluid">
+    <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+        <div class="pagination" style="margin: 0; ">
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">
+                    导出历史列表
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-condensed table-bordered table-hover">
+                    <thead>
+                    <th>文件名</th>
+                    <th>导出时间</th>
+                    <th>操作</th>
+                    </thead>
+                    <tbody id="historyList">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <input id="examineId" type="hidden"/>
+                <input id="isPass" type="hidden">
+                <h4 class="modal-title">
+                    审核备注填写
+                </h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="examineReason"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button class="btn btn-default" id="update">提交审核</button>
+            </div>
+        </div>
+    </div>
+</div>

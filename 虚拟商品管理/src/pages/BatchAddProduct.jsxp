@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css" >
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script src="/resources/plugin/layer-v1.7.1/layer.min.js"></script>
+    <script>
+        var merchantId='{{=it.merchantId}}'
+    </script>
+    <script src="@{js/BatchAddProduct.js}@"></script>
+
+</head>
+<body>
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+
+        <form id="importDataForm" class="form form-horizontal" role="form" action="BatchAddProduct_handler.jsx?m={{=it.merchantId}}" method="post"
+              enctype="multipart/form-data" target="submit_data_frame">
+            <div class="well">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>选择文件:</label>
+                    <div class="col-sm-10">
+                        <input type="file" id="importFileId" name="importFileId" required>
+                        <input type="hidden" name="merchantId" value="{{=it.merchantId}}" id="merchantId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>商品名称所在列</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="findProductNameIndex" value="1" style="width: 60px;display: inline-block">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>卡批次</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="findCardBatchIdIndex" value="2" style="width: 60px;display: inline-block">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>渠道</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="findChannelIndex" value="3" style="width: 60px;display: inline-block">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>市场价所在列</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="findMarketPriceIndex" value="4" style="width: 60px;display: inline-block">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>现价/会员价所在列</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="findMemberPriceIndex" value="5" style="width: 60px;display: inline-block">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <span class="help-block" style="display: inline-block">说明：这里约定Excel的列是从1开始</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group" style="margin: 0 0 0 10px;">
+                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span> 相关参数设置
+                    <hr class="titleHr">
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">正式数据所在行</label>
+                    <div class="col-sm-10">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>从</label>
+                                <input type="text" class="form-control" name="dataBeginLine" value="2" style="width: 60px;">
+                            </div>
+                            <div class="form-group" style="margin-left: 15px;">
+                                <label>至</label>
+                                <input type="text" class="form-control" name="dataEndLine" value="-1" style="width: 60px;">
+                            </div>
+                            <div class="form-group" style="margin-left: 15px;">
+                                <span class="help-block" style="float: left;">说明：这里约定Excel的行是从1开始，-1表示最后一行</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">当有两条重复数据时如何操作:</label>
+                    <div class="col-sm-10">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="doIfImageExist" value="0" checked> 跳过，不做任何操作只给出提示。
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="doIfImageExist" value="1"> 覆盖。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <button id="submit_form" type="submit" class="btn btn-primary">开始上传</button>
+                    </div>
+                </div>
+                <iframe name='submit_data_frame' id="submit_data_frame" style="display: none;"></iframe>
+            </div>
+        </form>
+</div>
+</body>
+</html>

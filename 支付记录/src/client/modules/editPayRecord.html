@@ -1,0 +1,50 @@
+<div id="editPayRecordPage" class="page">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    支付记录
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="outerId">支付单号</label>
+                            <input type="text" class="form-control" readonly data-bind="value:payRecord().outerId">
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentName">支付方式</label>
+                            <input type="text" class="form-control" readonly data-bind="value:payRecord().paymentName">
+                        </div>
+                        <div class="form-group">
+                            <label for="needPayMoneyAmount">支付金额</label>
+                            <input type="text" class="form-control" readonly data-bind="value:payRecord().needPayMoneyAmount">
+                        </div>
+                        <div class="form-group">
+                            <label for="payState">支付状态&nbsp;</label>
+                            <select data-bind="value:payState">
+                                <option value="uncertain">未支付</option>
+                                <option value="paid">已支付</option>
+                                <option value="failed">支付失败</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="payState">支付流水号&nbsp;</label>
+                            <input type="text" size="32" id="transactionSn" name="transactionSn" data-bind="value:transactionSn">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="needPayMoneyAmount">已支付金额</label>
+                            <input type="text" class="form-control" data-bind="value:paidMoneyAmount">
+                        </div>
+
+                        <button type="button" class="btn btn-default" data-bind="click:update">保存</button>&nbsp;
+                        <button type="button" class="btn btn-default" data-bind="click:toList">返回列表</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

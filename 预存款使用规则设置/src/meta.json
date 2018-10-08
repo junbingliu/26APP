@@ -1,0 +1,7 @@
+{
+    "libs_namespace": "PreDepositRuleSetting",
+    "libs": ["services/PreDepositRuleSettingService.jsx"],
+    "obj_prefixes": ["PreDepositRuleSetting"],
+    "list_prefixes": ["PreDepositRuleSetting"]
+
+}

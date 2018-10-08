@@ -1,0 +1,161 @@
+/* Created by Qianglong Mo 2015 */
+
+
+/* Address manage */
+.AddressCont{
+    background: #fcfcfc;
+    border: 1px solid #e7e7e7;
+    padding: 27px 30px;
+}
+.AddressCont p span{
+    color: #e04040;
+    padding-right: 5px;
+    vertical-align: middle;
+    position: relative;
+    top: 1px;
+}
+.AddressCont p{
+    line-height: 28px;
+    color: #555;
+    padding-right: 5px;
+    font-size: 14px;
+    padding-bottom: 8px;
+}
+.InputAddress .Add-btn{
+    font-size: 14px;color:#fefefe;
+    padding: 4px 15px;
+    border-top: 1px #f0a0a0 solid;
+    border-bottom: 1px #c11f1f solid;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.InputAddress .Iname{
+    width: 128px;
+    padding-left: 10px;
+    margin-left: 20px;
+    vertical-align: middle;
+}
+.InputAddress .input{
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #d9d9d9;
+    padding-left: 10px;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.InputAddress .input:focus{
+    color: #666;
+    border-color: #e04040;
+}
+.InputAddress .select-address{
+    height: auto;
+    line-height: normal;
+    padding-left: 7px;
+    margin-left: 14px;
+    vertical-align: middle;
+}
+
+.InputAddress .select-address:focus {
+    border-color: #d9d9d9;
+    outline: none;
+}
+.InputAddress .Detailed-addres{
+    width: 338px;
+    margin-left: 18px;
+    vertical-align: middle;
+}
+.InputAddress .phone-number{
+    margin-left: 18px;
+    vertical-align: middle;
+    width: 140px;
+}
+.InputAddress .hdtelephone{
+    margin-left: 20px;
+    vertical-align: middle;
+    width: 51px;
+}
+.InputAddress .telephonecont{
+    vertical-align: middle;
+    width: 153px;
+}
+.InputAddress .panla{
+    color: #1e589d;
+    font-size: 12px;
+    text-decoration:underline;
+    padding-left: 10px;
+}
+
+.InputAddress .default-address{
+    vertical-align: middle;
+    margin-left: 103px;
+}
+.InputAddress .addressBase{
+    margin-left:103px;
+}
+.InputAddress .default-address span{
+    position: relative;
+    top: 3px;
+    font-size: 12px;
+    left: -7px;
+}
+.InputAddress .addressBase .cancel-btn{
+    background: #f9f9f9 !important;
+    border: 1px solid #d1d1d1;
+    color: #555;
+    margin-left: 6px;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.InputAddress .addressBase .cancel-btn:hover{
+    color:#c11f1f;
+    border: 1px solid #c11f1f;
+}
+.MyAddress .AddressList ul .list{
+    border: 1px #e7e7e7 solid;
+    padding:27px 0;
+    background: #fcfcfc;
+    position: relative;
+    font-size: 14px;
+    color: #555;
+}
+.MyAddress .AddressList li p{
+    padding: 3px 0 3px 41px;
+}
+
+.MyAddress .AddressList ul li ul{
+    position: absolute;
+    left: 89%;
+    top:18px;
+}
+.MyAddress .AddressList ul li ul li{
+    font-size: 12px;
+    padding-bottom:8px;
+}
+.MyAddress .AddressList ul li ul li a{
+    color: #555;
+}
+.MyAddress .AddressList ul li ul li a:hover{
+    color: #1e589c;
+}
+.MyAddress .AddressList .active{
+     margin-top: 26px;
+    background: #fcf6f6 !important;
+    border: 1px #f7dfdf solid!important;
+ }
+.MyAddress .AddressList .active ul{
+    top: 30px;
+}
+.MyAddress .AddressList .active .activehd{
+    position: absolute;
+    top:-23px;
+    color:#e04040;
+}

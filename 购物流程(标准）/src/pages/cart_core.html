@@ -1,0 +1,426 @@
+        <div class="regionTo clearfix" data-bind="visible:!readOnly()">
+            <div class="cart_tit">购物车</div>
+            <a href="/" class="fr but">继续购物&nbsp;></a>
+        </div>
+        <div class="cartMain">
+            <div class="cartTh">
+                <div class="c_check">
+                    <div class="checkbox enableSelect" data-bind="css:{active:allChecked},click:toggle,visible:!readOnly()" >
+                        <i></i>
+                    </div><!--ko if:!readOnly()-->全选<!-- /ko -->&nbsp;
+
+                </div>
+                <div class="c_name">商品</div>
+                <div class="c_attrs">规格属性</div>
+                <div class="c_price">单价</div>
+                <div class="c_num">数量</div>
+                <div class="c_total">小计（元）</div>
+                <div class="c_operate" data-bind="visible:!readOnly()">操作</div>
+            </div>
+
+            <!-- ko foreach: carts -->
+            <ul class="cartTd" data-bind="visible:!($parent.readOnly() && (checkedNumber() == 0))">
+                <div class="merchantHeader">
+                    <div class="checkbox fl" data-bind="css:{active:allChecked},click:toggle,visible:!$parent.readOnly()">
+                        <i></i>
+                    </div>
+                    <!--<span><a data-bind="attr:{href:'/shop/index.jsp?m=' + merchantId()}"><span data-bind="text:merchantName" class="merchantName"></span></a>-->
+                    <a data-bind="attr:{href:'/shop/index.jsp?m=' + merchantId()}" class="fl"><span class="merchantName" data-bind="text:merchantName">武商网跨境购</span></a>
+
+                    <div class="shop-coupon active" data-bind="visible:freeCardList().length>0">
+                        <div class="shop-coupon-tit" data-bind="click:showFreeCard"><em>领&nbsp;&nbsp;券</em><span class="arrow"></span></div>
+                        <!--领券层 -->
+                        <div class="shop-coupon-cont" data-bind="visible:freeCardShow">
+                            <span class="arrow"></span>
+                            <a class="close-x" data-bind="click:showFreeCard">close</a>
+                            <!--<div class="coupon-summary">已领取 <em>0</em> 张优惠券，有新优惠券可领取</div>-->
+                            <div class="coupon-list" data-bind="foreach:freeCardList">
+
+                                <!--<div class="item">-->
+                                    <!--<div class="coupon-amount"><span class="rmb">&yen;</span><strong>20</strong></div>-->
+                                    <!--<div class="coupon-detail">-->
+                                        <!--<div class="coupon-info">-->
+                                            <!--<p class="coupon-title">日常 20&nbsp;满219减20</p>-->
+
+                                            <!--<p class="coupon-time">2016.08.07-2016.08.14</p>-->
+                                        <!--</div>-->
+                                        <!--<div class="coupon-op">-->
+                                            <!--<span class="coupon-received">领取成功</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="coupon-op">-->
+                                            <!--<span class="coupon-btn">领 取</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+
+                                <div class="item">
+                                    <div class="coupon-amount"><span class="rmb">&yen;</span><strong data-bind="text:money">20</strong></div>
+                                    <div class="coupon-detail">
+                                        <div class="coupon-info">
+                                            <p class="coupon-title" data-bind="text:name">日常 20&nbsp;满219减20</p>
+
+                                            <p class="coupon-time" data-bind="text:duration">2016.08.07-2016.08.14</p>
+                                        </div>
+                                        <div class="coupon-op">
+                                            <span class="coupon-btn" data-bind="visible:!isGet,click:$parent.getFreeCard">领 取</span>
+                                            <span class="coupon-received" data-bind="visible:isGet">领取成功</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--end 领券层 -->
+                    </div>
+
+
+
+                </div>
+                <!-- ko foreach:buyItems -->
+                    <!--ko if:isFreeGroupProduct -->
+                        <div class="taocanCont" data-bind="visible:!($parents[1].readOnly() && !checked())">
+                            <li class="taocanMt clearfix">
+                                <div class="c_check">
+                                    <div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[1].readOnly()">
+                                        <i></i>
+                                    </div>
+
+                                </div>
+                                <div class="taocanSuit">
+                                    <div class="taocanName">
+                                        <span class="ttp">套餐</span>
+                                        <a data-bind="text:productName,click:$parents[1].toDetail"></a>
+                                    </div>
+                                    <div class="c_attrs">
+                                        <span data-bind="text:attrsString"></span>
+                                    </div>
+                                    <div class="c_price">
+                                        &yen;<!-- ko text:unitPrice --><!-- /ko -->
+                                        <!--ko if:objType() == 'integral' -->
+                                        +<!-- ko text:integralPrice --><!--/ko-->积分
+                                        <!--/ko-->
+                                    </div>
+                                    <div class="c_num">
+                                        <span class="numbox midde">
+                                            <a class="mins" data-bind="click:$root.minus,visible:!$parents[1].readOnly()"></a>
+                                            <input data-bind="value:acceptedNumber"/>
+                                            <a class="add" data-bind="click:$root.add,visible:!$parents[1].readOnly()"></a>
+                                        </span>
+                                    </div>
+                                    <div class="c_total">
+                                        <p class="textPrimary">
+                                            &yen;<!-- ko text:totalPayPrice --><!-- /ko -->
+                                            <!--ko if:objType() == 'integral' -->
+                                            +<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+                                            <!--/ko-->
+                                        </p>
+                                    </div>
+                                    <div class=" c_operate" data-bind="visible:!$parents[1].readOnly()">
+                                        <span class="midde">
+                                            <a data-bind="click:$root.remove">删除</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- ko foreach:combiItems -->
+                            <li class="taocanItem">
+                                <div class="c_check">
+                                    <div class="checkbox">
+                                        <i></i>
+                                    </div>
+                                    <div class="img_view">
+                                        <img data-bind="attr:{src:icon}"/>
+                                    </div>
+                                </div>
+                                <div class="c_name">
+                                    <a data-bind="text:productName,click:$parents[2].toDetail"></a>
+                                </div>
+                                <div class="c_attrs">
+                                    <span data-bind="text:attrsString"></span>
+                                </div>
+                                <div class="c_price">
+                                    &yen;<!-- ko text:totalPayPrice --><!-- /ko -->
+                                </div>
+                                <div class="c_num">
+                                    <!-- ko text:number --><!-- /ko -->件/套
+                                </div>
+                                <div class="c_total">
+                                    <p class="textPrimary cor333">
+                                    </p>
+                                </div>
+                                <div class=" c_operate">
+                                </div>
+                            </li>
+                            <!-- /ko --><!-- for combiItems -->
+                    </div>
+                    <!--/ko-->
+                    <!--ko if:!isFreeGroupProduct -->
+                        <li data-bind="visible:!($parents[1].readOnly() && !checked())">
+                    <div class="c_check">
+                        <div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[1].readOnly()">
+                            <i></i>
+                        </div>
+                        <div class="img_view">
+                            <img data-bind="attr:{src:icon}"/>
+                        </div>
+                    </div>
+                    <div class="c_name">
+                        <a data-bind="text:productName,click:$parents[1].toDetail"></a>
+                    </div>
+                    <div class="c_attrs">
+                        <span data-bind="text:attrsString"></span>
+                        <!-- ko if:(hasMultiSkus && !$parents[1].readOnly()) -->
+                        &nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+                        <!-- /ko -->
+                    </div>
+                    <div class="c_price">
+                        ¥<!-- ko text:unitPrice --><!-- /ko -->
+                        <!--ko if:objType() == 'integral' -->
+                        +<!-- ko text:integralPrice --><!--/ko-->积分
+                        <!--/ko-->
+                    </div>
+                    <div class="c_num">
+                        <span class="numbox midde">
+                            <a class="mins" data-bind="click:$root.minus,visible:!$parents[1].readOnly()"></a>
+                            <input data-bind="value:acceptedNumber"/>
+                            <a class="add" data-bind="click:$root.add,visible:!$parents[1].readOnly()"></a>
+                        </span>
+                    </div>
+                    <div class="c_total">
+                        <p class="textPrimary">
+                            ¥<!-- ko text:totalPayPrice --><!-- /ko -->
+                            <!--ko if:objType() == 'integral' -->
+                            +<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+                            <!--/ko-->
+                        </p>
+                    </div>
+                    <div class=" c_operate" data-bind="visible:!$parents[1].readOnly()">
+                        <span class="midde">
+                            <a data-bind="click:$root.remove">删除</a>
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="giftWrap">
+                        <!-- ko foreach:userFriendlyMessages -->
+                        <div class="item normal">
+                        <span>
+                            <!-- ko text:actionType --><!-- /ko -->
+                            <i></i>
+                        </span>
+                            <a data-bind="html:msg"></a>
+                            <!--<a class="actionLink" data-bind="click:$parent.chooseRules,visible:!$parents[2].readOnly()">修改优惠</a>-->
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko foreach: freePresents -->
+                        <div class="item normal">
+                        <span>赠品<i></i>
+                        </span>
+                            <a data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a> x<!-- ko text:number --><!-- /ko -->
+                        </div>
+                        <!-- /ko --><!-- foreach: freePresents -->
+                        <!-- ko foreach:lowPricePresentRuleResults -->
+                        <!-- ko if:selectedPresents.length==0 -->
+                        <div class="item normal">
+                            <span>换购<i></i></span>
+                            <a data-bind="text:rule.name"></a>
+                            <a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+                                选择商品
+                            </a>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko if:selectedPresents.length>0 -->
+                        <div class="item normal">
+                            <span>换购<i></i></span>
+                            <!-- ko foreach: selectedPresents -->
+                            <a href="" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank" ></a> x<!-- ko text:number --><!-- /ko -->
+                            <!-- /ko --><!--foreach: selectedPresents-->
+                            <a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+                                重选
+                            </a>
+                        </div>
+                        <!-- /ko --><!-- if:selectedPresents.length>0  -->
+
+                        <!-- /ko --> <!--foreach:lowPricePresentRuleResults-->
+
+                        <!-- ko foreach:orderInclusiveRules -->
+                        <div class="item normal">
+                            <span>全单活动<i></i></span>
+                            <a data-bind="html:name"></a>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </li>
+                    <!--/ko-->
+                <!-- /ko --><!-- for buyItems -->
+            </ul>
+            <!-- 现在开始订单级别的活动 -->
+            <!-- ko foreach:orderRuleTargets -->
+            <div class="tip" data-bind="visible:$parent.checkedNumber()>0">
+            <span class="ttp"><i></i>
+                <!-- ko text:ruleResult.actionType--><!-- /ko -->
+            </span>
+                <span class="fl ttpDesc" data-bind="html:userFriendlyMessages"></span>
+                <!-- ko if:isLowPricePresentRule -->
+                <a class="but exchangeBtn" data-bind="click:chooseLowPriceBuyPresents" >加价购商品</a>
+                <div class="clear"></div>
+                <div class="otherGoodsList">
+                    <ul>
+                        <!-- ko foreach: selectedlowPricePresents -->
+                        <li class="clearfix">
+                            <span class="title">[加购商品]</span><a class="name fl" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a>
+                            X<span class="presentNumber" data-bind="text:number"></span>
+                        </li>
+                        <!-- /ko --> <!-- foreach: selectedlowPricePresents -->
+                    </ul>
+                </div>
+                <!-- /ko --> <!-- if:isLowPricePresentRule -->
+
+                <!-- ko if:isFreePresentRule -->
+                <div class="clear"></div>
+                <div class="otherGoodsList">
+                    <ul>
+                        <!-- ko foreach: freePresents -->
+                        <li class="clearfix">
+                            <span class="title">[赠品]</span><a class="name fl" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a>
+                            X<span class="presentNumber" data-bind="text:number"></span>
+                        </li>
+                        <!-- /ko --> <!-- foreach: freePresents -->
+                    </ul>
+                </div>
+                <!-- /ko --> <!-- if:isFreePresentRule -->
+                <div class="clear"></div>
+            </div>
+            <!--订单级别-->
+            <ul class="cartTd">
+                <!-- ko foreach:items -->
+                <li data-bind="visible:!($parents[2].readOnly() && !checked())">
+                    <div class="c_check">
+                        <div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[2].readOnly()">
+                            <i></i>
+                        </div>
+                        <div class="img_view">
+                            <img data-bind="attr:{src:icon}"/>
+                        </div>
+                    </div>
+                    <div class="c_name">
+                        <a data-bind="text:productName,click:$root.toDetail"></a>
+                    </div>
+                    <div class="c_attrs">
+                        <span data-bind="text:attrsString"></span>
+                        <!-- ko if:(hasMultiSkus && !$parents[2].readOnly()) -->
+                        &nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+                        <!-- /ko -->
+                    </div>
+                    <div class="c_price">
+                        ¥<!-- ko text:unitPrice --><!-- /ko -->
+                        <!--ko if:objType() == 'integral' -->
+                            +<!-- ko text:integralPrice --><!--/ko-->积分
+                        <!--/ko-->
+                        <!-- ko if:(!$parents[2].readOnly()) -->
+                        <br>
+                        <a class="youhui" data-bind="click:chooseOrderRule">更多优惠</a>
+                        <!-- /ko -->
+                    </div>
+                    <div class="c_num">
+                        <span class="numbox midde">
+                            <a class="mins" data-bind="click:$root.minus,visible:!$parents[2].readOnly()"></a>
+                            <input data-bind="value:acceptedNumber"/>
+                            <a class="add" data-bind="click:$root.add,visible:!$parents[2].readOnly()"></a>
+                        </span>
+                    </div>
+                    <div class="c_total">
+                        <p class="textPrimary">
+                            ¥<!-- ko text:totalPayPrice --><!-- /ko -->
+                            <!--ko if:objType() == 'integral' -->
+                            +<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+                            <!--/ko-->
+                        </p>
+                    </div>
+                    <div class=" c_operate">
+                        <span class="midde" data-bind="visible:!$parents[2].readOnly()">
+                            <a data-bind="click:$root.remove">删除</a>
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="giftWrap">
+                        <!-- ko foreach:userFriendlyMessages -->
+                        <div class="item normal">
+                        <span>
+                            <!-- ko text:actionType --><!-- /ko -->
+                            <i></i>
+                        </span>
+                            <a data-bind="html:msg"></a>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko foreach: freePresents -->
+                        <div class="item normal">
+                        <span>赠品<i></i>
+                        </span>
+                            <a data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a> x<!-- ko text:number --><!-- /ko -->
+                        </div>
+                        <!-- /ko --><!-- foreach: freePresents -->
+                        <!-- ko foreach:lowPricePresentRuleResults -->
+                        <!-- ko if:selectedPresents.length==0 -->
+                        <div class="item normal">
+                            <span>换购<i></i></span>
+                            <a data-bind="text:rule.name"></a>
+                            <a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+                                选择商品
+                            </a>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko if:selectedPresents.length>0 -->
+                        <div class="item normal">
+                            <span>换购<i></i></span>
+                            <!-- ko foreach: selectedPresents -->
+                            <a href="" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank" ></a> x<!-- ko text:number --><!-- /ko -->
+                            <!-- /ko --><!--foreach: selectedPresents-->
+                            <a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+                                重选
+                            </a>
+                        </div>
+                        <!-- /ko --><!-- if:selectedPresents.length>0  -->
+
+                        <!-- /ko --> <!--foreach:lowPricePresentRuleResults-->
+
+                        <!-- ko foreach:orderInclusiveRules -->
+                        <div class="item normal">
+                            <span>全单活动<i></i></span>
+                            <a data-bind="html:name"></a>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </li>
+                <!-- /ko --><!-- for buyItems -->
+            </ul>
+            <!-- /ko --><!-- foreach:orderRuleTargets -->
+            <!-- /ko --><!-- for carts -->
+
+            <!-- 去结算 -->
+            <div class="upjiesuan" data-bind="visible:!readOnly()">
+                <div class="options">
+                    <div class="checkbox" data-bind="css:{active:allChecked},click:toggle">
+                        <i></i>
+                    </div>全选
+                </div>
+                <div class="fr btn_area"><a href="#" data-bind="click:checkOut">去结算</a></div>
+                <div class="fr price_sum">
+                    <div>
+                        <span class="txt">总价（不含运费）：</span>
+                        <span class="price sumPrice">&yen;<b data-bind="text:totalPayPrice()">259.00</b>
+                            <!--ko if:totalIntegralPrice() > 0 -->
+                                +<b data-bind="text:totalIntegralPrice()"></b>积分
+                            <!-- /ko-->
+                        </span>
+                    </div>
+                </div>
+                <div class="fr amount_sum">已选择<b data-bind="text:checkedNumber">6</b>件商品/</div>
+            </div>
+            <!-- end 去结算 -->
+        </div>

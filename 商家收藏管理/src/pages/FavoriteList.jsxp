@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css" >
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.min.js"></script>
+    <script>
+        var merchantId='{{=it.merchantId}}'
+    </script>
+    <script type="text/javascript" src="@{js/FavoriteList.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div>
+
+    </div>
+    <div>
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="deleteFavorMerchantModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="deleteFavorMerchantModalDiv">
+                <div>
+                    <div class="row">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">确认删除？</label>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8" style="margin-left: 240px;">
+                                    <button type="button" class="btn btn-primary" style="width:90px;" id="delFavorMerchantBtn">确 定</button>
+                                    <button type="button" class="btn btn-default" style="width:90px;" data-dismiss="modal">取 消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

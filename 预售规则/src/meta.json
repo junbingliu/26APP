@@ -1,0 +1,51 @@
+{
+    "libs_namespace": "preSaleRule",
+    "libs": ["libs/preSaleRule.jsx", "libs/preSaleRuleQuery.jsx"],
+    "obj_prefixes": ["preSaleRule"],
+    "list_prefixes": ["preSaleRule"],
+    "rules": [
+        {
+            "id": "fullControl",
+            "name": "完全控制",
+            "pattern": "pages/backend/.*"
+        }
+    ],
+  "eventHandlers":[
+    {
+      "eventName":"orderBeforeUpdate",
+      "pageId":"eventHandlers/update_book_amount.jsx",
+      "handlerId":"updatePreSaleOrderBookAmount",
+      "description":"订单支付后修改商品预定人数。"
+    },
+    {
+      "eventName":"orderAddBefore",
+      "pageId":"eventHandlers/update_user_preSaleMobile.jsx",
+      "handlerId":"updateUserPreSaleMobile",
+      "description":"预售订单下单前修改会员的预售通知号码。"
+    },
+    {
+      "eventName":"orderCancelAfter",
+      "pageId":"eventHandlers/delete_order_from_preSale_list.jsx",
+      "handlerId":"deleteOrderFromPreSaleList",
+      "description":"订单取消后把订单从预售订单列表删除"
+    },
+    {
+      "eventName":"orderCancelAutoAfter",
+      "pageId":"eventHandlers/delete_order_from_preSale_list.jsx",
+      "handlerId":"deleteOrderFromPreSaleList2",
+      "description":"订单取消后把订单从预售订单列表删除"
+    },
+    {
+      "eventName":"orderSignedAfter",
+      "pageId":"eventHandlers/delete_order_from_preSale_list.jsx",
+      "handlerId":"deleteOrderFromPreSaleList3",
+      "description":"订单签收后把订单从预售订单列表删除"
+    },
+    {
+      "eventName":"orderSignedAutoAfter",
+      "pageId":"eventHandlers/delete_order_from_preSale_list.jsx",
+      "handlerId":"deleteOrderFromPreSaleList4",
+      "description":"订单签收后把订单从预售订单列表删除"
+    }
+  ]
+}

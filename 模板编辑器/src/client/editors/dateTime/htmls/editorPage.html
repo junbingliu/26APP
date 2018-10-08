@@ -1,0 +1,53 @@
+<div class="page modal" id="DateTimeEditor">
+    <style>
+        .modal-header{background: #353535;padding: 8px}
+        .modal-title{color: #ffffff}
+        .modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+        .modal-header .close{opacity: 0.8;color: #ffffff}
+        .modal-body{background: #F1F1F1;padding-bottom: 5px}
+        .panel{margin-bottom: 10px}
+        .selected{background: bisque}
+    </style>
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeDateTimeEditor">×</button>
+                <h5 class="modal-title">时间设置</h5>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default" >
+                    <div class="panel-body" >
+                        <div class="col-md-11" style="padding-left: 0px;">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">开始时间</label>
+                                    <div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:00" data-link-field="startDate">
+                                        <input data-bind="value:startDate" class="form-control" size="16" type="text" value="" >
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">结束时间</label>
+                                    <div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:00" data-link-field="endDate">
+                                        <input data-bind="value:endDate"  class="form-control" size="16" type="text" value="" >
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeDateTimeEditor">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

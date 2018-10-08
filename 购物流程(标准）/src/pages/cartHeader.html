@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="@{res/style/header.css}@" rel="stylesheet">
+    <%if(productionMode){%>
+    <script src="@{res/lib/underscore-min.js}@"></script>
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/knockout-3.2.0.debug.js"></script>
+    <script src="@{res/lib/spin.min.js}@"></script>
+    <script src="/resources/json2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var opts = {
+                lines: 12, // The number of lines to draw
+                length: 7, // The length of each line
+                width: 5, // The line thickness
+                radius: 10, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1, // Rounds per second
+                trail: 100, // Afterglow percentage
+                shadow: true, // Whether to render a shadow
+                hwaccel: false, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2000000000, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('spinholder');
+            var spinner = new Spinner(opts);
+
+            $(document).ajaxStart(function () {
+                spinner.spin(target);
+            });
+            $(document).ajaxComplete(function () {
+                spinner.stop();
+            });
+            $("ul li.sn_menu").mouseenter(function () {
+                $(this).addClass("hover");
+                $(this).children("div").attr("style", "display:block");
+            }).mouseleave(function () {
+                $(this).removeClass("hover");
+                $(this).children("div").attr("style", "display:none");
+            });
+        });
+    </script>
+    <%}%>
+</head>
+<body>
+<div id="spinholder" style="display: block"></div>
+
+<!--顶部导航-->
+<div class="topnav">
+    <div class="wbox clearfix">
+            <%if(!productionMode || !alreadyLogin){%>
+                <p class="login_info fl" data-type="html" data-id="header:topNav1_notLogin" subType="notLogin" title="未登录">
+                <%if(header && header.topNav1_notLogin){%>
+                <%=#header.topNav1_notLogin%>
+                <%}else{%>
+                    您好,欢迎来到武商网上商城</font>！
+                    <a href="/login/sign_in.jsp" rel="nofollow">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/login/register.jsp" rel="nofollow">免费注册</a>
+                <%}%>
+                </p>
+            <%}%>
+            <%if(!productionMode || alreadyLogin){%>
+            <p class="login_info fl" data-type="html" data-id="header:topNav1_login" subType="logined" title="登录后">
+            <%if(header && header.topNav1_login){%>
+                <%=#header.topNav1_login%>
+            <%}else{%>
+                    <a href="/member/index.jsp" class="usn" rel="nofollow">{userName}</a><font class="colore14041">,欢迎来到武商网上商城</font>！
+                    <a href="/login/handle/logout_handler.jsp" rel="nofollow">退出</a>
+            <%}%>
+            </p>
+            <%}%>
+
+        <div class="topmenu fr">
+            <ul>
+                <li class="sn_menu" data-type="textLink" data-id="header:myOrder">
+                    <%if(header && header.myOrder){%>
+                    <a href="<%=header.myOrder.linkTo%>" class="menu_hd" target="<%=header.myOrder.openInNewPage%>"><%=header.myOrder.content%></a>
+                    <%}else{%>
+                    <a href="/member/order_list.jsp" class="menu_hd" target="_blank">我的订单</a>
+                    <%}%>
+                </li>
+                <li class="sn_menu" data-type="textLinkList" data-id="header:topNav1">
+                    <%if(header && header.topNav1 && header.topNav1.length > 0){%>
+                    <a href="<%=header.topNav1[0].linkTo%>" class="menu_hd"
+                       target="<%=header.topNav1[0].openInNewPage%>"><%=header.topNav1[0].content%><b></b></a>
+
+                    <div class="menu_bd" style="display:none;">
+                        <%for(var i=1,level1Length=header.topNav1.length;i < level1Length;i++){%>
+                        <a href="<%=header.topNav1[i].linkTo%>" rel="nofollow"
+                           target="<%=header.topNav1[i].openInNewPage%>"><%=header.topNav1[i].content%></a>
+                        <%}%>
+                    </div>
+                    <%}else{%>
+                    <a href="/member/index.jsp" class="menu_hd">会员中心<b></b></a>
+
+                    <div class="menu_bd" style="display:none;">
+                        <a href="/member/order_list.jsp" rel="nofollow" target="_blank">我的订单</a>
+                        <a href="/member/favor_list.jsp?type=product" rel="nofollow" target="_blank">我的收藏</a>
+                    </div>
+                    <%}%>
+                </li>
+                <li class="sn_menu" data-type="textLinkList" data-id="header:topNav2">
+                    <%if(header && header.topNav2 && header.topNav2.length > 0){%>
+                    <a href="<%=header.topNav2[0].linkTo%>" class="menu_hd"
+                       target="<%=header.topNav2[0].openInNewPage%>"><%=header.topNav2[0].content%><b></b></a>
+
+                    <div class="menu_bd" style="display:none;">
+                        <%for(var i=1,level1Length=header.topNav2.length;i < level1Length;i++){%>
+                        <a href="<%=header.topNav2[i].linkTo%>" rel="nofollow"
+                           target="<%=header.topNav2[i].openInNewPage%>"><%=header.topNav2[i].content%></a>
+                        <%}%>
+                    </div>
+                    <%}else{%>
+                    <a href="#" class="menu_hd">帮助中心<b></b></a>
+
+                    <div class="menu_bd" style="display:none;">
+                        <a href="#">购物流程</a>
+                        <a href="#">常见问题</a>
+                        <a href="#">支付方式</a>
+                        <a href="#">退换货流程</a>
+                    </div>
+                    <%}%>
+                </li>
+                <li class="sn_menu last" data-type="textLinkList" data-id="header:topNav3">
+                    <%if(header && header.topNav3 && header.topNav3.length > 0){%>
+                    <a href="<%=header.topNav3[0].linkTo%>" class="menu_hd"
+                       target="<%=header.topNav3[0].openInNewPage%>"><%=header.topNav3[0].content%><b></b></a>
+
+                    <div class="menu_bd" style="display:none;">
+                        <%for(var i=1,level1Length=header.topNav3.length;i < level1Length;i++){%>
+                        <a href="<%=header.topNav3[i].linkTo%>" rel="nofollow"
+                           target="<%=header.topNav3[i].openInNewPage%>"><%=header.topNav3[i].content%></a>
+                        <%}%>
+                    </div>
+                    <%}else{%>
+                    <a href="#" class="menu_hd ">商家入驻<b></b></a>
+
+                    <div class="menu_bd" style="display:none;left:-127px;">
+                        <a href="#">热招品类</a>
+                    </div>
+                    <%}%>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!--顶部导航-->
+
+<!-- 页头-->
+<div class="w shopcartHead">
+    <div class="logo fl" data-type="imgLink" data-id="header:logo">
+        <%if(header && header.logo){%>
+        <a href="<%=header.logo.imgLinkTo%>" target="<%=header.logo.openInNewPage%>"><img src="<%=header.logo.imgUrl%>"/></a>
+        <%}else{%>
+        <a href="/"><img src="@{res/case/logo.gif}@"/></a>
+        <%}%>
+    </div>
+    <div class="shopcartStep">
+        <ul class="headerShoppingStep">
+            <li class="active">
+                <div class="line"></div>
+                <div class="radius">1</div>
+                <span class="title">购物车</span>
+            </li>
+            <li>
+                <div class="line"></div>
+                <div class="radius">2</div>
+                <span class="title">填写并核对订单信息</span>
+            </li>
+            <li>
+                <div class="line"></div>
+                <div class="radius">3</div>
+                <span class="title">成功提交订单</span>
+            </li>
+            <li>
+                <div class="line"></div>
+                <div class="radius">4</div>
+                <span class="title">支付成功</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--end 页头-->

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="@{js/layui/css/layui.css}@"  media="all">
+</head>
+<body>
+
+
+<textarea class="layui-textarea" id="LAY_demo1" style="display: none">
+  把编辑器的初始内容放在这textarea即可
+</textarea>
+
+<script src="@{js/layui/layui.js}@" charset="utf-8"></script>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit
+            ,$ = layui.jquery;
+
+        //构建一个默认的编辑器
+        var index = layedit.build('LAY_demo1');
+    });
+</script>
+
+</body>
+</html>

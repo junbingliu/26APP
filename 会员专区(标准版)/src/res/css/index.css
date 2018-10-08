@@ -1,0 +1,66 @@
+/* Created by Qianglong Mo 2015 */
+/* user info */
+.userInfo {}
+
+.userInfo .panelBd {
+    padding-top: 26px;
+    padding-bottom: 15px;
+    background: #fff;
+}
+
+.userInfoAvatar {
+    margin-right: 20px;
+}
+
+.userInfoAvatar img {
+    vertical-align: top;
+}
+
+.userInfoList {
+    width: 255px;
+    margin-top: -7px;
+}
+
+.userInfoListBorder {
+    padding: 0 0 0 25px;
+    background: url("@{res/images/userInfoListBorder.png}@") no-repeat left 0;
+}
+
+.userInfoListItem {
+    line-height: 16px;
+    padding: 7px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.userInfoListItem span {
+    display: inline-block;
+    width: 65px;
+}
+
+.userInfoListItem a {
+    font-size: 12px;
+    color: #1e599f;
+    text-decoration: underline;
+}
+
+.userInfoListAuth a {
+    margin: 0 23px 0 0;
+}
+
+/* recent order */
+.recentOrder {
+}
+
+/* recent favorite */
+.recentFavorite {
+}
+
+/* goodRecommendList */
+.goodRecommendItem {
+    margin-right: 50px;
+}
+
+
+
+

@@ -1,0 +1,17 @@
+{
+  "libs_namespace": "OleInformationAPI",
+  "libs": [
+    "services/InformationService.jsx"
+  ],
+  "obj_prefixes": [
+    "information_"
+  ],
+  "list_prefixes": [
+    "information_"
+  ],
+  "appEditor": {
+    "enabled": false
+  },
+  "pages": [
+  ]
+}

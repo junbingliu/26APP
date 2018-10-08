@@ -1,0 +1,26 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header pull-right">
+            <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-cog">预售规则管理</i></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar">
+                <li data-a="preSale_rule_list"><a href="preSale_rule_list.jsx?m={{m}}"><i class="glyphicon glyphicon-list">预售规则列表</i></a></li>
+                <li data-a="preSale_rule_add"><a href="preSale_rule_add.jsx?m={{m}}"><i class="glyphicon glyphicon-plus">增加预售规则</i></a></li>
+                <li data-a="update_param"><a href="update_param.jsx?m={{m}}"><i class="glyphicon glyphicon-plus">设置规则提示</i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var currentUrl = window.location.pathname;
+        $('#navbar').find('li').each(function (item) {
+            var $this = $(this);
+            var href = $this.data('a');
+            if (currentUrl.indexOf(href) > 0) {
+                $this.addClass("active");
+            }
+        });
+    });
+</script>

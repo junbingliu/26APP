@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="cn" style="height:100%;margin:0px;padding:0px;border:0px">
+<head>
+    <meta charset="utf-8"/>
+    <title>网页编辑</title>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="@{client/res/css/page.css}@" rel="stylesheet"/>
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/bootbox.min.js}@"></script>
+    <script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+    <script src="@{client/res/lib/knockout.mapping-latest.js}@"></script>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            bootbox.setDefaults({
+                locale: "zh_CN"
+            });
+            $(".del").click(function(){
+                var href = $(this).attr("href");
+                bootbox.confirm("确定删除吗？",function(result){
+                    if(result){
+                        window.location = href;
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+</head>
+<body style="margin-top:50px">
+<div class="panel panel-primary" style="margin:auto;width:95%">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{=it.rapp.name}}</h3>
+    </div>
+    <div class="panel-body">
+       <table class="table table-primary" style="width:99%">
+           <tr class="warning">
+               <th>#</th>
+               <th>名称</th>
+               <th>url</th>
+               <th>模版</th>
+               <th>pageId</th>
+               <th>操作</th>
+            </tr>
+            {{~it.pages:page:index}}
+            <tr>
+                <td>{{=index}}</td>
+                <td><a href="listPageVersions.jsx?m={{=it.m}}&rappId={{=it.rappId}}&origPageId={{=page.pageId}}" title="预览页列表">{{=page.name}}</a></td>
+                <td>{{=page.url}}</td>
+                <td>{{=page.template}}</td>
+                <td>{{=page.pageId}}</td>
+                <td >
+                    <a href="../edit.jsx?m={{=it.m}}&rappId={{=it.rappId}}&pageId={{=page.pageId}}&renderEngine={{=it.renderEngine}}"><span class="glyphicon glyphicon-pencil"></span> 装修</a>
+                    <a href="editPage.jsx?m={{=it.m}}&rappId={{=it.rappId}}&pageId={{=page.pageId}}"><span class="glyphicon glyphicon-envelope"></span> 编辑</a>
+                    <a href="copyPage.jsx?m={{=it.m}}&rappId={{=it.rappId}}&pageId={{=page.pageId}}"><span class="glyphicon glyphicon-book"></span> 复制新网页</a>
+                    <a href="deletePage.jsx?m={{=it.m}}&rappId={{=it.rappId}}&pageId={{=page.pageId}}" class="del"><span class="glyphicon glyphicon-remove"></span> 删除</a>
+                    <a href="copyPageVersion.jsx?m={{=it.m}}&rappId={{=it.rappId}}&pageId={{=page.pageId}}"><span class="glyphicon glyphicon-book"></span> 复制彩排页</a>
+                    <a href="listPageVersions.jsx?m={{=it.m}}&rappId={{=it.rappId}}&origPageId={{=page.pageId}}" title="预览页列表"><span class="glyphicon glyphicon-eye-open"></span>彩排页列表</a>
+                    <a href="listLog.jsx?m={{=it.m}}&rappId={{=it.rappId}}&pageId={{=page.pageId}}" title="操作日志"><span class="glyphicon glyphicon-eye-open"></span>操作日志</a>
+                </td>
+            </tr>
+           {{~}}
+       </table>
+    </div>
+
+</div>
+<div style="clear: both;height:30px"></div>
+<div >
+    <a class="btn btn-warning" style="margin-left:60px" href="listTemplates.jsx?m={{=it.m}}">返回模版列表</a>
+    <a class="btn btn-primary" style="margin-left:20px" href="addPage1.jsx?m={{=it.m}}&rappId={{=it.rappId}}">添加页面</a>
+</div>
+</body>
+</html>
+

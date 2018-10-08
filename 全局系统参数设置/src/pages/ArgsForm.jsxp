@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <script>
+    var merchantId = '{{=it.merchantId}}';
+    </script>
+    <script type="text/javascript" src="@{js/ArgsForm.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid" style="margin-top:20px">
+    <div class="well">
+        <form class="form form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="lotteryUrl">注册成功跳转到的抽奖链接地址(PC)</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="lotteryUrl" value="{{=it.lotteryUrl}}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">线下实体商家ID</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="otoEntityMerchantIds" value="{{=it.otoEntityMerchantIds}}"/>
+                    <span class="help-block">多个商家请用英文逗号分隔，如：m_50001,m_50002</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">拼图验证码背景图</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" id="jigsawBgImages">{{=it.jigsawBgImages}}</textarea>
+                    <span class="help-block">多张图片请用竖线分割，如：http://img1.l.cn/2018/4/8/001.jpg|http://img1.l.cn/2018/4/8/002.jpg</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">access_token</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="jigsawAccess_token" value="{{=it.jigsawAccess_token}}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-8">
+                    <input type="hidden" value="{{=it.merchantId}}" id="merchantId">
+                    <button type="button" id="submit_form" class="btn btn-primary">保 存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

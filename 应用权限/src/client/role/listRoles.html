@@ -1,0 +1,35 @@
+<div id="listRoles" class="page">
+    <div class="panel panel-primary" style="margin:auto;width:100%">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;自定义的角色
+            </h5>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>id</td>
+                    <td>名称</td>
+                    <td>说明</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach:privateRoles">
+                <tr data-bind="visible:show">
+                    <td data-bind="text:id"></td>
+                    <td data-bind="text:name"></td>
+                    <td data-bind="text:description"></td>
+                    <td><button class="btn btn-sm btn-primary" data-bind="click:$root.edit">编辑</button>&nbsp;
+                        <button class="btn btn-sm btn-danger" data-bind="click:$root.remove">删除</button> </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="btn-group">
+                <button class="btn btn-large btn-primary" data-bind="click:add" >
+                    <i class="glyphicon glyphicon-plus"></i>添加
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

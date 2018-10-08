@@ -1,0 +1,99 @@
+<div class="modal" id="ProductSelect" style="left: -400px;overflow: auto">
+<div class="modal-dialog">
+<div class="modal-content" style="width: 1000px">
+<div class="modal-header" style="height: 55px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+data-bind="click:closeSelectProductView" style="color:#ffff00">×
+</button>
+<h5 class="modal-title" style="float:left;line-height: 30px">选择商品</h5>
+
+<form class="form-inline" role="form">
+<div class="form-group" style="margin-left: 20px;width: 200px;">
+<input type="text" class="form-control input-sm search-query" placeholder="关键字"
+data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+</div>
+<button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+<button style="margin-left: 20px" type="button" class="btn-sm btn-default"
+data-bind="click:$root.selectAll">全选
+</button>
+<div class="form-group" style="margin-right: 20px;width: 300px;">
+<button class="btn btn-primary" data-bind="click:selectBrand">选择品牌...</button>
+<div style="margin-right:5px;border:1px solid #ff7900;float:left;padding:1px;min-width: 180px;min-height: 30px"
+data-bind="visible:isNotBrandEmpty">
+<img style="margin-right:5px" data-bind="attr:{src:brandItem.imgUrl}"><span
+data-bind="text:brandItem.name"></span>
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+style="color:#ffff00" data-bind="click:clearBrand">×
+</button>
+</div>
+</div>
+</form>
+
+</div>
+<div class="modal-body">
+<div class="row">
+<style>
+#productSelectorTree ul {
+min-width: 160px;
+}
+</style>
+<div class="col-md-2" style="padding-left: 0px;overflow: scroll;height: 550px">
+<ul id="productSelectorTree" class="ztree" style="padding-left: 20px;"></ul>
+</div>
+<div class="col-md-10">
+<div class="panel panel-default" style="min-height: 550px;overflow:auto">
+<div id="loading" data-bind="visible:displayLoading()">
+<img src="res/image/loading.gif" style="margin:150px 0 0 250px"/>
+</div>
+<div class="panel-body" data-bind="foreach:productList,visible:!displayLoading()"
+style=" overflow: auto;height: 500px;">
+<div class="col-md-3" style="text-align:center;" data-bind="click:$root.selectProduct">
+<div data-bind="css:{selected:selected}"
+style="padding-top:10px;height: 225px;width:180px" class="productSelectorItem">
+<div style="width:150px;height:150px;margin:auto;">
+<img data-bind="attr:{src:imgUrl}">
+</div>
+<div style="margin-top:5px;max-height: 42px;overflow-y: hidden;">
+<span data-bind="attr:{title:name},html:name"></span>
+&nbsp;<span style="color:lightskyblue" data-bind="text:merchantName"></span>
+</div>
+<div>
+<span style="color:red;margin-right:20px"
+data-bind="text:memberPriceString"></span>
+<del><span style="color:gray" data-bind="text:marketPriceString"></span>
+</del>
+</div>
+</div>
+
+
+</div>
+</div>
+<div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+<ul class="pagination">
+<li data-bind="click:$root.prePage"><a style="height:38px;"
+href="javascript:void(0)">«</a></li>
+<li><a href="javascript:void(0)" style="height: 38px;">当前第<input
+data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'"
+type="text"
+style="color:black;font-weight:bolder;height: 24px;text-align: center;width: 25px;margin-left:5px;margin-right:5px">页/共
+<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+<li data-bind="click:$root.nextPage"><a style="height:38px;"
+href="javascript:void(0)">»</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+data-bind="click:closeSelectProductView">取消
+</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+</div>
+</div>
+</div>
+</div>
+
+

@@ -1,0 +1,6 @@
+<Request service="OrderSearchService" lang='zh-CN'>
+    <Head>{{=it.head}}</Head>
+    <Body>
+        <OrderSearch orderid="{{=it.orderid}}"></OrderSearch>
+    </Body>
+</Request>

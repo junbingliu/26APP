@@ -1,0 +1,776 @@
+<%=#importUrl("/cartHeader.html")%>
+<script>
+var cartsPage = null;
+$(document).on("koInit", function () {
+var elem = document.getElementById("cartsPage");
+if (elem) {
+cartsPage = new Carts();
+ko.applyBindings(cartsPage, document.getElementById("cartsPage"));
+cartsPage.loadCarts();
+}
+});
+$(document).on("cartsLoaded", function (){
+$("#cartsPage").show(0);
+});
+function primary(n){
+//返回整数部分
+return  Math.floor(n);
+}
+function junior(n){
+//返回小数部分
+var j = n - Math.floor(n);
+j = j.toFixed(2);
+return j.substring(1,4);
+}
+$(document).ready(function(){
+$(document).attr("title","我的购物车");
+});
+</script>
+
+<script src="/resources/layer/layer.min.js"></script>
+<link href="@{res/style/shopcart.css}@" rel="stylesheet">
+<div id="cartsPage" style="display:none">
+<div class="shopcart_wrap">
+<div class="w">
+<!-- ko if:showEmptyCart -->
+
+<!--购物车为空-->
+<div class="cartEmptyTips">
+<div class="fl cartImg"></div>
+<div class="fl info">
+<dl>
+<dt>温馨提示！</dt>
+<dd>您的购物车内暂时没有您的商品
+<% if (!alreadyLogin) {%>
+,
+<a href="/login/sign_in.jsp" class="c_blue tdu">登录</a>后，将显示您之前加入的商品</dd>
+<%}%>
+</dd>
+</dl>
+<div class="btnGroup">
+<a class="btnDefault" href="/">去首页看看</a>
+</div>
+</div>
+</div>
+<!--end 购物车为空-->
+
+<!-- /ko -->
+<!-- ko if:!showEmptyCart() -->
+<div class="regionTo clearfix" data-bind="visible:!readOnly()">
+<div class="cart_tit">购物车</div>
+<a href="/" class="fr but">继续购物&nbsp;></a>
+</div>
+<div class="cartMain">
+<div class="cartTh">
+<div class="c_check">
+<div class="checkbox enableSelect" data-bind="css:{active:allChecked},click:toggle,visible:!readOnly()" >
+<i></i>
+</div><!--ko if:!readOnly()-->全选<!-- /ko -->&nbsp;
+
+</div>
+<div class="c_name">商品</div>
+<div class="c_attrs">规格属性</div>
+<div class="c_price">单价</div>
+<div class="c_num">数量</div>
+<div class="c_total">小计（元）</div>
+<div class="c_operate" data-bind="visible:!readOnly()">操作</div>
+</div>
+
+<!-- ko foreach: carts -->
+<ul class="cartTd" data-bind="visible:!($parent.readOnly() && (checkedNumber() == 0))">
+<div class="merchantHeader">
+<div class="checkbox fl" data-bind="css:{active:allChecked},click:toggle,visible:!$parent.readOnly()">
+<i></i>
+</div>
+<!--<span><a data-bind="attr:{href:'/shop/index.jsp?m=' + merchantId()}"><span data-bind="text:merchantName" class="merchantName"></span></a>-->
+<a data-bind="attr:{href:'/shop/index.jsp?m=' + merchantId()}" class="fl"><span class="merchantName" data-bind="text:merchantName">武商网跨境购</span></a>
+
+<div class="shop-coupon active" data-bind="visible:freeCardList().length>0">
+<div class="shop-coupon-tit" data-bind="click:showFreeCard"><em>领&nbsp;&nbsp;券</em><span class="arrow"></span></div>
+<!--领券层 -->
+<div class="shop-coupon-cont" data-bind="visible:freeCardShow">
+<span class="arrow"></span>
+<a class="close-x" data-bind="click:showFreeCard">close</a>
+<!--<div class="coupon-summary">已领取 <em>0</em> 张优惠券，有新优惠券可领取</div>-->
+<div class="coupon-list" data-bind="foreach:freeCardList">
+
+<!--<div class="item">-->
+<!--<div class="coupon-amount"><span class="rmb">&yen;</span><strong>20</strong></div>-->
+<!--<div class="coupon-detail">-->
+<!--<div class="coupon-info">-->
+<!--<p class="coupon-title">日常 20&nbsp;满219减20</p>-->
+
+<!--<p class="coupon-time">2016.08.07-2016.08.14</p>-->
+<!--</div>-->
+<!--<div class="coupon-op">-->
+<!--<span class="coupon-received">领取成功</span>-->
+<!--</div>-->
+<!--<div class="coupon-op">-->
+<!--<span class="coupon-btn">领 取</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+<div class="item">
+<div class="coupon-amount"><span class="rmb">&yen;</span><strong data-bind="text:money">20</strong></div>
+<div class="coupon-detail">
+<div class="coupon-info">
+<p class="coupon-title" data-bind="text:name">日常 20&nbsp;满219减20</p>
+
+<p class="coupon-time" data-bind="text:duration">2016.08.07-2016.08.14</p>
+</div>
+<div class="coupon-op">
+<span class="coupon-btn" data-bind="visible:!isGet,click:$parent.getFreeCard">领 取</span>
+<span class="coupon-received" data-bind="visible:isGet">领取成功</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<!--end 领券层 -->
+</div>
+
+
+
+</div>
+<!-- ko foreach:buyItems -->
+<!--ko if:isFreeGroupProduct -->
+<div class="taocanCont" data-bind="visible:!($parents[1].readOnly() && !checked())">
+<li class="taocanMt clearfix">
+<div class="c_check">
+<div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[1].readOnly()">
+<i></i>
+</div>
+
+</div>
+<div class="taocanSuit">
+<div class="taocanName">
+<span class="ttp">套餐</span>
+<a data-bind="text:productName,click:$parents[1].toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+</div>
+<div class="c_price">
+&yen;<!-- ko text:unitPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:integralPrice --><!--/ko-->积分
+<!--/ko-->
+</div>
+<div class="c_num">
+<span class="numbox midde">
+<a class="mins" data-bind="click:$root.minus,visible:!$parents[1].readOnly()"></a>
+<input data-bind="value:acceptedNumber"/>
+<a class="add" data-bind="click:$root.add,visible:!$parents[1].readOnly()"></a>
+</span>
+</div>
+<div class="c_total">
+<p class="textPrimary">
+&yen;<!-- ko text:totalPayPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+<!--/ko-->
+</p>
+</div>
+<div class=" c_operate" data-bind="visible:!$parents[1].readOnly()">
+<span class="midde">
+<a data-bind="click:$root.remove">删除</a>
+</span>
+</div>
+</div>
+</li>
+<!-- ko foreach:combiItems -->
+<li class="taocanItem">
+<div class="c_check">
+<div class="checkbox">
+<i></i>
+</div>
+<div class="img_view">
+<img data-bind="attr:{src:icon}"/>
+</div>
+</div>
+<div class="c_name">
+<a data-bind="text:productName,click:$parents[2].toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+</div>
+<div class="c_price">
+&yen;<!-- ko text:totalPayPrice --><!-- /ko -->
+</div>
+<div class="c_num">
+<!-- ko text:number --><!-- /ko -->件/套
+</div>
+<div class="c_total">
+<p class="textPrimary cor333">
+</p>
+</div>
+<div class=" c_operate">
+</div>
+</li>
+<!-- /ko --><!-- for combiItems -->
+</div>
+<!--/ko-->
+<!--ko if:!isFreeGroupProduct -->
+<li data-bind="visible:!($parents[1].readOnly() && !checked())">
+<div class="c_check">
+<div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[1].readOnly()">
+<i></i>
+</div>
+<div class="img_view">
+<img data-bind="attr:{src:icon}"/>
+</div>
+</div>
+<div class="c_name">
+<a data-bind="text:productName,click:$parents[1].toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+<!-- ko if:(hasMultiSkus && !$parents[1].readOnly()) -->
+&nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+<!-- /ko -->
+</div>
+<div class="c_price">
+¥<!-- ko text:unitPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:integralPrice --><!--/ko-->积分
+<!--/ko-->
+</div>
+<div class="c_num">
+<span class="numbox midde">
+<a class="mins" data-bind="click:$root.minus,visible:!$parents[1].readOnly()"></a>
+<input data-bind="value:acceptedNumber"/>
+<a class="add" data-bind="click:$root.add,visible:!$parents[1].readOnly()"></a>
+</span>
+</div>
+<div class="c_total">
+<p class="textPrimary">
+¥<!-- ko text:totalPayPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+<!--/ko-->
+</p>
+</div>
+<div class=" c_operate" data-bind="visible:!$parents[1].readOnly()">
+<span class="midde">
+<a data-bind="click:$root.remove">删除</a>
+</span>
+</div>
+<div class="clear"></div>
+<div class="giftWrap">
+<!-- ko foreach:userFriendlyMessages -->
+<div class="item normal">
+<span>
+<!-- ko text:actionType --><!-- /ko -->
+<i></i>
+</span>
+<a data-bind="html:msg"></a>
+<!--<a class="actionLink" data-bind="click:$parent.chooseRules,visible:!$parents[2].readOnly()">修改优惠</a>-->
+</div>
+<!-- /ko -->
+
+<!-- ko foreach: freePresents -->
+<div class="item normal">
+<span>赠品<i></i>
+</span>
+<a data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a> x<!-- ko text:number --><!-- /ko -->
+</div>
+<!-- /ko --><!-- foreach: freePresents -->
+<!-- ko foreach:lowPricePresentRuleResults -->
+<!-- ko if:selectedPresents.length==0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<a data-bind="text:rule.name"></a>
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+选择商品
+</a>
+</div>
+<!-- /ko -->
+
+<!-- ko if:selectedPresents.length>0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<!-- ko foreach: selectedPresents -->
+<a href="" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank" ></a> x<!-- ko text:number --><!-- /ko -->
+<!-- /ko --><!--foreach: selectedPresents-->
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+重选
+</a>
+</div>
+<!-- /ko --><!-- if:selectedPresents.length>0  -->
+
+<!-- /ko --> <!--foreach:lowPricePresentRuleResults-->
+
+<!-- ko foreach:orderInclusiveRules -->
+<div class="item normal">
+<span>全单活动<i></i></span>
+<a data-bind="html:name"></a>
+</div>
+<!-- /ko -->
+</div>
+</li>
+<!--/ko-->
+<!-- /ko --><!-- for buyItems -->
+</ul>
+<!-- 现在开始订单级别的活动 -->
+<!-- ko foreach:orderRuleTargets -->
+<div class="tip" data-bind="visible:$parent.checkedNumber()>0">
+<span class="ttp"><i></i>
+<!-- ko text:ruleResult.actionType--><!-- /ko -->
+</span>
+<span class="fl ttpDesc" data-bind="html:userFriendlyMessages"></span>
+<!-- ko if:isLowPricePresentRule -->
+<a class="but exchangeBtn" data-bind="click:chooseLowPriceBuyPresents" >加价购商品</a>
+<div class="clear"></div>
+<div class="otherGoodsList">
+<ul>
+<!-- ko foreach: selectedlowPricePresents -->
+<li class="clearfix">
+<span class="title">[加购商品]</span><a class="name fl" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a>
+X<span class="presentNumber" data-bind="text:number"></span>
+</li>
+<!-- /ko --> <!-- foreach: selectedlowPricePresents -->
+</ul>
+</div>
+<!-- /ko --> <!-- if:isLowPricePresentRule -->
+
+<!-- ko if:isFreePresentRule -->
+<div class="clear"></div>
+<div class="otherGoodsList">
+<ul>
+<!-- ko foreach: freePresents -->
+<li class="clearfix">
+<span class="title">[赠品]</span><a class="name fl" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a>
+X<span class="presentNumber" data-bind="text:number"></span>
+</li>
+<!-- /ko --> <!-- foreach: freePresents -->
+</ul>
+</div>
+<!-- /ko --> <!-- if:isFreePresentRule -->
+<div class="clear"></div>
+</div>
+<!--订单级别-->
+<ul class="cartTd">
+<!-- ko foreach:items -->
+<li data-bind="visible:!($parents[2].readOnly() && !checked())">
+<div class="c_check">
+<div class="checkbox" data-bind="css:{active:checked},click:toggle, visible:!$parents[2].readOnly()">
+<i></i>
+</div>
+<div class="img_view">
+<img data-bind="attr:{src:icon}"/>
+</div>
+</div>
+<div class="c_name">
+<a data-bind="text:productName,click:$root.toDetail"></a>
+</div>
+<div class="c_attrs">
+<span data-bind="text:attrsString"></span>
+<!-- ko if:(hasMultiSkus && !$parents[2].readOnly()) -->
+&nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+<!-- /ko -->
+</div>
+<div class="c_price">
+¥<!-- ko text:unitPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:integralPrice --><!--/ko-->积分
+<!--/ko-->
+<!-- ko if:(!$parents[2].readOnly()) -->
+<br>
+<a class="youhui" data-bind="click:chooseOrderRule">更多优惠</a>
+<!-- /ko -->
+</div>
+<div class="c_num">
+<span class="numbox midde">
+<a class="mins" data-bind="click:$root.minus,visible:!$parents[2].readOnly()"></a>
+<input data-bind="value:acceptedNumber"/>
+<a class="add" data-bind="click:$root.add,visible:!$parents[2].readOnly()"></a>
+</span>
+</div>
+<div class="c_total">
+<p class="textPrimary">
+¥<!-- ko text:totalPayPrice --><!-- /ko -->
+<!--ko if:objType() == 'integral' -->
++<!-- ko text:totalIntegralPrice --><!--/ko-->积分
+<!--/ko-->
+</p>
+</div>
+<div class=" c_operate">
+<span class="midde" data-bind="visible:!$parents[2].readOnly()">
+<a data-bind="click:$root.remove">删除</a>
+</span>
+</div>
+<div class="clear"></div>
+<div class="giftWrap">
+<!-- ko foreach:userFriendlyMessages -->
+<div class="item normal">
+<span>
+<!-- ko text:actionType --><!-- /ko -->
+<i></i>
+</span>
+<a data-bind="html:msg"></a>
+</div>
+<!-- /ko -->
+
+<!-- ko foreach: freePresents -->
+<div class="item normal">
+<span>赠品<i></i>
+</span>
+<a data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank"></a> x<!-- ko text:number --><!-- /ko -->
+</div>
+<!-- /ko --><!-- foreach: freePresents -->
+<!-- ko foreach:lowPricePresentRuleResults -->
+<!-- ko if:selectedPresents.length==0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<a data-bind="text:rule.name"></a>
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+选择商品
+</a>
+</div>
+<!-- /ko -->
+
+<!-- ko if:selectedPresents.length>0 -->
+<div class="item normal">
+<span>换购<i></i></span>
+<!-- ko foreach: selectedPresents -->
+<a href="" data-bind="text:name,attr:{href:'/product.jsp?id=' + productId}" target="_blank" ></a> x<!-- ko text:number --><!-- /ko -->
+<!-- /ko --><!--foreach: selectedPresents-->
+<a class="actionLink"  data-bind="click:$parent.chooseLowPriceBuyPresents">
+重选
+</a>
+</div>
+<!-- /ko --><!-- if:selectedPresents.length>0  -->
+
+<!-- /ko --> <!--foreach:lowPricePresentRuleResults-->
+
+<!-- ko foreach:orderInclusiveRules -->
+<div class="item normal">
+<span>全单活动<i></i></span>
+<a data-bind="html:name"></a>
+</div>
+<!-- /ko -->
+</div>
+</li>
+<!-- /ko --><!-- for buyItems -->
+</ul>
+<!-- /ko --><!-- foreach:orderRuleTargets -->
+<!-- /ko --><!-- for carts -->
+
+<!-- 去结算 -->
+<div class="upjiesuan" data-bind="visible:!readOnly()">
+<div class="options">
+<div class="checkbox" data-bind="css:{active:allChecked},click:toggle">
+<i></i>
+</div>全选
+</div>
+<div class="fr btn_area"><a href="#" data-bind="click:checkOut">去结算</a></div>
+<div class="fr price_sum">
+<div>
+<span class="txt">总价（不含运费）：</span>
+<span class="price sumPrice">&yen;<b data-bind="text:totalPayPrice()">259.00</b>
+<!--ko if:totalIntegralPrice() > 0 -->
++<b data-bind="text:totalIntegralPrice()"></b>积分
+<!-- /ko-->
+</span>
+</div>
+</div>
+<div class="fr amount_sum">已选择<b data-bind="text:checkedNumber">6</b>件商品/</div>
+</div>
+<!-- end 去结算 -->
+</div>
+<!-- /ko -->
+<!--您可能感兴趣的商品-->
+<%if(viewAlsoView&&viewAlsoView.length>0){%>
+<div class="goodRecommend">
+<div class="tabs">
+<ul>
+<li class="active">您可能感兴趣的商品</li>
+</ul>
+</div>
+
+<div class="tabcon">
+<div class="conList" style="display:block;">
+<a href="#" class="prev"></a>
+<a href="#" class="next"></a>
+<div class="scroll" style="position:relative;">
+<ul style="width:2000px; overflow:hidden; position:absolute; left:0; ">
+<%for(var i=0;i < viewAlsoView.length;i++){%>
+<%if(i<5){%>
+<%var value = viewAlsoView[i];%>
+<%var splitMemberPrice = (value.memberPrice + "").split(".");%>
+<li>
+<div class="pic">
+<a href="/product.jsp?id=<%=value.id%>" target="_blank">
+<img src="<%= value.pics.length==0 ? '/upload/nopic_200.jpg' : value.pics[0] %>" alt="<%=value.name%>"/>
+</a>
+</div>
+<div class="name"><a href="/product.jsp?id=<%=value.id%>" target="_blank"><%=value.name%></a></div>
+<div class="price">&yen;<%=value.memberPrice%></div>
+</li>
+<%}%>
+<%}%>
+
+
+</ul>
+</div>
+</div>
+</div>
+</div>
+<%}%>
+<!--end 您可能感兴趣的商品-->
+</div>
+</div>
+</div>
+
+<%=#importUrl("/cartFooter.html")%>
+<div id="skuSelector" style="display: none">
+<table class="table table-stripped table-bordered" style="font-size: 14px;margin:25px;width:620px">
+<tbody data-bind="foreach:skuSelector.inventoryAttrs">
+<tr>
+<td style="padding-top:16px">选择<span data-bind="text:name"></span></td>
+<td  data-bind="foreach:standardValues">
+<span class="attrOption" data-bind="css:{selectedAttr:selected,enabled:enabled},click:function(data,event){$root.skuSelector.selectValue($data,$parent);}">
+<a href="#" ><span data-bind="text:name" ></span><i></i></a>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div data-bind="click:ok" class="btn btn-danger" style="margin-left:60px">确定</div>
+</div>
+<!-- 加价购商品 "此模块用ajax来填充数据" -->
+<div class="msgPanel huangou" id="lowPricePresentSelector" >
+<div class="hd">请选择换购商品，数量有限，换完即止 <i class="close" data-bind="click:close"></i></div>
+<div class="bd">
+<div class="chooseGift">
+<ul data-bind="foreach:presents">
+<li>
+<div class="checkbox active" data-bind="css:{active:checked},click:toggle"><i></i></div>
+<div class="img_view"><img data-bind="attr:{src:icon}"/></div>
+<div class="cont">
+<p class="name"><a data-bind="text:name"></a></p>
+<p class="num">
+<span class="midde">
+<a class="mins" data-bind="click:$root.minus"></a>
+<input type="text" data-bind="value:selectedNumber"/>
+<a class="add" data-bind="click:$root.add"></a>
+</span>
+</p>
+<div class="price">&yen;<!-- ko text:price--><!-- /ko --></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="btnBox">
+<button class="od_btn" data-bind="click:ok">确定</button>
+<button class="odgray_btn ml10" data-bind="click:close">取消</button>
+</div>
+</div>
+</div>
+<!-- end 加价购商品 -->
+<!-- 提示框 -->
+<div class="msgPanel shanchu" id="confirmDialog">
+<div class="hd">提示 <i class="close" data-bind="click:cancel"></i></div>
+<div class="bd">
+<div class="schu_con">
+<i class="sc_icon"></i>
+<h2 data-bind="text:message">删除商品？</h2>
+</div>
+
+<div class="btnBox">
+<a class="od_btn ml10" data-bind="click:ok">确定</a>
+<a class="odgray_btn" data-bind="click:cancel">取消</a>
+</div>
+</div>
+</div>
+<!-- end 提示框 -->
+<!-- 单品优惠 -->
+<div class="messagePanel information" id="ruleSelectorDialog">
+<div class="messagePanelHd">选择单品优惠<i class="closeBtn" data-bind="click:close"></i></div>
+<div class="messagePanelBd">
+<ul data-bind="foreach:availableRuleResults">
+<li>
+<input type="checkbox" data-bind="checked:checked,click:$root.recalculateExclude" >
+<span data-bind="html:userFriendlyMessageString"></span>
+</li>
+</ul>
+
+<div class="btnGroup textCenter mt15">
+<button class="btn btnPrimary continue"  data-bind="click:ok">确定</button>
+<button class="btn btnDefault cancel" data-bind="click:close">取消</button>
+</div>
+</div>
+</div>
+<!-- end 单品优惠 -->
+<!-- 选择赠品 "此模块用ajax来填充数据" -->
+<div class="messagePanel chooseGift" id="freePricePresentSelector">
+<div class="messagePanelHd">请选择换购商品，数量有限，换完即止 <i class="closeBtn" data-bind="click:close"></i></div>
+<div class="messagePanelBd">
+<p class="tips">您共可以选择1件赠品，还剩余1件赠品</p>
+<div class="tableWrap">
+<table>
+<tr class="row">
+<td width="30">
+<div class="checkbox enableSelect">
+<i></i>
+</div>
+</td>
+<td width="370">
+<a class="thumb" href="">
+<img src="assets/img/1.png" alt="" width="80" height="80"/>
+</a>
+<div class="info">
+<a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+<p class="textPrimary price">
+￥<strong>139</strong>.00
+</p>
+</div>
+</td>
+<td class="enableSelect">
+<span class="operate sub"></span><input class="count" type="text"/><span class="operate add"></span>
+</td>
+</tr>
+<tr class="row">
+<td width="30">
+<div class="checkbox enableSelect">
+<i></i>
+</div>
+</td>
+<td width="370">
+<a class="thumb" href="">
+<img src="assets/img/1.png" alt="" width="80" height="80"/>
+</a>
+<div class="info">
+<a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+<p class="textPrimary price">
+￥<strong>139</strong>.00
+</p>
+</div>
+</td>
+<td class="enableSelect">
+<span class="operate sub"></span><input class="count" type="text"/><span class="operate add"></span>
+</td>
+</tr>
+<tr class="row">
+<td width="30">
+<div class="checkbox enableSelect">
+<i></i>
+</div>
+</td>
+<td width="370">
+<a class="thumb" href="">
+<img src="assets/img/1.png" alt="" width="80" height="80"/>
+</a>
+<div class="info">
+<a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+<p class="textPrimary price">
+￥<strong>139</strong>.00
+</p>
+</div>
+</td>
+<td class="enableSelect">
+<span class="operate sub"></span><input class="count" type="text"/><span class="operate add"></span>
+</td>
+</tr>
+<tr class="row">
+<td width="30">
+<div class="checkbox enableSelect">
+<i></i>
+</div>
+</td>
+<td width="370">
+<a class="thumb" href="">
+<img src="assets/img/1.png" alt="" width="80" height="80"/>
+</a>
+<div class="info">
+<a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+<p class="textPrimary price">
+￥<strong>139</strong>.00
+</p>
+</div>
+</td>
+<td class="enableSelect">
+<span class="operate sub"></span><input class="count" type="text"/><span class="operate add"></span>
+</td>
+</tr>
+<tr class="row">
+<td width="30">
+<div class="checkbox enableSelect">
+<i></i>
+</div>
+</td>
+<td width="370">
+<a class="thumb" href="">
+<img src="assets/img/1.png" alt="" width="80" height="80"/>
+</a>
+<div class="info">
+<a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+<p class="textPrimary price">
+￥<strong>139</strong>.00
+</p>
+</div>
+</td>
+<td class="enableSelect">
+<span class="operate sub"></span><input class="count" type="text"/><span class="operate add"></span>
+</td>
+</tr>
+<tr class="row">
+<td width="30">
+<div class="checkbox enableSelect">
+<i></i>
+</div>
+</td>
+<td width="370">
+<a class="thumb" href="">
+<img src="assets/img/1.png" alt="" width="80" height="80"/>
+</a>
+<div class="info">
+<a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+<p class="textPrimary price">
+￥<strong>139</strong>.00
+</p>
+</div>
+</td>
+<td class="enableSelect">
+<span class="operate sub"></span><input class="count" type="text"/><span class="operate add"></span>
+</td>
+</tr>
+</table>
+</div>
+<div class="btnGroup textCenter mt15">
+<button class="btn btnPrimary continue">确定</button>
+<button class="btn btnDefault cancel">取消</button>
+</div>
+</div>
+</div>
+<!-- end 选择赠品 -->
+<!-- 修改优惠 -->
+<div class="msgPanel xiugaiyouhui"  id="orderRuleSelector" >
+<div class="hd" >修改优惠 <i class="closeBtn" data-bind="click:cancel"></i></div>
+<div class="bd">
+<div class="youhui_sel">
+<label class="fl">请选择参与的活动</label>
+<div class="fl">
+<select class="sect" data-bind="options:rules,optionsText:'name',value:selectedRule">
+</select>
+</div>
+</div>
+<div class="btnBox">
+<a class="od_btn" data-bind="click:ok">确定</a>
+<a class="odgray_btn ml10" data-bind="click:cancel">取消</a>
+</div>
+</div>
+</div>
+<!-- end 修改优惠 -->
+<script src="/buyflowApp/loadCart.jsx"></script>
+<script>
+AppConfig.orderFormPageUrl = "/orderForm.html";
+//    AppConfig.loginUrl = "/login.html";
+AppConfig.spec = "80X80"
+</script>
+</body>
+</html>

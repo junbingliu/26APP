@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "oleUserBatchMerge",
+    "libs": ["services/OleUserBatchMergeService.jsx"],
+    "obj_prefixes": ["o_","card_","u_"]
+
+}

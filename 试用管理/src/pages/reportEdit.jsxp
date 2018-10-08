@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+    <link href="@{res/css/bootstrap-datetimepicker.css}@" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>var m = '{{=it.merchantId}}';</script>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script src="/fileManager/jsloader.jsx"></script>
+    <script src="/brandSelector/jsloader.jsx"></script>
+    <script src="/productSelector/jsloader.jsx?m={{=it.merchantId}}"></script>
+    <script type="text/javascript" src="@{res/js/bootstrap-datetimepicker.js}@"></script>
+    <script type="text/javascript" src="@{res/js/bootstrap-datetimepicker.zh-CN.js}@"></script>
+    <script type="text/javascript" src="@{res/js/reportEdit.js}@"></script>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<div id="reportEdit" style="margin-top:54px ">
+    <div class="container-fluid">
+        <div class="jumbotron" style="font-size: 14px;padding-top: 14px">
+            <div class="form-horizontal" >
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" id="reportId" value="{{=it.id}}">
+                            <label for="title" class="col-sm-2 control-label" style="padding-top: 0px;" >活动主题:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control input-sm" data-bind="value:title" id="title">
+                            </div>
+                            <span style="color: #c8151a;display: inline">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >活动主图:</label>
+                            <div class="col-sm-6">
+                                <img data-bind="attr:{'src':headImage}"/>
+                                <button data-bind="click:activeImage">选择图片</button>
+                            </div>
+                            <span style="color: #c8151a;display: inline">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="introduction" class="col-sm-2 control-label" style="padding-top: 0px;" >活动简介:</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" rows="4" class="form-control input-sm" data-bind="value:introduction" id="introduction"></textarea>
+                            </div>
+                            <span style="color: #c8151a;display: inline">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label" style="padding-top: 0px;" >活动说明:</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" rows="4" class="form-control input-sm" data-bind="value:description" id="description"></textarea>
+                            </div>
+                            <span style="color: #c8151a;display: inline">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >活动时间:</label>
+                            <div class="col-sm-6">
+                                <input type="text"  class="form-control input-sm beginConfirmTime" data-bind="value:beginTime" id="beginTime">
+                                至
+                                <input type="text"  class="form-control input-sm beginConfirmTime" data-bind="value:endTime" id="endTime">
+                            </div>
+                            <span style="color: #c8151a;display: inline">*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >状态:</label>
+                            <select data-bind="options:stateList,optionsText: 'name', optionsValue:'id',value:state"></select>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <a href="manageList.jsx?m={{=it.merchantId}}" type="button" class="btn btn-success">返回列表</a>
+                                <button class="btn btn-primary" data-bind="click:saveActive">保存修改</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    var startDate = {
+        format: 'yyyy-mm-dd hh:ii',
+        language: 'zh-CN',
+        /*minView: 2,*/
+        autoclose: true
+    };
+    var endDate = {
+        format: 'yyyy-mm-dd hh:ii',
+        language: 'zh-CN',
+        /*minView: 2,*/
+        autoclose: true
+    };
+    $(".beginConfirmTime").datetimepicker(startDate);
+    $(".endConfirmTime").datetimepicker(endDate);
+</script>
+</body>
+</html>

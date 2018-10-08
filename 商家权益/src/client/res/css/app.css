@@ -1,0 +1,144 @@
+.navbar {min-height: 35px}
+.navbar-brand {
+    padding-bottom: 0px;
+    padding-top:3px;
+    font-size:24px;
+}
+.sidebar {background-color: #4298e0; width:150px;margin-left:10px;height:200;
+    border:solid 1px #d7d7d7;
+    border-bottom: 0px;
+    padding : 0px;
+    float: left;
+}
+.sidebar ul {
+    padding : 0px;
+    margin : 0px;
+}
+.side-nav li {
+    list-style: none;
+    height: 30px;
+    border-bottom: solid 1px #3c74b6;
+    padding : 0px;
+    margin:0px;
+    padding-left:8px;
+    padding-top:5px;
+}
+.side-nav li:hover {
+    background-color: #589a73;
+}
+.side-nav li:hover a {
+    color: #ffffff
+}
+
+.side-nav li a {
+    text-decoration: none;
+    color : #f1f1f1;
+}
+
+.side-nav li.active {
+    background-color: #589a73;
+}
+
+.side-nav li.active a {
+    color:  #f1f1f1;
+}
+
+.side-nav li a span{
+    margin-left:20px;
+}
+
+.table-header {
+    background-color: #4298e0;
+    color: #f1f1f1;
+    font-size: 14px;
+    line-height: 38px;
+    padding-left: 12px;
+    margin-bottom: 0px;
+}
+
+.table thead tr{
+    color:#707070;
+    font-weight:normal;
+    background:#f2f2f2;
+    background-image:-webkit-gradient(linear,left 0,left 100%,from(#f8f8f8),to(#ececec));
+    background-image:-webkit-linear-gradient(top,#f8f8f8,0%,#ececec,100%);
+    background-image:-moz-linear-gradient(top,#f8f8f8 0,#ececec 100%);
+    background-image:linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+    background-repeat:repeat-x;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8',endColorstr='#ffececec',GradientType=0)
+}
+td{
+    color : #555555;
+}
+a.action {
+    margin-right:5px;
+}
+#main{
+    margin-left:190px;
+    min-height: 100%;
+    padding-right: 20px;
+    margin-right:20px;
+    border:1px solid #eeeeee;
+    padding-left: 20px;
+}
+
+.modal-header{
+    background-color: #444444;
+    color:#dddddd;
+}
+
+thead td {
+    font-weight: bold;
+}
+ul.userList{
+    padding-left:0px;
+    float: left;
+    margin-bottom: 5px;
+}
+
+ul.userList li {
+    list-style: none;
+    float: left;
+    margin-right:5px;
+    border:solid 1px #999999;
+    margin-bottom:5px;
+    padding:2px;
+}
+
+ul.roleAction   {
+    padding : 0px;
+    margin : 0px;
+}
+ul.roleAction li{
+    list-style: none;
+    height: 30px;
+    padding : 0px;
+    margin:0px;
+    padding-left:8px;
+    padding-top:5px;
+    float: left;
+}
+ul.pathBar{
+    float:left;
+    margin-top:0px;
+    margin-left:0px;
+    padding-left: 0px;
+}
+ul.pathBar li{
+    list-style: none;
+    height: 30px;
+    padding : 0px;
+    margin:0px;
+    padding-left:8px;
+    padding-top:5px;
+    float: left;
+}
+#selectColumnDialog .modal-header {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+#selectColumnDialog ul{
+    margin-left:0px;
+    padding-left: 0px;
+}

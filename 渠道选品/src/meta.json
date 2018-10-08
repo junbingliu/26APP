@@ -1,0 +1,10 @@
+{
+    "context":"batchUpdateProductSpecialPrice",
+    "privilegeEnabled":true,
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    }]
+
+}

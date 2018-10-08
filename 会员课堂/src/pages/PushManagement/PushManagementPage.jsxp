@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.11.min.js"></script>
+    <!--<script type="text/javascript" src="@{js/memberClass.js}@"></script>-->
+    <!--<link rel="stylesheet" href="../static/style/commom.css">-->
+    <script type="text/javascript" src="@{js/pushManagementControl.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/include_nav/include_nav.jsx")}}
+<div class="container-fluid">
+    <div class="well" id="searchForm">
+        <div class="row">
+            <form class="searchForm">
+                <!--<div class="col-md-2" style="width: auto;margin-bottom: 10px;">-->
+                <!--<span class="date_split" style=";margin-right: 15px;padding-top: 5px;">支付时间从:</span>-->
+                <!--<input type="text" style="width: 120px;display: inline;" class="date form-control input-sm"-->
+                <!--id="beginTime" name="beginCreateTime" readonly placeholder="请选择开始时间">-->
+                <!--<span class="date_split" style="padding-top: 5px;">至</span>-->
+                <!--<input type="text" style="width: 120px;display: inline;" class="date form-control input-sm"-->
+                <!--id="endTime"-->
+                <!--name="endCreateTime" readonly placeholder="请选择截止时间">-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                <!--<span class="label_name">推送对象:</span>-->
+                <!--<select style="width: 130px;" class="col-sm-10 input-sm" id="" name="">-->
+                <!--<option value="">全部</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+                    <label class="col-sm-4 control-label" style="text-align: right;">推送对象</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="pushTarget">
+                            <option value="">全部</option>
+                            <option value="0">线下课堂活动</option>
+                            <option value="1">视频教学</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+                    <label class="col-sm-4 control-label" style="text-align: right;">触发状态</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="toTriggerState">
+                            <option value="">全部</option>
+                            <option value="0" class="underLine">开放报名提醒</option>
+                            <option value="1" class="underLine">取消截止提醒</option>
+                            <option value="2" class="underLine">即将开课提醒</option>
+                            <option value="3" class="underLine">报名成功提醒</option>
+                            <option value="4" class="underLine">取消报名提醒</option>
+                            <option value="5" class="onLine" disabled="disabled" style="background-color: #ded8d8;">
+                                视频教学暂无状态
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+                    <label class="col-sm-4 control-label" style="text-align: right;">推送渠道</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="pushServer">
+                            <option value="">全部</option>
+                            <option value="0">APP推送</option>
+                            <option value="1">公众号推送</option>
+                            <option value="2">站内信推送</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+                    <label class="col-sm-4 control-label" style="text-align: right;">推送内容选择</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="pushContentSetUp">
+                            <option value="">全部</option>
+                            <option value="0">文字编辑</option>
+                            <option value="1"><a href="javascript:void(0);">跳转落地配置</a></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+                    <label class="col-sm-4 control-label" style="text-align: right;">推送状态</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="pushStatement">
+                            <option value="">全部</option>
+                            <option value="0">启动</option>
+                            <option value="1">暂停</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-12" style="width: auto;margin-top: 10px;">
+                    <button type="button" class="btn btn-primary btn-sm" id="search">搜 索</button>
+                </div>
+                <!--<div class="col-md-1" style="width: auto;">-->
+                <!--<button type="button" class="btn btn-success btn-sm" data-target="#export_data" data-toggle="modal">导-->
+                <!--出-->
+                <!--</button>-->
+                <!--</div>-->
+            </form>
+        </div>
+    </div>
+    <!--异步加载数据列表部分-->
+    <div class="row-fluid">
+        <div id="record_list" class="record_list span12">
+        </div>
+    </div>
+
+
+    <div class="">
+        <!--分页部分-->
+        <div class="row-fluid">
+            <input type="hidden" id="merchantId" value="{{=it.merchantId}}">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <!--<div style="float:left;text-align: left;width: 300px;margin-top:20px">-->
+                <!--<a class="btn btn-primary" data-target="#export_data" data-toggle="modal" href="#">导 出</a>-->
+                <!--</div>-->
+                <div class="pagination well" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="doEditPushServicedModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="doEditPushServiceDiv">
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#searchForm #pushTarget").change(function () {
+            var pushTarget_value = $("#pushTarget option:selected").attr("value");
+            $("#searchForm #toTriggerState").val("");
+            $("#searchForm #toTriggerState option").removeAttr("disabled").css("background-color", "");
+            if (pushTarget_value == "1" || pushTarget_value == 1) {
+                $("#searchForm #toTriggerState .underLine").attr("disabled", "disabled").css("background-color", "#ded8d8");
+            } else {
+                $("#searchForm #toTriggerState .onLine").attr("disabled", "disabled").css("background-color", "#ded8d8");
+            }
+        })
+    })
+</script>
+</html>

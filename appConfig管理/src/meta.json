@@ -1,0 +1,7 @@
+{
+  "libs_namespace": "appConfig",
+  "libs": ["services/AppConfigLogService.jsx"],
+  "obj_prefixes": ["appConfig"],
+  "list_prefixes": ["appConfig"],
+  "eventHandlers":[]
+}

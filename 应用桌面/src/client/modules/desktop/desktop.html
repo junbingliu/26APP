@@ -1,0 +1,137 @@
+<!DOCTYPE >
+<html>
+<head>
+<script src="@{client/modules/desktop/desktop.js}@"></script>
+<script src="/resources/layer/layer.min.js"></script>
+<script src="/resources/layer/extend/layer.ext.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>网客通后台</title>
+<link href="@{client/res/css/ourhome.css}@" rel="stylesheet">
+<link href="/resources/layer/skin/layer.css" rel="stylesheet">
+<link href="/resources/layer/skin/layer.ext.css" rel="stylesheet">
+<script>
+var m = "{{=it.m}}";
+</script>
+</head>
+
+<body class="unselectable" data-bind="click:hideSiteMenu">
+<!--顶部-->
+<div class="h_top">
+<div class="bar"></div>
+<div class="topmain">
+<div class="wbox">
+<div class="logo fl">
+<!--<img src="res/desktop/images/logo.png">-->
+</div>
+<div class="appnav">
+<ul>
+<li class="first" data-bind="click:minimize,css:{curApp:$root.activePageMode()=='desktop'}">桌面</li>
+
+<!-- ko foreach: activeApps -->
+<li class="first" data-bind="click:$root.openApp,css:{curApp:isCurrentApp()}"><a data-bind="text:name"></a></li>
+<!-- /ko -->
+<!--<li class="first cur"><a href="/appMarket/installLocal/listLocalApps.jsp" target="_blank">安装新应用</a></li>-->
+<!--<li><a href="http://localhost:82/appMarket/published/listApps.jsp#" target="_blank">应用市场</a></li>-->
+</ul>
+</div>
+<div class="userinfo fr">
+<span>欢迎您，{{=it.user.loginId}} </span>
+<span class="exit"><s></s><a href="#" data-bind="click:logout">退出</a></span>
+<span class="home"><s></s><a href="#" data-bind="click:removeDesktop">重置桌面</a></span>
+<span class="site s_hover"  data-bind="click:showSiteMenu">
+<s class="arrow"></s>
+<div class="sitelayer" data-bind="visible:siteMenuVisible">
+<ul>
+<!-- <li><i class="home"></i><a href="">网站首页</a></li>
+<li><i class="pwd"></i><a href="">修改密码</a></li>
+<li><i class="pwd"></i><a href="/appMarket/installLocal/listLocalApps.jsp" target="_blank">安装新应用</a></li>-->
+<li><i class="pwd"></i><a href="" data-bind="click:removeDesktop">删除当前桌面</a></li>
+</ul>
+</div>
+</span>
+</div>
+<div class="topsearch fr">
+<input type="text" value="" id="searchAppsInput">
+</div>
+</div>
+</div>
+</div>
+<!--end 顶部-->
+<div class="ourhome">
+<!-- 主体-->
+<div class="h_main">
+<a href="" class="ic_prev" data-bind="click:goPrev"></a>
+<a href="" class="ic_next" data-bind="click:goNext"></a>
+
+<div data-bind="foreach:pages,visible:activePageMode()=='desktop'" class="page">
+<div data-bind="foreach:shellObjects,slideVisible:isCurPage,droppable:drop"
+style="position: relative;height: 100%">
+<!-- ko if: isWidget() -->
+<div data-bind="style:{top:top,left:left,width:width,height:height}" class="widget object">
+<iframe allowtransparency="true" style="background-color:transparent;height: 100%;width:100%"
+scrolling="auto" frameborder="0" data-bind="attr:{src:url}"></iframe>
+</div>
+<!-- /ko -->
+
+<!-- ko if: isApp() -->
+<div data-bind="style:{top:top,left:left,width:width,height:height},attr:{soid:id},draggable:{},click:$root.openApp"
+class="object app">
+<div class="icon"><a href="#"><img data-bind="attr:{src:icon}" width="80" height="80"></a></div>
+<div class="txt" data-bind="text:name">正在加载.....</div>
+</div>
+<!-- /ko -->
+<!-- ko if: isFolder()-->
+<div data-bind="style:{top:top,left:left,width:width,height:height},attr:{soid:id},draggable:{},click:$root.openFolder"
+class="object app">
+<div class="folderIcon">
+<a href="#"><img data-bind="attr:{src:icon}"></a>
+</div>
+<div class="txt" data-bind="text:name">正在加载.....</div>
+</div>
+<!-- /ko -->
+</div>
+</div>
+
+<!--轮换数字-->
+<div class="slide_num" data-bind="visible:activePageMode()=='desktop'">
+<ul data-bind="foreach:pages">
+<li data-bind="text:pageNum,css:{cur:isCurPage},click:setActive">1</li>
+</ul>
+</div>
+<!--end 轮换数字-->
+
+<div data-bind="foreach:activeApps,visible:activePageMode()=='app'" class="page">
+<div style="position: relative;height: 100%;width:100%" data-bind="visible:isCurrentApp">
+<iframe allowtransparency="true" style="background-color:transparent;height: 100%;width:100%"
+scrolling="auto" frameborder="0" data-bind="attr:{src:url}"></iframe>
+<div style="position: absolute;right:-43px;top:0px">
+<div class="close" data-bind="click:$root.close"></div>
+<div class="minimize" data-bind="click:$root.minimize"></div>
+</div>
+</div>
+</div>
+<div class="open_ic hidn" style="display:none;"></div>
+
+</div>
+
+<!--end 主体-->
+</div>
+
+<div class="overlay trans" style="display: none" id="overlay" data-bind="click:hideFolder"></div>
+<div id="folder" class="folder" style="top:175px;display: none" >
+<div id="folderArrow" class="uparrow" ></div>
+<div class="mt">
+<h1><!-- ko text:folderGrid.name -->新建文件夹<!-- /ko --><i class="write" title="改名" data-bind="click:$root.renameFolder"></i></h1>
+</div>
+<div class="applist">
+<ul class="clearfix" data-bind="foreach:folderGrid.apps">
+<li data-bind="attr:{soid:appId,fromFolder:'true'},draggable:{},click:$root.openFolderApp">
+<div class="icon" ><a href="#"><img data-bind="attr:{src:icon}" width="80px" height="80px"></a></div>
+<div class="txt" data-bind="text:name">订单</div>
+</li>
+</ul>
+</div>
+</div>
+
+</body>
+</html>

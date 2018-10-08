@@ -1,0 +1,41 @@
+.pagination {
+    float: right;
+    clear: both;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    line-height: 32px;
+}
+
+.pagination > .title {
+    color: #999;
+    float: left;
+}
+
+.pagination > .title .colore333 {
+    margin: 0 10px;
+}
+
+.pagination > .but {
+    background-color: #fff;
+    border: 1px solid #d7d7d7;
+    padding: 0 10px;
+    height: 30px;
+    float: left;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    color: #333;
+}
+
+
+.pagination > .but:hover, .pagination > .but.active {
+    color: #fff;
+    background: #e14041;
+    border-color: #e14041;
+}
+
+.pagination .omission {
+    float: left;
+    margin-left: 5px;
+}

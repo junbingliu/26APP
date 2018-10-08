@@ -1,0 +1,120 @@
+/* Created by Qianglong Mo 2015 */
+
+/* myWanjiaUser */
+.pl4{
+    padding-left: 4px;
+}
+.pl28{
+    padding-left: 43px;
+}
+.User{
+    min-height: 624px;
+}
+
+.SecurityCenter  .SecurityCenterHd{
+    background: #f9f9f9;
+    border: 1px solid #e7e7e7;
+}
+.SecurityCenter  .SecurityCenterHd > p{
+    font-size: 14px;
+    color: #333;
+}
+.SecurityCenter .SecurityScore{
+    color: #79b235;
+}
+.usercentre .SecurityCenter .SecurityCenterHd{
+    padding: 14px 19px 27px 19px;
+}
+.SecurityScoreTh{
+    background: #e0e0e0;
+    position: relative;
+    height: 8px;
+    display: block;
+    display: inline-block;
+    width: 304px;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(@{res/css/PIE.htc}@); /*ie Css3 6 7 8*/
+}
+.SecurityScoreTh em{
+    background: #79b235;
+    position: absolute;
+    height: 8px;
+    display: block;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    width: 100px;
+    behavior: url(@{res/css/PIE.htc}@); /*ie Css3 6 7 8*/
+    font-style:normal;
+}
+.SecurityScoreTh em i{
+    font-style:normal;
+    position: absolute;
+    right: -3px;
+    color: #79b235;
+    font-size: 14px;top: 7px;
+}
+.Userinfo .info{
+    margin-left: 34px;
+}
+.Userinfo .info p{
+    font-size: 14px;
+    color: #333;
+}
+.Userinfo .info p span{
+    margin-left: 18px;
+}
+.Userinfo .f129{
+    font-size: 12px!important;
+    color: #999!important;
+}
+.Userinfo .username{
+    padding: 6px 20px;
+}
+.Userinfo .select{
+    position: relative;
+    padding: 0;
+    margin-left: -3px;
+    margin-right: 6px;
+    padding: 0 0 0 4px;
+    border: 1px #d9d9d9 solid;
+}
+.Userinfo .alertWarp{
+    background: url("@{res/images/useralert.png}@") no-repeat 43px 0;
+    width: 309px;
+    height: 62px;
+}
+.Userinfo .alertWarp p{
+    padding-left: 38px;
+}
+.Userinfo .alertWarp .p1{
+    padding-top: 16px;
+}
+.Userinfo .btnPrimary{
+    font-size: 16px !important;
+    padding: 5px 21px;
+}
+
+/* portrait */
+.portrait{
+    font-size: 14px;color:#333;
+    margin-left: 41px;
+}
+.portrait .userportrait{
+    margin-top: 5px;
+    margin-left: 17px;
+}
+.portrait .userportrait .btn{
+    padding-left:14px;
+    padding-right: 14px;
+}
+.portrait .userportrait .fileimg{
+    display: none;
+}

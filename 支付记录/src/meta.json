@@ -1,0 +1,13 @@
+{
+  "libs_namespace": "realPayRec",
+  "libs": ["libs/PaymentService.jsx"],
+  "obj_prefixes": ["realPayRec"],
+  "list_prefixes": ["realPayRec"],
+  "rules": [
+    {
+      "id": "fullControl",
+      "name": "ÍêÈ«¿ØÖÆ",
+      "pattern": "pages/backend/.*"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+<Request service='RouteService' lang='zh-CN'>
+    <Head>{{=it.head}}</Head>
+    <Body>
+    <RouteRequest tracking_type="{{=it.tracking_type}}" method_type="{{=it.method_type}}"
+                  tracking_number="{{=it.tracking_number}}"/>
+    </Body>
+</Request>

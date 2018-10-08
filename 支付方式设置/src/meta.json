@@ -1,0 +1,13 @@
+{
+
+    "libs_namespace": "paymentSetting",
+    "libs": ["services/paymentSettingService.jsx"],
+    "obj_prefixes": ["paymentSetting"],
+    "list_prefixes": ["paymentSetting"],
+    "urls":[
+        ["/OurHome/modules/payment/paymentList_save.jsp",["all"]],
+        ["/OurHome/modules/payment/paymentDetail_save.jsp",["all"]],
+        ["/OurHome/modules/payment/paymentDetail.jsp",["all"]],
+        ["/OurHome/modules/payment/PaymentList.jsp",["all"]]
+    ]
+}

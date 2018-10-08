@@ -1,0 +1,60 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<table class="table table-bordered" id="orderList">
+    <tr>
+        <th style="width:100px;text-align: center">排序</th>
+        <th style="width:150px;text-align: center">俱乐部ID</th>
+        <th style="width:170px;text-align: center">俱乐部名称</th>
+        <th style="width:150px;text-align: center">俱乐部入口图</th>
+        <th style="width:150px;text-align: center">俱乐部故事背景图</th>
+        <th style="width:300px;text-align: center">俱乐部故事描述</th>
+        <th style="width:60px;text-align: center">状态</th>
+        <th style="width:280px;text-align: center">可执行的操作</th>
+    </tr>
+    {{~it.recordList:value:index}}
+    <tr>
+        <td>
+            <input type="text" class="form-control clubPos" name="clubPos" value="{{=value.pos}}" style="width: 60px;" autocomplete="off" data-a="{{=value.id}}">
+        </td>
+        <td>{{=value.id}}</td>
+        <td>{{=value.name}}</td>
+        <td style="text-align: center">
+            <a href="{{=value.storyBackgroudImg}}" target="_blank"><img src="{{=value.entranceImg}}" style="height: 60px;width: 60px"></a>
+        </td>
+        <td style="text-align: center">
+            <a href="{{=value.storyBackgroudImg}}" target="_blank"><img src="{{=value.storyBackgroudImg}}" style="height: 60px;width: 60px"></a>
+        </td>
+        <td>{{=value.storyContent}}</td>
+        <td style="text-align: center;padding-top: 12px">
+            {{? value.status == 1}}
+            <span class="label label-success">已启用</span>
+            {{??}}
+            <span class="label label-primary">已停用</span>
+            {{?}}
+        </td>
+        <td>
+            <button data-id="{{=value.id}}" type="button" class="btn btn-default btn-sm showEditWindow">编辑
+            </button>
+            <button data-id="{{=value.id}}" type="button" class="btn btn-default btn-sm"
+                    id="delBtn">删除
+            </button>
+            {{? value.status == 1}}
+                <button data-id="{{=value.id}}" type="button" class="btn btn-default btn-sm"
+                        id="disableBtn">停用
+                </button>
+            {{??}}
+                <button data-id="{{=value.id}}" type="button" class="btn btn-default btn-sm"
+                        id="enableBtn">启用
+                </button>
+            {{?}}
+        </td>
+    </tr>
+    {{~}}
+</table>
+
+
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}" enableToPage="false">
+</div>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.11.min.js"></script>
+    <script type="text/javascript" src="@{js/memberClass.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/include_nav/include_nav.jsx")}}
+
+<div class="container-fluid" style="margin-top:20px">
+    <div class="row-fluid">
+        <form class="form-inline" role="search">
+            <div class="form-group">
+                <label for="keyword">关键字</label>
+                <input type="text" class="form-control" id="keyword" placeholder="活动名称，俱乐部名称">
+                <label for="auditState">审核状态</label>
+                <select class="form-control" id="auditState">
+                    <option value="0">待审核</option>
+                    <option value="1">审核通过</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-default" id="search">搜 索</button>
+        </form>
+    </div>
+    <div class="btn-group" style="margin: 2rem 0 2rem 0">
+        <label for="rootDelBtn" style="float: left;margin-top: 0.5rem">管理员操作:</label>
+        <button type="button" class="btn btn-default" id="rootDelBtn">删除活动</button>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                审核活动
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="auditBtnFuc" onclick="auditFuc('1')"><a href="javascript:void(0)">审核通过</a></li>
+                <li class="auditBtnFuc" onclick="auditFuc('0')"><a href="javascript:void(0)">审核不通过</a></li>
+                <li class="auditBtnFuc" onclick="auditFuc('0')"><a href="javascript:void(0)">审核撤回</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row-fluid" style="margin-top: 10px;">
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModelPanle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">删除活动</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确定要删除这些活动吗?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="confirmDelete">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="batchDelModelPanle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">批量删除活动</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确定批量要删除这些活动吗?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="confirmBatchDel">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="auditModelPanle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">修改审核状态</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确定要修改审核状态?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="confirmAudit()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="{{=it.merchantId}}" name="merchantId" id="merchantId"/>
+</body>
+</html>

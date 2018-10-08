@@ -1,0 +1,65 @@
+<div class="modal" id="BrandSelector" style="left: -400px;z-index:10000">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 1000px">
+<div class="modal-header" style="height: 55px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectView" style="color:#ffff00">×</button>
+<h5 class="modal-title" style="float:left;line-height: 30px">选择品牌</h5>
+<div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+<input type="text" class="form-control search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+<span class="input-group-btn">
+<button class="btn btn-default" type="button" data-bind="click:search">搜!</button>
+</span>
+</div>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="col-md-2" style="padding-left: 0px;overflow: auto;height: 630px">
+<ul id="treeBrand_BrandSelector" class="ztree"></ul>
+</div>
+<div class="col-md-10">
+
+</div>
+<div class="col-md-10">
+<div class="panel panel-default" style="min-height: 600px">
+<div id="loading" data-bind="visible:displayLoading()">
+<img src="res/image/loading.gif" style="margin:150px 0 0 250px"/>
+</div>
+<div class="panel-body" data-bind="foreach:itemList,visible:!displayLoading()">
+<div class="col-md-2" style="text-align: center">
+<div style="padding: 10px;margin-bottom:10px" data-bind="click:$root.select,css:{selected:selected}">
+<img style="height: 80px"  data-bind="attr:{src:imgUrl}" alt="..." class="img-thumbnail">
+<span style="text-align: center;display: block;height: 35px;font-size: 12px;overflow: hidden" data-bind="html:name"></span>
+</div>
+</div>
+</div>
+<div style="position: absolute;bottom: 0px;text-align: center; width: 100%;opacity: 0.5">
+<ul class="pagination">
+<li data-bind="click:$root.prePage"><a style="height:38px;color:white" href="javascript:void(0)">«</a></li>
+<li><a style="height:38px;color:white;" href="javascript:void(0)">当前第<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="color:black;font-weight:bolder;height: 24px;text-align: center;width: 25px;">页/共<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+<li data-bind="click:$root.nextPage"><a style="height:38px;color:white" href="javascript:void(0)">»</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectView">取消</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+</div>
+</div>
+</div>
+</div>
+
+

@@ -1,0 +1,226 @@
+<%if(footerIncludeCommonCss){%>
+<link rel="stylesheet" type="text/css" href="@{res/css/common.css}@" charset="utf-8"/>
+<!--<link rel="stylesheet" type="text/css" href="../res/css/common_custom.css" charset="utf-8"/>-->
+<%}%>
+<div class="center" style="<%= pageType == 'login' || pageType == 'shopping' ? 'margin-bottom:50px;' : ''%>">
+    <%if(pageType == 'general'){%>
+    <!--<div class="footer-biaoyu">-->
+        <!--<ul class="clearfix">-->
+            <!--<li class="fl" data-type="htmlSource" data-id="footer:bottom1_biaoyu_1">-->
+                <!--<%if(footer && footer.bottom1_biaoyu_1){%>-->
+                <!--<%=#footer.bottom1_biaoyu_1%>-->
+                <!--<%}else{%>-->
+                <!--<img class="fl" src="../res/images/footer-biaoyu01.png" alt=""/>-->
+                <!--<span class="fl">7X24小时营业<br/>全年无休</span>-->
+                <!--<%}%>-->
+            <!--</li>-->
+
+            <!--<li class="fl" data-type="htmlSource" data-id="footer:bottom1_biaoyu_2">-->
+                <!--<%if(footer && footer.bottom1_biaoyu_2){%>-->
+                <!--<%=#footer.bottom1_biaoyu_2%>-->
+                <!--<%}else{%>-->
+                <!--<img class="fl" src="../res/images/footer-biaoyu02.png" alt=""/>-->
+                <!--<span class="fl">全国服务热线<br/>400-883-1984<br/>0755-22222198</span>-->
+                <!--<%}%>-->
+            <!--</li>-->
+
+            <!--<li class="fl" data-type="htmlSource" data-id="footer:bottom1_biaoyu_3">-->
+                <!--<%if(footer && footer.bottom1_biaoyu_3){%>-->
+                <!--<%=#footer.bottom1_biaoyu_3%>-->
+                <!--<%}else{%>-->
+                <!--<img class="fl" src="../res/images/footer-biaoyu03.png" alt=""/>-->
+                <!--<span class="fl">时尚网配送<br/>全程冷链</span>-->
+                <!--<%}%>-->
+            <!--</li>-->
+
+            <!--<li class="fl" data-type="htmlSource" data-id="footer:bottom1_biaoyu_4">-->
+                <!--<%if(footer && footer.bottom1_biaoyu_4){%>-->
+                <!--<%=#footer.bottom1_biaoyu_4%>-->
+                <!--<%}else{%>-->
+                <!--<img class="fl" src="../res/images/footer-biaoyu04_02.png" alt=""/>-->
+                <!--<span class="fl">正品保障<br/>100%正品</span>-->
+                <!--<%}%>-->
+            <!--</li>-->
+
+            <!--<li class="fl last" data-type="htmlSource" data-id="footer:bottom1_biaoyu_5">-->
+                <!--<%if(footer && footer.bottom1_biaoyu_5){%>-->
+                <!--<%=#footer.bottom1_biaoyu_5%>-->
+                <!--<%}else{%>-->
+                <!--<img class="fl" src="../res/images/footer-biaoyu05.png" alt=""/>-->
+                <!--<span class="fl">当日下单<br/>次日到达</span>-->
+                <!--<%}%>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+    <ul class="web_map">
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle1"><%=footer && footer.helpTitle1 ? footer.helpTitle1 : '购物指南'%></span>
+            <div data-type="textLinkList" data-id="footer:helpLink1">
+                <%if(footer && footer.helpLink1 && footer.helpLink1.length > 0){%>
+                <%for(var i=0;i< footer.helpLink1.length;i++){%>
+                <a href="<%=footer.helpLink1[i].linkTo%>" target="<%=footer.helpLink1[i].openInNewPage%>"><%=footer.helpLink1[i].content%></a>
+                <%}%>
+                <%}else{%>
+                <a>购物流程</a>
+                <a>会员介绍</a>
+                <a>团购/机票</a>
+                <a>常见问题</a>
+                <a>大家电</a>
+                <a>联系客服</a>
+                <%}%>
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle2"><%=footer && footer.helpTitle2 ? footer.helpTitle2 : '配送方式'%></span>
+            <div data-type="textLinkList" data-id="footer:helpLink2">
+                <%if(footer && footer.helpLink2 && footer.helpLink2.length > 0){%>
+                <%for(var i=0;i< footer.helpLink2.length;i++){%>
+                <a href="<%=footer.helpLink2[i].linkTo%>" target="<%=footer.helpLink2[i].openInNewPage%>"><%=footer.helpLink2[i].content%></a>
+                <%}%>
+                <%}else{%>
+                <a>上门自提</a>
+                <a>211限时达</a>
+                <a>配送服务查询</a>
+                <a>配送费收取标准</a>
+                <a>海外配送</a>
+                <%}%>
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle3"><%=footer && footer.helpTitle3 ? footer.helpTitle3 : '支付方式'%></span>
+            <div data-type="textLinkList" data-id="footer:helpLink3">
+                <%if(footer && footer.helpLink3 && footer.helpLink3.length > 0){%>
+                <%for(var i=0;i< footer.helpLink3.length;i++){%>
+                <a href="<%=footer.helpLink3[i].linkTo%>" target="<%=footer.helpLink3[i].openInNewPage%>"><%=footer.helpLink3[i].content%></a>
+                <%}%>
+                <%}else{%>
+                <a>货到付款</a>
+                <a>在线支付</a>
+                <a>分期付款</a>
+                <a>邮局汇款</a>
+                <a>公司转账</a>
+                <%}%>
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle4"><%=footer && footer.helpTitle4 ? footer.helpTitle4 : '售后服务'%></span>
+            <div data-type="textLinkList" data-id="footer:helpLink4">
+                <%if(footer && footer.helpLink4 && footer.helpLink4.length > 0){%>
+                <%for(var i=0;i< footer.helpLink4.length;i++){%>
+                <a href="<%=footer.helpLink4[i].linkTo%>" target="<%=footer.helpLink4[i].openInNewPage%>"><%=footer.helpLink4[i].content%></a>
+                <%}%>
+                <%}else{%>
+                <a>售后政策</a>
+                <a>价格保护</a>
+                <a>退款说明</a>
+                <a>返修/退货</a>
+                <a>取消订单</a>
+                <%}%>
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle5"><%=footer && footer.helpTitle5 ? footer.helpTitle5 : '特色服务'%></span>
+            <div data-type="textLinkList" data-id="footer:helpLink5">
+                <%if(footer && footer.helpLink5 && footer.helpLink5.length > 0){%>
+                <%for(var i=0;i< footer.helpLink5.length;i++){%>
+                <a href="<%=footer.helpLink5[i].linkTo%>" target="<%=footer.helpLink5[i].openInNewPage%>"><%=footer.helpLink5[i].content%></a>
+                <%}%>
+                <%}else{%>
+                <a>夺宝岛</a>
+                <a>DIY装机</a>
+                <a>延保服务</a>
+                <a>节能补贴</a>
+                <%}%>
+            </div>
+        </li>
+        <li class="last">
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle6"><%=footer && footer.helpTitle6 ? footer.helpTitle6 : '友情链接'%></span>
+            <div data-type="textLinkList" data-id="footer:helpLink6">
+                <%if(footer && footer.helpLink6 && footer.helpLink6.length > 0){%>
+                <%for(var i=0;i< footer.helpLink6.length;i++){%>
+                <a href="<%=footer.helpLink6[i].linkTo%>" target="<%=footer.helpLink6[i].openInNewPage%>"><%=footer.helpLink6[i].content%></a>
+                <%}%>
+                <%}else{%>
+                <a>时尚网房地产</a>
+                <%}%>
+            </div>
+        </li>
+    </ul>
+
+    <!--<div class="foot_saoma clearfix">-->
+        <!--<dl>-->
+            <!--<dt data-type="imgLink" data-id="footer:code1_img" imgSize="110X110">-->
+                <!--<%if(footer && footer.code1_img && footer.code1_img.imgUrl){%>-->
+                    <!--<img alt="" src="<%=footer.code1_img.imgUrl%>"/>-->
+                <!--<%}else{%>-->
+                    <!--<img alt="" src="../res/img/code.png" width="110" height="110"/>-->
+                <!--<%}%>-->
+            <!--</dt>-->
+            <!--<dd data-type="htmlSource" data-id="footer:code1_text">-->
+                <!--<%if(footer && footer.code1_text && footer.code1_text.content){%>-->
+                <!--<%=#footer.code1_text.content%>-->
+                <!--<%}else{%>-->
+                <!--<span class="tit1">e专区客户端</span>-->
+                <!--<span class="tit2">扫描有惊喜</span>-->
+               <!--<span class="tit3">-->
+                      <!--<a class="iphone"><i></i>iPhone</a>-->
+                      <!--<a class="Android"><i></i>Android</a>-->
+                  <!--</span>-->
+                <!--<%}%>-->
+            <!--</dd>-->
+        <!--</dl>-->
+        <!--<dl>-->
+            <!--<dt data-type="imgLink" data-id="footer:code2_img" imgSize="110X110">-->
+                <!--<%if(footer && footer.code2_img && footer.code2_img.imgUrl){%>-->
+                <!--<img alt="" src="<%=footer.code2_img.imgUrl%>" />-->
+                <!--<%}else{%>-->
+                <!--<img alt="" src="../res/img/code.png" width="110" height="110"/>-->
+                <!--<%}%>-->
+            <!--</dt>-->
+            <!--<dd data-type="htmlSource" data-id="footer:code2_text">-->
+                <!--<%if(footer && footer.code2_text && footer.code2_text.content){%>-->
+                <!--<%=#footer.code2_text.content%>-->
+                <!--<%}else{%>-->
+                <!--<span class="tit1">e专区官方微信</span>-->
+                <!--<span class="tit2">扫描有惊喜</span>-->
+                <!--<%}%>-->
+            <!--</dd>-->
+        <!--</dl>-->
+    <!--</div>-->
+    <%}%>
+
+    <div class="web_map_My">
+        <%if(pageType != 'shopping'){%>
+        <div class="footer_info" style="display: inline-block;" data-type="textLinkList" data-id="footer:bottomLink">
+        <%if(footer && footer.bottomLink && footer.bottomLink.length > 0){%>
+        <%for(var i=0;i< footer.bottomLink.length;i++){%>
+        <a href="<%=footer.bottomLink[i].linkTo%>" target="<%=footer.bottomLink[i].openInNewPage%>"><%=footer.bottomLink[i].content%></a><%if(i< footer.bottomLink.length-1){%><span class="split">|</span><%}%>
+        <%}%>
+        <%}else{%>
+        <a href="#">关于我们</a><span class="split">|</span><a href="#">联系我们</a>
+        <%}%>
+            
+        </div>
+        <%}%>
+        <span class="copyright" data-type="htmlSource" data-id="footer:copyright">
+            <%if(footer && footer.copyright){%>
+            <%=#footer.copyright%>
+            <%}else{%>
+            Copyright@时尚网有限公司&nbsp;&nbsp;粤ICP备8888****号-4&nbsp;&nbsp;&nbsp;is1.com.cn&nbsp;版权所有
+            <%}%>
+        </span>
+
+    </div>
+</div>
+<script>var serverUrl = "<%=webUrl%>";</script>
+<%if(productionMode){%>
+<%if(config){%>
+<%if(config.our_statistics){%>
+<%=#config.our_statistics.value%>
+<%}%>
+<%if(config.other_statistics){%>
+<%=#config.other_statistics.value%>
+<%}%>
+<%}%>
+<%}%>

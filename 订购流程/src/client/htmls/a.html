@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC"-//WAPFORUM//DTD XHTML Mobile 1.0//EN""http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html lang="ch">
+<head><title></title>
+    <link href="http://img1.is1.com.cn/2015/1/11/6080001.css" rel="stylesheet">
+    <link href="http://img1.is1.com.cn/2015/1/11/6080002.css" rel="stylesheet">
+    <script src="/resources/knockout-3.2.0.debug.js"></script>
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script>var cartsPage = null;
+    $(document).on("koInit", function () {
+        var elem = document.getElementById("cartsPage");
+        if (elem) {
+            cartsPage = new Carts();
+            ko.applyBindings(cartsPage, document.getElementById("cartsPage"));
+            cartsPage.loadCarts();//                cartsPage.getUser();}});</script>
+</head>
+<body><!-- 加价购商品 "此模块用ajax来填充数据" -->
+<div class="messagePanel jiaJiaGetGood" id="lowPricePresentSelector">
+    <div class="messagePanelHd">请选择换购商品，数量有限，换完即止 <i class="closeBtn" data-bind="click:close"></i></div>
+    <div class="messagePanelBd">
+        <div class="tableWrap">
+            <table data-bind="foreach:presents">
+                <tr class="row">
+                    <td width="30"><input type="checkbox" data-bind="checked:checked"></td>
+                    </td>
+                    <td width="370"><a class="thumb"><img data-bind="attr:{src:icon}" alt="" width="80"
+                                                          height="80"/></a>
+
+                        <div class="info"><a class="name" data-bind="text:name"></a>
+
+                            <p class="textPrimary price">￥<strong data-bind="text:price"></strong></p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub" data-bind="click:$root.minus"></span><input
+                            class="count" type="text" data-bind="value:selectedNumber"/><span class="operate add"
+                                                                                              data-bind="click:$root.add"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="btnGroup textCenter mt15">
+            <button class="btn btnPrimary continue" data-bind="click:ok">确定</button>
+            <button class="btn btnDefault cancel" data-bind="click:close">取消</button>
+        </div>
+    </div>
+</div>
+<!-- end 加价购商品 --><!-- 提示框 -->
+<div class="messagePanel information" id="confirmDialog">
+    <div class="messagePanelHd">提示 <i class="closeBtn" data-bind="click:close"></i></div>
+    <div class="messagePanelBd">
+        <ul>
+            <li><span data-bind="message"></span></li>
+        </ul>
+        <div class="btnGroup textCenter mt15">
+            <button class="btn btnPrimary continue" data-bind="click:ok">确定</button>
+            <button class="btn btnDefault cancel" data-bind="click:cancel">取消</button>
+        </div>
+    </div>
+</div>
+<!-- end 提示框 --><!-- 单品优惠 -->
+<div class="messagePanel information" id="ruleSelectorDialog">
+    <div class="messagePanelHd">选择单品优惠<i class="closeBtn" data-bind="click:close"></i></div>
+    <div class="messagePanelBd">
+        <ul data-bind="foreach:availableRuleResults">
+            <li><input type="checkbox" data-bind="checked:checked,click:$root.recalculateExclude"><span
+                    data-bind="html:userFriendlyMessageString"></span></li>
+        </ul>
+        <div class="btnGroup textCenter mt15">
+            <button class="btn btnPrimary continue" data-bind="click:ok">确定</button>
+            <button class="btn btnDefault cancel" data-bind="click:close">取消</button>
+        </div>
+    </div>
+</div>
+<!-- end 单品优惠 --><!-- 选择赠品 "此模块用ajax来填充数据" -->
+<div class="messagePanel chooseGift" id="freePricePresentSelector">
+    <div class="messagePanelHd">请选择换购商品，数量有限，换完即止 <i class="closeBtn"></i></div>
+    <div class="messagePanelBd"><p class="tips">您共可以选择1件赠品，还剩余1件赠品</p>
+
+        <div class="tableWrap">
+            <table>
+                <tr class="row">
+                    <td width="30">
+                        <div class="checkbox enableSelect"><i></i></div>
+                    </td>
+                    <td width="370"><a class="thumb" href=""><img src="assets/img/1.png" alt="" width="80" height="80"/></a>
+
+                        <div class="info"><a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+
+                            <p class="textPrimary price">￥<strong>139</strong>.00</p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub"></span><input class="count" type="text"/><span
+                            class="operate add"></span></td>
+                </tr>
+                <tr class="row">
+                    <td width="30">
+                        <div class="checkbox enableSelect"><i></i></div>
+                    </td>
+                    <td width="370"><a class="thumb" href=""><img src="assets/img/1.png" alt="" width="80" height="80"/></a>
+
+                        <div class="info"><a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+
+                            <p class="textPrimary price">￥<strong>139</strong>.00</p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub"></span><input class="count" type="text"/><span
+                            class="operate add"></span></td>
+                </tr>
+                <tr class="row">
+                    <td width="30">
+                        <div class="checkbox enableSelect"><i></i></div>
+                    </td>
+                    <td width="370"><a class="thumb" href=""><img src="assets/img/1.png" alt="" width="80" height="80"/></a>
+
+                        <div class="info"><a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+
+                            <p class="textPrimary price">￥<strong>139</strong>.00</p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub"></span><input class="count" type="text"/><span
+                            class="operate add"></span></td>
+                </tr>
+                <tr class="row">
+                    <td width="30">
+                        <div class="checkbox enableSelect"><i></i></div>
+                    </td>
+                    <td width="370"><a class="thumb" href=""><img src="assets/img/1.png" alt="" width="80" height="80"/></a>
+
+                        <div class="info"><a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+
+                            <p class="textPrimary price">￥<strong>139</strong>.00</p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub"></span><input class="count" type="text"/><span
+                            class="operate add"></span></td>
+                </tr>
+                <tr class="row">
+                    <td width="30">
+                        <div class="checkbox enableSelect"><i></i></div>
+                    </td>
+                    <td width="370"><a class="thumb" href=""><img src="assets/img/1.png" alt="" width="80" height="80"/></a>
+
+                        <div class="info"><a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+
+                            <p class="textPrimary price">￥<strong>139</strong>.00</p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub"></span><input class="count" type="text"/><span
+                            class="operate add"></span></td>
+                </tr>
+                <tr class="row">
+                    <td width="30">
+                        <div class="checkbox enableSelect"><i></i></div>
+                    </td>
+                    <td width="370"><a class="thumb" href=""><img src="assets/img/1.png" alt="" width="80" height="80"/></a>
+
+                        <div class="info"><a class="name" href="">佳沛绿奇异果30个新西兰进口经典绿心猕猴桃 新鲜水果 </a>
+
+                            <p class="textPrimary price">￥<strong>139</strong>.00</p></div>
+                    </td>
+                    <td class="enableSelect"><span class="operate sub"></span><input class="count" type="text"/><span
+                            class="operate add"></span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="btnGroup textCenter mt15">
+            <button class="btn btnPrimary continue">确定</button>
+            <button class="btn btnDefault cancel">取消</button>
+        </div>
+    </div>
+</div>
+<!-- end 选择赠品 -->
+<div id="skuSelector" style="display: none"></div>
+<div id="buyflowCart" class="container">
+    <div class="page" id="cartsPage">
+        <div class="slide"></div>
+        <div class="backededed">
+            <div class="center product">
+                <div class="mani_cat_but"><span class="title">购物车</span><a class="but" href="/">继续购物 ></a></div>
+                <div class="datles_table">
+                    <div class="th">
+                        <div class="ld1">
+                            <div class="checkbox enableSelect" data-bind="css:{active:allChecked},click:toggle()">
+                                <i></i></div>
+                            全选
+                        </div>
+                        <div class="ld2">商品</div>
+                        <div class="ld3">规格属性</div>
+                        <div class="ld4">单价</div>
+                        <div class="ld5">重量</div>
+                        <div class="ld6">数量</div>
+                        <div class="ld7">金额</div>
+                        <div class="ld8">操作</div>
+                    </div>
+                    <!-- ko foreach: carts -->
+                    <ul class="ll"><!-- ko foreach:buyItems -->
+                        <li>
+                            <div class="ld1">
+                                <div class="checkbox enableSelect"
+                                     data-bind="css:{active:checked},click:toggle(), visible:!$parents[1].readOnly()">
+                                    <input type="hidden"><i></i></div>
+                                <div class="img_view"><img data-bind="attr:{src:icon}"/></div>
+                            </div>
+                            <div class="ld2"><a data-bind="text:productName,click:$root.toDetail"></a></div>
+                            <div class="ld3"><span data-bind="text:attrsString"></span></div>
+                            <div class="ld4">¥<!-- ko text:unitPrice --><!-- /ko --></div>
+                            <div class="ld5"><!-- ko text:totalWeight --><!-- /ko -->kg</div>
+                            <div class="ld6"><span class="midde"><a class="less"
+                                                                    data-bind="click:$root.minus"></a><input
+                                    class="quantity_txt" data-bind="value:acceptedNumber"/><a class="add"
+                                                                                              data-bind="click:$root.add"></a></span>
+                            </div>
+                            <div class="ld7"><span class="font18">¥</span><!-- ko text:totalPayPrice --><!-- /ko -->
+                            </div>
+                            <div class="ld8"><span class="midde"><a>移至收藏夹</a><a
+                                    data-bind="click:$root.remove">删除</a></span></div>
+                        </li>
+                        <!-- /ko --></ul>
+                    <!-- 现在开始订单级别的活动 --><!-- ko foreach:orderRuleTargets -->
+                    <div class="tip"><span class="ttp" data-bind="text:ruleResult.actionType"></span><span
+                            class="float_l" data-bind="html:userFriendlyMessages"></span><!-- ko if:isLowPricePresentRule --><a
+                            class="but" data-bind="click:chooseLowPriceBuyPresents" class="btnSelectPresent">加价购商品</a>
+                        <ul data-bind="foreach:selectedlowPricePresents" class="presents">
+                            <li><span class="presentImg"><img data-bind="attr:{src:icon}"></span><span
+                                    class="presentName" data-bind="text:name"></span>x<span class="presentNumber"
+                                                                                            data-bind="text:number"></span>
+                            </li>
+                        </ul>
+                        <!-- /ko --> <!-- if:isLowPricePresentRule --><!-- ko if:isFreePresentRule -->
+                        <ul data-bind="foreach:freePresents" class="presents">
+                            <li><span class="presentImg"><img data-bind="attr:{src:icon}"></span><span
+                                    class="presentName" data-bind="text:name"></span>x<span class="presentNumber"
+                                                                                            data-bind="text:number"></span>
+                            </li>
+                        </ul>
+                        <!-- /ko --> <!-- if:isFreePresentRule --></div>
+                    <ul class="ll"><!-- ko foreach:items -->
+                        <li>
+                            <div class="ld1">
+                                <div class="checkbox enableSelect"
+                                     data-bind="css:{active:checked},click:toggle(), visible:!$parents[2].readOnly()">
+                                    <input type="hidden"><i></i></div>
+                                <div class="img_view"><img data-bind="attr:{src:icon}"/></div>
+                            </div>
+                            <div class="ld2"><a data-bind="text:productName,click:$root.toDetail"></a></div>
+                            <div class="ld3"><span data-bind="text:attrsString"></span></div>
+                            <div class="ld4">¥<!-- ko text:unitPrice --><!-- /ko --></div>
+                            <div class="ld5"><!-- ko text:totalWeight --><!-- /ko -->kg</div>
+                            <div class="ld6"><span class="midde"><a class="less"
+                                                                    data-bind="click:$root.minus"></a><input
+                                    class="quantity_txt" data-bind="value:acceptedNumber"/><a class="add"
+                                                                                              data-bind="click:$root.add"></a></span>
+                            </div>
+                            <div class="ld7"><span class="font18">¥</span><!-- ko text:totalPayPrice --><!-- /ko -->
+                            </div>
+                            <div class="ld8"><span class="midde"><a data-bind="click:$root.favoriteProduct">移至收藏夹</a><a
+                                    data-bind="click:$root.remove">删除</a><a
+                                    data-bind="click:chooseOrderRule">修改优惠</a></span></div>
+                        </li>
+                        <!-- /ko --><!-- foreach:items --></ul>
+                    <!-- /ko --><!-- foreach:orderRuleTargets --><!-- /ko --><!-- foreach:carts -->
+                    <div class="upcaozuo">
+                        <div class="float_l">
+                            <div class="checkbox enableSelect" data-bind="css:{active:allChecked},click:toggle()">
+                                <i></i></div>
+                            全选<!--                 <a>删除选中的商品</a><a>移至收藏夹</a> --></div>
+                        <div class="float_r"><span class="bd">已经选中<b
+                                data-bind="text:checkedNumber">7</b>件商品</span><span>总重量<b
+                                data-bind="text:checkedTotalWeight">73</b>kg</span><!--<div class="quantity">总计：<b class="font24" data-bind="text:totalOrderProductPrice">￥172.00</b><br/>优惠：<b class="colore14041">-￥20.00</b></div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="jiesuan">
+                    <div class="float_r"><span class="float_l">商品总价（不含运费）:<b class="colore14041">￥<span class="font24"
+                                                                                                        data-bind="text:totalOrderProductPrice"></span></b></span><a
+                            class="pay" data-bind="click:checkOut">结算<span class="ico">&#x2714;</span></a></div>
+                </div>
+                <div class="best">
+                    <div class="title">最优惠</div>
+                    <ul class="list" data-type="productGroup" data-id="cartBest" data-spec="180X180">
+                        <li><a class="img_view"><img src="http://img1.is1.com.cn/2015/1/7/5980073.png" alt=""/></a><span
+                                class="name">百草味 坚果 炒货 手剥山核桃 </span><span
+                                class="price"><span>¥<span>128</span>.00</span><s>¥148.00</s></span><a class="but25">加入购物车</a>
+                        </li>
+                        <li><a class="img_view"><img src="http://img1.is1.com.cn/2015/1/7/5980073.png" alt=""/></a><span
+                                class="name">百草味 坚果 炒货 手剥山核桃 </span><span
+                                class="price"><span>¥<span>128</span>.00</span><s>¥148.00</s></span><a class="but25">加入购物车</a>
+                        </li>
+                        <li><a class="img_view"><img src="http://img1.is1.com.cn/2015/1/7/5980073.png" alt=""/></a><span
+                                class="name">百草味 坚果 炒货 手剥山核桃 </span><span
+                                class="price"><span>¥<span>128</span>.00</span><s>¥148.00</s></span><a class="but25">加入购物车</a>
+                        </li>
+                        <li><a class="img_view"><img src="http://img1.is1.com.cn/2015/1/7/5980073.png" alt=""/></a><span
+                                class="name">百草味 坚果 炒货 手剥山核桃 </span><span
+                                class="price"><span>¥<span>128</span>.00</span><s>¥148.00</s></span><a class="but25">加入购物车</a>
+                        </li>
+                        <li><a class="img_view"><img src="http://img1.is1.com.cn/2015/1/7/5980073.png" alt=""/></a><span
+                                class="name">百草味 坚果 炒货 手剥山核桃 </span><span
+                                class="price"><span>¥<span>128</span>.00</span><s>¥148.00</s></span><a class="but25">加入购物车</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="center" style="position:relative;z-index:2;">
+    <ul class="manifesto">
+        <li>
+            <span class="ico">&#x2738;</span>
+            <span class="font">
+                <span class="t1">7X24小时营业</span>
+                <br/>
+                全年无休
+            </span>
+        </li>
+        <li>
+            <span class="ico">&#x273A;</span>
+            <span class="font">
+                全国免费热线
+                <br/>
+                <span class="t1">4008888888</span>
+            </span>
+        </li>
+        <li>
+            <span class="ico" style="font-size:70px;">&#x2739;</span>
+            <span class="font t1">
+                华润配送
+                <br/>
+                全程冷链
+            </span>
+        </li>
+    </ul>
+
+    <ul class="web_map">
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle1">购物指南</span>
+
+            <div data-type="textLinkList" data-id="footer:helpLink1">
+
+                <a>购物流程</a>
+                <a>会员介绍</a>
+                <a>团购/机票</a>
+                <a>常见问题</a>
+                <a>大家电</a>
+                <a>联系客服</a>
+
+            </div>
+
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle2">配送方式</span>
+
+            <div data-type="textLinkList" data-id="footer:helpLink2">
+
+                <a>上门自提</a>
+                <a>211限时达</a>
+                <a>配送服务查询</a>
+                <a>配送费收取标准</a>
+                <a>海外配送</a>
+
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle3">支付方式</span>
+
+            <div data-type="textLinkList" data-id="footer:helpLink3">
+
+                <a>货到付款</a>
+                <a>在线支付</a>
+                <a>分期付款</a>
+                <a>邮局汇款</a>
+                <a>公司转账</a>
+
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle4">售后服务</span>
+
+            <div data-type="textLinkList" data-id="footer:helpLink4">
+
+                <a>售后政策</a>
+                <a>价格保护</a>
+                <a>退款说明</a>
+                <a>返修/退货</a>
+                <a>取消订单</a>
+
+            </div>
+        </li>
+        <li>
+            <span class="title" data-type="htmlSource" data-id="footer:helpTitle5">特色服务</span>
+
+            <div data-type="textLinkList" data-id="footer:helpLink5">
+
+                <a>夺宝岛</a>
+                <a>DIY装机</a>
+                <a>延保服务</a>
+                <a>华润E卡</a>
+                <a>节能补贴</a>
+
+            </div>
+        </li>
+    </ul>
+    <div class="web_map_My" data-type="textLinkList" data-id="footer:bottomLink">
+
+        <a href="#">关于我们</a>|
+        <a href="#">联系我们</a>|
+        <a href="#">人才招聘</a>|
+        <a href="#">商家入驻</a>|
+        <a href="#">营销中心</a>|
+        <a href="#">手机E万家</a>|
+        <a href="#">友情链接</a>|
+        <a href="#">销售联盟</a>|
+        <a href="#">社区</a>|
+        <a href="#">公益</a>|
+        <a href="#">English Site</a>
+
+    </div>
+
+    <div class="record" data-type="htmlSource" data-id="footer:copyright">
+
+        <p>
+            北京市公安局朝阳分局备案编号110105014669 京ICP证070359号 互联网药品信息服务资格证编号（京）-经营性-2014-0008 新出发京零 字第大120007号
+        </p>
+
+        <p>音像制品经营许可苏宿批005号 出版物经营许可编号新出发（苏）批字第N-012号 互联网出版许可证编号新出网证（京）字150号</p>
+
+        <p>网络文化经营许可证京网文[2001]0168-061号 违法和不良信息举报电话：4006561155 Copyright 2004-2014 ewj.com 版权所有</p>
+
+    </div>
+</div>
+<script src="/buyflowApp/loadCart.jsx"></script>
+<script>AppConfig.orderFormUrl = "orderForm.html";</script>
+</body>
+</html>

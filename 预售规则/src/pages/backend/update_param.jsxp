@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>预售规则提示</title>
+    <script type="text/javascript">
+        var m = "{{m}}"
+    </script>
+    {{#inc("pages/include_base.jsx")}}
+    <script src="@{res/js/update_param.js}@"></script>
+    <style>
+        form label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            width: 20%;
+            text-align: right;
+        }
+
+        form .form-group {
+            display: inline-block;
+            margin-bottom: 0;
+            vertical-align: middle;
+            width: 50%;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var msg = $("#msg").val();
+            var data = {};
+            data.msg = msg;
+            var updateParamPage = new UpdateParamPagePage(data);
+            ko.applyBindings(updateParamPage, document.getElementById("updateParamPage"));
+        });
+    </script>
+</head>
+<body>
+{{#inc("pages/backend/include_navbar.jsx")}}
+<div class="container" style="" id="updateParamPage">
+    <div class="well" style="padding-top: 60px;">
+        <form class="form-inline" role="form">
+            <h2>设置预售规则提示</h2>
+            <hr class="titleHr"/>
+            <div class="row" style="margin-bottom: 10px">
+                <label class="control-label">预售规则提示:</label>
+
+                <div class="form-group">
+                    <textarea rows="10" id="msg" name="msg" class="form-control" data-bind="value:msg">{{initParam.msg}}</textarea>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+                <button name="save" class="btn btn-primary" style="margin-right: 20px" data-bind="click:save">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

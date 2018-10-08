@@ -1,0 +1,21 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="140px;">分类ID</th>
+        <th width="400px;">分类</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.recordList:value:index}}
+    <tr>
+        <td >{{=value.id}}</td>
+        <td >{{=value.columnPath}}</td>
+        <td >
+            <a class="deleteCat btn btn-default btn-sm" data-a="{{=value.id}}">删除</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>

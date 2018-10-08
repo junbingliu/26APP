@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="ch">
+	<head>
+        <title>退<%=isApplyForReplacement != 'false' ? '换' : ''%>货申请 - 我的专区 - <%=webName%></title>
+        <link rel="stylesheet" type="text/css" href="@{res/css/return_order.css}@" rel="stylesheet" />
+        <style>
+            .tableGoodInfoThumb{margin: 5px 10px;}
+        </style>
+        <script src="/resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script>var rappId = "<%=rappId%>";</script>
+        <script type="text/javascript" src="@{res/js/return_order.js}@"></script>
+    </head>
+    <body>
+        <%=#importUrl("/ucenter/header.html")%>
+        <!-- main -->
+        <div class="center">
+            <!-- sidebar -->
+            <div class="sidebar float_l enableSelect">
+                <div class="crumb">
+                    <a href="/">首页</a><span class="arrow"></span><a href="/ucenter/index.html">我的专区</a><span class="arrow"></span><a class="active">退<%=isApplyForReplacement != 'false' ? '换' : ''%>货申请</a>
+                </div>
+                <%=#importUrl("/ucenter/sidebar.html")%>
+            </div>
+            <!-- sidebar -->
+            <!-- main -->
+            <div class="main float_r">
+                <!-- tuihuo apply -->
+                <div class="panel myFavorite">
+                    <div class="panelHd">
+                        <h2 class="panelHdTitle enableSelect">退<%=isApplyForReplacement != 'false' ? '换' : ''%>货申请</h2>
+                    </div>
+                    <div class="panelBd">
+                        <div class="tuihuoHead clearfix">
+                            <form id="returnOrderSearchForm" class="queryWrap fr" action="<%=requestURI%>" method="get">
+                                <input class="text fl" name="returnOrderKeyword" type="text" value="<%=returnOrderKeyword%>" placeholder="商品名称/商品编号/订单编号"/>
+                                <input class="btn fl" type="submit" value="查询"/>
+                            </form>
+                            <ul class="tab fl">
+                                <li class="fl active"><a href="/ucenter/return_order.html" style="display: block;width: 100%;height: 100%;color: inherit;">申请退换货</a></li>
+                                <li class="fl"><a href="/ucenter/return_records.html" style="display: block;width: 100%;height: 100%;color: inherit;">退换货记录</a></li>
+                            </ul>
+                        </div>
+                        <!-- tuihuo table -->
+                        <table class="table tuihuoTable">
+                            <tr class="tableHd enableSelect">
+                                <th width="180">
+                                    <p>订单号</p>
+                                </th>
+                                <th align="center">订单商品</th>
+                                <th width="150">下单时间</th>
+                                <th width="100">操作</th>
+                            </tr>
+                            <%if(refundMap && refundMap.count > 0){%>
+                            <%for(var i =0;i < refundMap.lists.length;i++){%>
+                            <%var refundOrder = refundMap.lists[i];%>
+                            <tr class="tableBd">
+                                <td><%=refundOrder.aliasCode%></td>
+                                <td class="middleTd">
+                                    <%if(refundOrder.itemList && refundOrder.itemList.length > 0){%>
+                                    <%for(var j=0;j < refundOrder.itemList.length;j++){%>
+                                    <%var item = refundOrder.itemList[j];%>
+
+                                    <a href="/product.html?id=<%=item.productId%>&mid=<%=item.orderProduct.merchantId%>" target="_blank" class="tableGoodInfoThumb fl" title="<%=item.name%>">
+                                        <img src="<%=item.orderProduct.pics[0]%>" alt="<%=item.name%>"/>
+                                    </a>
+
+                                    <%}%>
+                                    <%}%>
+
+                                </td>
+                                <td class="middleTd"><%=refundOrder.createTimeFormat%></td>
+                                <td><a class="btn btnDefault" href="/ucenter/return_order_apply.html?id=<%=refundOrder.id%>">申请退换货</a></td>
+                            </tr>
+                            <%}%>
+                            <%}else{%>
+                            <tr>
+                                <td colspan="4" style="padding:15px 0;text-align: center">您目前还没有申请记录！</td>
+                            </tr>
+                            <%}%>
+                        </table>
+                        <!-- end tuihuo table -->
+                    </div>
+                </div><!-- end  tuihuo apply -->
+            </div>
+            <!--end main -->
+        </div><!-- end main -->
+        <div class="clear"></div>
+
+        <%=#importUrl("/ucenter/footer.html")%>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+.container-fluid {
+    min-width: 100rem;
+}
+
+#commonSelect {
+    margin-left: 0.1rem;
+    width: 26%;
+    height: 3rem;
+}
+
+#sill {
+    margin-left: 0.1rem;
+    width: 26%;
+    height: 3rem;
+}
+
+.activityTitle {
+    margin-top: 3rem;
+}
+
+#citySelect {
+    margin-left: 1rem;
+    width: 26%;
+    height: 3rem;
+}
+
+.commonBorder {
+    min-width: 25rem;
+    min-height: 20rem;
+    max-width: 44rem;
+    max-height: 30rem;
+    border-style: solid;
+    border-width: 1px;
+    overflow-y: auto;
+    margin-top: 4rem;
+    border-color: #9fa0a0;
+    border-radius: 5px;
+}
+
+.commonBorderList {
+    min-width: 70%;
+    min-height: 40rem;
+    max-width: 64rem;
+
+    border-style: solid;
+    border-width: 1px;
+    overflow-y: auto;
+    margin-top: 4rem;
+    border-color: #9fa0a0;
+    border-radius: 5px;
+}
+
+.timeMoudle {
+    margin-top: 2rem;
+}
+
+.moneyBoder {
+    width: 70%;
+    min-height: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 1rem;
+    border-color: #9fa0a0;
+    border-radius: 5px;
+}
+.moneySet{
+    margin: 1rem 0 0 2rem;
+}
+li{
+    list-style: none;
+    margin-top: 1rem;
+}
+input{
+    margin-left: 0.5rem;
+}
+label{
+    margin-left: 1rem;
+}
+.shopInfo{
+    padding: 0 15px 10px 0;
+    display: inline-block;
+    width: 33.3%;
+    text-align: center;
+}
+.classListBor li{
+    width: 10%;
+}
+.classListBor li button{
+    width: 50%;
+}

@@ -1,0 +1,15 @@
+{
+  "libs_namespace": "inventoryManage",
+  "libs": ["services/InventoryManageService.jsx","services/InventoryManageQuery.jsx"],
+  "obj_prefixes": ["inventoryManage"],
+  "list_prefixes": ["inventoryManage"],
+  "eventHandlers":[
+  ],
+  "rules": [
+    {
+      "id": "fullControl",
+      "name": "",
+      "pattern": "pages/.*"
+    }
+  ]
+}

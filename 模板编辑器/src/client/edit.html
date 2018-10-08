@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="cn" style="height:100%;margin:0px;padding:0px;border:0px">
+<head>
+<meta charset="utf-8"/>
+<title>网页编辑</title>
+
+<link rel="stylesheet" href="/OurHome/style/product.css"/>
+<link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="@{client/res/css/bootstrap-datetimepicker.min.css}@" rel="stylesheet"/>
+<link href="@{client/res/css/loader.css}@" rel="stylesheet"/>
+<link href="@{client/res/css/zTreeStyle/zTreeStyle.css}@" rel="stylesheet"/>
+<link href="@{client/res/css/jquery-ui-1.10.3.custom.min.css}@" rel="stylesheet"/>
+<script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+<script src="@{client/res/lib/jquery.htmlClean.min.js}@"></script>
+<script src="@{client/res/lib/bootbox.min.js}@"></script>
+<script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+<script src="@{client/res/lib/knockoutSortable.js}@"></script>
+<script src="@{client/res/lib/knockout.mapping-latest.js}@"></script>
+<script src="@{client/res/lib/jquery-ui-1.10.3.custom.min.js}@"></script>
+<script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
+<script src="/resources/ckeditor/adapters/jquery.js"></script>
+<script src="/resources/doT.min.js"></script>
+<script src="/resources/artTemplate.js"></script>
+<script src="/resources/artTemplateHelper.js"></script>
+<script src="/resources/underscore-min.js"></script>
+<script src="/appEditor/appEditor.jsx?m=<%=m%>"></script>
+<script src="@{client/res/lib/jquery.ztree.core-3.5.js}@"></script>
+<script src="@{client/res/lib/bootstrap-datetimepicker.min.js}@"></script>
+<script src="@{client/res/lib/locales/bootstrap-datetimepicker.zh-CN.js}@" charset="UTF-8"></script>
+<script src="@{client/res/lib/jquery.form.min.js}@"></script>
+<script>
+$(document).ready(function(){
+var config = {appId:"<%=rappId%>",pageId:"<%=rpageId%>", m:"<%=m%>",renderEngine:"<%=renderEngine%>"};
+var appEditor = new AppEditor(config.m,config.appId,config.pageId,config.renderEngine);
+appEditor.openPage();
+});
+
+</script>
+</head>
+<body  >
+<div id="main" >
+<iframe style="width:100%;height:100%;margin:0px;padding:0px;border:0px" id="mainFrame" class="page">
+
+</iframe>
+
+<div class="page" id="fancyCategoriesEditor" style="display:none">
+<div style="margin:30px">
+<!-- ko foreach: $root.levelCurrentItems -->
+<div class="col-md-4">
+<div class="panel panel-primary">
+<div class="panel-heading">当前：<span data-bind="text:name"></span>
+<button class="btn btn-sm btn-success pull-right" style="margin-left:5px" data-bind="click:$root.addItemDialog">添加...</button>
+<button class="btn btn-sm btn-success pull-right" style="margin-left:5px"data-bind="click:$root.selectCategoriesDialog">选择...</button>
+</div>
+<div class="panel-body">
+<table class="table table-bordered">
+<tbody data-bind="foreach:children,sortable:{}">
+<tr>
+<td data-bind="click:$root.select,css:{sameLineItem:sameLine()=='true' && !selected(),selectedItem:selected()}">
+<div data-bind="text:name" class="pull-left"></div>
+<div class="pull-right">
+<i class="glyphicon glyphicon-pencil" title="编辑" style="margin-left:5px" data-bind="click:$root.editItem"></i>
+<i class="glyphicon glyphicon-remove" title="删除" style="margin-left:5px" data-bind="click:$root.deleteItem"></i>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- /ko -->
+<div style="clear:both"></div>
+</div>
+
+<div style="margin:30px;border:1px #dddddd dashed">
+<button class="btn btn-info" data-bind="click:returnMainFrame" style="margin-right:20px;margin-left:20px;">返回</button>
+<button class="btn btn-success" data-bind="click:save">保存</button>
+</div>
+
+<div class="modal fade" id="fancyCategory_selectCategories">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title">批量选择分类</h4>
+</div>
+<div class="modal-body">
+<select size="10" style="width:100%" multiple="true"
+data-bind="options:categoriesDialog.categories,optionsText:'name',selectedOptions:categoriesDialog.selectedCategories"></select>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<button type="button" class="btn btn-primary" data-bind="click:categoriesDialog.ok">确定</button>
+</div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="fancyCategory_addItem">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title">添加项目</h4>
+</div>
+<div class="modal-body">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label class="col-lg-2 control-label">名称</label>
+
+<div class="col-lg-10">
+<input type="text" class="form-control" placeholder="显示的文字"
+data-bind="value:itemDialog.name">
+</div>
+</div>
+
+<div class="form-group">
+<label class="col-lg-2 control-label">图标</label>
+
+<div class="col-lg-10">
+<input type="text" class="form-control" placeholder="显示的图标url"
+data-bind="value:itemDialog.icon">
+</div>
+</div>
+
+<div class="form-group">
+<label class="col-lg-2 control-label">url</label>
+
+<div class="col-lg-10">
+<input type="text" class="form-control" placeholder="点击后跳到哪里"
+data-bind="value:itemDialog.url">
+</div>
+</div>
+
+<div class="form-group">
+<label class="col-lg-2 control-label">品类Id</label>
+
+<div class="col-lg-10">
+<input type="text" class="form-control" placeholder="对应的品类的Id"
+data-bind="value:itemDialog.columnId">
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-2 control-label">自定义</label>
+
+<div class="col-lg-10">
+<div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="true" data-bind="checked: itemDialog.custom"> 是</div>
+<div style="float: left"><input type="radio" name="optionsRadios"  value="false" data-bind="checked: itemDialog.custom"> 否</div>
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-2 control-label">不换行</label>
+
+<div class="col-lg-10">
+<div style="float: left;width: 50px"><input type="radio" name="sameLineRadios"  value="true" data-bind="checked: itemDialog.sameLine"> 是</div>
+<div style="float: left"><input type="radio" name="sameLineRadios"  value="false" data-bind="checked: itemDialog.sameLine"> 否</div>
+</div>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<button type="button" class="btn btn-primary" data-bind="click:itemDialog.ok">确定</button>
+</div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div id="fancyCategories_sign" style="display:none">
+<div style="position: absolute;left:-55px;top:-30px;z-index: 9999">
+<img src="@{client/res/image/right.png}@"/>
+</div>
+</div>
+
+</div>
+<div class="page modal" id="ImgLinkEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 500px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeImgLinkEditor">×</button>
+<h5 class="modal-title">图片设置</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="col-md-4" style="padding-left: 0px"><img data-bind="attr:{src:selectedImg}" class="img-thumbnail"></div>
+<div class="col-md-8">从电脑或者网络上选择要展示的图片  <span style="color: red">图片尺寸<!-- ko text: imgSize --><!-- /ko --></span><button type="button" class="btn btn-primary btn-block" data-bind="click:photoGalleryEditor.openSelectImgView.bind($data,false)">选择图片</button></div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="form-group">
+<label for="linkTo">图片链接</label>
+<input data-bind="value:selectedImg" type="url" class="form-control" id="imgUrl" placeholder="链接地址">
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="form-group">
+<label for="linkTo">链接到</label>
+<input data-bind="value:linkTo" type="url" class="form-control" id="linkTo" placeholder="链接地址">
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="form-group">
+<label for="description">描述</label>
+<input data-bind="value:description" type="url" class="form-control" id="description" placeholder="描述内容">
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="form-group">
+<label class="col-md-4 control-label" style="padding: 0px">新窗口打开</label>
+<div class="col-md-8">
+<div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+<div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+</div>
+</div>
+</div>
+</div>
+<!--<div class="panel panel-default">-->
+<!--<div class="panel-body">-->
+<!--<div class="form-group" style="height: 40px">-->
+<!--<label  class="col-md-3 control-label" style="line-height: 34px;padding: 0">开始时间</label>-->
+<!--<div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:00" data-link-field="startDate">-->
+<!--<input data-bind="value:startDate"  class="form-control" size="16" type="text" value="" readonly>-->
+<!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+<!--<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label  class="col-md-3 control-label"  style="line-height: 34px;padding: 0">结束时间</label>-->
+<!--<div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:59" data-link-field="endDate">-->
+<!--<input data-bind="value:endDate"  class="form-control" size="16" type="text" value="" readonly>-->
+<!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+<!--<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeImgLinkEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="page modal" id="ImageEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 500px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeImageEditor">×</button>
+<h5 class="modal-title">图片设置</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="col-md-4" style="padding-left: 0px"><img data-bind="attr:{src:selectedImg}" class="img-thumbnail"></div>
+<div class="col-md-8">从电脑或者网络上选择要展示的图片  <span style="color: red">图片尺寸<!-- ko text: imgSize --><!-- /ko --></span><button type="button" class="btn btn-primary btn-block" data-bind="click:photoGalleryEditor.openSelectImgView.bind($data,false)">选择图片</button></div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="form-group">
+<label for="imgUrl">图片链接</label>
+<input data-bind="value:selectedImg" type="url" class="form-control" id="imgUrl" placeholder="链接地址">
+</div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeImageEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="page modal" id="ImgLinkListEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeImgLinkListEditor">×</button>
+<h5 class="modal-title">图片列表</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default">
+<div class="panel-body" style="background: rgb(232, 233, 236);padding: 5px;text-align: right">
+<span style="line-height: 35px;float: left;color: red">图片尺寸 <!--ko text:imgSize--><!--/ko--></span>
+<button type="button" class="btn btn-primary" style="margin-left: 10px" data-bind="click:photoGalleryEditor.openSelectImgView.bind($data,true)">选择图片</button>
+</div>
+</div>
+<div style="height: 400px;overflow-y: auto" data-bind="foreach:selectedImgList">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-3" style="padding-left: 0px;cursor: pointer"><img data-bind="attr:{src:imgUrl}" alt="..." class="img-thumbnail"></div>
+<div class="col-md-8" style="padding-left: 0px;">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label for="imgUrl" class="col-md-3 control-label">图片链接</label>
+<div class="col-md-9">
+<input type="url" data-bind="value:imgUrl" class="form-control" id="imgUrl" placeholder="链接地址">
+</div>
+</div>
+<div class="form-group">
+<label for="linkTo" class="col-md-3 control-label">链接到</label>
+<div class="col-md-9">
+<input type="url" data-bind="value:linkTo" class="form-control" id="linkTo" placeholder="链接地址">
+</div>
+</div>
+<div class="form-group">
+<label for="description" class="col-md-3 control-label">描述</label>
+<div class="col-md-9">
+<input type="url" data-bind="value:description" class="form-control" id="description" placeholder="描述内容">
+</div>
+</div>
+<div class="form-group" style="height: 40px" data-bind="visible:$root.showTime">
+<label  class="col-md-3 control-label" style="line-height: 34px;padding: 0">开始时间</label>
+<div class="input-group date form_datetime col-md-9"  data-link-field="startDate">
+<input data-bind="value:startDate"  class="form-control" size="16" type="text" value="" >
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+</div>
+</div>
+<div class="form-group" data-bind="visible:$root.showTime">
+<label  class="col-md-3 control-label"  style="line-height: 34px;padding: 0">结束时间</label>
+<div class="input-group date form_datetime col-md-9"   data-link-field="endDate">
+<input data-bind="value:endDate"  class="form-control" size="16" type="text" value="" >
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+</div>
+</div>
+<div class="form-group">
+<label  class="col-md-4 control-label">新窗口打开</label>
+<div class="col-md-8" style="padding-top: 7px">
+<div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+<div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+</div>
+</div>
+<div id="myattrHtml" data-bind="html: $root.attrs"></div>
+</form>
+</div>
+<div class="col-md-1">
+<span data-bind="click:$root.delete" style="color: red;margin:10px 0 10px 0px;cursor: pointer;display: block" class="glyphicon glyphicon-minus-sign" title="删除"></span>
+<span data-bind="click:$root.up" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+<span data-bind="click:$root.down" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeImgLinkListEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="page modal" id="TextLinkListEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeTextLinkListEditor">×</button>
+<h5 class="modal-title">文本列表</h5>
+</div>
+<div class="modal-body">
+
+<div style="height: 400px;overflow-y: auto" data-bind="foreach:textLinkList">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-11" style="padding-left: 0px;">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label for="content" class="col-md-2 control-label">内容</label>
+<div class="col-md-10">
+<input type="text" data-bind="value:content" class="form-control" id="content" placeholder="显示文本">
+</div>
+</div>
+<div class="form-group">
+<label for="linkTo" class="col-md-2 control-label">链接</label>
+<div class="col-md-10">
+<input type="url" data-bind="value:linkTo" class="form-control" id="linkTo" placeholder="链接地址">
+</div>
+</div>
+<div class="form-group">
+<label  class="col-md-3 control-label">新窗口打开</label>
+<div class="col-md-9" style="padding-top: 7px">
+<div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+<div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+</div>
+</div>
+</form>
+</div>
+<div class="col-md-1">
+<span data-bind="click:$root.delete" style="color: red;margin:10px 0 10px 0px;cursor: pointer;display: block" class="glyphicon glyphicon-minus-sign" title="删除"></span>
+<span data-bind="click:$root.up" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+<span data-bind="click:$root.down" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeTextLinkListEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:addItem">新增</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="page modal" id="TextLinkEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeTextLinkEditor">×</button>
+<h5 class="modal-title">文本设置</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-11" style="padding-left: 0px;">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label for="content" class="col-md-3 control-label">内容</label>
+<div class="col-md-9">
+<input type="text" data-bind="value:content" class="form-control" id="content" placeholder="显示文本">
+</div>
+</div>
+<div class="form-group">
+<label for="linkTo" class="col-md-3 control-label">链接</label>
+<div class="col-md-9">
+<input type="url" data-bind="value:linkTo" class="form-control" id="linkTo" placeholder="链接地址">
+</div>
+</div>
+<div class="form-group">
+<label  class="col-md-3 control-label">新窗口打开</label>
+<div class="col-md-9" style="padding-top: 7px">
+<div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+<div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+</div>
+</div>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeTextLinkEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="page modal" id="DateTimeEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeDateTimeEditor">×</button>
+<h5 class="modal-title">时间设置</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-11" style="padding-left: 0px;">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label  class="col-md-3 control-label">开始时间</label>
+<div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:00" data-link-field="startDate">
+<input data-bind="value:startDate" class="form-control" size="16" type="text" value="" >
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+</div>
+</div>
+<div class="form-group">
+<label  class="col-md-3 control-label">结束时间</label>
+<div class="input-group date form_datetime col-md-9"  data-date-format="yyyy/mm/dd hh:ii:00" data-link-field="endDate">
+<input data-bind="value:endDate"  class="form-control" size="16" type="text" value="" >
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+</div>
+</div>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeDateTimeEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div id=ProductGroupEditorModel>
+<div class="page modal" id="ProductGroupEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+.panelCheck{background-color: lightskyblue}
+</style>
+
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeProductGroupView">×</button>
+<h5 class="modal-title">已选商品</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default">
+<div class="panel-body" style="background: rgb(232, 233, 236);padding: 5px;text-align: right">
+<button type="button" class="btn btn-primary" style="margin-left: 10px" data-bind="click:openSelectProductView">选择商品</button>
+</div>
+</div>
+<div style="height: 400px;overflow-y: auto" data-bind="foreach:products">
+<div class="panel panel-default" data-bind="click:$root.updateProduct">
+<div class="panel-body" style="cursor: pointer" data-bind="css:{panelCheck:isCheck}">
+<div class="col-md-3" style="padding-left: 0px;"><img data-bind="attr:{src:imgUrl}"  alt="..." class="img-thumbnail"></div>
+<div class="col-md-8" style="padding-left: 0px;">
+<h5 style="height: 30px;overflow: hidden" data-bind="html:name"></h5>
+<h5 style="color: red" data-bind="text:memberPriceString"></h5>
+<input type="text" data-bind="click:$root.editSort,clickBubble: false,value:shortIndex," style="float: right;width: 30px;"/>
+</div>
+<div class="col-md-1"  style="padding-left: 0px;float: right">
+<span data-bind="click:$root.delete,clickBubble: false" style="color: red;margin:10px 0 10px 0px;cursor: pointer;display: block" class="glyphicon glyphicon-minus-sign" title="删除"></span>
+<span data-bind="click:$root.up,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+<span data-bind="click:$root.down,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+<span data-bind="click:$root.check,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-check" title="选中"></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-info btn-sm" data-bind="click:checkAll" style="float: left;">全选</button>
+<button type="button" class="btn btn-danger btn-sm" data-bind="click:deleteProduct" style="float: left;margin-left: 20px;">删除</button>
+<button type="button" class="btn btn-success btn-sm" data-bind="click:uploadExcel" style="float: left;margin-left: 20px;">批量上传</button>
+
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeProductGroupView">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="modal" id="ProductSelect" style="left: -400px">
+<div class="modal-dialog">
+<div class="modal-content" style="width: 1000px">
+<div class="modal-header" style="height: 45px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectProductView">×</button>
+<h5 class="modal-title" style="float:left;line-height: 30px">选择商品</h5>
+
+<div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+<input type="text" class="form-control input-sm search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+<span class="input-group-btn">
+<button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+</span>
+</div>
+
+
+
+<div class="btn-group" style="float: right;margin-right: 20px">
+<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="height: 32px;">
+高级搜索 <span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu">
+<li><a href="#">
+<input  type="checkbox" id="isSpecialPrice"  style="margin-right: 5px" data-bind="checked:isSpecialPrice">
+<label for="isSpecialPrice" style="line-height: 30px">只显示特价</label></a></li>
+<li><a href="#">
+<input  type="checkbox" id="isPublic"  style="margin-right: 5px" data-bind="checked:isPublic">
+<label for="isPublic" style="line-height: 30px">显示未发布</label>
+</a></li>
+<li><a href="#">
+<input type="text" name="lowTotalPrice" style="width: 40px" data-bind="value:lowTotalPrice">元 至
+<input type="text" name="highTotalPrice" style="width: 40px"  data-bind="value:highTotalPrice">元
+</a></li>
+
+</ul>
+</div>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="col-md-2" style="padding-left: 0px;overflow: auto;height: 630px">
+<ul id="treeDemo" class="ztree"></ul>
+</div>
+<div class="col-md-10">
+<div class="panel panel-default" style="min-height: 630px">
+<div id="loading" data-bind="visible:displayLoading()">
+<img src="@{client/res/image/loading.gif}@" style="margin:150px 0 0 250px"/>
+</div>
+<div class="panel-body" data-bind="foreach:productList,visible:!displayLoading()" style="margin-bottom: 30px;">
+<div class="col-md-3" style="text-align: center">
+<div style="padding: 10px;margin-bottom:10px" data-bind="click:$root.selectProduct,css:{selected:selected}">
+<img style="height: 150px;"  data-bind="attr:{src:imgUrl}" alt="..." class="img-thumbnail">
+<span style="text-align: left;display: block;height: 35px;font-size: 12px;overflow: hidden;margin-top: 10px;" data-bind="html:name"></span>
+<span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >商品Id：<!-- ko text:id--><!--/ko--></span>
+<span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;color: red" >会员价：<!-- ko text:memberPriceString--><!--/ko--></span>
+<span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >市场价：<!-- ko text:marketPriceString--><!--/ko--></span>
+<span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >库存：<!-- ko text:sellableCount--><!--/ko--></span>
+<span style="text-align: left;display: block;height: 15px;font-size: 12px;overflow: hidden;margin-top: 5px;" >商家：<!-- ko text:merchantName--><!--/ko--></span>
+</div>
+</div>
+</div>
+<div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+<ul class="pagination">
+<li data-bind="click:$root.prePage"><a href="#">«</a></li>
+<li><a href="#">当前第<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="height: 20px;text-align: center;width: 25px;">页/共<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+<li data-bind="click:$root.nextPage"><a href="#">»</a></li>
+</ul>
+</div>
+</div></div>
+
+</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectProductView">取消</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+</div>
+</div>
+</div>
+</div>
+<div class="modal" id="uploadExcelHtml">
+<div class="modal-dialog">
+<div class="modal-content" style="">
+<div class="modal-header" style="height: 45px">
+</div>
+<form id="uploadExcelForm" action="client/editors/productGroup/serverhandler/uploadExcel.jsx?m=<%=m%>" method="post" enctype="multipart/form-data">
+<div class="modal-body">
+<h3>请选择需要上传的Excel文件</h3>
+<input type="file" name="file" id="file"/>
+<label style="margin-top: 20px;"><input type="checkbox" id="isClearProducts" data-bind="checked:isKeepProducts"/>保留当前商品列表</label>
+<label style="margin: 20px 0 0 20px;"><input type="checkbox" id="isInProductCheck" data-bind="checked:isInProductCheck"/>跳过已存在的商品</label>
+</div>
+<div class="modal-footer">
+<button type="submit" class="btn btn-primary btn-sm" id="uploadExcelFormBtn" data-bind="click:doUpload,text:uploadText">上传</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="modal" id="uploadExcelOkHtml">
+<div class="modal-dialog">
+<div class="modal-content" style="margin: 100px 0 0 20px;">
+<div class="modal-body" style="text-align: center;padding-bottom: 30px;">
+<h3>正在上传请稍后...</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="PhotoGallery" style="left: -400px">
+<div class="modal-dialog">
+<div class="modal-content" style="width: 1100px">
+<div class="modal-header" style="height: 45px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectImg">×</button>
+<h5 class="modal-title" style="float:left;line-height: 30px">选择图片</h5>
+
+<div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+<input type="text" class="form-control input-sm search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+<span class="input-group-btn">
+<button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+</span>
+</div>
+<div class="input-group" style="float: right;margin-right: 20px">
+<button style="margin-right: 10px" type="button" class="btn-sm btn-default" data-bind="click:$root.selectAll,visible:multiSelect">全选</button>
+<button type="button" class="btn-sm btn-success" data-bind="click:uploadImgEditor.showUploadImgEditor"><i class="glyphicon glyphicon-plus"></i>上传</button>
+</div>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="col-md-2" style="padding-left: 0px;overflow: auto;height: 650px">
+<ul id="imgFileTree" class="ztree"></ul>
+</div>
+<div class="col-md-10">
+<div class="panel panel-default" style="min-height: 650px">
+<div id="loading" data-bind="visible:displayLoading()">
+<img src="@{client/res/image/loading.gif}@" style="margin:150px 0 0 250px"/>
+</div>
+<div class="panel-body" id="imgList" data-bind="foreach:imgList,visible:!displayLoading()">
+<div class="col-md-2"  style="text-align: center">
+<div data-bind="click:$root.selectImg,css:{selected:selected}" style="padding: 10px;margin-bottom:10px">
+<div style="height: 80px"><img style="max-height: 80px" data-bind="attr:{src:imgUrl},event: { dblclick:$root.confirmSelect }" alt="..." class="img-thumbnail"></div>
+<span style="text-align: center;display: block;font-size: 12px;height: 35px;overflow: hidden" data-bind="text:name">这是名字</span>
+</div>
+</div>
+</div>
+<div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+<ul class="pagination">
+<li data-bind="click:$root.prePage"><a href="#">«</a></li>
+<li><a href="#">当前第<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="height: 20px;text-align: center;width: 25px;">页/共<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+<li data-bind="click:$root.nextPage"><a href="#">»</a></li>
+</ul>
+</div>
+</div></div>
+
+</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectImg">取消</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="page modal" id="UploadImgEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px;">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeUploadImgEditor">×</button>
+<h5 class="modal-title">文本设置</h5>
+</div>
+<div class="modal-body">
+<iframe width="100%" height="400px" data-bind="attr:{src:iframeUrl}"></iframe>
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="GroupOnListEditorModel">
+<div class="page modal" id="GroupOnListEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeGroupOnListEditorView">×</button>
+<h5 class="modal-title">已选团购</h5>
+</div>
+<div class="modal-body">
+<div class="panel panel-default">
+<div class="panel-body" style="background: rgb(232, 233, 236);padding: 5px;text-align: right">
+<button type="button" class="btn btn-primary" style="margin-left: 10px" data-bind="click:openSelectProductView">选择商品</button>
+</div>
+</div>
+<div style="height: 400px;overflow-y: auto" data-bind="foreach:products">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-3" style="padding-left: 0px"><img data-bind="attr:{src:imgUrl}"  alt="..." class="img-thumbnail"></div>
+<div class="col-md-8" style="padding-left: 0px;"><h5 data-bind="html:title"></h5>
+<h5 style="color: red" data-bind="text:priceString"></h5>
+<p data-bind="text:buyTime"></p>
+</div>
+<div class="col-md-1"  style="padding-left: 0px">
+<span data-bind="click:$root.delete" style="color: red;line-height: 60px" class="glyphicon glyphicon-minus-sign" title="删除"  ></span>
+<span data-bind="click:$root.up,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+<span data-bind="click:$root.down,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeGroupOnListEditorView">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+<div class="modal" id="GroupOnSelect" style="left: -400px">
+<div class="modal-dialog">
+<div class="modal-content" style="width: 1000px">
+<div class="modal-header" style="height: 45px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectProductView">×</button>
+<h5 class="modal-title" style="float: left">选择团购</h5>
+<div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+<input type="text" class="form-control input-sm search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+<span class="input-group-btn">
+<button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+</span>
+</div>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default" style="min-height: 540px">
+<div class="panel-body" data-bind="foreach:currPageData">
+<div class="col-md-6" style="height:100px;margin-bottom:10px">
+<div class="col-md-12 selected" data-bind="click:$root.selectProduct,css:{selected:selected}" style="padding: 10px;height: 100px">
+<div class="col-md-3" style="padding-left: 0px"><img data-bind="attr:{src:imgUrl}"  alt="..." class="img-thumbnail"></div>
+<div class="col-md-9" style="padding-left: 0px;">
+<h5 data-bind="html:title"></h5>
+<h5 style="color: red" data-bind="text:priceString"></h5>
+<p data-bind="text:buyTime"></p>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+<ul class="pagination">
+<li data-bind="click:$root.prePage"><a href="#">«</a></li>
+<li><a href="#">当前第<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="height: 20px;text-align: center;width: 25px;">页/共<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+<li data-bind="click:$root.nextPage"><a href="#">»</a></li>
+</ul>
+</div>
+</div></div>
+
+</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectProductView">取消</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="PanicBuyListEditorModel">
+<div class="page modal" id="PanicBuyListEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closePanicBuyListEditorView">×</button>
+<h5 class="modal-title">已选抢购</h5>
+
+</div>
+<div class="modal-body">
+<div class="panel panel-default">
+<div class="panel-body" style="background: rgb(232, 233, 236);padding: 5px;text-align: right">
+<button type="button" class="btn btn-primary" style="margin-left: 10px" data-bind="click:openSelectProductView">选择商品</button>
+</div>
+</div>
+<div style="height: 400px;overflow-y: auto" data-bind="foreach:products">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-3" style="padding-left: 0px;cursor: pointer"><img data-bind="attr:{src:imgUrl}" class="img-thumbnail"></div>
+<div class="col-md-8" style="padding-left: 0px;"><h5 data-bind="html:title"></h5>
+<h5 style="color: red" data-bind="text:priceString"></h5>
+<p data-bind="text:buyTime"></p>
+</div>
+<div class="col-md-1"  style="padding-left: 0px">
+<span data-bind="click:$root.delete" style="color: red;line-height: 60px" class="glyphicon glyphicon-minus-sign" title="删除"  ></span>
+<span data-bind="click:$root.up,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+<span data-bind="click:$root.down,clickBubble: false" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closePanicBuyListEditorView">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+<div class="modal" id="PanicBuySelect" style="left: -400px">
+<div class="modal-dialog">
+<div class="modal-content" style="width: 1000px">
+<div class="modal-header" style="height: 45px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectProductView">×</button>
+<h5 style="float: left" class="modal-title">选择抢购</h5>
+<div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+<input type="text" class="form-control input-sm search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+<span class="input-group-btn">
+<button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+</span>
+</div>
+</div>
+
+<div class="modal-body">
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default" style="min-height: 540px">
+<div class="panel-body" data-bind="foreach:currPageData">
+<div class="col-md-6" style="height:100px;margin-bottom:10px">
+<div class="col-md-12 selected" data-bind="click:$root.selectProduct,css:{selected:selected}" style="padding: 10px;height: 100px">
+<div class="col-md-3" style="padding-left: 0px"><img data-bind="attr:{src:imgUrl}"  alt="..." class="img-thumbnail"></div>
+<div class="col-md-9" style="padding-left: 0px;">
+<h5 data-bind="html:title"></h5>
+<h5 style="color: red" data-bind="text:priceString"></h5>
+<p data-bind="text:buyTime"></p>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+<ul class="pagination">
+<li data-bind="click:$root.prePage"><a href="#">«</a></li>
+<li><a href="#">当前第<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="height: 20px;text-align: center;width: 25px;">页/共<!-- ko text: pageCount --><!-- /ko -->页</a></li>
+<li data-bind="click:$root.nextPage"><a href="#">»</a></li>
+</ul>
+</div>
+</div></div>
+
+</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectProductView">取消</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="page modal" id="TabsEditor" >
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog" style="width: 800px">
+<div class="modal-content" >
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:returnMainFrame">×</button>
+<h5 class="modal-title">源码</h5>
+</div>
+<div class="modal-body" style="height:300px">
+<textarea style="width:98%;height:98%" data-bind="value:sourceCode"></textarea>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:returnMainFrame">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:save">保存</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page modal" id="TabsPlusEditor">
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog">
+<div class="modal-content" style="width: 600px">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeTabsPlusEditor">×</button>
+<h5 class="modal-title">Tab列表</h5>
+</div>
+<div class="modal-body">
+
+<div style="height: 400px;overflow-y: auto" data-bind="foreach:tabList">
+<div class="panel panel-default" >
+<div class="panel-body" >
+<div class="col-md-11" style="padding-left: 0px;">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label for="content" class="col-md-2 control-label">标题</label>
+<div class="col-md-10">
+<input type="text" data-bind="value:content" class="form-control" id="content" placeholder="显示标题">
+</div>
+</div>
+<div class="form-group">
+<label for="linkTo" class="col-md-2 control-label">链接</label>
+<div class="col-md-10">
+<input type="url" data-bind="value:linkTo" class="form-control" id="linkTo" placeholder="链接地址,如果没有连接地址请留空。">
+</div>
+</div>
+<div class="form-group">
+<label  class="col-md-3 control-label">新窗口打开</label>
+<div class="col-md-9" style="padding-top: 7px">
+<div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+<div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+</div>
+</div>
+</form>
+</div>
+<div class="col-md-1">
+<span data-bind="click:$root.delete" style="color: red;margin:10px 0 10px 0px;cursor: pointer;display: block" class="glyphicon glyphicon-minus-sign" title="删除"></span>
+<span data-bind="click:$root.up" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+<span data-bind="click:$root.down" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeTabsPlusEditor">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:addItem">新增</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="page modal" id="SourceEditor" >
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog" style="width: 800px">
+<div class="modal-content" >
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:returnMainFrame">×</button>
+<h5 class="modal-title">源码</h5>
+</div>
+<div class="modal-body" style="height:300px">
+<textarea style="width:98%;height:98%" data-bind="value:source"></textarea>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:returnMainFrame">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:save">保存</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page modal" id="TextEditor" >
+<style>
+.modal-header{background: #353535;padding: 8px}
+.modal-title{color: #ffffff}
+.modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+.modal-header .close{opacity: 0.8;color: #ffffff}
+.modal-body{background: #F1F1F1;padding-bottom: 5px}
+.panel{margin-bottom: 10px}
+.selected{background: bisque}
+</style>
+<div class="modal-dialog" style="width: 800px">
+<div class="modal-content" >
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:returnMainFrame">×</button>
+<h5 class="modal-title">文本</h5>
+</div>
+<div class="modal-body" style="height:300px">
+<textarea style="width:98%;height:98%" data-bind="value:text"></textarea>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:returnMainFrame">关闭</button>
+<button type="button" class="btn btn-primary btn-sm" data-bind="click:save">保存</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page" id="MapEditor" style="display: none">
+<div style="margin:30px">
+<div class="col-md-4">
+<div class="panel panel-primary">
+<div class="panel-heading" style="height: 45px">
+<button class="btn btn-sm btn-success pull-right" style="margin-left:5px" data-bind="click:buildingDialog.openDialog">添加商场...</button>
+</div>
+<div class="panel-body">
+<table class="table table-bordered">
+<tbody data-bind="foreach:buildings">
+<tr>
+<td data-bind="click:$root.selectBuilding,css:{selectedItem:selected()}">
+<div data-bind="text:name" class="pull-left"></div>
+<div class="pull-right" >
+<i class="glyphicon glyphicon-pencil" title="编辑" style="margin-left:5px" data-bind="click:$root.editBuildingItem"></i>
+<i class="glyphicon glyphicon-remove" title="删除" style="margin-left:5px" data-bind="click:$root.deleteBuildingItem"></i>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="col-md-4" data-bind="visible:showFloorEditor">
+<div class="panel panel-primary">
+<div class="panel-heading" style="height: 45px">
+<button class="btn btn-sm btn-success pull-right" style="margin-left:5px" data-bind="click:floorDialog.openDialog">添加楼层...</button>
+</div>
+<div class="panel-body">
+<table class="table table-bordered">
+<tbody data-bind="foreach:floors">
+<tr>
+<td data-bind="click:$root.selectFloor,css:{selectedItem:selected()}">
+<div data-bind="text:name" class="pull-left"></div>
+<div class="pull-right" >
+<i class="glyphicon glyphicon-pencil" title="编辑" style="margin-left:5px" data-bind="click:$root.editFloorItem"></i>
+<i class="glyphicon glyphicon-remove" title="删除" style="margin-left:5px" data-bind="click:$root.deleteFloorItem"></i>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div style="margin:30px;border:1px #dddddd dashed">
+<button class="btn btn-info" data-bind="click:returnMainFrame"  style="margin-right:20px;margin-left:20px;">返回</button>
+<button class="btn btn-success" >保存</button>
+</div>
+
+
+<div class="modal fade" id="building_addItem">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title">添加商场</h4>
+</div>
+<div class="modal-body">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label class="col-lg-2 control-label">名称</label>
+
+<div class="col-lg-10">
+<input type="text" data-bind="value:buildingDialog.name" class="form-control" placeholder="商城名称">
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-2 control-label">地址</label>
+
+<div class="col-lg-10">
+<input type="text" data-bind="value:buildingDialog.address" class="form-control" placeholder="商城的详细地址">
+</div>
+</div>
+
+
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<button type="button" class="btn btn-primary" data-bind="click:buildingDialog.ok">确定</button>
+</div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="floor_addItem">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title">添加楼层</h4>
+</div>
+<div class="modal-body">
+<form class="form-horizontal" role="form">
+<div class="form-group">
+<label class="col-lg-2 control-label">名称</label>
+<div class="col-lg-10">
+<input type="text" data-bind="value:floorDialog.name" class="form-control" placeholder="楼层名称">
+</div>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<button type="button" class="btn btn-primary" data-bind="click:floorDialog.ok">确定</button>
+</div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+</div>
+
+<div class="modal fade" id="pageConfigEditor">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title">页面设置</h4>
+</div>
+<div class="modal-body">
+<form class="form-horizontal" role="form">
+<!-- ko foreach: $root.configs -->
+<div class="form-group">
+<label  class="col-sm-3 control-label" data-bind="text:name"></label>
+<div class="col-sm-9">
+<input type="text" class="form-control" data-bind="value:value">
+</div>
+</div>
+<!-- /ko -->
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+<button type="button" class="btn btn-primary" data-bind="click:save">保存</button>
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</div>
+<div id="header">
+<span id="appName">
+<a style="padding-left:20px;color:white" href="pages/listPages.jsx?m=<%=m%>&rappId=<%=rappId%>"><i class="glyphicon glyphicon-backward" style="padding-right:5px"></i>返回页面列表</a>
+<a style="padding-left:20px;color:white" href="#" id="editPageConfig"><i class="glyphicon glyphicon-link" style="padding-right:5px"></i>设置</a>
+<%for(var i=0; i < extras.length; i++){%>
+<a style="padding-left:20px;color:white" href="/<%=extras[i].id%>/home.jsx?rappId=<%=rappId%>&rpageId=<%=rpageId%>&m=<%=m%>" target="_blank"><i class="glyphicon glyphicon-link" style="padding-right:5px"></i><%=extras[i].name%></a>
+<%}%>
+</span>
+</div>
+</body>

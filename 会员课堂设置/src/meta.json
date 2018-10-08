@@ -1,0 +1,7 @@
+{
+    "libs_namespace": "oleMemberClassSetting",
+    "libs": ["services/ClubService.jsx","services/StoreService.jsx","services/AdminService.jsx","services/AdminQuery.jsx"],
+    "obj_prefixes": ["oleMemberClassSettingObj"],
+    "list_prefixes": ["oleMemberClassSettingList"]
+
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <script type="text/javascript" src="@{res/js/bootstrap-datetimepicker.js}@" charset="UTF-8"></script>
+    <script type="text/javascript" src="@{res/js/bootstrap-datetimepicker.zh-CN.js}@" charset="UTF-8"></script>
+    <style>
+        .wrapKey{
+            white-space: normal;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #BDBDBD;
+        }
+    </style>
+    <script>
+    var merchantId = '{{=it.merchantId}}';
+    </script>
+    <script type="text/javascript" src="@{res/js/ArgsForm.js}@"></script>
+    <script>
+        $(document).ready(function () {
+            $("input[name=isOmsExchange][value='{{=it.isOmsExchange}}']").attr("checked", "checked");
+            $("input[name=isEsbExchange][value='{{=it.isEsbExchange}}']").attr("checked", "checked");
+        });
+    </script>
+</head>
+<body>
+{{=$.inc("pages/include_navbar.jsx")}}
+<div class="container-fluid">
+    <div class="well">
+        <form class="form form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否使用ESB对接:
+                    <div class="wrapKey">(每个商家可以单独配置，如果没有配置就使用平台配置的)</div>
+                    </label>
+                <div class="controls col-sm-2">
+                    <label class="radio">
+                        <input type="radio" name="isEsbExchange" value="Y">是
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="isEsbExchange" value="N">否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否使用OMS对接:
+                    <div class="wrapKey">(每个商家可以单独配置，如果没有配置就使用平台配置的)</div>
+                    </label>
+                <div class="controls col-sm-2">
+                    <label class="radio">
+                        <input type="radio" name="isOmsExchange" value="Y">是
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="isOmsExchange" value="N">否
+                    </label>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-sm-2 control-label">OMS对接地址:
+                    <div class="wrapKey">(OMS对接地址)</div>
+                </label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="omsEsbUrl" id="omsEsbUrl" value="{{=it.omsEsbUrl}}"/>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">OMS接口开始日期:
+                    <div class="wrapKey">(每个商家可以单独配置，超过这个日期的订单就走OMS对接流程，否则就走原来的流程)</div>
+                </label>
+                <div class="col-sm-3">
+                    <div class="input-group date form_date" data-date=""
+                         data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="beginTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                        <input type="text" class="form-control"  name="beginTime" id="beginTime"  value="{{=it.beginTime}}">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-8">
+                    <input type="hidden" value="{{=it.merchantId}}" id="merchantId">
+                    <button type="button" id="submit_form" class="btn btn-primary">保 存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii:ss',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

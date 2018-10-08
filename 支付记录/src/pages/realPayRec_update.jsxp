@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{#inc("pages/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/realPayRec_update.js}@"></script>
+    <title>修改支付记录</title>
+    <script type="text/javascript">
+        var m = "{{m}}";
+        var realPayRecUpdatePage = undefined;
+        $(document).ready(function () {
+            $("#payState option[value='{{realPayRec.payState}}']").attr("selected", true);
+            var payRecId = $("#payRecId").val();
+            var needPayMoneyAmount = $("#needPayMoneyAmount").val();
+            var bankSN = $("#bankSN").val();
+            var paidMoneyAmount = $("#paidMoneyAmount").val();
+            var payState = $("#payState").val();
+            var data = {};
+            if (payRecId) {
+                data.id = payRecId;
+                data.bankSN = bankSN;
+                data.needPayMoneyAmount = needPayMoneyAmount;
+                data.paidMoneyAmount = paidMoneyAmount;
+                data.payState = payState;
+            }
+            console.log(data);
+            realPayRecUpdatePage = new RealPayRecUpdatePage(data);
+            ko.applyBindings(realPayRecUpdatePage, document.getElementById("realPayRecUpdatePage"));
+        });
+    </script>
+</head>
+<body class="well" style="border:0px">
+<div class="container" id="realPayRecUpdatePage">
+    <div class="fieldset">
+        <h2>修改支付记录</h2>
+        <hr class="titleHr"/>
+        <input type="hidden" name="payRecId" id="payRecId" value="{{realPayRec.id}}" data-bind="value:id">
+        <input type="hidden" name="state" id="state" value="{{realPayRec.payState}}">
+
+        <div class="section row">
+            <div class="col-md-4" style="margin-top: 15px">
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-4 control-label">支付单号:</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="outerId" value="{{realPayRec.outerId}}"
+                               placeholder="支付单号" readonly/>
+                    </div>
+                </div>
+
+                <div id="totalPriceDiv" class="row" style="margin-bottom: 10px">
+                    <label class="col-md-4 control-label">支付方式:</label>
+
+                    <div class="col-md-8 input-group">
+                        <input type="text" class="form-control" name="paymentName" value="{{realPayRec.paymentName}}"
+                               placeholder="支付方式" id="paymentName" readonly/>
+                    </div>
+                </div>
+                <div id="depositDiv" class="row" style="margin-bottom: 10px;">
+                    <label class="col-md-4 control-label">支付金额:</label>
+
+                    <div class="col-md-8 input-group">
+                        <input type="text" class="form-control" name="needPayMoneyAmount"
+                               value="{{realPayRec.needPayMoneyAmount}}"
+                               data-bind="value:needPayMoneyAmount" placeholder="支付金额" id="needPayMoneyAmount"
+                               readonly/>
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <label class="col-md-4 control-label">支付状态:</label>
+
+                    <div class="col-md-8 input-group">
+                        <select id="payState" name="payState" class="form-control" data-bind="value:payState">
+                            <option value="uncertain">未支付</option>
+                            <option value="paid">已支付</option>
+                            <option value="failed">支付失败</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="bankSNDiv" class="row" style="margin-bottom: 10px;">
+                    <label class="col-md-4 control-label">支付流水号:</label>
+
+                    <div class="col-md-8 input-group">
+                        <input type="text" class="form-control" name="bankSN" value="{{realPayRec.bankSN}}"
+                               data-bind="value:bankSN" placeholder="支付流水号" id="bankSN"/>
+                    </div>
+                </div>
+                <div id="balanceDiv" class="row" style="margin-bottom: 10px;">
+                    <label class="col-md-4 control-label">已支付金额:</label>
+
+                    <div class="col-md-8 input-group">
+                        <input type="text" class="form-control" name="paidMoneyAmount"
+                               value="{{realPayRec.paidMoneyAmount}}" id="paidMoneyAmount"
+                               data-bind="value:paidMoneyAmount" placeholder="已支付金额"/>
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="row" style="text-align:center;margin-top: 10px">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" name="save" data-bind="click:save"
+                                style="margin-right: 20px">保存
+                        </button>
+                        <button class="btn btn-danger" name="reset" data-bind="click:close">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

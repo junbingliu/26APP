@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc("pages/common/include_base.jsx")}}
+    <script>
+        var histories = '{{=JSON.stringify(it.histories)}}';
+    </script>
+    <script type="text/javascript" src="@{js/downloadTemplate.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/common/include_navbar.jsx")}}
+<div class="container-fluid">
+    <span class="label label-info" style="float:right"><a id="setDownLoadModal">一键设置模板</a></span>
+    <div class="jumbotron">
+        <p><a href="javascript:void(0);" class="btn btn-primary" id="download">下载模板</a></p>
+    </div>
+</div>
+<script>
+
+</script>
+
+</body>
+</html>

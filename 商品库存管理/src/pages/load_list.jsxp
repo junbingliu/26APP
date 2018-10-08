@@ -1,0 +1,91 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th><input type="checkbox" id="checkboxAll"></th>
+        <th>商品ID</th>
+        <th>商品名称</th>
+        <th>SKU编码</th>
+        <th>商家名称</th>
+        <th>会员价/元</th>
+        <th>是否对接OMS</th>
+        <th>安全可卖数</th>
+        <th>可卖数</th>
+        <th>冻结库存</th>
+        <th width="10%">实际库存</th>
+        <th>零负可卖数量</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{each resultList as value i}}
+    <tr>
+        <td><input type="checkbox" name="subcheck" value="{{value.productId+':'+value.merchantId}}"></td>
+        <td>{{value.productId}}</td>
+        <td>{{value.name}}</td>
+        <td>{{value.sku}}</td>
+        <td>{{value.merchantName}}</td>
+        <td>{{value.memberPrice}}</td>
+        <td>{{#value.isExchangeOMS}}</td>
+        <td>{{value.securitySellableCount}}</td>
+        <td>{{value.sellableCount}}</td>
+        <td>{{value.freezeAmount}}</td>
+        <td><input type="text" name="realAmount" value="{{value.realAmount}}" id="{{value.skuId+'_realAmount'}}" size="10"></td>
+        <td><input type="text" name="zeroSellableCount" value="{{value.zeroSellableCount}}"
+                   id="{{value.skuId+'_zeroSellableCount'}}" size="10"></td>
+        <td>
+            <a href="javascript:void(0)" class="saveBtn" data-productid="{{value.productId}}"
+               data-skuid="{{value.skuId}}" data-merchantid="{{value.merchantId}}">保存</a>
+            <a href="javascript:void(0)" class="saveAndSend" data-productid="{{value.productId}}"
+               data-skuid="{{value.skuId}}" data-merchantid="{{value.merchantId}}">保存并发送到OMS</a>
+        </td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+<div class="pagination_params" id="pagination_params" totalPages="{{pageParams.totalPages}}"
+     currentPage="{{pageParams.currentPage}}" totalRecords="{{pageParams.totalRecords}}"
+     displayNum="{{pageParams.displayNum}}" pageLimit="{{pageParams.pageLimit}}" recordType="{{pageParams.recordType}}">
+</div>
+<script>
+    //绑定全选的事件
+    $('#checkboxAll').click(function () {
+        $("input[name='subcheck']:checkbox").prop("checked", $(this).is(':checked'));
+    });
+
+    //绑定单个复选框的事件
+    $('input[name="subcheck"]').click(function () {
+        var $chk = $("[name = subcheck]:checkbox");
+        $("#checkboxAll").prop("checked", $chk.length == $chk.filter(":checked").length);
+    });
+    $('.saveBtn').click(function () {
+        doSave($(this), false);
+    });
+    $('.saveAndSend').click(function () {
+        doSave($(this), true);
+    });
+    function doSave(el, isSend) {
+        var $that = $(el);
+        var productId = $that.data("productid");
+        var skuId = $that.data("skuid");
+        var merchantId = $that.data("merchantid");
+        var realAmount = $("#" + skuId + "_realAmount").val();
+        var zeroSellableCount = $("#" + skuId + "_zeroSellableCount").val();
+        $.post("handler/saveAmount.jsx", {
+            productId: productId,
+            skuId: skuId,
+            merchantId: merchantId,
+            realAmount: realAmount,
+            zeroSellableCount: zeroSellableCount,
+            isSend: isSend
+        }, function (result) {
+            if (result.state == "ok") {
+                alert("保存成功!");
+                if (typeof loadData == "function") {
+                    loadData();
+                }
+            } else {
+                alert("保存失败!" + result.msg);
+            }
+        }, "JSON");
+    }
+</script>

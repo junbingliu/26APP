@@ -1,0 +1,717 @@
+{{?it.productionMode}}
+{{=$.importUrl("/defaultHeader.html?productionMode=true")}}
+{{??}}
+{{=$.importUrl("/defaultHeader.html?productionMode=false")}}
+{{?}}
+
+<link href="@{res/style/detail.css}@" rel="stylesheet">
+<link href="@{res/style/page.css}@" rel="stylesheet">
+<link href="@{res/style/jqzoom.css}@" rel="stylesheet">
+
+<div class="position">
+<a href="/">首页</a>
+>
+{{?it.position&&it.position.length>0}}
+{{~it.position:value:index}}
+<a href="/product_list.jsp?columnId={{=value.id}}">{{=value.name}}</a>
+{{?index!=it.position.length-1}}
+>
+{{?}}
+
+{{~}}
+{{?}}
+</div>
+
+<div class="detail wbox">
+<div class="detail_top clearfix">
+<div class="topleft fl">
+<div class="Bpic" id="bigpicdiv">
+<a class="jqzoom" href="{{=it.product.pics[1]}}" title="{{=it.product.htmlname}}"><img id="midImgLink" src="{{=it.product.pics[1]}}" width="470" height="470" /></a>
+</div>
+<div class="Spic">
+<div  style="overflow: hidden;width: 436px">
+<ul style=" overflow:hidden; width:2000px; position:relative;left:0;height: 105px">
+{{?it.product&&it.product.pics.length>0}}
+{{for(var i=0;i< it.product.pics.length/2 ;i++){ }}
+<li><a href="javascript:void(0)"><img src="{{=it.product.pics[i*2]}}" data-src="{{=it.product.pics[i*2+1]}}" width="100" height="100"/></a></li>
+{{}}}
+{{?}}
+</ul>
+</div>
+<a class="prev"></a>
+<a class="next"></a>
+</div>
+<div class="share">
+<div class="sharelist fl">
+<div class="bshare-custom">分享好友：<a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+</div>
+<div class="collect fr"><a href="javascript:void(0);" onclick="favoriteProduct()">收藏该商品</a></div>
+</div>
+</div>
+<div class="topIntro">
+<h1>{{=it.product.htmlname}}</h1>
+<h2>{{=it.product&&it.product.sellingPoint||""}}</h2>
+<div class="topright fl">
+<div class="summary">
+<ul>
+<li>
+<span>市 场 价：</span>
+<del>¥{{=it.product.marketPrice}}</del>
+</li>
+<li class="price">
+<span>会 员 价：</span>
+<strong>¥{{=it.product.memberPrice}}</strong>
+</li>
+<li>
+<span>月 销 量：</span>
+<em>{{=it.product.salesAmount}}件</em>
+</li>
+{{var totalNum = it.appraiseList.totalCount;
+for(var i=0;i< totalNum;i++){
+if(it.appraiseList&&it.appraiseList.recordList[i]&&it.appraiseList.recordList[i].certifyInfo.certifyState!=1)
+totalNum--;
+}
+}}
+<li class="star">
+<span>评　　价：</span>
+<em><i style="width:{{=(it.credit&&it.credit.averageDescStore||0)*20}}%"></i></em>
+<strong>{{=it.credit&&it.credit.averageDescStore}}</strong>分
+<a href="#" href="#detailDivProstion" onclick="jumpDiv()">(已有{{=totalNum||0}}人评价)</a>
+</li>
+<li id="btnNotification" class="sale noresult" style="display: none">
+<span>到&nbsp;&nbsp;&nbsp;&nbsp;货：</span>
+<div>
+无货，此商品暂时售完，<a href="javascript:void(0);">到货通知</a>
+</div>
+</li>
+{{?it.productRules.coupon&&it.productRules.coupon.length>0}}
+<li class="sale">
+<span>优惠信息：</span>
+<div>
+{{~it.productRules.coupon:value:index}}
+{{?index==0}}
+<h3><p>{{=value.name}}</p> <a href="javascript:void(0)" class="open" id="saleTog" onclick="changeMessage('saleTog')">展开</a></h3>
+{{?}}
+{{~}}
+<ul style="display:none;">
+{{~it.productRules.coupon:value:index}}
+{{?index>0}}
+<li>{{=value.name}}</li>
+{{?}}
+{{~}}
+</ul>
+</div>
+</li>
+{{?}}
+{{?it.productRules.gift&&it.productRules.gift.length>0}}
+<li class="gifi">
+<span>赠　　品：</span>
+<dl>
+<dd><p>购满该商品可获得以下赠品</p> <a href="javascript:void(0)" class="open"  id="gifiTog" onclick="changeMessage('gifiTog')">展开</a> </dd>
+<dt style="display:none;" >
+{{~it.productRules.gift:value:index}}
+{{~value.presentProducts:product:index2}}
+<a target="_blank" href="/product.jsp?id={{=product.id}}" title="{{=value.name}}"><img width="40px" height="40px" src="{{=product.pic}}" /></a>
+{{~}}
+{{~}}
+</dt>
+</dl>
+</li>
+{{?}}
+
+
+
+{{?it.productRules.exchange&&it.productRules.exchange.length>0}}
+<li class="chbuy">
+<span>换　　购：</span>
+<div>
+{{~it.productRules.exchange:value:index}}
+<h3><p>{{=value.name}}</p><a href="javascript:void(0)" class="open" id="chbuyTog" onclick="changeMessage('chbuyTog')">展开</a></h3>
+<div style="margin:5px 0 0 0; display:none;">
+{{~value.lowPriceBuyProducts:product:index2}}
+<dl>
+<dd><a target="_blank" href="/product.jsp?id={{=product.id}}"><img width="40px" height="40px" src="{{=product.pic}}" /></a></dd>
+<dt>
+<h4>{{=product.name}}</h4>
+<p>换购价：<em>￥{{=product.amount}}</em></p>
+</dt>
+</dl>
+{{~}}
+</div>
+{{~}}
+</div>
+</li>
+{{?}}
+<!--<li class="sale moreSale last" style="display:none;">-->
+<!--<span>更多优惠：</span>-->
+<!--<ul>-->
+<!--<li>购物满100元可使用10元购物券</li>-->
+<!--<li>购物满200元可使用50元购物券</li>-->
+<!--</ul>-->
+<!--</li>-->
+</ul>
+</div>
+<div class="frame">
+<ul>
+<!-- ko foreach:skuSelector.inventoryAttrs -->
+<!--ko if:standardValues().length>0 -->
+<li class="choose ver" data-bind="visible:standardValues().length>0" style="display: none">
+<span>选择<!-- ko text:name --><!-- /ko -->:</span>
+<div data-bind="foreach:standardValues">
+<a href="#" class="null" data-bind="css:{cur:selected,enabled:enabled},click:function(data,event){$root.skuSelector.selectValue($data,$parent);}"><span data-bind="text:name" ></span><i></i></a>
+</div>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+
+<li class="num">
+<span>数　　量：</span>
+<a href="javascript:void(0);" data-bind="click:decrease">减</a>
+<input type="text" data-bind="value:buyAmount"/>
+<a href="javascript:void(0);" data-bind="click:add" class="add">加</a>
+<!-- <em>库存8888件</em>-->
+</li>
+<!--<li class="tips">已选择<strong>"甜香原味"</strong></li>-->
+<li class="btnbuy">
+<a href="javascript:void(0);" class="btn1" data-bind="click:buyNow">立刻购买</a>
+<a href="javascript:void(0);" class="btn2" data-bind="click:add2Cart">加入购物车</a>
+</li>
+
+<div id="arrivalNoticeLayer" style="position: absolute;"></div>
+</ul>
+</div>
+</div>
+
+<div class="storeInfo fr">
+<dl class="seller">
+<dt>卖&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：</dt>
+<dd>{{=it.merchantInfo.name_cn}}</dd>
+</dl>
+<dl class="evaluate">
+<dt>综合评分：</dt>
+<dd>
+<span class="heart_white">
+<span class="heart_red" style="left:-10px;"></span>
+</span>
+<em class="grade">{{=it.merchantInfo&&it.merchantInfo.merchantCredit&&it.merchantInfo.merchantCredit.totalScore||0}}分</em>
+</dd>
+</dl>
+<div class="evaluate_detail">
+<div class="mt">
+<span class="fl">评分明细</span>
+</div>
+<div class="mc">
+<dl>
+<dt>商品相符：</dt>
+<dd>
+<span class="eva_grade">{{=(it.merchantInfo.merchantCredit.descScore.totalScore/it.merchantInfo.merchantCredit.descScore.amount||0).toFixed(1)}}分</span>
+</dd>
+</dl>
+<dl>
+<dt>服务态度：</dt>
+<dd>
+<span class="eva_grade">{{=(it.merchantInfo.merchantCredit.serviceScore.totalScore/it.merchantInfo.merchantCredit.serviceScore.amount||0).toFixed(1)}}分</span>
+</dd>
+</dl>
+<dl>
+<dt>发货速度：</dt>
+<dd>
+<span class="eva_grade">{{=(it.merchantInfo.merchantCredit.rateScore.totalScore/it.merchantInfo.merchantCredit.rateScore.amount||0).toFixed(1)}}分</span>
+</dd>
+</dl>
+</div>
+</div>
+<!--<dl class="online_service">-->
+<!--<dt>在线客服：</dt>-->
+<!--<dd><a href="#"><b>联系客服</b></a></dd>-->
+<!--</dl>-->
+<div class="pop_info">
+<ul>
+<!--<li>-->
+<!--<label>公司名称：</label>-->
+<!--<span class="fl">广州飞来爱健康家族有限公司</span>-->
+<!--</li>-->
+<li>
+<label>所在地：</label>
+<span class="fl">{{=it.merchantInfo&&it.merchantInfo.address||""}}</span>
+</li>
+</ul>
+</div>
+<div class="enter_shop">
+{{?it.domain}}
+<a href="http://{{=it.domain}}">进入店铺</a></div>
+{{??}}
+<a href="/shop/index.jsp?m={{=it.merchantInfo.objId}}">进入店铺</a></div>
+{{?}}
+</div>
+</div>
+</div>
+
+<div class="col_sub">
+<!--<div class="mod_adv">-->
+<!--<p><a href="#"><img src="@{res/case/adv220x320.jpg}@" width="220" height="320" /></a></p>-->
+<!--<p><a href="#"><img src="@{res/case/adv220x320_2.jpg}@" width="220" height="320" /></a></p>-->
+<!--<p><a href="#"><img src="@{res/case/adv220x320_3.jpg}@" width="220" height="320" /></a></p>-->
+<!--</div>-->
+<!--购买了该商品的用户还购买过-->
+<div class="mod_commend">
+<h2>购买了该商品的用户还购买过</h2>
+<div class="box">
+<ul>
+{{~it.buyAlsoBuy:value:index}}
+<li>
+<p class="pic">  <a href="/product.jsp?id={{=value.id}}"><img src="{{?value.pics.length==0}}/upload/nopic_200.jpg{{??}}{{=value.pics[0]}}{{?}}" width="140" height="140"/></a></p>
+<p class="name"><a href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></p>
+<p class="price">本店价：<b>&yen;{{=value.memberPrice}}</b></p>
+</li>
+{{~}}
+</ul>
+</div>
+</div>
+<!--end 购买了该商品的用户还购买过-->
+
+<!--一周销量排行-->
+<div class="mod_rank">
+<h2 data-type="textLink" data-id="widget:xiaoliangTitle">
+{{?it.widget&&it.widget.xiaoliangTitle&&it.widget.xiaoliangTitle.content}}
+{{=it.widget.xiaoliangTitle.content}}
+{{??}}
+一周销量排行
+{{?}}
+</h2>
+<div class="box">
+<ul data-type="productGroup" data-id="widget:xiaoliangProducts" data-spec="60X60">
+{{?it.widget&&it.widget.xiaoliangProducts&&it.widget.xiaoliangProducts.length>0}}
+{{~it.widget.xiaoliangProducts:value:index}}
+{{?index==0}}
+<li class="cur">
+<b>{{=(index+1)}}</b>
+<a target="_blank" href="/product.jsp?id={{=value.id}}" style="display: none">{{=value.name}}</a>
+<div class="pic" style="display: block"><a target="_blank" href="/product.jsp?id={{=value.id}}"><img src="{{=value.imgUrl}}"></a></div>
+<div class="cont" style="display: block">
+<p class="name"><a target="_blank" href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></p>
+<p class="price">¥{{=value.memberPrice}}</p>
+</div>
+</li>
+{{??}}
+
+<li>
+<b>{{=(index+1)}}</b>
+<a target="_blank" href="/product.jsp?id={{=value.id}}">{{=value.name}}</a>
+<div class="pic" style="display: none"><a target="_blank" href="/product.jsp?id={{=value.id}}"><img src="{{=value.imgUrl}}"></a></div>
+<div class="cont" style="display: none">
+<p class="name"><a target="_blank" href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></p>
+<p class="price">¥{{=value.memberPrice}}</p>
+</div>
+</li>
+{{?}}
+
+{{~}}
+{{??}}
+{{?!it.productionMode}}
+<li class="cur">
+<b>1</b>
+<div class="pic"><a href="#"><img src="case/60x60.jpg" /></a></div>
+<div class="cont">
+<p class="name"><a href="#">杞里香苟杞子中宁枸杞王</a></p>
+<p class="price">&yen;14.50</p>
+</div>
+</li>
+<li ><b>2</b><a href="#">康恩贝铁皮枫斗晶颗粒</a></li>
+<li><b>3</b><a href="#">杞里香苟杞子中宁枸杞王</a></li>
+<li><b>4</b><a href="#">杞里香苟杞子中宁枸杞王</a></li>
+<li><b>5</b><a href="#">台湾综合果蔬水果酵素粉</a></li>
+<li><b>6</b><a href="#">康恩贝铁皮枫斗晶颗粒</a></li>
+<li><b>7</b><a href="#">杞里香苟杞子中宁枸杞王</a></li>
+<li><b>8</b><a href="#">康恩贝铁皮枫斗晶颗粒</a></li>
+<li><b>9</b><a href="#">康恩贝铁皮枫斗晶颗粒</a></li>
+<li><b>10</b><a href="#">康恩贝铁皮枫斗晶颗粒</a></li>
+{{?}}
+{{?}}
+</ul>
+</div>
+</div>
+<!--end 一周销量排行-->
+
+
+<!--浏览过的商品-->
+{{?it.viewHistoryProducts&&it.viewHistoryProducts.length>0}}
+<!--浏览过的商品-->
+<div class="mod_browse">
+<h2>浏览过的商品</h2>
+<div class="box">
+{{~it.viewHistoryProducts:value:index}}
+<li>
+<div class="pic"><a href="/product.jsp?id={{=value.id}}"><img src="{{?value.pics.length==0}}/upload/nopic_200.jpg{{??}}{{=value.pics[0]}}{{?}}" width="60" height="60"/></a></div>
+<div class="cont">
+<p class="name"><a href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></p>
+<p class="price">&yen;{{=value.memberPrice}}</p>
+</div>
+</li>
+{{~}}
+</div>
+</div>
+{{?}}
+<!--end 浏览过的商品-->
+</div>
+
+<div class="col_main">
+{{?it.bomList.length>0||it.bestCommend.length>0}}
+<div class="promote">
+<div class="tabs">
+<ul>
+{{?it.bestCommend.length>0}}
+<li  ><a tab-target="dapei" href="javascript:void(0)" class="cur">自由搭配</a></li>
+{{?}}
+{{?it.bomList.length>0&&!it.product.combiType}}
+<li ><a tab-target="zuhe" href="javascript:void(0)" class="{{?it.bestCommend.length==0}}cur{{?}}">超值组合</a></li>
+{{?}}
+</ul>
+</div>
+{{?it.bestCommend.length>0}}
+<div class="conts dapei" tab-id="dapei" >
+<div class="zuhe clearfix">
+<div class="list fl">
+<ul>
+<li class="base">
+<input name="memberPrice" value="{{=it.product.memberPrice}}" style="display: none">
+<input name="id" value="{{=it.product.objId}}" style="display: none">
+<div class="pic verticalPic"><a target="_blank" href="/product.jsp?id={{=it.product.id}}"><img width="120px" height="120px" src="{{?it.product.pics.length==0}}/upload/nopic_200.jpg{{??}}{{=it.product.pics[0]}}{{?}}"  /></a></div>
+<div class="txt"><a target="_blank" href="/product.jsp?id={{=it.product.id}}">{{=it.product.name}}</a></div>
+</li>
+<li class="icon"></li>
+<li class="other">
+<a href="javascript:void(0)"  class="prev"></a>
+<a href="javascript:void(0)"  class="next"></a>
+<div class="scroll" style="position:relative;">
+<ul style="width:2000px; overflow:hidden; position:absolute; left:0; ">
+{{~it.bestCommend:value:index}}
+{{?value.sellableCount>0}}
+<li>
+<input name="memberPrice" value="{{=value.memberPrice}}" style="display: none">
+<input name="id" value="{{=value.id}}" style="display: none">
+<div class="pic verticalPic"><a target="_blank" href="/product.jsp?id={{=value.id}}"><img width="120px" height="120px" src="{{?value.pics.length==0}}/upload/nopic_200.jpg{{??}}{{=value.pics[0]}}{{?}}" /></a></div>
+<div class="txt"><a target="_blank" href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></div>
+<div class="price"><input type="checkbox"/><i>¥{{=value.memberPrice}}</i></div>
+</li>
+{{?}}
+{{~}}
+</ul>
+</div>
+
+</li>
+</ul>
+</div>
+<div class="total fr">
+<input type="text" value="1" id="zuheCount" style="display: none"/>
+<h3><strong>最佳组合</strong>已选中<b class="selectedCount">0</b>件商品</h3>
+<p><span>组合价：</span><em class="totalPrice">¥{{=it.product.memberPrice}}</em></p>
+<!--<p><span>总定价：</span><del>¥1600.00</del></p>-->
+<div><a href="javascript:void(0)" class="btns_every btn1">购买组合</a></div>
+</div>
+</div>
+</div>
+{{?}}
+{{?it.bomList.length>0}}
+<div class="conts"  tab-id="zuhe">
+{{~it.bomList:item:index}}
+<div class="zuhe clearfix">
+<div class="list fl">
+<ul>
+{{~item.boms:bom:index2}}
+{{?index2==0}}
+<li class="base">
+<input name="memberPrice" value="{{=bom.product.memberPrice}}" style="display: none">
+<input name="id" value="{{=bom.product.id}}" style="display: none">
+<div class="pic verticalPic"><a target="_blank" href="/product.jsp?id={{=bom.product.objId}}"><img width="140px" height="140px" src="{{?bom.product.pics.length==0}}/upload/nopic_200.jpg{{??}}{{=bom.product.pics[0]}}{{?}}"  /></a></div>
+<div class="txt"><a target="_blank" href="/product.jsp?id={{=bom.product.objId}}">{{=bom.product.name}}</a></div>
+</li>
+<li class="icon"></li>
+<li class="other">
+<a href="#" class="prev"></a>
+<a href="#" class="next"></a>
+<div class="scroll" style="position:relative;">
+<ul style="width:2000px; overflow:hidden; position:absolute; left:0; ">
+{{??}}
+<li>
+<input name="memberPrice" value="{{=bom.product.memberPrice}}" style="display: none">
+<input name="id" value="{{=bom.product.id}}" style="display: none">
+<div class="pic"><a target="_blank" href="/product.jsp?id={{=bom.product.objId}}"><img width="140px" height="140px" src="{{?bom.product.pics.length==0}}/upload/nopic_200.jpg{{??}}{{=bom.product.pics[0]}}{{?}}"  /></a></div>
+<div class="txt"><a target="_blank" href="/product.jsp?id={{=bom.product.objId}}">{{=bom.product.name}}</a></div>
+<div class="price"><i>&yen;{{=bom.product.memberPrice}}</i></div>
+</li>
+{{?}}
+{{?index2==item.boms.length-1}}
+</ul>
+</div>
+</li>
+{{?}}
+{{~}}
+</ul>
+</div>
+{{?it.product.combiType!=1}}
+<div class="total fr">
+<h3><strong>套餐商品数量：</strong><b style=" color:#e60000">{{=item.boms.length}}</b>件</h3>
+<p>
+<span>原件：</span>
+<del>¥{{=item.price[1]&&item.price[1].formatTotalPrice||"暂无价格"}}</del>
+</p>
+<p>
+<span>套餐价：</span>
+<em>¥{{=item.price[0].formatTotalPrice}}</em>
+</p>
+<p>
+<span>为您节省：</span>
+<i>¥{{=item.price[0].formatTotalSavedPrice}}</i>
+</p>
+
+<div>
+<input value="{{=item.objId}}" style="display: none" id="id"/>
+<input value="{{=item.merchantId}}" style="display: none" id="merchantId"/>
+<input value="{{=item.columnId}}" style="display: none" id="histroyColumnId"/>
+<a href="javascript:void(0)" class="btns_every btn1">购买套餐</a>
+</div>
+</div>
+{{?}}
+</div>
+{{~}}
+</div>
+{{?}}
+
+{{?}}
+
+
+
+
+<div class="dmain">
+<div class="tabmenu">
+<ul>
+<li><a href="javascript:void(0)" tab-target="productInfo" class="cur">商品介绍</a></li>
+<li><a href="javascript:void(0)" tab-target="productMessage">用户评论({{=totalNum}})</a></li>
+<li><a href="javascript:void(0)" tab-target="productRecommend">为您推荐</a></li>
+</ul>
+</div>
+
+<!-- 产品参数 -->
+<div class="pro_attr"  tab-id="productInfo" style="display: none">
+{{?it.product.displayAttrs&&it.product.displayAttrs.length>0}}
+<h2>产品参数：</h2>
+<ul>
+{{~it.product.displayAttrs:value:index}}
+<li>{{=value.name}}：{{=value.value}}</li>
+{{~}}
+</ul>
+{{?}}
+</div>
+<!-- end产品参数 -->
+
+<div class="articlePic" tab-id="productInfo">
+{{=it.product.content}}
+</div>
+
+
+<div class="comment" tab-id="productMessage" style="display: none">
+<h2>商品评价{{=totalNum||0}}条</h2>
+<!-- 评价等级 -->
+<div class="comment_rate">
+<div class="l">
+<h3>购买过的顾客平均评价</h3>
+<em><i style="width:{{=(it.credit&&it.credit.averageDescStore||0)*20}}%"></i></em><span><strong>{{=it.credit&&it.credit.averageDescStore||0.0}}</strong>分</span>
+<p>(已有<b>{{=totalNum||0}}</b>人评价)</p>
+</div>
+<div class="m">
+<dl>
+<dd>
+<span style="margin-left:300px">{{=it.credit&&it.credit.averageDescStore||0.0}}</span>
+<img src="@{res/images/detail_icon1.jpg}@" />
+</dd>
+<dt>
+<ul>
+<li class="x1">1星<br /><i>(非常不满意)</i></li>
+<li class="x2">2星<br /><i>(不满意)</i></li>
+<li class="x3">3星<br /><i>(一般)</i></li>
+<li class="x4">4星<br /><i>(满意)</i></li>
+<li class="x5">5星<br /><i>(非常满意)</i></li>
+</ul>
+</dt>
+</dl>
+</div>
+<div class="r">
+<i></i>
+<p>只有购买过该商品的用户才能进行评价！</p>
+<div class="btn"><a href="javascript:void(0);" onclick="showComment('#addRemarkLayer','c','{{=it.productId}}')"  class="btns_every2">我要评价</a></div>
+</div>
+</div>
+
+<!-- end评价等级 -->
+
+<div class="comList">
+{{~it.appraiseList.recordList:appraise:index}}
+{{?appraise.certifyInfo.certifyState==1}}
+<div class="item">
+<div class="pic">
+<div class="avatar"><img src="{{=appraise.createUserLogo||'upload/user_none_100.gif'}}" width="50" height="50" /></div>
+<div class="name">{{=appraise.createUserName}}</div>
+</div>
+<div class="i_item">
+<div class="arrow"></div>
+<div class="title">
+<span class="t_star">
+<em style="width:{{=(appraise.totalStar*20)}}%"></em>
+</span>
+<span class="t_time">{{=appraise.createTime}}</span>
+</div>
+<div class="content">
+<ul>
+<li>
+<label>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</label>
+<div class="fl">{{=appraise.comment}}</div>
+</li>
+<li>
+<label>购买日期：</label>
+<div class="fl">{{=appraise.orderCreateTime}}</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+{{?}}
+{{~}}
+<div class="pages">
+<p>共有 <b>{{=totalNum||0}}</b> 条评论</p>
+<div style="float:right;">
+<div class="fr" id="infoPage">
+<input type="hidden" id="Total" value="{{=it.appraiseList.totalCount}}">
+<ul id="pageList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<!--用户评论层-->
+<div style="display: none;" id="addRemarkLayer" class="poplayer">
+<div class="poplayer_box" style="z-index:5555;">
+<a onclick="addRemarkHide();" href="javascript:;" class="closeDiv"></a>
+
+<div class="layer_detail_comment">
+<h2>发表评论</h2>
+<form action="/templates/platform/template_8/product/product_appraise_add_handler.jsp" method="post" id="deliverform" name="deliverform">
+<input type="hidden" id="productIds" name="productId" value="{{=it.productId}}"/>
+<input type="hidden" id="star" name="star" value="5">
+<img style="display: none" id="img1Val"  src="@{res/images/star2.gif}@"/>
+<img style="display: none" id="img2Val"  src="@{res/images/star4.gif}@"/>
+<input type="hidden" id="objId" name="objId" value="{{=it.product.objId}}">
+<input type="hidden" id="userId" name="userId" value="{{=it.userId}}"/>
+<input type="hidden" id="messageType" name="messageType" value="type_productComment"/>
+
+<div class="cont">
+<div id="errorRemarkDiv" style=" height:26px; line-height:26px; color:#f00;"></div>
+<table>
+<tr>
+<td width="50">评&nbsp;&nbsp;分：</td>
+<td>
+<div class="detail_stater">
+<img onClick="chStarleve(1,'img1');" id="img1"
+src="@{res/images/star2.gif}@"
+style=" cursor: pointer;"/>
+<img onClick="chStarleve(2,'img2');" id="img2"
+src="@{res/images/star2.gif}@"
+style=" cursor: pointer;"/>
+<img onClick="chStarleve(3,'img3');" id="img3"
+src="@{res/images/star2.gif}@"
+style=" cursor: pointer;"/>
+<img onClick="chStarleve(4,'img4');" id="img4"
+src="@{res/images/star2.gif}@"
+style=" cursor: pointer;"/>
+<img onClick="chStarleve(5,'img5');" id="img5"
+src="@{res/images/star2.gif}@"
+style=" cursor: pointer;"/>
+
+</div>
+</td>
+</tr>
+<tr>
+<td valign="top">内&nbsp;&nbsp;容：</td>
+<td>
+<textarea id="comment" name="comment" class="detail_textarea1 pinLun_detail_textareal" onkeyup='value=value.substr(0,300)'></textarea>
+
+<div class="msg">(不能超过<span id="counts">300</span>个字)</div>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<div class="msg">
+<input type="checkbox" name="isAnonymity" id="isAnonymity" checked="" value="true">
+匿名评价
+</div>
+</td>
+</tr>
+<tr>
+<td>验证码：</td>
+<td>
+<div class="upbtn">
+<span> <input type="text" id="ValidateCodes" name="ValidateCode" class="detail_input2"/></span>
+<span><img id="validateCodeImgRemark" src='/ValidateCode' alt=""
+onclick="refreshValidateCode('validateCodeImgRemark');"/></span>
+<span class="s3"><input src="@{res/images/detail_btn_02.gif}@" type="image"/></span>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!--end 用户评论层-->
+</div>
+
+{{?it.widget&&it.widget.productRecommend&&it.widget.productRecommend.length>0}}
+<!-- 为您推荐 -->
+<div class="r_commend" tab-id="productRecommend">
+<h2>为您推荐</h2>
+<div class="box">
+<ul>
+
+{{~it.widget.productRecommend:value:index}}
+<li>
+<p class="pic"><a href="/product.jsp?id={{=value.id}}" title="{{=value.name}}"><img src="{{=value.imgUrl}}" width="180" height="180" /></a></p>
+<p class="name"><a href="/product.jsp?id={{=value.id}}">{{=value.name}}</a></p>
+<p class="price">&yen;{{=value.memberPrice}}</p>
+</li>
+
+{{~}}
+
+</ul>
+</div>
+</div>
+{{?}}
+<!-- end 为您推荐 -->
+
+</div>
+<div class="clear"></div>
+</div>
+
+<div id="insight_log" style="display: none" pageName="商品详细" userId="{{=it.userId}}" m="{{=it._m_}}" templateId="{{=it._pageId_}}" appId="{{=it._appId_}}" productId="{{=it.productId}}"></div>
+<script>
+var skus = {{=it.skus}};
+var inventoryAttrs = {{=it.inventoryAttrs}};
+var rappId = "{{=it.rappId}}";
+var productId = "{{=it.productId}}";
+var userId = "{{=it.userId}}";
+var merchantId = "{{=it.merchantId}}";
+</script>
+<script src="@{res/ko/productDetail.js}@" type="text/javascript"></script>
+<script src="@{res/js/appraisePage.js}@" type="text/javascript"></script>
+<script src="@{res/js/zuhe.js}@" type="text/javascript"></script>
+<script src="@{res/lib/jqzoom.pack.1.0.1.js}@" type="text/javascript"></script>
+<script src="@{res/js/detail.js}@" type="text/javascript"></script>
+<script src="/resources/ko/attrs.js" type="text/javascript"></script>
+{{?it.productionMode}}
+{{=$.importUrl("/defaultFooter.html?productionMode=true")}}
+{{??}}
+{{=$.importUrl("/defaultFooter.html?productionMode=false")}}
+{{?}}

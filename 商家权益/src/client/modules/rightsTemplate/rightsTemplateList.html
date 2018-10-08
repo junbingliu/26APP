@@ -1,0 +1,31 @@
+<div id="rightsTemplateListPage" class="page">
+    <div class="page-header">
+        <h1>权益模板列表</h1>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td style="width:100px">id</td>
+            <td style="width:30%">名称</td>
+            <td>说明</td>
+            <td style="width:150px">操作</td>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach:templates">
+              <tr>
+                  <td data-bind="html:id"></td>
+                  <td data-bind="html:name"></td>
+                  <td data-bind="html:description"></td>
+                  <td >
+                      <a href="#" data-bind="click:$root.deleteTemplate">删除</a> |
+                      <a href="#" data-bind="attr:{href:editUrl}">编辑</a>
+                  </td>
+              </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4"><a class="btn btn-primary" href="#/rightsTemplate/add">添加</a></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

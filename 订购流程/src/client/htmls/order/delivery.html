@@ -1,0 +1,14 @@
+<div class="orderFormChooser" style="margin-top:20px">
+    <div data-bind="text:merchantName" ></div>
+    <table data-bind="foreach:deliveryResults" class="deliveryList">
+        <tr>
+            <td width="20px"><input type="radio" data-bind="attr:{name:'deliveryRule' + $parent.merchantId()},value:ruleId,checked:$parent.selectedDeliveryRuleId"></td>
+            <td data-bind="click:$parent.setDeliveryRule">
+                <span class="boldName" data-bind="text:name"></span>
+                <span data-bind="text:description"></span>
+                <span data-bind="text:deliveryWayDescription"></span>
+                <span class="action" data-bind="visible:supportDP">选择自提点</span>
+            </td>
+        </tr>
+    </table>
+</div>

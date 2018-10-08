@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>商城主页</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<!-- vendor css -->
+<link rel="stylesheet" href="@{resource/css/ole.css}@">
+</head>
+<body>
+<div class="container" style="padding-bottom: 2.178rem;">
+<div class="newHead">
+<div class="w-nav">
+<div class="search">
+<div class="seek">
+<input type="text" placeholder="查找商品"/>
+<em class="ico-seek"></em>
+</div>
+
+</div>
+</div>
+</div>
+<article class="rowTop">
+
+<div class="home-banner">
+<div class="pic">
+<ul data-type="imgLinkList" data-id="rotate">
+<%if(rotate && rotate.length>0){%>
+<%for(var i=0;i < rotate.length;i++){%>
+<%var value=rotate[i];%>
+<li class="<%=i==0?'showFirst':'item'%>">
+<a href="<%=value.linkTo%>" target="<%=value.openInNewPage%>">
+<img src="<%=value.imgUrl%>">
+</a>
+</li>
+<%}%>
+<%}else{%>
+<li class="item" style="display: block;"><a href=""><img src="@{resource/case/750x400.png}@"/></a></li>
+<li class="item" ><a href=""><img src="@{resource/case/750x400.png}@"/></a></li>
+<li class="item" ><a href=""><img src="@{resource/case/750x400.png}@"/></a></li>
+<li class="item" ><a href=""><img src="@{resource/case/750x400.png}@"/></a></li>
+<%}%>
+</ul>
+</div>
+<div class="slider-btn">
+<span class="focus-btn"></span>
+<span class="focus-btn active"></span>
+<span class="focus-btn"></span>
+<span class="focus-btn"></span>
+<span class="focus-btn"></span>
+</div>
+</div>
+<div class="cont">
+<div class="h-classify">
+<ul class="clearfix" data-type="imgLinkList" data-id="cont">
+<%if(cont && cont.length>0){%>
+<%for(var i=0;i < cont.length;i++){%>
+<%var value=cont[i];%>
+<li class="item">
+<a href="<%=value.linkTo%>">
+<div class="ico">
+<img src="<%=value.imgUrl%>"/>
+</div>
+<p class="tab"><%=value.description%></p>
+</a>
+</li>
+<%}%>
+<%}else{%>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-1.png}@"/></div>
+<p class="tab">小食饮料</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-2.png}@"/></div>
+<p class="tab">健康活力</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-3.png}@"/></div>
+<p class="tab">厨房组合</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-4.png}@"/></div>
+<p class="tab">顶级酒窖</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-5.png}@"/></div>
+<p class="tab">母婴商品</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-6.png}@"/></div>
+<p class="tab">个人清洁</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-7.png}@"/></div>
+<p class="tab">个护美妆</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-8.png}@"/></div>
+<p class="tab">健康活力</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-9.png}@"/></div>
+<p class="tab">生鲜水产</p>
+</a></li>
+<li class="item"><a href="">
+<div class="ico"><img src="@{resource/case/class-ico-10.png}@"/></div>
+<p class="tab">家居用品</p>
+</a></li>
+<%}%>
+</ul>
+</div>
+
+<div class="h-banner" data-type="imgLink" data-id="itemTop01">
+<%if(itemTop01 && itemTop01.imgUrl){%>
+<a href="<%=itemTop01.imgLinkTo ? itemTop01.imgLinkTo : 'javascript:void(0)'%>">
+<img src="<%=itemTop01.imgUrl%>" />
+</a>
+<p class="name"><%=itemTop01.description%></p>
+<%}else{%>
+<img src="@{resource/case/710x300.png}@"/>
+<p class="name">@旧时光的TA，齐聚2018</p>
+<%}%>
+
+</div>
+
+<div class="home-hot">
+<div class="hot-tit">
+<div class="tit">
+<p class="txt fz30">热门商品</p>
+</div>
+</div>
+<ul class="clearfix" data-type="productGroup" data-id="productTOP">
+<%if(productTOP && productTOP.length>0){%>
+<%for(var y=0;y< productTOP.length;y++){%>
+<% var value = productTOP[y];%>
+<li class="item <%=y%2==0||y==0?'':'bor'%>"><a href="#/productDetailPage/<%=value.id%>">
+<div class="pic"><img src="<%=value.imgUrl%>"/></div>
+<p class="goods-name"><%=value.name%></p>
+<div class="money">&yen;<%=value.memberPrice%></div>
+</a> </li>
+<%}%>
+<%}else{%>
+<li class="item bor"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item bor"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item bor"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item bor"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<li class="item"><a href="">
+<div class="pic"><img src="@{resource/case/800x800.jpg}@"/></div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">&yen;288.00</div>
+</a> </li>
+<%}%>
+</ul>
+</div>
+</div>
+
+</article>
+<footer class="home-footer">
+<section class="foot-nav">
+<ul>
+<li class="active">
+<a href="#">
+<span class="ico ico-home"></span>
+<span class="txt">商店</span>
+</a>
+</li>
+<li class="">
+<a href="#">
+<span class="ico ico-nearby"></span>
+<span class="txt">精品</span>
+</a>
+</li>
+<li class="">
+<a href="#">
+<span class="ico ico-agent"></span>
+<span class="txt">购物篮</span>
+</a>
+</li>
+
+<li class="">
+<a href="#">
+<span class="ico ico-user"></span>
+<span class="txt">个人</span>
+</a>
+</li>
+</ul>
+</section>
+</footer>
+</div>
+</body>
+</html>

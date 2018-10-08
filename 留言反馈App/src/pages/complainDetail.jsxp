@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+
+    <style type="text/css">
+        dl {
+            margin-top: 4rem;
+        }
+
+        dt {
+            margin-top: 2rem;
+        }
+
+        img {
+            width: 20%;
+        }
+
+        .flo {
+            float: left;
+            width: 15%;
+        }
+
+        strong {
+            font-size: 1.5rem;
+        }
+
+        .bg-1 {
+            background: #d8d8d8;
+            width: 60%;
+            margin-top: 1rem;
+        }
+
+        .btn-1 {
+            margin-top: 3rem;
+            width: 40%;
+            height: 30%;
+            margin-bottom: 5rem;
+        }
+
+        button {
+            width: 40%;
+            height: 4rem;
+            margin-left: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>
+                留言反馈
+            </h2>
+            <div class="flo">
+                <h4>用户姓名</h4>
+                <div class="contentList">
+                    {{=it.jComplaint.name}}
+                </div>
+            </div>
+            <div class="flo">
+                <h4>手机号</h4>
+                <div class="contentList">
+                    {{=it.jComplaint.mobile}}
+                </div>
+            </div>
+            <div class="flo">
+                <h4>邮箱</h4>
+                <div class="contentList">
+                    {{=it.jComplaint.email}}
+                </div>
+            </div>
+            <div class="flo">
+                <h4>反馈类型</h4>
+                <div class="contentList">
+                    {{=it.jComplaint.complainType}}
+                </div>
+            </div>
+            <div class="flo">
+                <h4>反馈标题</h4>
+                <div class="contentList">
+                    {{=it.jComplaint.title}}
+                </div>
+            </div>
+            <div class="flo" style="width: 24%">
+                <h4>反馈内容</h4>
+                <div class="contentList">
+                    {{=it.jComplaint.content}}
+                </div>
+            </div>
+            <div style="width: 80%;padding-top: 5rem">
+                <h4 style="padding-top: 3rem">反馈图片</h4>
+                <div class="contentList">
+                    {{?it.jComplaint.imgUrl&&it.jComplaint.imgUrl!=""}}<img alt="140x140" src={{=it.jComplaint.imgUrl}} style="width: 15%"/>{{?}}
+                    {{?it.jComplaint.imgUrl2&&it.jComplaint.imgUrl2!=""}} <img alt="140x140" src={{=it.jComplaint.imgUrl2}} style="width: 15%"/>{{?}}
+                    {{?it.jComplaint.imgUrl3&&it.jComplaint.imgUrl3!=""}}<img alt="140x140" src={{=it.jComplaint.imgUrl3}} style="width: 15%"/>{{?}}
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="span12">
+            <h3>
+                留言记录
+            </h3>
+            {{~it.jComplaint.chatList:value:index}}
+            <div class="bg-1">
+                <p class="text-left"><strong>回复人：{{=value.userName||value.shopName}}</strong></p>
+                <strong>回复内容:</strong>
+                <p class="text-left">{{=value.content}}</p>
+                <strong>回复状态:</strong>
+                {{?value.satisfy&&value.satisfy=="yes"}}
+                <p class="text-left">满意</p>
+                {{??}}<p class="text-left">不满意</p>
+                {{?}}
+                <strong>回复时间:{{=value.creatTime}}</strong>
+            </div>
+            {{~}}
+
+        </div>
+
+        {{?it.jComplaint.colseState=="0"}}
+        <form role="form" style="margin-top: 4rem">
+            <div class="form-group">
+                <label for="contentText">回复用户</label>
+                <textarea class="form-control" rows="8" id="contentText" style="width: 60%"></textarea>
+            </div>
+        </form>
+        {{?}}
+        {{?it.jComplaint.colseState=="0"}}
+        <div class="btn-1">
+            <button class="btn btn-success btn-large" type="button" id="submitReplay">提交回复</button>
+        </div>
+        {{?}}
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var merchantId = "{{=it.merchantId}}";
+        var jId = "{{=it.jComplaint.id}}";
+        $("#submitReplay").bind("click", function () {
+            var inputVal = $("#contentText").val();
+            if (!inputVal || inputVal === "") {
+                alert("内容为空，无法提交");
+                return;
+            }
+            $.post("../handler/replayComplain.jsx", {id: jId, content: inputVal}, function (ret) {
+                alert(ret.msg);
+            }, 'json')
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>好友邀请</title>
+    <link rel="stylesheet" type="text/css" href="@{res/css/invitation.css}@" rel="stylesheet" />
+    <script type="text/javascript" src="@{res/js/jquery-1.10.2.min.js}@"></script>
+    <script type="text/javascript" src="@{res/js/jquery-qrcode-0.14.0.min.js}@"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var mobileQRcode = $("#mobileQRcode");
+            if(mobileQRcode){
+                mobileQRcode.empty().qrcode({
+                    render: "image",
+                    size: 200,
+                    text: "<%=qCode%>",
+                    background:"#ffffff"
+                });
+            }
+            });
+
+    </script>
+</head>
+<body>
+<!--微信要求层begin-->
+<div style="" id="qrcode_div">
+    <div class="qrcode_overlayBG"></div>
+    <div class="qrcodeLayer">
+        <div class=""></div>
+        <div class="mc">
+            <div class="qrcode" id="mobileQRcode"></div>
+            <div class="txt"></div>
+        </div>
+    </div>
+</div>
+<!--end-->
+
+
+</body>
+</html>

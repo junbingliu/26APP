@@ -1,0 +1,37 @@
+{
+    "appEditor":{"enabled":true},
+    "renderEngine":"artTemplate",
+    "pages" : [
+        {"url":"/mobile/integral_classify.html","name":"商品分类页","pageId":"goods_classify","template":"pages/index_design.html","dataProcessor":"@process/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.showLevel","dataValue":{"name":"SHOW区显示楼层","value":"6"},"dataSpec":{"id":"config.showLevel","type":"int"}},
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}},
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+            ]
+        }
+    ],
+    "templates" : [
+        {"template":"pages/index_design.html","name":"商品分类页模板","description":"商品分类页模板","dataProcessor":"@process/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}}
+            ]
+        }
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

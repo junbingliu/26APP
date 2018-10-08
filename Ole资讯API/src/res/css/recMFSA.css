@@ -1,0 +1,42 @@
+.nav-pills > li + li {
+    margin-left: 6px;
+}
+
+.jumbotron p {
+    font-size: 14px;
+    text-align: left;
+    letter-spacing: 2px;
+    line-height: 24px;
+    font-family: "宋体";
+}
+
+.index .btn {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 4px 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+form .section {
+    margin-bottom: 8px;
+}
+
+form > .section {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 20px;
+}
+
+form > .section > label {
+    color: #FF6666;
+}

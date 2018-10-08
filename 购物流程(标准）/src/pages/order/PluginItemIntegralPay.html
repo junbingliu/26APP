@@ -1,0 +1,29 @@
+<!-- ko with:pluginItems.integralPay -->
+<div class="item" data-bind="css:{active:detailVisible}">
+    <div class="tit" data-bind="click:toggle">
+        <span class="os_ico"></span>使用积分
+    </div>
+    <div class="panle" data-bind="visible:detailVisible"> 
+        <div class="jf_panl">
+            <span class="jf_left">
+                当前可使用积分 <b class="colore14041" data-bind="text:integralBalance"></b>，
+                可抵扣<b class="colore14041">￥<span data-bind="text:canUseMoney"></span></b>元
+            </span>
+            <!-- ko if:!confirmed() -->
+            <span class="jf_right">用积分抵扣：<input class="put" data-bind="value:useMoney"/>元</span>
+            <!-- /ko -->
+            <!-- ko if:confirmed() -->
+
+            <span class="jf_right">使用积分抵扣：<span data-bind="text:useMoney"></span>元
+                <a style="margin-left:30px; color:blue; cursor: pointer" data-bind="click:edit">修改</a>
+            </span>
+            <!-- /ko -->
+        </div>
+        <!-- ko if:!confirmed() -->
+        <div class="btnbox">
+            <a class="od_btn" style="margin-left:30px;" data-bind="click:setUseMoney">确认</a>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->

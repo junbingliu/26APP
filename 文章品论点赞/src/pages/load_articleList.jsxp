@@ -1,0 +1,55 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="120px;">分类</th>
+        <th width="120px;">标题</th>
+        <th width="120px;">文章详情</th>
+        <th width="120px;">浏览量</th>
+        <th width="120px;">收藏量</th>
+        <th width="120px;">点赞量</th>
+        <th width="120px;">评论量</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.resultList:value:index}}
+    <tr>
+        <td>{{=value.columnName}}</td>
+        <td>{{=value.title}}</td>
+        <td>
+            <button class="btn btn-primary articleData" data-toggle="modal" data-target="#dataModal" data-a="{{=value.articleId}}">查看</button>
+        </td>
+        <td>{{=value.browse}}</td>
+        <td>{{=value.collections}}</td>
+        <td>{{=value.likes}}</td>
+        <td>
+            {{=value.commnents}}
+            <a href="commentList.jsx?m={{=it.merchantId}}&articleId={{=value.articleId}}">查看详情</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document" style="margin-left: 27px">
+        <div class="modal-content" style="width:1300px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">文章内容</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

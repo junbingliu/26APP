@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/resources/bootstrap3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@{js/ManualIndex.js}@"></script>
+</head>
+<body>
+
+
+<div class="jumbotron">
+    <h1>手动触发相关入口</h1>
+
+    <div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">对接商家所有商品的实际库存到OMS</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" id="submit_form1">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">商家ID</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="doMerchantId" name="doMerchantId" placeholder="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" id="doSendSkuQuantityToOMS">确认对接库存改变了的商品</button><br><br>
+                                    <button class="btn btn-primary" type="button" id="doSendSkuQuantityToOMS_all">确认对接-所有商品</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">sku编码或skuId或商品ID</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="skuNo" name="skuNo" placeholder="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" id="doSendOneSkuQuantityToOMS">确认对接单个物料</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-danger">
+            <div class="panel-heading">对接商品</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="submit_form2">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">商品ID</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="productId" name="productId" value=""
+                                   placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">merchantId</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="pMerchantId" name="pMerchantId" value=""
+                                   placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">SKU外部ID</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="skuId" name="skuId" value=""
+                                   placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">对接方式</label>
+
+                        <div class="col-sm-3">
+                            <label class="radio-inline">
+                                <input type="radio" name="actionType" value="productAdd" checked> 添加
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="actionType" value="productUpdate"> 修改
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="actionType" value="productDelete"> 删除
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <a class="btn btn-primary" href="javascript:;" id="doReSendProductToOMS">确认对接</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">对接分类</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="submit_form3">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">分类ID</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="columnId" name="columnId" value=""
+                                   placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">对接方式</label>
+
+                        <div class="col-sm-3">
+                            <label class="radio-inline">
+                                <input type="radio" name="actionType" value="columnAdd" checked> 添加
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="actionType" value="columnUpdate"> 修改
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="actionType" value="columnDelete"> 删除
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <a class="btn btn-primary" href="javascript:;" id="doReSendColumnToOMS">确认对接</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+

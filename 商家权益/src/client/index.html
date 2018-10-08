@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta charset="utf-8"/>
+<title>商家权益</title>
+
+<meta name="description" content="saas 商家权益"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!-- basic styles -->
+
+<script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+<script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+<script src="@{client/res/lib/knockoutmapping.js}@"></script>
+
+
+<script src="@{client/res/lib/sammy-0.7.4.min.js}@"></script>
+
+<link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+
+<script src="@{client/res/js/app.js}@"></script>
+<link href="@{client/res/css/app.css}@" rel="stylesheet"/>
+<script src="@{client/res/lib/bootbox.min.js}@"></script>
+<script>
+var m = "{{=it.m}}"
+</script>
+
+</head>
+<body>
+<div class="navbar navbar-default" id="navbar">
+
+<div class="navbar-container" id="navbar-container">
+<div class="navbar-header pull-left">
+<a href="#" class="navbar-brand">
+<small>
+<i class="glyphicon glyphicon-cog"></i>
+商家权益
+</small>
+</a>
+</div>
+
+</div>
+<!-- /.navbar-header -->
+</div>
+
+<nav id="sidebar" class="sidebar" data-spy="affix" data-offset-top="0" style="margin-top:20px">
+<ul id="side-nav " class="side-nav">
+<li id="rightsTemplateModule" class="module">
+<a href="#/rightsTemplate/list">
+<i class="glyphicon glyphicon-user"></i>
+<span>权益模版</span>
+</a>
+</li>
+<li id="rightsDispatchModule" class="module">
+<a href="#/rightsDispatch/list">
+<i class="glyphicon glyphicon-list-alt"></i>
+<span>权益分配</span>
+</a>
+</li>
+</ul>
+</nav>
+<div id="main">
+<div id="rightsTemplateForm" class="page">
+<div class="page-header">
+<h1>权益模板详情
+<a class="btn btn-primary pull-right" href="#/rightsTemplate/list" style="margin-right:10px">返回列表</a>
+<button class="btn btn-success pull-right" data-bind="click:save"  style="margin-right:10px">保存</button>
+
+</h1>
+</div>
+<form class="form-horizontal"  role="form">
+<div class="form-group">
+<label for="templateName" class="col-lg-1 control-label">名 称</label>
+<div class="col-lg-11">
+<input type="text" id="templateName"  class="form-control" data-bind="value:template.name">
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="templateDescription">说 明</label>
+<div class="col-lg-11">
+<input type="text" id="templateDescription"  class="form-control" data-bind="value:template.description">
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="templateMaxProductNumber">商品数</label>
+<div class="col-lg-11">
+<input type="text" id="templateMaxProductNumber" placeholder="0代表无限制"  class="form-control" data-bind="value:template.maxProductNumber">
+</div>
+</div>
+<div class="row" style="margin-top:30px">
+<div class="col-lg-6">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">当前的应用</h3>
+</div>
+<div class="panel-body">
+<ul data-bind="foreach:template.apps" style="float: right; width:100%;">
+<li style="list-style: none;display: block;height:130px;width:110px;float:left;margin-top:15px">
+<div style="width:80px;margin:0 auto">
+<img data-bind="attr:{src:icon}" style="margin:0 auto;max-height: 80px;max-width: 80px;width:80px;height:80px;">
+</div>
+<div style="text-align: center" data-bind="html:name"></div>
+<div style="text-align: center"><button class="btn btn-success" data-bind="click:$root.deleteApp">删除</button> </div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">可选的应用</h3>
+</div>
+<div class="panel-body">
+<ul data-bind="foreach:leftApps" style="float: right;width:100%">
+<li style="list-style: none;display: block;height:130px;width:110px;float:left;margin-top:15px">
+<div style="width:80px;margin:0 auto">
+<img data-bind="attr:{src:icon}" style="margin:0 auto ;max-height: 80px;max-width: 80px;height:80px;width:80px;">
+</div>
+<div style="text-align: center" data-bind="html:name"></div>
+<div style="text-align: center"><button class="btn btn-success" data-bind="click:$root.addApp">添加</button> </div>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</form>
+
+</div>
+<div id="rightsTemplateListPage" class="page">
+<div class="page-header">
+<h1>权益模板列表</h1>
+</div>
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+<td style="width:100px">id</td>
+<td style="width:30%">名称</td>
+<td>说明</td>
+<td style="width:150px">操作</td>
+</tr>
+</thead>
+<tbody data-bind="foreach:templates">
+<tr>
+<td data-bind="html:id"></td>
+<td data-bind="html:name"></td>
+<td data-bind="html:description"></td>
+<td >
+<a href="#" data-bind="click:$root.deleteTemplate">删除</a> |
+<a href="#" data-bind="attr:{href:editUrl}">编辑</a>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4"><a class="btn btn-primary" href="#/rightsTemplate/add">添加</a></td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="rightsDispatchRuleForm" class="page">
+<div class="page-header">
+<h1>权益分配规则详情
+<a class="btn btn-primary pull-right" href="#/building/list" style="margin-right:10px">返回列表</a>
+<button class="btn btn-success pull-right"   style="margin-right:10px" data-bind="click:save">保存</button>
+</h1>
+</div>
+<form class="form-horizontal"  role="form">
+<div class="form-group">
+<label for="ruleName" class="col-lg-1 control-label">名 称</label>
+<div class="col-lg-10">
+<input type="text" id="ruleName"  class="form-control" data-bind="value:rule.name">
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="ruleDescription">说 明</label>
+<div class="col-lg-10">
+<input type="text" id="ruleDescription"  class="form-control" data-bind="value:rule.description">
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="orgName">组织机构</label>
+<div class="col-lg-10">
+<input type="text" id="orgName" placeholder=""  class="form-control" data-bind="value:rule.orgName">
+</div>
+<div class="col-lg-1">
+<button class="btn btn-success" data-bind="click:selectOrg">选择...</button>
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="levelName">商家等级</label>
+<div class="col-lg-10">
+<input type="text" id="levelName" placeholder=""  class="form-control" data-bind="value:rule.levelName">
+</div>
+<div class="col-lg-1">
+<button class="btn btn-success" data-bind="click:selectLevel">选择...</button>
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="mainCategoryName">商家主分类</label>
+<div class="col-lg-10">
+<input type="text" id="mainCategoryName" placeholder=""  class="form-control" data-bind="value:rule.mainCategoryName">
+</div>
+<div class="col-lg-1">
+<button class="btn btn-success" data-bind="click:selectMainCategory">选择...</button>
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label" for="customCategoryName">自定义分类</label>
+<div class="col-lg-10">
+<input type="text" id="customCategoryName" placeholder=""  class="form-control" data-bind="value:rule.customCategoryName">
+</div>
+<div class="col-lg-1">
+<button class="btn btn-success" data-bind="click:selectCustomCategory">选择...</button>
+</div>
+</div>
+<div class="form-group">
+<label class="col-lg-1 control-label">权益模板</label>
+<div class="col-lg-10">
+<select class="form-control" data-bind="options:templates,optionsText:'name',value:selectedTemplate,optionsValue:'id'"></select>
+</div>
+</div>
+<div></div>
+</form>
+
+
+</div>
+
+<div class="modal fade" id="selectColumnDialog">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<div style="height: 30px;padding-top: 10px;margin-top:-15px">
+<i class="glyphicon glyphicon-folder-open" style="color: #6294d3;float: left;font-size:14pt;padding-left:5px"></i>
+<ul data-bind="foreach:itemPath" class="pathBar">
+<li style="cursor: pointer;" data-bind="click:$root.setCurrentItem"><i class="glyphicon glyphicon-chevron-right"></i><span style="cursor: pointer;" data-bind="text:name"></span></li>
+</ul>
+</div>
+</div>
+<div class="modal-body" style="padding:16px; height:410px">
+<ul data-bind="foreach:itemChildren;ifnot:isEmpty" style="float: right;width:100%">
+<li style="list-style: none;display: block;height:30px;width:90px;float:left;cursor: pointer" data-bind="click:$root.setCurrentItem">
+<i class="glyphicon glyphicon-folder-open" style="color: #70acd8;float: left;font-size:13pt;padding-left:2px"></i>
+<span style="cursor: pointer;text-align: center;padding-left: 5px;padding-top: 3px" data-bind="html:name"></span>
+</li>
+</ul>
+<div style="text-align: center;color:#cccccc" data-bind="if:isEmpty">本目录下是空的</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<button type="button" class="btn btn-primary" data-bind="click:onOk">确定</button>
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="ruleListPage" class="page">
+<div class="page-header">
+<h1>权益分配规则</h1>
+</div>
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+<td style="width:100px">id</td>
+<td style="width:30%">名称</td>
+<td>说明</td>
+<td style="width:150px">操作</td>
+</tr>
+</thead>
+<tbody data-bind="foreach:rules">
+<tr>
+<td data-bind="html:id"></td>
+<td data-bind="html:name"></td>
+<td data-bind="html:description"></td>
+<td >
+<a href="#" data-bind="click:$root.deleteRule">删除</a> |
+<a href="#" data-bind="attr:{href:editUrl}">编辑</a>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4"><a class="btn btn-primary" href="#/rightsDispatchRule/add">添加</a></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+
+
+
+</body>
+
+</html>

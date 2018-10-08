@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta charset="utf-8"/>
+<title>下单流程</title>
+
+<meta name="description" content="saas 下单流程"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- basic styles -->
+
+<script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+<script src="@{client/res/lib/underscore-min.js}@"></script>
+<script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+<script src="@{client/res/lib/knockoutmapping.js}@"></script>
+<script src="@{client/res/lib/jquery-ui-1.9.2.custom.min.js}@"></script>
+<script src="@{client/res/lib/jquery-ui-timepicker.js}@"></script>
+<script src="@{client/res/lib/jquery-slider-access.js}@"></script>
+<script src="@{client/res/lib/timepicker-binding.js}@"></script>
+<script src="@{client/res/lib/sammy-0.7.4.min.js}@"></script>
+<link href="../../resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="@{client/res/lib/jquery-ui-1.10.0.custom.css}@" rel="stylesheet"/>
+<link href="@{client/res/lib/jquery.ui.1.10.0.ie.css}@" rel="stylesheet"/>
+<script src="../../resources/bootstrap300/js/bootstrap.min.js"></script>
+<script src="@{client/res/lib/date-zh-CN.js}@"></script>
+<script src="@{client/res/js/cartsApp.js}@"></script>
+<script src="@{client/res/lib/bootbox.min.js}@"></script>
+<link href="@{client/res/css/cart.css}@" rel="stylesheet"/>
+<link href="@{client/res/css/app.css}@" rel="stylesheet"/>
+
+<script>
+var m = "{{=it.m}}";
+var backBuyerId = "{{=it.backBuyerId}}";
+</script>
+<script src="/brandSelector/jsloader.jsx"></script>
+<script src="/productSelector/jsloader.jsx"></script>
+<script src="/resources/zTree3.5/jquery.ztree.core-3.5.js"></script>
+<link href="/resources/zTree3.5/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
+
+<script src="/resources/layer/layer.min.js"></script>
+<script src="@{client/res/lib/spin.min.js}@"></script>
+<script src="/resources/json2_min.js"></script>
+<script src="/resources/ko/page.js"></script>
+<script src="/userSelector/jsloader.jsx"></script>
+<script src="/buyflowApp/loadCart.jsx"></script>
+</head>
+<body>
+<div class="navbar navbar-default" id="navbar">
+<div class="navbar-container" id="navbar-container">
+<div class="navbar-header pull-right">
+<a href="#" class="navbar-brand">
+<small>
+<i class="glyphicon glyphicon-shopping-cart"></i>
+订单流程
+</small>
+</a>
+</div>
+
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li>
+<a href="#/selectProducts" id="selectProducts">
+<i class="glyphicon glyphicon-user"></i>
+<span style="margin-left:3px">选择商品</span>
+</a>
+</li>
+
+<li>
+<a href="#/carts" id="selectProducts">
+<i class="glyphicon glyphicon-user"></i>
+<span style="margin-left:3px">购物车</span>
+</a>
+</li>
+
+<li>
+<a href="#/selectUser" id="selectUser">
+<i class="glyphicon glyphicon-user"></i>
+<span style="margin-left:3px">选择用户</span>
+</a>
+</li>
+
+<li>
+<a href="pages/setting.jsx?m={{=it.merchantId}}">
+<i class="glyphicon glyphicon-list-alt"></i>
+<span  style="margin-left:3px">设置</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- /.navbar-header -->
+</div>
+
+<div id="buyflowCart" class="main">
+</div>
+
+<div id="spinholder"></div>
+</body>
+
+</html>

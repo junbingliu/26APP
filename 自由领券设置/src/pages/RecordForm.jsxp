@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../res/style/app.css">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <script src="/resources/layer/layer.min.js"></script>
+    <script>
+        var merchantId = '{{=it.merchantId}}';
+    </script>
+    <script type="text/javascript" src="@{js/RecordForm.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid" id="dataContainer">
+    <div class="row" style="margin-left: 25px;width: 610px;">
+        <form class="form-horizontal" id="importDataForm" action="RecordForm_handler.jsx?merchantId={{=it.merchantId}}" method="post" autocomplete="off" target="importData_frame">
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">标题</label>
+                <div class="col-sm-8">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="">
+                    <span class="help-block"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="duration"  class="col-sm-2 control-label">时间</label>
+                <div class="col-sm-8">
+                    <input type="text" name="duration" class="form-control" id="duration" placeholder="">
+                    <span class="help-block">格式:2016.09.01-2016.10.01</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="money"  class="col-sm-2 control-label">金额</label>
+                <div class="col-sm-8">
+                    <input type="text" name="money" class="form-control" id="money">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="coupon"  class="col-sm-2 control-label">领券URL</label>
+                <div class="col-sm-8">
+                    <input type="text" name="coupon" class="form-control" id="coupon" value="/freeGetCardControl/pages/GetCardHandler.jsx">
+                    <span class="help-block">默认值:/freeGetCardControl/pages/GetCardHandler.jsx</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="activityId"  class="col-sm-2 control-label">活动ID</label>
+                <div class="col-sm-8">
+                    <input type="text" name="activityId" class="form-control" id="activityId" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cardBatchId"  class="col-sm-2 control-label">券批次ID</label>
+                <div class="col-sm-8">
+                    <input type="text" name="cardBatchId" class="form-control" id="cardBatchId" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="comment"  class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-8">
+                    <textarea rows="3" type="text" name="comment" class="form-control" id="comment" placeholder=""></textarea>
+                </div>
+            </div>
+        </form>
+        <iframe name="importData_frame" style="display: none;"></iframe>
+    </div>
+
+    <div class="row" style="margin-left: 25px;width: 610px;">
+        <div class="col-sm-12 col-md-12" style="margin-left: 92px;">
+            <button type="button" class="btn btn-primary " id="saveUpdateBtn">保存</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

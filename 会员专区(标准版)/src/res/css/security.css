@@ -1,0 +1,90 @@
+/* Created by Qianglong Mo 2015 */
+
+/* Security center */
+.SecurityCenter .panelBd{
+    min-height: 624px;
+}
+.SecurityCenter  .SecurityCenterHd{
+    background: #f9f9f9;
+    border: 1px solid #e7e7e7;
+}
+.SecurityCenter  .SecurityCenterHd > p{
+    font-size: 14px;
+    color: #333;
+}
+.SecurityCenter .SecurityScore{
+    color: #79b235;
+}
+.SecurityCenter .SecurityCenterHd{
+    padding: 28px 36px;
+}
+.SecurityScoreTh{
+    background: #e0e0e0;
+    position: relative;
+    height: 8px;
+    display: block;
+    display: inline-block;
+    width: 304px;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(@{res/css/PIE.htc}@); /*ie Css3 6 7 8*/
+}
+.SecurityScoreTh em{
+    background: #79b235;
+    position: absolute;
+    height: 8px;
+    display: block;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+     /*ie Css3 6 7 8*/
+    width: 100px;
+    font-style:normal;
+}
+.SecurityScoreTh em i{
+    font-style:normal;
+    position: absolute;
+    right: -3px;
+    color: #79b235;
+    font-size: 14px;top: 7px;
+}
+.SecurityCenterBdList{ }
+.SecurityCenterBdList li{
+    font-size: 20px;color: #3e3e3e;
+    height: 115px;
+    line-height: 115px;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+}
+.SecurityCenterBdList li span{
+    font-size: 12px;color: #888;
+}
+.SecurityCenterBdList li a{
+    font-size: 14px;color: #1d589d;
+    text-decoration:underline;
+    position: absolute;
+    left:88%;
+}
+.SecurityCenterBdList li a:hover{color: #e14041}
+.SecurityCenterBdList .Scpassword, .Scemail, .Scphone{
+     padding-left: 106px;
+    padding-right: 100px;
+ }
+.SecurityCenterBdList .Scpassword{
+    background: url("@{res/images/Scpassword.png}@") no-repeat 35px center;
+}
+.SecurityCenterBdList .Scemail{
+    background: url("@{res/images/Scemail.png}@") no-repeat 27px center;
+}
+.SecurityCenterBdList .Scphone{
+    background: url("@{res/images/Scphone.png}@") no-repeat 35px center;
+}
+.noBor{
+    border-bottom: none!important;
+}

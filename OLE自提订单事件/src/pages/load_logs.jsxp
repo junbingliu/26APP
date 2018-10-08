@@ -1,0 +1,28 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="160px;">ID</th>
+        <th width="160px;">时间</th>
+        <th width="160px;">订单ID</th>
+        <th width="100px;">下单人ID</th>
+        <th>内容</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.logList:value:index}}
+    <tr>
+        <td >{{=value.id}}</td>
+        <td>{{=value.formatCreateTime}}</td>
+        <td>{{=value.orderId}}</td>
+        <td>{{=value.userId}}</td>
+        <td>{{=value.content}}</td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

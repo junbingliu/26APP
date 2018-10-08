@@ -1,0 +1,238 @@
+/* Created by Qianglong Mo 2015 */
+
+/* Orderdetails */
+.Orderdetails{
+    width: 100%;
+}
+.Orderdetails .title{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #222;
+    font-size: 16px;
+    float: left;
+    text-indent: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: url(@{res/images/index_baner1_line.png}@) repeat-x 0 bottom;
+}
+.Orderdetails .Orderdetails-cont{
+    background: #fff;
+    padding-bottom: 50px;
+}
+.Orderdetails .OrderAddress{
+}
+.Orderdetails .row{
+    float: left;
+    width: 95%;
+    margin-left: 30px;
+}
+/* 进度条模块 */
+.ProgressBar{
+}
+.ProgressBar ul{
+    height: 45px;
+    padding-top: 10px;
+}
+.ProgressBar li{
+    display: inline-block;
+    width: 174px;
+    text-align: center;
+    height: 4px;
+    background: #d1d1d1;
+}
+.ProgressBar li{
+    display: inline-block;
+    margin-right: -5px;
+    width: 174px;
+    text-align: center;
+    height: 4px;
+    position: relative;
+    background: #d1d1d1;
+}
+.ProgressBar li span{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    font-size: 12px;
+    color: #fefffe;
+    left: 50%;
+    margin-left: -12px;
+    line-height: 25px;
+    top:-10px;
+    background: #d1d1d1;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    border-radius: 13px;
+    behavior: url(assets/stylesheets/PIE.htc); /*ie Css3 6 7 8*/
+}
+.ProgressBar li p{
+    margin-top: 20px;
+    font-size: 14px;color: #333;
+}
+.ProgressBar .activeOne{
+    background-color: #d2e5bb !important;
+    z-index: 1;
+}
+.ProgressBar .activeOne span{
+    background: url(@{res/images/shopcat_stup.png}@) no-repeat 0 -60px; !important;
+}
+.ProgressBar .activeTwo{
+    background: #79b235 !important;
+}
+.ProgressBar .activeTwo span{
+    background: url(@{res/images/shopcat_stup.png}@) no-repeat -1px -1px; !important;
+}
+.ProgressBar .activeTwo p{
+    color:#79b235;
+}
+/* end 进度条模块 */
+.Orderdetails-cont .addressIng{
+    border: 1px solid #e7e7e7;
+    background: #f9f9f9;
+    padding: 30px 30px 18px 30px;
+}
+.Orderdetails-cont .addressData{
+    padding: 30px 30px 18px 30px;
+}
+.Orderdetails-cont .addressData p{
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+.Orderdetails-cont .addressData span{ padding: 0 11px 0 4px; }
+.Orderdetails-cont .addressIng p{
+    display: block;
+    font-size: 12px;color: #555;
+    margin-bottom: 12px;
+}
+.Orderdetails-cont  .productTable{
+    width: 100%;
+}
+.Orderdetails-cont .productTableHd{
+    border: 1px #ededed solid;
+    border-left: none;
+    border-right: none;
+}
+.Orderdetails-cont  .productTable tr th{
+    font-size: 14px;
+    color: #333;
+    padding: 9px 0;
+    font-weight: normal;
+    background: #fafafa;
+}
+.Orderdetails-cont  .productTable tr td{
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+.Orderdetails-cont  .productTable tr td a{ font-size: 12px; }
+.Orderdetails-cont .productList  .productTable tr td img{
+    width: 90px;
+}
+.Orderdetails-cont .productList .imgWrap{
+    width: 90px;
+    overflow: hidden;
+}
+.productList .money{
+    color: #e04040;
+}
+.productList  em{
+    font-style:normal;
+    font-size: 12px;
+}
+.productList .Add-btn{
+    font-size: 14px;color:#fefefe;
+    padding: 2px 15px;
+    border-top: 1px #f0a0a0 solid;
+    border-bottom: 1px #c11f1f solid;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+
+.productList .out-btn{
+    padding-top: 5px;
+    height: 22px;
+    display:block;
+    color: #555;
+}
+.productList .out-btn:hover{
+    color:#e04040;
+}
+.productList-ft{
+    display: block;
+    float: right;
+    text-align: right;
+    padding: 40px 0 22px 0;
+    margin-right: 62px;
+}
+.productList-ft dt{
+    font-size:18px;
+    color: #555555;
+    padding-bottom: 8px;
+}
+.productList-ft dd{
+    font-size: 14px;
+    color: #555555;
+}
+.productList-ft dd a{
+    color: #1e589d;
+    font-size: 12px;
+    text-decoration:underline;
+
+}
+.productList-ft .dd-ft{
+    margin-top: 8px;
+}
+.productList-ft dd a:hover{color: #e14041}
+.Orderdetails-cont .borbtom{
+    height: 1px;
+    width: 98%;
+    border-top: 1px #d9d9d9 dotted;
+    float: left;
+}
+
+/* Wanjia Refunding Details */
+.Orderdetails-cont .orderInfo{
+    margin-top: 40px;
+}
+.Orderdetails-cont .orderInfo p{
+    font-size: 14px;
+    color: #555;
+    margin-left: 30px;
+}
+.Orderdetails-cont .fz12{
+    font-size: 12px;
+}
+.Orderdetails-cont  .productTable{
+
+}
+
+.Orderdetails-cont  .productTable .name { color: #555; font-size: 14px;}
+.Orderdetails-cont  .productTable .name:hover { color: #e14041;}
+
+/* return goods detail */
+.returnGoodsDetail {
+    width: 925px;
+}
+
+.returnGoodsDetail .ProgressBar {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.returnGoodsDetail .Orderdetails-cont .orderInfo {
+    margin-top: 24px;
+}
+
+.returnGoodsDetailTitle {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 20px 30px;
+}

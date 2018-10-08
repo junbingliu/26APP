@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="bg-black">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>领券专题模版</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="@{res/style/ole.css}@">
+</head>
+<body>
+<div class="container">
+    <div class="newHead">
+        <div class="w-nav">
+            <div class="search searchResults ">
+                <div class="seek">
+                    <input type="text" placeholder="查找商品"/>
+                    <em class="ico-seek"></em>
+                </div>
+                <div class="sea-cancel">取消</div>
+            </div>
+        </div>
+    </div>
+    <article class="rowTop">
+        <div class="ucenter">
+            <div class="indent-black">
+                <div class="seaResults-list special">
+                    <!--<div class="special-img">-->
+                        <!--<a href=""><img src="@{res/img/750x650-2.png}@"/></a>-->
+                    <!--</div>-->
+                    <div class="special-img">
+                        <a href="javascript:void (0)" data-type="imgLink" data-id="skillImg" imgSize="750X650" data-height="150">
+                            <%if(skillImg&&skillImg.imgUrl){%>
+                            <img src="<%=skillImg.imgUrl%>">
+                            <%}else{%>
+                            <img src="@{res/img/750X650.jpg}@"/>
+                            <%}%>
+                        </a>
+                        <div class="activity-time">
+                            活动时间：2018-5-20 到 2018-9-20
+                        </div>
+                        <a href="" class="draw-bnt" data-type="htmlSource" data-id="drawBnt" >
+                            <%if(drawBnt){%>
+                            <%=#drawBnt%>
+                            <%}else{%>
+                            点击领取优惠券
+                            <%}%>
+                        </a>
+                    </div>
+                    <ul class="clearfix" data-type="productGroup" data-id="arrival" data-spec="400x400">
+                        <%if(arrival && arrival.length>0){%>
+                        <%  for(var y=0;y< arrival.length;y++){%>
+                        <% var value = arrival[y];%>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="<%=value.imgUrl%>"></div>
+                                <div class="name"><%=value.name%></div>
+                                <div class="price"><del class="old">¥<%=value.marketPrice%></del>&yen;<%=value.memberPrice%></div>
+                            </a>
+                        </li>
+
+                        <%}%>
+                        <%}else{%>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="@{res/img/400x400.jpg}@"></div>
+                                <div class="name">盐帮厨子 自贡冷吃兔零食礼包624g 四川特产麻辣零食</div>
+                                <div class="price"><del class="old">¥388.00</del>&yen;288.00</div>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="@{res/img/400x400.jpg}@"></div>
+                                <div class="name">盐帮厨子 自贡冷吃兔零食礼包624g 四川特产麻辣零食</div>
+                                <div class="price"><del class="old">¥388.00</del>&yen;288.00</div>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="@{res/img/400x400.jpg}@"></div>
+                                <div class="name">盐帮厨子 自贡冷吃兔零食礼包624g 四川特产麻辣零食</div>
+                                <div class="price"><del class="old">¥388.00</del>&yen;288.00</div>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="@{res/img/400x400.jpg}@"></div>
+                                <div class="name">盐帮厨子 自贡冷吃兔零食礼包624g 四川特产麻辣零食</div>
+                                <div class="price"><del class="old">¥388.00</del>&yen;288.00</div>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="@{res/img/400x400.jpg}@"></div>
+                                <div class="name">盐帮厨子 自贡冷吃兔零食礼包624g 四川特产麻辣零食</div>
+                                <div class="price"><del class="old">¥388.00</del>&yen;288.00</div>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#" class="inner">
+                                <div class="view-img"><img src="@{res/img/400x400.jpg}@"></div>
+                                <div class="name">盐帮厨子 自贡冷吃兔零食礼包624g 四川特产麻辣零食</div>
+                                <div class="price"><del class="old">¥388.00</del>&yen;288.00</div>
+                            </a>
+                        </li>
+                        <%}%>
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </article>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+
+.adv{
+}
+.adv img{
+    width:850px;
+    height:250px;
+}
+.del_vouchers{
+    background-color: #fcfcfc;
+    font-size: 14px;
+    color: #555;
+    width: 788px;
+    border: 1px solid #e7e7e7;
+    padding: 27px 30px;
+    margin-top: 30px;
+}
+.del_vouchers .btnPrimary.btnLg{
+    width: auto;
+    height: 36px;
+    /* line-height: 36px; */
+    padding: 0 30px;
+}
+.del_vouchers .offset{
+    margin-left: 107px;
+}
+.del_vouchers .formGroup label {
+    display: inline-block;
+    width: 98px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: right;
+    vertical-align: middle;
+    color: #333;
+}
+
+.del_vouchers .textInputLong {
+    width: 375px;
+}
+
+.del_vouchers .textInputShort {
+    width: 250px;
+}

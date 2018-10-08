@@ -1,0 +1,41 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="120px;">会员内部ID</th>
+        <th width="100px;">登录ID</th>
+        <!--<th width="140px;">邮箱</th>-->
+        <th width="100px;">真实姓名</th>
+        <th width="120px;">手机</th>
+        <th width="100px;">证件类型</th>
+        <th width="160px;">证件号码</th>
+        <th width="140px;">预存款余额</th>
+        <th width="300px;">预存款可用起止时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.recordList:value:index}}
+    <tr>
+        <td >{{=value.userId}}</td>
+        <td >{{=value.loginId}}</td>
+        <!--<td >{{=value.email}}</td>-->
+        <td >{{=value.realName}}</td>
+        <td >{{=value.mobile}}</td>
+        <td >{{=value.identityTypeName}}</td>
+        <td >{{=value.identityNumber}}</td>
+        <td >{{=value.eWalletAmount}}</td>
+        <td >{{=value.preDepositRuleValidateTime}}</td>
+        <td >
+            <a class="btn btn-primary btn-sm doSetValidateTime" href="javascript:;" data-a="{{=value.userId}}">设置有效期</a>
+            <a class="btn btn-primary btn-sm doUpdateEWalletAmount" href="javascript:;" data-a="{{=value.userId}}">预存款充值</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

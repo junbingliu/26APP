@@ -1,0 +1,30 @@
+<!-- 加价购商品 "此模块用ajax来填充数据" -->
+<div class="msgPanel huangou" id="lowPricePresentSelector" >
+    <div class="hd">请选择换购商品，数量有限，换完即止 <i class="close" data-bind="click:close"></i></div>
+    <div class="bd">
+        <div class="chooseGift">
+            <ul data-bind="foreach:presents">
+                <li>
+                    <div class="checkbox active" data-bind="css:{active:checked},click:toggle"><i></i></div>
+                    <div class="img_view"><img data-bind="attr:{src:icon}"/></div>
+                    <div class="cont">
+                        <p class="name"><a data-bind="text:name"></a></p>
+                        <p class="num">
+                             <span class="midde">
+                                <a class="mins" data-bind="click:$root.minus"></a>
+                                <input type="text" data-bind="value:selectedNumber"/>
+                                <a class="add" data-bind="click:$root.add"></a>
+                             </span>
+                        </p>
+                        <div class="price">&yen;<!-- ko text:price--><!-- /ko --></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="btnBox">
+            <button class="od_btn" data-bind="click:ok">确定</button>
+            <button class="odgray_btn ml10" data-bind="click:close">取消</button>
+        </div>
+    </div>
+</div>
+<!-- end 加价购商品 -->

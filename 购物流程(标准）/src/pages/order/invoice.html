@@ -1,0 +1,72 @@
+<div class="show_od">
+    <span class="l_mag" data-bind="html:invoice().shortDesc()"></span>
+    <!--<span class="l_mag peisongT">
+       <span class="float_l colore999">温馨提示：</span>
+       <span class="tt">
+           发票金额为现金支付金额(扣除礼品卡余额、抵用券、返利金额等) <br />
+       </span>
+   </span>-->
+</div>
+<!-- ko if:editingInvoice -->
+<div class="show_od">
+    <!-- ko with:$root.invoiceChooser -->
+    <div class="table_od padding20_0">
+        <ul class="pay_list">
+            <li data-bind="click:$parent.select,css:{active:selectedInvoiceId()=='none'}" >
+                <label>
+                    <input class="radio" name="selectedInvoice" value="none"  type="radio" data-bind="checked:selectedInvoiceId"/>
+                </label>
+                <label>不需要发票</label>
+            </li>
+            <!-- ko foreach:invoiceList -->
+            <li data-bind="css:{active:$parent.selectedInvoiceId()==id()}" >
+                <label>
+                    <input class="radio"  type="radio" name="selectedInvoice" data-bind="value:id,checked:$parent.selectedInvoiceId"/>
+                </label>
+                <span data-bind="click:$parent.select"><!-- ko text:invoiceTitle --><!-- /ko -->  <!-- ko text:invoiceContent --><!-- /ko --><!-- ko text:invoicePostAddress --><!-- /ko --></span>
+                <a class="actionLink" data-bind="click:$parent.editInvoice,clickBubble:false">编辑</a>
+                <a class="actionLink" data-bind="click:$parent.deleteInvoice,clickBubble:false">删除</a>
+            </li>
+            <!-- /ko -->
+            <li data-bind="click:$parent.select,css:{active:selectedInvoiceId()=='newInvoice'}">
+                <label>
+                    <input class="radio" name="selectedInvoice" value="newInvoice"  type="radio" data-bind="checked:selectedInvoiceId"/>
+                </label>
+                <span>使用新发票信息</span>
+            </li>
+        </ul>
+        <table class="peison" cellpadding="5" data-bind="with:currentInvoice,visible:editFormVisible()">
+            <tr>
+                <td>
+                    发票抬头：
+                </td>
+                <td>
+                    <input  class="txt28" type="text" data-bind="value:invoiceTitle"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    发票内容：
+                </td>
+                <td>
+                    <select  class="sect"  data-bind="value:invoiceContent">
+                        <option value="明细">明细</option>
+                        <option value="办公用品">办公用品</option>
+                        <option value="电脑配件">电脑配件</option>
+                        <option value="耗材">耗材</option>
+                    </select>
+
+                </td>
+            </tr>
+
+        </table>
+        <!--     <div class="wxts">
+                温馨提示：<br />
+                1.您选择的时间可能会因为库存不足等多反面因素导致订单延迟，敬请谅解！<br />
+                2.我们会在您选定提货日期的前一天处理您的订单，在此之前您的订单处于暂停状态.
+            </div> -->
+        <a class="od_btn"  data-bind="click:saveData">保存发票信息</a>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko --><!-- if:editingInvoice -->

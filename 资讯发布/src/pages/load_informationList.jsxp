@@ -1,0 +1,38 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="20px;"><input type="checkbox" id="checkAll"/></th></th>
+        <th width="120px;">ID</th>
+        <th width="120px;">标题</th>
+        <th width="120px;">分类</th>
+        <th width="120px;">所属商家</th>
+        <th width="120px;">发布渠道</th>
+        <th width="120px;">上下架状态</th>
+        <th width="120px;">优先级</th>
+        <th width="120px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.resultList:value:index}}
+    <tr>
+        <td><input class="checkone" type="checkbox" data-a="{{=value.objId}}" name="checkOne"/></td>
+        <td>{{=value.objId}}</td>
+        <td>{{=value.title}}</td>
+        <td>{{=value.columnName}}</td>
+        <td>{{=value.merchantName}}</td>
+        <td>{{=value.channel}}</td>
+        <td>{{=value.publishStateName}}</td>
+        <td>{{=value.pos}}</td>
+        <td>
+            <a class="updatePos" data-a="{{=value.objId}}" href=javascript:void(0)>修改优先级</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

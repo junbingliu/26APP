@@ -1,0 +1,64 @@
+<div class="page modal" id="TabsPlusEditor">
+    <style>
+        .modal-header{background: #353535;padding: 8px}
+        .modal-title{color: #ffffff}
+        .modal-footer{padding: 10px 20px 10px 20px;margin-top: 0px}
+        .modal-header .close{opacity: 0.8;color: #ffffff}
+        .modal-body{background: #F1F1F1;padding-bottom: 5px}
+        .panel{margin-bottom: 10px}
+        .selected{background: bisque}
+    </style>
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeTabsPlusEditor">×</button>
+                <h5 class="modal-title">Tab列表</h5>
+            </div>
+            <div class="modal-body">
+
+                <div style="height: 400px;overflow-y: auto" data-bind="foreach:tabList">
+                <div class="panel panel-default" >
+                    <div class="panel-body" >
+                        <div class="col-md-11" style="padding-left: 0px;">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="content" class="col-md-2 control-label">标题</label>
+                                    <div class="col-md-10">
+                                        <input type="text" data-bind="value:content" class="form-control" id="content" placeholder="显示标题">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="linkTo" class="col-md-2 control-label">链接</label>
+                                    <div class="col-md-10">
+                                        <input type="url" data-bind="value:linkTo" class="form-control" id="linkTo" placeholder="链接地址,如果没有连接地址请留空。">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">新窗口打开</label>
+                                    <div class="col-md-9" style="padding-top: 7px">
+                                        <div style="float: left;width: 50px"><input type="radio" name="optionsRadios"  value="_blank" data-bind="checked: openInNewPage"> 是</div>
+                                        <div style="float: left"><input type="radio" name="optionsRadios"  value="_self" data-bind="checked: openInNewPage"> 否</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-1">
+                            <span data-bind="click:$root.delete" style="color: red;margin:10px 0 10px 0px;cursor: pointer;display: block" class="glyphicon glyphicon-minus-sign" title="删除"></span>
+                            <span data-bind="click:$root.up" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-up" title="上移"></span>
+                            <span data-bind="click:$root.down" style="cursor: pointer;margin:10px 0 10px 0px;display: block" class="glyphicon glyphicon-chevron-down" title="下移"></span>
+                        </div>
+                    </div>
+                </div>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeTabsPlusEditor">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:addItem">新增</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:saveDataToDB">保存</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

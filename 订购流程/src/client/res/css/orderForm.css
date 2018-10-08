@@ -1,0 +1,243 @@
+body {
+    font-family: Arial, Verdana, "microsoft yahei", "\9ED1\4F53";
+    font-size: 12px;
+}
+
+#cartsPage {
+    width: 950px;
+}
+#checkout {
+    width: 988px;
+    border: 1px solid #ddd;
+    color:#666;
+}
+
+
+.checkout-steps .step-title {
+    height: 45px;
+    padding: 0 20px;
+    line-height: 45px;
+    position: relative;
+}
+
+#checkout .mt {
+    height: 35px;
+    background-color: #f7f7f7;
+    padding-top: 7px;
+}
+.mt, .smt {
+    cursor: default;
+}
+.m, .mt, .mc, .mb, .sm, .smt, .smc, .smb {
+    overflow: hidden;
+    zoom: 1;
+}
+
+#checkout .mt .sectionHead {
+    height: 35px;
+    overflow: hidden;
+    margin-left:20px;
+}
+.mt .sectionHead, .smt .sectionHead {
+    font-family: "microsoft yahei";
+}
+.sectionHead{
+    font-size: 16px;
+}
+.checkout-steps .step {
+    border-top: 1px solid #ddd;
+}
+.step-title {
+    font-family: Arial, Verdana, 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    height: 45px;
+}
+
+.checkout-steps .step-action {
+    padding-left: 10px;
+    color: #005ea7;
+    font-size: 12px;
+    font-weight: 400;
+}
+.step-content{
+    padding:0px 20px 20px 20px;
+    line-height: 22px;
+
+}
+.consigneeList .consigneeListItem:hover, .consigneeList .consigneeListItem.selected{
+    background-color: #fff9d4;
+}
+.consigneeListItem input{
+    margin-right: 5px;
+}
+
+.consigneeListItem{
+    margin-bottom:5px;
+    height: 30px;
+}
+
+.invoiceList .invoiceListItem:hover, .invoiceList .invoiceListItem.selected{
+    background-color: #fff9d4;
+}
+
+.invoiceListItem input{
+    margin-right: 5px;
+}
+
+.invoiceListItem{
+    margin-bottom:5px;
+    height: 30px;
+}
+
+.address_action,.action{
+    display: none;
+}
+
+.selected .address_action,.consigneeListItem:hover .address_action,.selected .action,.invoiceListItem:hover .address_action{
+    display:inline-block;
+    margin-left:15px;
+    color: #5d92ae;
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+.orderPricePanel{
+    margin-left:20px;
+    margin-bottom:20px;
+    background-color: #fdffd5;
+}
+
+.orderPricePanel .orderPriceItem{
+    margin-left:20px;
+}
+
+.orderPriceItemLabel{
+    font-size:14px;
+    font-family: "microsoft  yahei";
+    color:#444444;
+}
+.orderPriceItemPrice{
+    font-size: 18px;
+    font-family: "microsoft  yahei";
+    color: red;
+    font-weight: bolder;
+}
+
+.orderSymbol {
+    margin-left:15px;
+    font-family: "microsoft  yahei";
+    color: black;
+    font-weight: bolder;
+}
+
+.pluginItem{
+}
+
+.itemTitle{
+    height:30px;
+    overflow:hidden;
+}
+
+.itemTitle a{
+    line-height: 16px;
+    height:15px;
+    float:left;
+
+}
+
+.itemTitle a b{
+    float:left;
+    width:15px;
+    height: 15px;
+    margin-right:5px;
+    background: url(@{client/res/images/toggler-arrow.gif}@) no-repeat ;
+}
+
+.itemTitle a b.expanded{
+    float:left;
+    width:15px;
+    height: 15px;
+    margin-right:5px;
+    background: url(@{client/res/images/toggler-arrow.gif}@) no-repeat 0px -15px;
+}
+
+.clear {
+    clear:both;
+}
+
+.itemBody{
+    background-color:#eefaff;
+    border: 1px solid #A3D1EC;
+    Padding:15px;
+    margin-bottom: 15px;
+}
+.integralInput{
+    margin-right: 3px;
+    margin-left:3px;
+    width:60px;
+}
+.integralMemo{
+    border-top:dashed #A3D1EC;
+    margin-top:5px;
+}
+
+.money{
+    color:red;
+    font-weight: bold;
+}
+
+.payRecs {
+    float:right;
+    background-color: #ffffff;
+    padding:10px;
+}
+
+.payRecs .payRec{
+    right: 15px;
+    height: 25px;
+    width:200px;
+}
+.payRecLabel{
+    display: inline-block;
+    width:120px;
+    font-size:16px;
+    font-weight: bolder;
+}
+.payRecMoney{
+    display: inline-block;
+    width:80px;
+    font-size:16px;
+    font-weight: bolder;
+    color:red;
+}
+
+.payRecs .leftPayRec{
+    right: 15px;
+    height: 25px;
+    width:200px;
+    border-top: 1px dashed #ffa952;
+}
+
+.clear{
+    clear: both;
+}
+
+.cardsContainer input {
+    margin-left:15px;
+}
+
+.cardBatchErrMsg{
+    color:red;
+    margin-left:30px;
+}
+.faceValue{
+    color:red;
+    margin-left:15px;
+}
+.editingStepContent{
+    border:1px solid #ff4536;
+    background-color: #fff9d4;
+}

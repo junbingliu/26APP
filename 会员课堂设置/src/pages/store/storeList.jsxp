@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <!--<script src="../bootstrap/js/html5shiv.js"></script>-->
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/resources/jquery/jqueryui_date/css/redmond/jquery-ui-1.10.3.custom.min.css">
+    <link href="@{style/app.css}@" rel="stylesheet">
+
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script>
+        var merchantId = "{{=it.merchantId}}";
+    </script>
+    <script type="text/javascript" src="@{js/storeList.js}@"></script>
+
+</head>
+<body>
+{{=$.inc("pages/include_nav.jsx")}}
+<div class="container-fluid" id="content">
+
+    <div >
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-2">
+                <a type="button" class="btn btn-success" href="addStore.jsx?m="+merchantId id="addStore">新增门店</a>
+            </div>
+        </div>
+    </div>
+    <!--异步加载数据列表部分-->
+    <div class="row-fluid">
+        <div id="record_list" class="record_list span12">
+        </div>
+    </div>
+
+
+    <div class="">
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination well" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" id="editWindow">
+    <div class="modal-dialog">
+        <div class="modal-content" id="editWindowDiv">
+            <div class="modal-header">
+                <h4 class="modal-title">修改门店信息</h4>
+                <br>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editForm" >
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">门店名称: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="name" id="name" value="{{=it.name}}" >
+                            <input type="hidden" id="storeId" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">门店所属省市: </label>
+                        <div class="col-sm-7">
+                            <select id="editProvince" name="province" style="width: 100px;height: 30px">
+                                <option>请选择省份</option>
+                                <!--<option>1</option>-->
+                                <!--<option>2</option>-->
+                            </select>&nbsp;
+                            <select id="editCity" name="city" style="width: 100px;height: 30px">
+                                <option>请选择市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">门店具体地址: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="address" name="address" value="{{=it.address}}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">门店联系电话</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{=it.phone}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">门店经纬度</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="position" name="position" value="{{=it.position}}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" id="saveEditBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

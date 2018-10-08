@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>OATLY燕麦露</title>
+<meta name="viewport"
+content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<!-- vendor css -->
+<link rel="stylesheet" href="@{res/css/ole.css}@">
+</head>
+<body>
+<div class="container">
+<article class="">
+<div class="promotion">
+<div class="pr-baner" data-type="imgLink" data-id="bannerImg">
+<%if(bannerImg && bannerImg.imgUrl){%>
+<a href="<%=bannerImg.imgLinkTo ? bannerImg.imgLinkTo : 'javascript:;'%>"
+target="<%=bannerImg.openInNewPage%>">
+<img src="<%=bannerImg.imgUrl%>"/>
+</a>
+<%}else{%>
+<img src="@{res/case/750x400.jpg}@"/>
+<%}%>
+</div>
+<div class="promotion-list">
+<ul class="clearfix" data-type="productGroup" data-id="ItemList">
+<%if(ItemList && ItemList.length>0){%>
+<% for(var y=0;y< ItemList.length;y++){%>
+<% var value = ItemList[y];%>
+<li class="item" >
+<a class="cot" href="<%=value.linkTo ? value.linkTo : 'javascript:;'%>">
+<div class="pic" >
+<img src="<%=value.imgUrl%>"/>
+</div>
+<p class="goods-name"><%=value.content%></p>
+<div class="money">¥<%=value.memberPrice%>          <!-- 会员价-->
+<del><%=value.marketPrice%></del>     <!--市场价-->
+</div>
+</a>
+</li>
+<%}%>
+<%}else{%>
+<li class="item"><a class="cot" href="">
+<div class="pic">
+<img src="@{res/case/400x400.jpg}@"/>
+</div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">¥288.00
+<del>&yen;888</del>
+</div>
+</a></li>
+<li class="item"><a class="cot" href="">
+<div class="pic">
+<img src="@{res/case/400x400.jpg}@"/>
+</div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">¥288.00
+<del>&yen;888</del>
+</div>
+</a></li>
+<li class="item"><a class="cot" href="">
+<div class="pic">
+<img src="@{res/case/400x400.jpg}@"/>
+</div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">¥288.00
+<del>&yen;888</del>
+</div>
+</a></li>
+<li class="item"><a class="cot" href="">
+<div class="pic">
+<img src="@{res/case/400x400.jpg}@"/>
+</div>
+<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+<div class="money">¥288.00
+<del>&yen;888</del>
+</div>
+</a></li>
+<%}%>
+</ul>
+</div>
+</div>
+</article>
+</div>
+</body>
+</html>

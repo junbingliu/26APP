@@ -1,0 +1,21 @@
+<Request service='OrderService' lang='zh-CN'>
+    <Head>{{=it.head}}</Head>
+    <Body>
+    <Order orderid="{{=it.orderid}}" is_gen_bill_no="{{=it.is_gen_bill_no}}"
+           j_company="{{=it.j_company}}" j_contact="{{=it.j_contact}}" j_tel="{{=it.j_tel}}" j_mobile=''
+           j_province="{{=it.j_province}}" j_city="{{=it.j_city}}" j_county="{{=it.j_county}}"
+           j_address="{{=it.j_address}}"
+           d_company="{{=it.d_company}}" d_contact="{{=it.d_contact}}" d_tel="{{=it.d_tel}}"
+           d_province="{{=it.d_province}}" d_city="{{=it.d_city}}" d_county="{{=it.d_county}}"
+           d_address="{{=it.d_address}}"
+           express_type="{{=it.express_type}}"
+           pay_method="{{=it.pay_method}}" custid="{{=it.custid}}"
+          >
+        <Cargo name="{{=it.cargo.name}}" count="{{=it.cargo.count}}" unit="{{=it.cargo.unit}}" amount="{{=it.cargo.count}}" currency="{{=it.cargo.currency}}"
+               ></Cargo>
+        {{?it.insure}}
+        <AddedService name="{{=it.insure.name}}" value="{{=it.insure.value}}"></AddedService>
+        {{?}}
+    </Order>
+    </Body>
+</Request>

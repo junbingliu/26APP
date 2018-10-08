@@ -1,0 +1,46 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<div class="modal-header">
+    <h4 class="modal-title" id="exampleModalLabel">修改商品信息</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <input type="hidden" name="merchantId" value="{{=it.merchantId}}" >
+        <!--<div class="form-group">-->
+            <!--<label class="control-label">现价:</label>-->
+            <!--<input type="text" class="form-control" name="memberPrice" id="memberPrice" value="{{=it.memberPrice}}" >-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" class="info1">市场价:</label>-->
+            <!--<input type="text" class="form-control" name="marketPrice" id="marketPrice" value="{{=it.marketPrice}}" >-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label">实际库存:</label>-->
+            <!--<input type="text" class="form-control" name="realAmount" id="realAmount" value="{{=it.realAmount}}" >-->
+        <!--</div>-->
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">市场价: </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="marketPrice" id="marketPrice" value="{{=it.marketPrice}}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">现价: </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="memberPrice" id="memberPrice" value="{{=it.memberPrice}}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">实际库存: </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="realAmount" id="realAmount" value="{{=it.realAmount}}" >
+                </div>
+            </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+    <button type="button" class="btn btn-primary" data-a="{{=it.id}}" id="saveBtn">保存</button>
+</div>

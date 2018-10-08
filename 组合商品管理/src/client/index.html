@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<!-- These meta tags come first. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>组合商品管理</title>
+
+<!-- Include the CSS -->
+<link href="/resources/bootstrap3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/bootstrapThemes/dashboard/css/toolkit-inverse.css" rel="stylesheet">
+<link href="/resources/jsoneditor/jsoneditor.min.css" rel="stylesheet">
+<link href="/resources/jqueryui/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
+<link href="@{client/res/project.css}@" rel="stylesheet">
+<link href="/resources/ko/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+</head>
+<body class="with-top-navbar">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container-fluid container-fluid-spacious">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand navbar-brand-emphasized" href="/">
+<span class="icon icon-leaf navbar-brand-icon"></span>
+组合商品管理
+</a>
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav" id="mainMenu">
+<li class="active" id="menuItemListProducts">
+<a href="#/listProducts">组合商品列表</a>
+</li>
+<li id="menuItemFindCombiProduct">
+<a href="#/findCombiProduct">未审核商品</a>
+</li>
+<li id="menuItemAddCombiProduct">
+<a href="#/addCombiProduct">添加组合商品</a>
+</li>
+<li id="menuItemAbout">
+<a href="#/about">关于我们</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="container-fluid container-fluid-spacious">
+<div class="page" id="listProductsPage">
+<div class="dashhead m-t-md">
+<div class="dashhead-titles">
+<h2 class="dashhead-title">组合套餐</h2>
+</div>
+<div class="dashhead-toolbar">
+<div class="flextable">
+<div class="flextable-item flextable-primary">
+<input type="text" class="form-control" placeholder="输入关键字" data-bind="value:keyword">
+</div>
+<div class="flextable-item">
+<div class="btn-group">
+<button type="button" class="btn btn-primary-outline" title="go" data-bind="click:doSearch">
+<span class="icon icon-flash"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<table class="table table-stripped">
+<thead>
+<tr>
+<th style="width:40px">选择</th>
+<th class="colId">id</th>
+<th class="colId">系列Id</th>
+<th class="colId">系列名</th>
+<th class="colName">组合商品名称</th>
+<th class="colPrice">总价格</th>
+<th class="colTime">创建时间</th>
+<th class="colTime">修改时间</th>
+<th class="colState">已审核</th>
+<th class="colState">已上架</th>
+<th style="width:60px">功能</th>
+</tr>
+</thead>
+<tbody data-bind="foreach:combiProducts">
+<tr>
+<td>
+<div class="checkbox custom-control custom-checkbox">
+<label>
+<input type="checkbox" data-bind="checked:checked">
+<span class="custom-control-indicator"></span>
+</label>
+</div>
+</td>
+<td class="colId" data-bind="text:id">cp_23123</td>
+<td class="colId" data-bind="text:seriesCode">cp_23123</td>
+<td class="colId" data-bind="text:seriesDiffName">cp_23123</td>
+<td class="colName" data-bind="text:title">欧式风格大三居全套含家电</td>
+<td class="colPrice" data-bind="text:priceTO">￥120,000</td>
+<td class="colTime" data-bind="text:createTimeText">2015-10-22 21:30:12</td>
+<td class="colTime" data-bind="text:lastModifiedTimeText">2015-10-25 21:30:12</td>
+<td class="colState" data-bind="text:certified">已上架</td>
+<td class="colState" data-bind="text:published">已审核</td>
+<td><button class="btn btn-info-outline" data-bind="click:$root.edit">编辑</button></td>
+</tr>
+</tbody>
+</table>
+<ul class="pagination" >
+<!-- ko foreach:$root.pager.pages -->
+<li data-bind="css:{active:isCurrent},click:$root.pager.onPage"><a href="#" data-bind="text:pageName,click:$root.pager.onPage"></a></li>
+<!-- /ko -->
+<li style="margin-left:10px;margin-top:5px"><span>共<span data-bind="text:pager.total"></span>条</span></li>
+<li>
+<button class="btn btn-danger-outline" data-bind="click:deleteProducts">删除</button>
+<button class="btn btn-danger-outline" data-bind="click:refresh">刷新</button>
+<!-- ko if:mID()=="head_merchant" -->
+<button class="btn btn-warning-outline" data-bind="click:upProducts">上架</button>
+<button class="btn btn-warning-outline" data-bind="click:downProducts">下架</button>
+<button class="btn btn-success-outline" data-bind="click:certifyProducts">审核通过</button>
+<button class="btn btn-success-outline" data-bind="click:rejectProducts">审核不通过</button>
+<!-- /ko -->
+</li>
+</ul>
+</div>
+<div class="page" id="productFormPage">
+<div class="userNotification" data-bind="visible:showNotification">
+<span>系统消息：</span>
+<span data-bind="text:notification"></span>
+</div>
+<form>
+<div class="input-with-icon w-full m-t">
+<input type="text" data-bind="value:title" class="form-control" placeholder="请输入组合商品的名称">
+<span class="icon icon-flow-tree"></span>
+</div>
+
+<div class="form-group m-t">
+<label>所属分类(用于优惠规则选择)：</label>
+<input type="text" class="form-control" placeholder="用于优惠规则选择" data-bind="value:columnIds">
+<button class="btn btn-primary" data-bind="click:chooseCategory">选择...</button>
+</div>
+
+
+<div class="form-group m-t">
+<label>系列编码：</label>
+<input type="text" data-bind="value:seriesCode" class="form-control" placeholder="同系列编码相同">
+</div>
+
+<div class="form-group">
+<label>系列内名称：</label>
+<input type="text" data-bind="value:seriesDiffName" class="form-control" placeholder="如红色">
+</div>
+
+
+<div id="extendedFormsWrapper" class="form-group m-t">
+<extended-forms params="type:'combiProduct',viewModel:extendedForms"></extended-forms>
+</div>
+
+
+<div class="form-group">
+<label>系列内介绍：</label>
+<input type="text" data-bind="value:seriesInfoAbout" class="form-control" placeholder="如:现代感十足，简约又大方">
+</div>
+<!-- ko if: parts().length > 0 -->
+<div id="productsContainer" class="w-full m-t p-a" style="float: left;">
+<div data-bind="foreach: parts">
+<hr class="m-t-0 m-b-l clearfix">
+<div class="row" style="margin: 10px 0;">
+<label>部件名称：</label>
+<input type="text" data-bind="value:name">
+
+<label>标签：</label>
+<!--<input type="text" data-bind="value:tag">-->
+<select data-bind="value:tag">
+<option data-bind="value:tag">  <!-- ko text:tag -->  <!-- /ko --></option>
+<option value="全屋">全屋</option>
+<option value="客厅">客厅</option>
+<option value="餐厅">餐厅</option>
+<option value="主卧">主卧</option>
+<option value="次卧">次卧</option>
+<option value="客房">客房</option>
+<option value="书房">书房</option>
+<option value="儿童房">儿童房</option>
+<option value="厨房">厨房</option>
+<option value="卫生间">卫生间</option>
+<option value="阳台">阳台</option>
+<option value="花园">花园</option>
+<option value="多功能房">多功能房</option>
+</select>
+<button class="btn btn-primary-outline" data-bind="click:$root.removePart" style="margin: 0 6px;">
+删除部件
+</button>
+</div>
+
+<div class="row" style="margin: 10px 0;">
+<label>商品列表：</label>
+<product-list params="productItems:options,viewModel:$root.productListViewModel,merchantId:'head_merchant'"></product-list>
+
+</div>
+</div>
+</div>
+<!-- /ko -->
+<!-- ko if: parts().length == 0 -->
+<div data-bind="visible:false">
+<product-list params="productItems:productItems,viewModel:productListViewModel,merchantId:'head_merchant'"></product-list>
+</div>
+<!-- /ko -->
+<div div id="priceInfo" class="w-full  p-a" style="margin-top: 10px;display:inline-flex;border: 1px solid #A0A523;margin-top:-1px;">
+<label>部件总价：</label>
+<div class="totalPrice statcard p-a-md" style="float: left;width: 200px; height: 60px">
+<h3 class="statcard-number">￥<span data-bind="text:marketPriceTotal"></span></h3>
+<span class="statcard-desc">市场价总价</span>
+</div>
+<div class="totalPrice statcard p-a-md" style="float: left;width: 200px; height: 60px">
+<h3 class="statcard-number">￥<span data-bind="text:memberPriceTotal"></span></h3>
+<span class="statcard-desc">普通会员价总价</span>
+</div>
+<div class="totalPrice statcard p-a-md" style="float: left;width: 200px; height: 60px">
+<h3 class="statcard-number">￥<span data-bind="text:totalPrice"></span></h3>
+<span class="statcard-desc">组合套餐总价</span>
+</div>
+<div style="clear: both;"></div>
+</div>
+
+<div id="partOperation" class="w-full m-t" style="margin-top:10px;display: inline-flex;">
+<div style="display: block;line-height:35px; margin: 0 5px;">
+<input type="checkbox" data-bind="checked:fixedPrice"> 是否一口价
+</div>
+<div style="display: block;line-height:35px; margin: 0 5px;">
+<button class="btn btn-primary-outline" data-bind="click:addPart">增加部件</button>
+</div>
+</div>
+
+<div id="priceEditor" class="w-full m-t p-a" >
+<label>编辑价格：</label>
+<price-editor params="priceList:priceList,viewModel:priceEditor,basePrice:totalPrice"></price-editor>
+</div>
+
+<div id="picturesContainer" class="w-full m-t p-a">
+<label>商品主图：</label>
+<file-list params="fileItems:images,spec:'150X150',viewModel:fileListViewModel"></file-list>
+</div>
+
+<div id="videoContainer">
+</div>
+
+<ul class="nav nav-bordered m-t m-b-0">
+<li data-bind="css:{active:currentDetailView()=='pc'}">
+<a href="javascript:void(0)" data-bind="click:function(){currentDetailView('pc')}">pc版详描</a>
+</li>
+<li data-bind="css:{active:currentDetailView()=='phone'}">
+<a href="javascript:void(0)" data-bind="click:function(){currentDetailView('phone')}">phone版详描</a>
+</li>
+<li data-bind="css:{active:currentDetailView()=='pad'}">
+<a href="javascript:void(0)" data-bind="click:function(){currentDetailView('pad')}">pad版详描</a>
+</li>
+</ul>
+<hr class="m-t-0 m-b-l">
+<div id="pcDetailEditor" data-bind="visible:currentDetailView()=='pc'">
+<html-editor params="html:pcHtml,w:800,h:400"></html-editor>
+</div>
+<div id="phoneDetailEditor" data-bind="visible:currentDetailView()=='phone'">
+<html-editor params="html:phoneHtml,w:800,h:400"></html-editor>
+</div>
+<div id="padDetailEditor" data-bind="visible:currentDetailView()=='pad'">
+<html-editor params="html:padHtml,w:800,h:400"></html-editor>
+</div>
+
+<hr class="m-t-0 m-b-l">
+
+<iframe style="width:100%; height:500px" data-bind="attr:{src:productExtraUrl},visible:productExtraVisible">
+</iframe>
+<button class="btn btn-primary-outline" data-bind="click:save">保存组合商品</button>
+
+</form>
+</div>
+<div class="page" id="aboutPage">
+<h2>发布时间:@now</h2>
+<h3>build:@svnversion</h3>
+</div>
+<div class="page" id="aboutFangXingPage">
+<div class="row">
+<h3>品牌</h3>
+<div class="col-md-12 col-lg-12">
+<table class="table table-bordered">
+<thead>
+<tr>
+<td>品牌ID</td>
+<td>品牌名称</td>
+<td>添加人Id</td>
+<td>功能</td>
+</tr>
+</thead>
+<tbody data-bind="foreach: aboutFangXings">
+<tr>
+<td data-bind="text:id"></td>
+<td data-bind="text:name"></td>
+<td data-bind="text:userId"></td>
+<td>
+<button class="btn btn-primary" data-bind="click:$root.updated">修改...</button>&nbsp;&nbsp;
+<button class="btn btn-primary" data-bind="click:$root.deleted">删除...</button>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="help-block" data-bind="visible:isEmpty">还没有配置任何品牌，请先添加</p>
+</div>
+
+</div>
+<div class="row">
+<div class="col-md-12 col-lg-12">
+<button class="btn btn-success" data-bind="click:add">添加...</button>&nbsp;&nbsp;
+<button class="btn btn-success" data-bind="click:getAbouts">刷新...</button>
+</div>
+</div>
+</div>
+<div class="page" id="findProductsPage">
+<div class="dashhead m-t-md">
+<div class="dashhead-titles">
+<h2 class="dashhead-title">组合套餐</h2>
+</div>
+<div class="dashhead-toolbar">
+<div class="flextable">
+<div class="flextable-item flextable-primary">
+<input type="text" class="form-control" placeholder="输入关键字" data-bind="value:keyword">
+</div>
+<div class="flextable-item">
+<div class="btn-group">
+<button type="button" class="btn btn-primary-outline" title="go" data-bind="click:doSearch">
+<span class="icon icon-flash"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<table class="table table-stripped">
+<thead>
+<tr>
+<th style="width:40px">选择</th>
+<th class="colId">id</th>
+<th class="colId">系列Id</th>
+<th class="colId">系列名</th>
+<th class="colName">组合商品名称</th>
+<th class="colPrice">总价格</th>
+<th class="colTime">创建时间</th>
+<th class="colTime">修改时间</th>
+<th class="colState">已审核</th>
+<th class="colState">已上架</th>
+<th style="width:60px">功能</th>
+</tr>
+</thead>
+<tbody data-bind="foreach:combiProducts">
+<tr>
+<td>
+<div class="checkbox custom-control custom-checkbox">
+<label>
+<input type="checkbox" data-bind="checked:checked">
+<span class="custom-control-indicator"></span>
+</label>
+</div>
+</td>
+<td class="colId" data-bind="text:id">cp_23123</td>
+<td class="colId" data-bind="text:seriesCode">cp_23123</td>
+<td class="colId" data-bind="text:seriesDiffName">cp_23123</td>
+<td class="colName" data-bind="text:title">欧式风格大三居全套含家电</td>
+<td class="colPrice" data-bind="text:priceTO">￥120,000</td>
+<td class="colTime" data-bind="text:createTimeText">2015-10-22 21:30:12</td>
+<td class="colTime" data-bind="text:lastModifiedTimeText">2015-10-25 21:30:12</td>
+<td class="colState" data-bind="text:certified">已上架</td>
+<td class="colState" data-bind="text:published">已审核</td>
+<td><button class="btn btn-info-outline" data-bind="click:$root.edit">编辑</button></td>
+</tr>
+</tbody>
+</table>
+<ul class="pagination" >
+<!-- ko foreach:$root.pager.pages -->
+<li data-bind="css:{active:isCurrent},click:$root.pager.onPage"><a href="#" data-bind="text:pageName,click:$root.pager.onPage"></a></li>
+<!-- /ko -->
+<li style="margin-left:10px;margin-top:5px"><span>共<span data-bind="text:pager.total"></span>条</span></li>
+<li>
+<button class="btn btn-danger-outline" data-bind="click:deleteProducts">删除</button>
+<button class="btn btn-danger-outline" data-bind="click:refresh">刷新</button>
+<!-- ko if:mID()=="head_merchant" -->
+<button class="btn btn-warning-outline" data-bind="click:upProducts">上架</button>
+<button class="btn btn-warning-outline" data-bind="click:downProducts">下架</button>
+<button class="btn btn-success-outline" data-bind="click:certifyProducts">审核通过</button>
+<button class="btn btn-success-outline" data-bind="click:rejectProducts">审核不通过</button>
+<!-- /ko -->
+</li>
+</ul>
+</div>
+</div>
+<script>
+var m = "<%=m%>";
+</script>
+<!-- Include jQuery (required) and the JS -->
+<script src="/resources/bootstrapThemes/dashboard/js/jquery.min.js"></script>
+<script src="/resources/bootstrapThemes/dashboard/js/chart.js"></script>
+<script src="/resources/bootstrapThemes/dashboard/js/tablesorter.min.js"></script>
+<script src="/resources/bootstrapThemes/dashboard/js/toolkit.js"></script>
+<script src="/resources/jqueryui/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script src="/resources/zTree3.5/jquery.ztree.core-3.5.js"></script>
+<script src="@{client/res/js/knockout-3.4.0.js}@"></script>
+<script src="/resources/knockoutmapping.js"></script>
+<script src="/resources/ko/knockout-sortable.min.js"></script>
+<script src="/resources/ko/knockout-selectable.js"></script>
+<script src="/resources/sammy-0.7.6.min.js"></script>
+<script src="/resources/ckeditor4.5.3/ckeditor.js"></script>
+<script src="/fileManager/jsloader.jsx"></script>
+<script src="/brandSelector/jsloader.jsx"></script>
+<script src="/productCategorySelector/jsloader.jsx"></script>
+<script src="/productSelector/jsloader.jsx"></script>
+<script src="/resources/bootbox.min.js"></script>
+<script src="/resources/ko/datetimepicker/moment-with-locales.min.js"></script>
+<script src="/resources/ko/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/resources/ko/datetimepicker/koDateTimePicker.js"></script>
+
+
+<script>
+var require = {
+baseUrl: '/resources/requirejs'
+};
+var m = "<%=m%>";
+</script>
+<script data-main="@{client/index.js}@" src="/resources/requirejs/require.js"></script>
+<script src="/resources/json2_min.js"></script>
+<script src="/resources/ko/page.js"></script>
+</body>
+</html>

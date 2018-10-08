@@ -1,0 +1,40 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr class="active">
+        <th width="160px;">模板编号</th>
+        <th width="120px;">商品类别ID</th>
+        <th width="120px;">商品类别名称</th>
+        <th width="120px;">提示语1</th>
+        <th width="120px;">提示语2</th>
+        <th width="120px;">提示语3</th>
+        <th width="120px;">提示语4</th>
+        <th width="120px;">提示语5</th>
+        <th width="120px;">操作</th>
+    </tr>
+    </thead>
+    <input id="modelId" type="hidden"/>
+    <tbody>
+    {{~it.resultList:value:index}}
+    <tr>
+        <td>{{=value.num}}</td>
+        <td>{{=value.columnIds}}</td>
+        <td>{{=value.columnNames}}</td>
+        <td>{{=value.statement1}}</td>
+        <td>{{=value.statement2}}</td>
+        <td>{{=value.statement3}}</td>
+        <td>{{=value.statement4}}</td>
+        <td>{{=value.statement5}}</td>
+        <td>
+            <button data-toggle="modal" data-target="#addModel" data-a="{{=value.id}}" class="btn btn-default edit">编辑</button>
+            <button data-a="{{=value.id}}" class="btn btn-default deleteOne">删除</button>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

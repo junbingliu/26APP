@@ -1,0 +1,8 @@
+{
+  "libs_namespace": "AppEditor",
+  "libs": ["handlers/dataProcessor.jsx","handlers/util.jsx"],
+  "urls":[
+      ["/OurHome/modules/filemanager/ImageSortList.jsp",["all"]],
+      ["/OurHome/modules/filemanager/ImageUploadForm.jsp",["all"]]
+  ]
+}

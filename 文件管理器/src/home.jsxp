@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8"/>
+    <title>切换商家</title>
+
+    <meta name="description" content="saas 商家权益"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- basic styles -->
+    <link href="../../resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="../../resources/bootstrap300/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="navbar navbar-default" id="navbar">
+    <div class="navbar-container" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <i class="glyphicon glyphicon-cog"></i>
+                    切换商家
+                </small>
+            </a>
+        </div>
+
+    </div>
+    <!-- /.navbar-header -->
+</div>
+
+<div class="container">
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>名称</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{~it.merchants:merchant:idx}}
+        <tr>
+            <td>{{=idx}}</td>
+            <td><a href="/shell/shell.jsx?m={{=merchant.objId}}" target="_blank">{{=merchant.name_cn}}</a></td>
+        </tr>
+        {{~}}
+    </tbody>
+</table>
+</div>
+
+
+
+</body>
+
+</html>

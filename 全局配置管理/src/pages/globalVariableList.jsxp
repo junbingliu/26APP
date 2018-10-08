@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="@{bootstrap-3.3.4/css/bootstrap.min.css}@">
+    <link rel="stylesheet" href="@{style/app.css}@">
+    <link rel="stylesheet" href="@{style/jquery-ui.css}@">
+    <link rel="stylesheet" href="@{style/jquery-ui.min.css}@">
+    <script src="@{js/jquery-1.10.2.min.js}@"></script>
+    <script src="@{js/jquery-ui.min.js}@"></script>
+    <script src="@{js/jquery-ui.js}@"></script>
+    <script src="@{bootstrap-3.3.4/js/bootstrap.min.js}@"></script>
+    <script>
+        $(document).ready(function(){
+            $(".container table thead tr th a.ascSort").click(function(){
+                 $(".container table thead tr th a.ascSort").attr("href","globalVariableSort.jsx?m={{=it.merchantId}}&&sortType=asc");
+            });
+            $(".container table thead tr th a.descSort").click(function(){
+                $(".container table thead tr th a.descSort").attr("href","globalVariableSort.jsx?m={{=it.merchantId}}&&sortType=desc");
+            });
+
+            $.post("/globalVariableManagementApp/pages/getAllGlobalVariableToArray.jsx",function(data){
+                $( "#autocomplete" ).autocomplete({
+                    source: data.split(",")
+                });
+            });
+            $("#search").click(function(){
+                var searchValue = $("#autocomplete").val();
+                $.post("/globalVariableManagementApp/pages/searchGlobalVariable.jsx",function(data){
+
+                });
+            });
+
+        });
+
+    </script>
+
+
+</head>
+<body>
+{{=$.inc("pages/include_nav.jsx")}}
+<div class="container" style="margin-top:60px">
+    <form class="form-inline" action="searchGlobalVariable.jsx" style="margin-bottom: 20px;margin-top: 10px">
+        <div class="form-group">
+            <input type="hidden" id="mId" name="m" value="{{=it.merchantId}}"/>
+            <label for="searchField">Name:</label>
+            <input id="autocomplete" type="text" class="form-control" name="searchField" value="{{=it.searchField}}" style="width:300px">
+        </div>
+        <button id="search" type="submit" class="btn btn-default">搜索</button>
+    </form>
+    <table class="table table-bordered">
+        <thead>
+        <tr style="background-color: darkgray;">
+            <th width="50px">#</th>
+            <th>Name<a class="btn ascSort" role="button" style="width:50px">升序<img flag="asc" style="width: 20px;height:20px" src="@{images/asc.png}@"/></a><a class="btn descSort" role="button" style="width:50px">降序<img flag="desc" style="width: 20px;height:20px" src="@{images/desc.png}@"/></a></th>
+            <th>Value</th>
+            <th width="150px">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{?it.globalVariableList.length >0}}
+        {{~it.globalVariableList:jGlobalVariableInfo:index}}
+            <th scope="row">{{=index+1}}</th>
+            <td>{{=jGlobalVariableInfo.name}}</td>
+            <td style="word-break:break-all; word-wrap:break-word;">{{=jGlobalVariableInfo.val}}</td>
+            <td align="center">
+                <a id="deleteButton" class="btn btn-danger" href="deleteGlobalVariable.jsx?m={{=it.merchantId}}&id={{=jGlobalVariableInfo.id}}"
+                   role="button">删除</a>
+                <a class="btn btn-warning" href="globalVariableUpdate.jsx?m={{=it.merchantId}}&id={{=jGlobalVariableInfo.id}}"
+                   role="button">修改</a></td>
+            </td>
+        </tr>
+        {{~}}
+        {{??}}
+        <tr>
+            <td colspan='4' style="text-align:center">没有符合条件的数据</td>
+        </tr>
+        {{?}}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<div id="assignByRolePage">
+    <div class="table-header" style="height:40px">
+        <div style="float: left;margin:5px;height:25px">
+            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;所有角色
+        </div>
+        <button class="btn btn-sm btn-primary" data-bind="click:beginEdit,visible:!editing()"  style="float: right;margin:5px">编辑</button>
+        <button class="btn btn-sm btn-danger" data-bind="click:endEdit,visible:editing()" style="float: right;margin:5px">完成</button>
+        <form  role="form" class="form-inline form-search" style="margin-left:50px;width:200px;float: right;">
+            <div class="input-group">
+                <input type="text" class="form-control input-sm search-query" placeholder="关键字" data-bind="value:searchKeyWord">
+                  <span class="input-group-btn">
+                    <button class="btn-sm btn-default" type="button" data-bind="click:search">搜!</button>
+                  </span>
+            </div><!-- /input-group -->
+
+        </form>
+
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td style="width:120px">id</td>
+            <td style="width:180px">名称</td>
+            <td>所属用户组</td>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach:roles">
+        <tr data-bind="visible:show">
+            <td  data-bind="text:id"></td>
+            <td  data-bind="text:name"></td>
+            <td>
+                <ul data-bind="foreach:userGroups"  style="padding-left: 15px;float: left;list-style: none">
+                    <li style="float: left;margin-top:5px;padding: 0px 10px 0 10px;margin-right:10px;border: 1px solid"><span data-bind="text:name"></span><a href="#" style="color:red;padding-left:8px" data-bind="visible:$root.roleAssign.byRolesPage.editing()"><i class="glyphicon glyphicon-minus-sign" title="删除" data-bind="click:$parent.remove" ></i></a></li>
+                </ul>
+                <button style="float: left" class="btn btn-sm btn-info" data-bind="click:$root.roleAssign.byRolesPage.selectUserGroups,visible:$root.roleAssign.byRolesPage.editing()" >添加用户组</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

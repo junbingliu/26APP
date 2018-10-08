@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/resources/jquery/jqueryui_date/css/redmond/jquery-ui-1.10.3.custom.min.css">
+    <script type="text/javascript" src="/resources/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/knockout-3.0.0.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="@{res/js/articleList.js}@"></script>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar">
+                <li><a href="articleList.jsx?m={{=it.merchantId}}"><i class="glyphicon glyphicon-list">文章列表</i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="margin-top: 51px">
+    <div>
+        <hr class="titleHr">
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-1" style="width: 87px;padding-top: 5px;">
+                <span>文章标题</span>
+            </div>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="articleTitle" placeholder="">
+                <input id="merchantId" value="{{=it.merchantId}}" type="hidden"/>
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default" id="search">搜 索</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

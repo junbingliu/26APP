@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="@{static/style/bootstrap-datetimepicker.min.css}@" rel="stylesheet"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script src="@{static/lib/bootstrap-datetimepicker.min.js}@"></script>
+    <script src="@{static/lib/locales/bootstrap-datetimepicker.zh-CN.js}@"></script>
+    <link rel="stylesheet" href="@{static/style/commom.css}@">
+    <script type="text/javascript" src="@{js/calss.js}@"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="article" style="width: 100%">
+                <div class="head-ico">
+                    <h1>新建课堂记录</h1>
+                </div>
+                <div class="topHead">
+                    <div class="activityTitle">
+
+                        <div class="input-group">
+                            <span class="input-group-addon">选择课堂</span>
+                            <select id="commonSelect" style="width: 16%" onchange="provice('province')">
+                            </select>
+                            <select id="citySelect" style="width: 16%" onchange="provice('city')">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="commonBorder" style="margin-right: 2rem">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="checkboxAll" class="checkAll" value="all"> 全选
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="checkbox1" class="checkShop" value="越秀区门店-m_11111"> 越秀区门店
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="checkbox2" class="checkShop" value="白云区门店-m_22222"> 白云区门店
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="checkbox3" class="checkShop" value="天河区门店-m_33333"> 天河区门店
+                        </label>
+
+                    </div>
+                    <div style="margin: 1rem 0 5rem 0" onclick="showCCC()">
+                        <button type="button" class="btn btn-default col-md-1 ">添加</button>
+                    </div>
+
+                    <div class="commonBorder">
+                        <label>已选课堂</label>
+                        <div class="checkShopList">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--<label for="checkRadio">是否系列活动</label>-->
+                <!--<div id="checkRadio">-->
+                <!--<label class="radio-inline">-->
+                <!--<input type="radio" name="isSingel" id="isSingel" value="0"> 是-->
+                <!--</label>-->
+                <!--<label class="radio-inline">-->
+                <!--<input type="radio" name="isSingel" id="isMulti" value="1"> 否-->
+                <!--</label>-->
+                <!--</div>-->
+                <div class="commonBorderList">
+                    <button type="button" class="btn btn-default" style="float: right;margin: 1rem 1rem 0 0"><span
+                            class="glyphicon glyphicon-remove"></span></button>
+                    <!--<div class="input-group" style="margin: 1rem 0 0 1rem">-->
+                    <!--<span class="input-group-addon">系列活动1 </span>-->
+                    <!--<input type="text" class="form-control" placeholder="请输入活动标题" style="width: 40%" id="classTitle1">-->
+                    <!--</div>-->
+                    <div class="timeMoudle">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">开始时间</label>
+                            <div class="input-group date form_datetime col-md-4">
+                                <input class="form-control" size="16" type="text" id="beginTime">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">结束时间</label>
+                            <div class="input-group date form_datetime col-md-4">
+                                <input class="form-control" size="16" type="text" id="endTime">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                        <div class="input-group col-md-3" style="margin-left: 2rem">
+                            <span class="input-group-addon">活动人数</span>
+                            <input type="text" class="personNum form-control"/>
+                        </div>
+                    </div>
+                    <div class="activityTitle" style="margin-left: 2rem">
+                        <div class="input-group">
+                            <span class="input-group-addon">门槛要求</span>
+                            <select id="sill">
+                                <option>无要求</option>
+                                <option>V1会员</option>
+                                <option>V2会员</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="moneySet"><label>活动费用</label>
+
+                        <div class="moneyBoder">
+                            <div class="moneyContent">
+                                <label class="radio-inline">
+                                    <input type="radio" name="moneyRadio" id="unifyPrice" value="option1" checked> 统一价格
+                                </label>
+                                <!--<label class="radio-inline">-->
+                                <!--<input type="radio" name="moneyRadio" id="levelPrice" value="option2"> 分级别设置价格-->
+                                <!--</label>-->
+                                <div class="moneyDetail">
+                                    <ul>
+                                        <li><input type="checkbox" id="onlyintergal"><input type="text"
+                                                                                            id="onlyintergalNum"/><label>积分</label>
+                                        </li>
+                                        <li><input type="checkbox" id="intergalAndPrice">
+                                            <input type="text" id="andIntergal"/><label>积分+</label><input type="text"
+                                                                                                          id="andPrice"><label>元</label>
+                                        </li>
+                                        <li><input type="checkbox" id="onlyPrice"><input type="text" id="onlyPriceNum"/><label>元</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 40%" id="addMermberClass">
+                    <button type="button" class="btn btn-default" style="margin-top:1rem;margin-left: 55%">保存活动</button>
+                </div>
+                <div style="display: none">
+                    <input type="text" value="{{=it.id}}" id="AcId">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy/mm/dd hh:ii:ss',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        minuteStep: 1
+    });
+    var acId = "{{=it.id}}";
+    console.log("============2===========", acId);
+
+    function provice(val) {
+        var citySelect = $("#citySelect");
+        if (val === "province") {
+            var value = $("#commonSelect").val();
+            $.post("../../handler/getRegionChildren.jsx", {regionId: value}, function (ret) {
+                var city = ret.data.children;
+                citySelect.empty();
+                for (var i = 0; i < city.length; i++) {
+                    var obj = "<option value=" + city[i].id + ">" + city[i].name + "</option>";
+                    citySelect.append(obj)
+                }
+                getShop(value);
+            }, 'json');
+        }
+        else if (val === "city") {
+            getShop(citySelect.val());
+        }
+    }
+
+    function getShop(value) {
+        $.post("../../handler/getShopInfo.jsx", {regionId: value}, function (ret) {
+
+        }, 'json');
+    }
+
+    function showCCC() {
+        var selList = $(".checkShop");
+        var citySelect = $("#citySelect option:selected").val();
+        for (var i = 0; i < selList.length; i++) {
+            if (selList[i].checked) {
+                var isAdd = true;
+                var spArray = selList[i].value.split("-");
+                for (var j = 0; j < selectShopList.length; j++) {
+
+                    if (selectShopList[j].name === spArray[0]) {
+                        isAdd = false;
+                    }
+                }
+                if (isAdd) {
+                    selectShopList.push({name: spArray[0], id: spArray[1]});
+                }
+            }
+        }
+        var checkShopList = $(".checkShopList");
+        checkShopList.empty();
+        for (var k = 0; k < selectShopList.length; k++) {
+            var obj = "<span class='shopInfo' onclick='delClassFuc(event)' id="+selectShopList[k].id+">" + selectShopList[k].name + " <em><span class='glyphicon glyphicon-remove'></span></em></span>";
+            checkShopList.append(obj);
+        }
+        selectRegion.push(citySelect);
+    }
+    function delClassFuc(event) {
+        console.log("=========2=============",event.target.id);
+
+    }
+
+</script>
+
+
+</body>
+</html>

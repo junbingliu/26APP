@@ -1,0 +1,9 @@
+{
+  "libs_namespace": "outProduct",
+  "libs":
+  [
+  ],
+  "obj_prefixes": ["outProduct"],
+  "list_prefixes": ["outProduct"]
+
+}

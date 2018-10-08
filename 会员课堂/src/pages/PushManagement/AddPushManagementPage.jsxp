@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.11.min.js"></script>
+    <!--<script type="text/javascript" src="../js/memberClass.js"></script>-->
+    <!--<link rel="stylesheet" href="../static/style/commom.css">-->
+    <script type="text/javascript" src="@{js/pushManagementControl.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/include_nav/include_nav.jsx")}}
+<div class="container-fluid">
+    <div class="well" id="searchForm">
+        <div class="row">
+            <input type="hidden" id="merchantId" value="{{=it.merchantId}}">
+            <form class="form-horizontal" style="max-width: 1000px;" id="addNewPushManagementForm">
+                <div class="form-group">
+                    <label class="col-sm-offset-0 col-sm-3 control-label" style="font-size: 20px;">新增推送</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">推送对象</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="pushTarget">
+                            <option value="0" selected="selected">线下课堂活动</option>
+                            <option value="1">视频教学</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">触发状态</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="toTriggerState">
+                            <option value="" selected="selected">请选择</option>
+                            <option value="0" class="underLine">开放报名提醒</option>
+                            <option value="1" class="underLine">取消截止提醒</option>
+                            <option value="2" class="underLine">即将开课提醒</option>
+                            <option value="3" class="underLine">报名成功提醒</option>
+                            <option value="4" class="underLine">取消报名提醒</option>
+                            <option value="5" class="onLine" disabled="disabled" style="background-color: #ded8d8;">
+                                视频教学暂无状态
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">推送渠道</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="pushServer">
+                            <option value="0" selected="selected">APP推送</option>
+                            <option value="1">公众号推送</option>
+                            <option value="2">站内信推送</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">推送内容选择</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="pushContentSetUp">
+                            <option value="0" selected="selected">文字编辑</option>
+                            <option value="1"><a href="javascript:void(0);">跳转落地配置</a></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">推送状态</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="pushStatement">
+                            <option value="0" selected="selected">启动</option>
+                            <option value="1">暂停</option>
+                        </select>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label class="col-sm-3 control-label">已提现时间</label>-->
+                <!--<div class="col-sm-4">-->
+                <!--<input type="" class="datepicker form-control finishTime" placeholder="请选择时间">-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">推送内容</label>
+                    <div class="col-sm-7">
+                                    <textarea type="" class="form-control" id="pushContent" style="width: 100%;"
+                                              rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8" style="margin-left: 240px;text-align: center">
+                        <button type="button" class="btn btn-primary" style="width:90px;"
+                                id="toCreateBtn">确 定
+                        </button>
+                        <button type="button" class="btn btn-default" style="width:90px;"
+                                id="toCancelBtn">取 消
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--<div class="row">-->
+        <!--<div class="col-md-2" style="width: auto;margin-bottom: 10px;">-->
+        <!--<span class="date_split" style=";margin-right: 15px;padding-top: 5px;">支付时间从:</span>-->
+        <!--<input type="text" style="width: 120px;display: inline;" class="date form-control input-sm"-->
+        <!--id="beginTime" name="beginCreateTime" readonly placeholder="请选择开始时间">-->
+        <!--<span class="date_split" style="padding-top: 5px;">至</span>-->
+        <!--<input type="text" style="width: 120px;display: inline;" class="date form-control input-sm" id="endTime"-->
+        <!--name="endCreateTime" readonly placeholder="请选择截止时间">-->
+        <!--</div>-->
+        <!--<div class="col-md-4">-->
+        <!--<span class="label_name">营销活动标签:</span>-->
+        <!--<select style="width: 130px;" class="col-sm-10 input-sm" id="activityTag" name="activityTag">-->
+        <!--<option value="">全部</option>-->
+        <!--</select>-->
+        <!--</div>-->
+        <!--<div class="col-md-1" style="width: auto;">-->
+        <!--<button type="button" class="btn btn-primary btn-sm" id="search">搜 索</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-1" style="width: auto;">-->
+        <!--<button type="button" class="btn btn-success btn-sm" data-target="#export_data" data-toggle="modal">导-->
+        <!--出-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+
+
+</body>
+<script>
+    $(document).ready(function () {
+        $("#addNewPushManagementForm #pushTarget").change(function () {
+            var pushTarget_value = $("#addNewPushManagementForm #pushTarget option:selected").attr("value");
+            $("#addNewPushManagementForm #toTriggerState").val("");
+            $("#addNewPushManagementForm #toTriggerState option").removeAttr("disabled").css("background-color", "");
+            if (pushTarget_value == "1" || pushTarget_value == 1) {
+                $("#addNewPushManagementForm #toTriggerState .underLine").attr("disabled", "disabled").css("background-color", "#ded8d8");
+            } else {
+                $("#addNewPushManagementForm #toTriggerState .onLine").attr("disabled", "disabled").css("background-color", "#ded8d8");
+            }
+        })
+    })
+</script>
+</html>

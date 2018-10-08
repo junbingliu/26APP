@@ -1,0 +1,145 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header pull-right">
+            <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-cog">个推对接管理</i></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar">
+                <li data-a="log_list"><a href="log_list.jsx?m={{m}}"><i class="glyphicon glyphicon-list">查看对接日志</i></a></li>
+                <li data-a="setArgs"><a href="javascript:void(0)" id="setArgs"><i class="glyphicon glyphicon-plus">对接参数设置</i></a></li>
+                <li data-a="ManualIndex"><a href="ManualIndex.jsx?m={{m}}"><i class="glyphicon glyphicon-list">手工操作相关</i></a></li>
+                <!--<li data-a="args"><a href="args.jsx?m={{m}}" id="args"><i class="glyphicon glyphicon-plus">对接参数设置</i></a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel3">参数配置</h4>
+            </div>
+            <form id="addForm3" class="form-horizontal" action="handler/saveArgs.jsx" method="post" target="resultFrame3">
+                <input type="hidden" name="m" id="m" value="{{m}}"/>
+                <div class="modal-body" id="addPatchDiv3">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">是否启用对接</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="isEnable" id="yes" value="Y" {{if isEnable == 'Y'}}checked{{/if}}>是
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isEnable" id="no" value="N" {{if isEnable == 'N'}}checked{{/if}}>否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用appId</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="appId" id="appId" placeholder="个推应用appId(个推后台查看)" value="{{appId}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用appKey</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="appKey" id="appKey" placeholder="个推应用appKey(个推后台查看)" value="{{appKey}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用AppSecret</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="appSecret" id="appSecret" placeholder="个推应用appSecret(个推后台查看)" value="{{appSecret}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用mastersecret</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="masterSecret" id="masterSecret" placeholder="应用masterSecret(个推后台查看)" value="{{masterSecret}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用appId(拣货)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="appId2" id="appId2" placeholder="个推应用appId(个推后台查看)" value="{{appId2}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用appKey(拣货)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="appKey2" id="appKey2" placeholder="个推应用appKey(个推后台查看)" value="{{appKey2}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用AppSecret(拣货)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="appSecret2" id="appSecret2" placeholder="个推应用appSecret(个推后台查看)" value="{{appSecret2}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">个推应用mastersecret(拣货)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="masterSecret2" id="masterSecret2" placeholder="应用masterSecret(个推后台查看)" value="{{masterSecret2}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">需要对接的商家ID</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" name="mIds" id="mIds" placeholder="多个商家ID用英文逗号(,)分开">{{mIds}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="submitBtn3" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var currentUrl = window.location.href;
+        $('#navbar').find('li').each(function (item) {
+            var $this = $(this);
+            var href = $this.data('a');
+            if (currentUrl.indexOf(href) > 0) {
+                $this.addClass("active");
+            }
+        });
+    });
+
+    $("#setArgs").on("click",function(){
+        document.getElementById("addForm3").reset();
+        $("#myModal3").modal("show");
+    });
+
+    function frameLoaded3() {
+        var resultFrame = document.getElementById("resultFrame3");
+        var result = $("#resultFrame3").contents().find("body").html();
+        if (result) {
+            result = JSON.parse(result);
+            if (result.state == "ok") {
+                bootbox.alert(result.msg, function () {
+                    window.location.reload();
+                });
+                $("#myModal3").modal("hide");
+            } else {
+                bootbox.alert(result.msg, function () {
+                });
+            }
+        }
+    }
+
+    $("#submitBtn3").click(function () {
+        var isEnable = $("input[name='isEnable']:checked").val();
+        if (!isEnable) {
+            bootbox.alert("请选择是否启用对接功能");
+            return;
+        }
+        $("#addForm3").submit();
+    });
+</script>
+<iframe id="resultFrame3" name="resultFrame3" style="display: none" onload="frameLoaded3()"></iframe>

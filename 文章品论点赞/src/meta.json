@@ -1,0 +1,10 @@
+{
+    "libs_namespace": "articleCommentLike",
+    "libs": ["services/commentLikeService.jsx",
+        "services/commentQuery.jsx",
+        "services/likeQuery.jsx",
+        "services/commentBuildIndex.jsx",
+        "services/likeBuildIndex.jsx"],
+    "obj_prefixes": ["acl_management2","a_"],
+    "list_prefixes": ["acl_management2"]
+}

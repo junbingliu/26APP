@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>统计图表</title>
+    {{#inc("pages/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/chart.js}@"></script>
+    <script type="text/javascript" src="@{res/js/Chart.min.js}@"></script>
+    <style>
+        .container {
+            max-width: 100%;
+        }
+    </style>
+</head>
+{{#inc("pages/include_navbar.jsx")}}
+<body>
+<div class="container" style="padding-top:55px">
+    <div role="presentation"
+         style="padding: 15px;border: 1px solid #e6e6e6;color: #000000;background:#e6e6e6;font-size: 12px;">
+        <form class="form-inline">
+            <div class="form-group">
+                <div style="margin:0px 5px;">
+                    <label>Api_ID：</label>
+                    <input class="form-control" style="width: 180px" id="api_id" name="api_id" placeholder="API接口ID">
+                    <label>Api_Name：</label>
+                    <input class="form-control" style="width: 180px" id="api_name" name="api_name"
+                           placeholder="API接口名称">
+                    <div class="form-group">
+                        <label>分组条件：</label>
+                        <select name="groupBy" id="groupBy" class="form-control" style="width: 100px;height: 34px;font-size: 12px">
+                            <option value="api_name">按API</option>
+                            <option value="call_time">按日期</option>
+                        </select>
+                    </div>
+                    <label for="beginCallTime">调用时间:</label>
+                    <div class="input-group date form_date" style="padding:0px;display: inline-block;" data-date=""
+                         data-date-format="dd MM yyyy" data-link-field="beginCreateTime"
+                         data-link-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" style="width: 110px" name="beginCallTime"
+                               id="beginCallTime" placeholder="选择开始时间" value="{{beginDate}}">
+                        <span class="input-group-addon" style="display: inline-block;width: 40px;"><span
+                                class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                    <label for="endCallTime">到 :</label>
+                    <div class="input-group date form_date" style="display: inline-block;" data-date=""
+                         data-date-format="dd MM yyyy" data-link-field="endCallTime" data-link-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" style="width: 110px" name="endCallTime" id="endCallTime"
+                               placeholder="选择结束时间" value="{{endDate}}">
+                        <span class="input-group-addon" style="display: inline-block;width: 40px;"><span
+                                class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="search">搜索</button>
+        </form>
+    </div>
+</div>
+<div style="width: 800px;height: 800px;">
+    <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+<script>
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

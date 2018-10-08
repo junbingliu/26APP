@@ -1,0 +1,32 @@
+<div class="page" id="activityFormPage">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label for="beginTime">开始时间</label>
+                    <input type="text" data-bind="timepicker: beginTime" id="beginTime"/>
+                    <label for="endTime">结束时间</label>
+                    <input type="text" data-bind="timepicker: endTime" id="endTime"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="activityName">名称</label>
+                    <input type="text" class="form-control" id="activityName" placeholder="名称" data-bind="value:name">
+                </div>
+                <div class="form-group">
+                    <label for="code">编码</label>
+                    <input type="text" class="form-control" id="code" placeholder="编码" data-bind="value:code">
+                </div>
+                <div class="form-group">
+                    <label for="numberPerUser">活动期间，每人可购买数量</label>
+                    <input type="text" class="form-control" id="numberPerUser" placeholder="每人可购买数量" data-bind="value:numberPerUser">
+                </div>
+                <div class="form-group">
+                    <label for="numberPerActivity">本活动总可购买数量</label>
+                    <input type="text" class="form-control" id="numberPerActivity" placeholder="本活动总可购买数量" data-bind="value:numberPerActivity">
+                </div>
+                <button type="submit" class="btn btn-primary" data-bind="click:save">确定</button>
+            </form>
+        </div>
+    </div>
+</div>

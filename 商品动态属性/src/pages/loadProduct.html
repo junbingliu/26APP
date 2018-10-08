@@ -1,0 +1,87 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script src="/resources/artTemplate.js"></script>
+<table class="table table-bordered table-hover table-condensed">
+    <thead>
+    <th>图片</th>
+    <th>商品Id</th>
+    <th>商品名称</th>
+    <!--<th>商品动态属性</th>-->
+    <th>所属商家</th>
+    <th>分类</th>
+    <th>是否在售</th>
+    <th>审核说明</th>
+    <th>可卖数</th>
+    <th>售价</th>
+    <th>查看</th>
+    </thead>
+    <tbody>
+    {{~it.products:value:index}}
+    <tr>
+        <td><img src="{{=value.productLogo}}"></td>
+        <td>{{=value.productId}}</td>
+        <td>{{=value.name}}</td>
+        <!--<td>{{=value.attrs}}</td>-->
+        <td>{{=value.merchant}}</td>
+        <td>{{=value.column}}</td>
+        <td>{{=value.sellState}}</td>
+        <td>{{=value.certifyState}}</td>
+        <td>{{=value.SellableCount}}</td>
+        <td>{{?value.utilPrice!=null}}{{=value.utilPrice}}{{??}}<span style="color: #FF3300">暂无售价</span>{{?}}</td>
+        <td><a href="javascript:void(0);" class="btn btn-default" onclick="showAttrs('{{=value.productId}}')">查看动态属性</a></td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}" enableToPage="false">
+</div>
+
+
+
+
+<div class="modal fade" id="attrsModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    商品动态属性
+                </h4>
+            </div>
+            <div class="modal-body" id="attrsData">
+                在这里添加一些文本
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script id="attrTmpl" type="text/html">
+<table class="table table-border" style="overflow: scroll;">
+    <thead>
+        <th class="col-md-3">商品名</th>
+        <th class="col-md-3">属性名</th>
+        <th class="col-md-3">属性值</th>
+    </thead>
+    <tbody>
+    <% for (var i = 0; i < attrs.length; i ++) { %>
+    <tr>
+        <td><%=productName%></td>
+        <td><%=attrs[i].name%></td>
+        <td><%=attrs[i].value%></td>
+    </tr>
+    <%}%>
+
+    </tbody>
+</table>
+</script>
+

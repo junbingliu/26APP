@@ -1,0 +1,7 @@
+{
+    "libs_namespace": "favoriteMerchant",
+    "libs": ["services/FavoriteMerchantService.jsx","services/FavoriteMerchantUtil.jsx"],
+    "obj_prefixes": ["favoriteMerchantObj"],
+    "list_prefixes": ["favoriteMerchantList"]
+
+}

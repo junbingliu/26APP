@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "globalSysArgsSetting",
+    "libs": ["services/GlobalSysArgsService.jsx"],
+    "obj_prefixes": ["globalSysArgsSettingObj"],
+    "list_prefixes": ["globalSysArgsSettingList"]
+}

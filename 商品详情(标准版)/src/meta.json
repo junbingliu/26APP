@@ -1,0 +1,35 @@
+{
+    "context":"normalProductDetail",
+    "appEditor":{"enabled":true},
+    "pages" : [
+        {"url":"/product.html","name":"商品详情页","pageId":"productDetail","template":"pages/productDetail.html","dataProcessor":"@process/productDetail_process.jsx","dependsOn":"header,widget",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"F"},"dataSpec":{"id":"config.showCategory","type":"string"}}
+            ]
+        },
+        {"url":"/product.jsp","name":"商品详情页旧url,用于redirect到product.html。","pageId":"productRedirect","template":"pages/product_detail.html","dataProcessor":"@process/product_redirect_process.jsx"},
+        {"url":"/productDetail_productRecommend.jsp","name":"详情页-为您推荐","pageId":"productDetail_productRecommend","template":"widget/productRecommend.html"}
+
+
+    ],
+    "templates" : [
+        {"template":"pages/productDetail.html","name":"商品详情页","description":"商品详情页","dataProcessor":"@process/productDetail_process.jsx","dependsOn":"header,widget",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.showCategory","dataValue":{"name":"是否显示菜单","value":"F"},"dataSpec":{"id":"config.showCategory","type":"string"}}
+            ]
+        },
+        {"template":"widget/productRecommend.html","name":"详情页-为您推荐","description":"详情页-为您推荐"}
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

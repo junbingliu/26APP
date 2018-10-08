@@ -1,0 +1,48 @@
+.globalBanner{ width: 100%;min-width: 1210px; height: 464px; overflow: hidden;position: relative;}
+.globalBanner img{width: 1920px; height: 464px; position: absolute;left: 50%; top: 0;margin-left: -960px;}
+
+.country{ width: 1210px;overflow: hidden; margin-top: -225px;position: relative;z-index: 999;}
+.country .searchCty{ width:100%; height: 34px;overflow: hidden;}
+.country .searchCty .searchBox{float: left;}
+.country .searchCty .search-btn{  display: block;width: 52px;height: 32px;line-height: 32px;text-align: center;float: left;background: #fff;}
+.country .searchCty .search-btn i{ display: inline-block; vertical-align: middle;width: 22px; height: 20px;background: url(../images/header_icon.png) 0 -59px;}
+.country .searchCty input{float: left;width: 0px;height: 32px;line-height: 32px;border: none;}
+.country .country-list{ width: 1202px;padding: 6px 0 0 6px;border: 1px solid #ededed;overflow: hidden;background: #fff;}
+.country .country-list li{ float: left;margin: 0 4px 8px 0; background: #f1f1f1; position: relative;}
+.country .country-list li:hover{background: #fff;}
+.country .country-list li.more{ width: 196px; height: 299px;}
+.country .country-list li.more a{display: block;width: 196px; height: 203px; padding-top: 96px;}
+.country .country-list li.more a i{display: block;width: 57px;height: 74px;margin: 0 auto;background: url(../images/more_icon.png) no-repeat;}
+/*end 国家馆*/
+
+.country .country-list .mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 196px;
+    height: 299px;
+}
+.country .country-list .mask span{
+    display: inline-block;
+    width: 20px;
+    margin: 65px 0 0 82px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+/*全球大牌*/
+.recommend {margin-top: 26px;overflow: hidden;}
+.recommend .title{height: 25px;}
+.recommend .r-list{padding-top: 15px;width: 1240px;}
+.recommend .r-list li{width: 590px;height: 364px;float: left;margin: 0 30px 30px 0;}
+.recommend .r-list li a{display: block;width: 590px;height: 364px;position: relative;background: #f7f7f7;}
+.recommend .r-list li a .r-logo{ position: absolute;left: 50%;top: 118px;width: 143px;height: 143px;margin-left: -72px;}
+.recommend .r-list li a .r-box{width: 556px;height: 88px; padding: 58px 0 0 32px;;border: 1px solid #ededed;border-top: none;overflow: hidden;}
+.recommend .r-list li a .r-box .r-icon{ float: left;}
+.recommend .r-list li a .r-box .r-details{ float: left;padding: 8px 0 0 20px;}
+.recommend .r-list li a .r-box .r-details .r-name{font-size: 18px;color: #4d4e6a;}
+.recommend .r-list li a .r-box .r-details .r-intro{color: #6f6f6f;}
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="omsEsb_ControlCenter" default="all" basedir=".">
+    <property file="../build.properties"></property>
+    <target name="build">
+        <mkdir dir="out"/>
+        <exec executable="java">
+            <arg line="-jar"></arg>
+            <arg path="../lib/appBuilder.jar"/>
+            <arg line="src/"></arg>
+            <arg line="out/omsEsb_ControlCenter.zip"/>
+        </exec>
+    </target>
+
+    <target name="deploy">
+        <exec executable="java">
+            <arg line="-jar "></arg>
+            <arg path="../lib/appDeployer.jar"/>
+            <arg line="${deployUrl}"></arg>
+            <arg line="${deployPass}"></arg>
+            <arg line="out/omsEsb_ControlCenter.zip"/>
+            <arg line="OMS对接管理中心"/>
+            <arg line="omsEsb_ControlCenter"/>
+        </exec>
+    </target>
+
+    <target name="all" depends="build,deploy">
+    </target>
+</project>

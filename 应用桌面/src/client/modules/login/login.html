@@ -1,0 +1,40 @@
+<!DOCTYPE >
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录界面</title>
+    <link href="@{client/res/css/login.css}@" rel="stylesheet">
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+    <script src="@{client/modules/login/login.js}@"></script>
+</head>
+<body>
+<div class="login">
+    <h1 class="logo"></h1>
+    <div class="theme">
+        <div class="mc" >
+            <ul>
+                <li class="username">
+                    <s class="ic"></s>
+                    <input type="text" placeholder="用户名" name="userName" data-bind="value:userName,event:{keyup:onKey}">
+                </li>
+                <li class="password">
+                    <s class="ic"></s>
+                    <input type="password" placeholder="密码" name="password"  data-bind="value:password,event:{keyup:onKey}">
+                </li>
+                <!-- <li class="v_code clearfix">
+                     <s class="ic"></s>
+                     <input type="text" value="验证码" class="fl" name="validateCode" data-bind="value:validateCode,event:{keyup:onKey}">
+                     <div class="fl codeimg"><a href="#"><img src="images/code.png" title="看不清楚，换一张"></a></div>
+                 </li>-->
+            </ul>
+        </div>
+        <div class="mb">
+            <div class="login_btn"><input type="button" data-bind="click:login"></div>
+        </div>
+    </div>
+    <div class="copyright">版权所有 &copy;1999-2013 广州信景技术有限公司</div>
+</div>
+
+</body>
+</html>

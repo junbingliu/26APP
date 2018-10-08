@@ -1,0 +1,28 @@
+<div class="pluginItem" data-bind="with:pluginItems.useTicket">
+    <div class="itemTitle" data-bind="click:toggle">
+        <a href="#" >
+            <b data-bind="css:{expanded:detailVisible}"></b>使用券冲抵部分金额
+        </a>
+    </div>
+    <div class="itemBody" data-bind="visible:detailVisible">
+        <!-- ko if:hasAvailableCards -->
+       <div  class="cardBatchesContainer">
+           <ul class="cardBatch" data-bind="foreach:maxAvailableCardBatches">
+               <li>
+                   <input type="checkbox" data-bind="checkedValue:$data,checked:checked,disable:disabled">
+                   <span data-bind="text:name"></span>
+                   <span class="faceValue">面值:<span data-bind="text:faceValue"></span>元</span>，
+                   <span class="cardDescription">最多能使用<span data-bind="text:selectableNumber"></span>张</span>:
+                   <span><select data-bind="options:options,value:selectedNumber"></select></span>
+               </li>
+           </ul>
+       </div><button class="btn btn-danger" data-bind="click:confirm">确定</button>
+        <!-- /ko -->
+
+        <!-- ko if:noAvailableCards -->
+        <div class="cardBatchesContainer">
+            本次支付没有可用的优惠券。
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

@@ -1,0 +1,187 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">推送管理编辑</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <!--{{=it.record.pushTarget_value}}-->
+        <form class="form-horizontal" style="max-width: 1000px;" id="pushManagementEditForm">
+            <div class="form-group">
+                <label class="col-sm-offset-0 col-sm-3 control-label" style="font-size: 20px;">新增推送</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">推送对象</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="pushTarget">
+                        <option value="0"
+                                {{? it.record.pushTarget_value==0||it.record.pushTarget_value=="0"}}
+                                selected="selected"
+                                {{?}}
+                        >线下课堂活动
+                        </option>
+                        <option value="1"
+                                {{? it.record.pushTarget_value==1||it.record.pushTarget_value=="1"}}
+                                selected="selected"
+                                {{?}}
+                        >视频教学
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">触发状态</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="toTriggerState">
+                        <option value="">请选择</option>
+                        <option value="0" class="underLine"
+                                {{? it.record.toTriggerState_value==0||it.record.toTriggerState_value=="0"}}
+                                selected="selected"
+                                {{?}}
+                                {{? it.record.pushTarget_value==1||it.record.pushTarget_value=="1"}}
+                                disabled="disabled" style="background-color:#ded8d8"
+                                {{?}}
+                        >开放报名提醒
+                        </option>
+                        <option value="1" class="underLine"
+                                {{? it.record.toTriggerState_value==1||it.record.toTriggerState_value=="1"}}
+                                selected="selected"
+                                {{?}}
+                                {{? it.record.pushTarget_value==1||it.record.pushTarget_value=="1"}}
+                                disabled="disabled" style="background-color:#ded8d8"
+                                {{?}}
+                        >取消截止提醒
+                        </option>
+                        <option value="2" class="underLine"
+                                {{? it.record.toTriggerState_value==2||it.record.toTriggerState_value=="2"}}
+                                selected="selected"
+                                {{?}}
+                                {{? it.record.pushTarget_value==1||it.record.pushTarget_value=="1"}}
+                                disabled="disabled" style="background-color:#ded8d8"
+                                {{?}}
+                        >即将开课提醒
+                        </option>
+                        <option value="3" class="underLine"
+                                {{? it.record.toTriggerState_value==3||it.record.toTriggerState_value=="3"}}
+                                selected="selected"
+                                {{?}}
+                                {{? it.record.pushTarget_value==1||it.record.pushTarget_value=="1"}}
+                                disabled="disabled" style="background-color:#ded8d8"
+                                {{?}}
+                        >报名成功提醒
+                        </option>
+                        <option value="4" class="underLine"
+                                {{? it.record.toTriggerState_value==4||it.record.toTriggerState_value=="4"}}
+                                selected="selected"
+                                {{?}}
+                                {{? it.record.pushTarget_value==1||it.record.pushTarget_value=="1"}}
+                                disabled="disabled" style="background-color:#ded8d8"
+                                {{?}}
+                        >取消报名提醒
+                        </option>
+                        <option value="5" class="onLine"
+                                {{? it.record.toTriggerState_value==5||it.record.toTriggerState_value=="5"}}
+                                selected="selected"
+                                {{?}}
+                                {{? it.record.pushTarget_value==0||it.record.pushTarget_value=="0"}}
+                                disabled="disabled" style="background-color:#ded8d8"
+                                {{?}}
+                        >
+                            视频教学暂无状态
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">推送渠道</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="pushServer">
+                        <option value="0"
+                                {{? it.record.pushServer_value==0||it.record.pushServer_value=="0"}}
+                                selected="selected"
+                                {{?}}
+                        >APP推送
+                        </option>
+                        <option value="1"
+                                {{? it.record.pushServer_value==1||it.record.pushServer_value=="1"}}
+                                selected="selected"
+                                {{?}}
+                        >公众号推送
+                        </option>
+                        <option value="2"
+                                {{? it.record.pushServer_value==2||it.record.pushServer_value=="2"}}
+                                selected="selected"
+                                {{?}}
+                        >站内信推送
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">推送内容选择</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="pushContentSetUp">
+                        <option value="0"
+                                {{? it.record.pushContentSetUp_value==0||it.record.pushContentSetUp_value=="0"}}
+                                selected="selected"
+                                {{?}}
+                        >文字编辑
+                        </option>
+                        <option value="1"><a href="javascript:void(0);"
+                                             {{?
+                                             it.record.pushContentSetUp_value==1||it.record.pushContentSetUp_value=="1"}}
+                                             selected="selected"
+                                             {{?}}
+                        >跳转落地配置</a></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">推送状态</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="pushStatement">
+                        <option value="0"
+                                {{? it.record.pushStatement_value==0||it.record.pushStatement_value=="0"}}
+                                selected="selected"
+                                {{?}}
+                        >启动
+                        </option>
+                        <option value="1"
+                                {{? it.record.pushStatement_value==1||it.record.pushStatement_value=="1"}}
+                                selected="selected"
+                                {{?}}
+                        >暂停
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">推送内容</label>
+                <div class="col-sm-7">
+                                    <textarea type="" class="form-control" id="pushContent" style="width: 100%;"
+                                              rows="10">{{=it.record.pushContent_value}}</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" style="float: left;" data-dismiss="modal">取消</button>
+    <button type="button" class="btn btn-primary" data-a="{{=it.id}}" id="doSave">保存</button>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#pushManagementEditForm #pushTarget").change(function () {
+            var pushTarget_value = $("#pushManagementEditForm #pushTarget option:selected").attr("value");
+            $("#pushManagementEditForm #toTriggerState").val("");
+            $("#pushManagementEditForm #toTriggerState option").removeAttr("disabled").css("background-color", "");
+            if (pushTarget_value == "1" || pushTarget_value == 1) {
+                $("#pushManagementEditForm #toTriggerState .underLine").attr("disabled", "disabled").css("background-color", "#ded8d8");
+            } else {
+                $("#pushManagementEditForm #toTriggerState .onLine").attr("disabled", "disabled").css("background-color", "#ded8d8");
+            }
+        })
+    })
+</script>

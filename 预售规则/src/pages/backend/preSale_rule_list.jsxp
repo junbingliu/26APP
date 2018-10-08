@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>预售规则列表</title>
+    {{#inc("pages/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/preSale_rule_list.js}@"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            new $.IsonePagination(".pagination");
+        });
+    </script>
+    <style>
+        .container{
+            max-width: 100%;
+        }
+    </style>
+</head>
+{{#inc("pages/backend/include_navbar.jsx")}}
+<body>
+<div class="container" style="padding-top:55px">
+    <div role="presentation"
+         style="padding: 15px;border: 1px solid #e6e6e6;color: #000000;background:#e6e6e6;font-size: 12px;">
+        <form class="form-inline" action="preSale_rule_list.jsx">
+            <div class="form-group">
+                <div style="margin:0px 5px;">
+                    <label>关键字：</label>
+                    <input class="form-control" style="width: 180px" id="keyword" name="keyword" placeholder="关键字" value="{{searchParam.keyword}}">
+                    <label for="beginCreateTime">创建时间:</label>
+                    <div class="input-group date form_date" style="padding:0px;display: inline-block;" data-date=""
+                         data-date-format="dd MM yyyy" data-link-field="beginCreateTime"
+                         data-link-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" style="width: 110px"  name="beginCreateTime" id="beginCreateTime" placeholder="选择开始时间"
+                               value="{{searchParam.beginCreateTime}}">
+                        <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                    <label for="endCreateTime">到 :</label>
+                    <div class="input-group date form_date" style="display: inline-block;" data-date=""
+                         data-date-format="dd MM yyyy" data-link-field="endCreateTime"
+                         data-link-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" style="width: 110px" name="endCreateTime" id="endCreateTime" placeholder="选择结束时间"
+                               value="{{searchParam.endCreateTime}}">
+                        <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="search">搜索</button>
+        </form>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="member">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkboxAll"></th>
+                    <th>id</th>
+                    <th>序号</th>
+                    <th>规则名称</th>
+                    <th>预售类型</th>
+                    <th>审核状态</th>
+                    <th>预售时间</th>
+                    <th>备注</th>
+                    <th>最后修改人</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{each resultList as value i}}
+                <tr>
+                    <td><input type="checkbox" name="subcheck" value="{{value.id}}"></td>
+                    <td>{{value.id}}</td>
+                    <td>{{i+1}}</td>
+                    <td>
+                        <a class="updateClass" href="javascript:void(0)" data-a="preSale_rule_update.jsx?id={{value.id}}&m={{m}}">{{#value.name}}</a>
+                    </td>
+                    <td>{{value.typeName}}</td>
+                    <td>{{value.approveStateName}}</td>
+                    <td>{{value.depositBeginTime}}</td>
+                    <td>{{value.desc}}</td>
+                    <td>{{value.createUserName}}</td>
+                    <td>{{value.createTime}}</td>
+                    <td>
+                        {{if value.approveState == "0"}}
+                            <a class="approve" href="javascript:void(0)" data-a="{{value.id}}" data-b="1">审核通过</a>
+                            <a class="approve" href="javascript:void(0)" data-a="{{value.id}}" data-b="-1">审核不通过</a>
+                        {{/if}}
+                        <a class="updateClass" href="javascript:void(0)" data-a="preSale_rule_update.jsx?id={{value.id}}&m={{m}}">修改</a>
+                        <a class="deleteClass" href="javascript:void(0)" data-a="{{value.id}}">删除</a>
+                    </td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right">
+                <div style="text-align: right">
+                    <div style="float:left;text-align: left;width: auto;">
+                        <a class="btn btn-success" href="javascript:void(0)" id="approvePass"
+                           data-loading-text="正在操作,请稍候..." data-a="1">审核通过</a>
+                        <a class="btn btn-danger" href="javascript:void(0)" id="approveNoPass"
+                           data-loading-text="正在操作,请稍候..." data-a="1">审核不通过</a>
+                    </div>
+                    <ul class="pagination pagination-right page1" id="pagination_params"
+                        totalPages="{{pageParams.totalPages}}"
+                        currentPage="{{pageParams.currentPage}}" totalRecords="{{pageParams.totalRecords}}"
+                        displayNum="{{pageParams.displayNum}}" pageLimit="{{pageParams.pageLimit}}"
+                        recordType="{{pageParams.recordType}}">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

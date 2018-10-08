@@ -1,0 +1,7 @@
+{
+    "libs_namespace": "oleComplaintApp",
+    "libs": ["services/OleComplainService.jsx", "services/OleComplainQuery.jsx"],
+    "obj_prefixes": ["oleComplainServerObj"],
+    "list_prefixes": ["oleComplainServerList"]
+
+}

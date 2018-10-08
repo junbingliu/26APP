@@ -1,0 +1,71 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>日志类型</th>
+        {{?it.merchantId =="head_merchant"}}
+        <th>商家名称</th>
+        {{?}}
+        <th>时间</th>
+        <th>是否成功</th>
+        <th>内容</th>
+        <th>请求报文</th>
+        <th>响应报文</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.logList:value:index}}
+    <tr>
+        <td>{{=value.id}}</td>
+        <td><div style="width: 100px;word-wrap: break-word">{{=value.type}}</div></td>
+        {{?it.merchantId =="head_merchant"}}
+        <td>{{=value.merchantName}}</td>
+        {{?}}
+        <td>{{=value.formatCreateTime}}</td>
+        <td>{{=value.isSuccess}}</td>
+        <td><div style="width: 500px;word-wrap: break-word">{{=value.content}}</div></td>
+        <td><div style="width: 100px;word-wrap: break-word"><a class="viewClass" href="javascript:void(0)" data-a="{{=value.id}}" data-b="request">请求报文</a></div></td>
+        <td><div style="width: 100px;word-wrap: break-word"><a class="viewClass" href="javascript:void(0)" data-a="{{=value.id}}" data-b="response">响应报文</a></div></td>
+        <td>
+            {{?value.isSuccess == "否"}}
+            <a class="reSend btn btn-success" href="javascript:void(0)" data-a="{{=value.id}}" data-b="response">重发报文</a>
+            {{?}}
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>
+
+<script>
+    $(".viewClass").on("click", function () {
+        var href = "showData.jsx?id=" + $(this).data("a") + "&type=" + $(this).data("b")+"&m="+m;
+        $.layer({
+            type: 2,
+            shadeClose: true,
+            title: false,
+            closeBtn: [0,true],
+            shade: [0.8, '#000'],
+            border: [0],
+            offset: ['20px', ''],
+            area: ['800px', ($(window).height() - 200) + 'px'],
+            iframe: {src: href}
+        });
+    });
+    $(".reSend").on("click", function () {
+        var id = $(this).data("a");
+        $.post("handler/reSend.jsx", {id: id, m: m}, function (ret) {
+            if(ret.state == "ok"){
+                bootbox.alert("重发成功");
+            }else {
+                bootbox.alert(ret.msg);
+            }
+        }, "JSON");
+    });
+</script>

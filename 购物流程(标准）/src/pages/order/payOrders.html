@@ -1,0 +1,244 @@
+<%=#importUrl("/cartHeader.html")%>
+<link href="@{res/style/shopcart.css}@" rel="stylesheet">
+<script>
+var payi = null;
+$(document).ready(function(){
+$(".payBtn").click(function(){
+if(payi==null){
+alert("请选择一个支付方式。");
+}
+else{
+var orderIds = $(".payWayItem.active").attr("orderIds");
+var url = "/buyflowApp/pages/payHandler.jsx?payi="+payi + "&orderIds=" + orderIds;
+window.open(url,"_blank");
+$("#confirmPaid").show(true);
+
+}
+});
+$(".payWayItem").on("click",function(event){
+payi = $(this).attr("payi");
+$(".payWayItem").removeClass("active");
+$(this).addClass("active");
+$(".payBtn").hide();
+$(this).parentsUntil(".tab").find(".payBtn").show();
+});
+$(".payWayItem").first().trigger("click");
+$("#okButton").click(function(){
+var orderIds = $(".payWayItem.active").attr("orderIds");
+$.post("/buyflowApp/pages/checkPayState.jsx?orderIds=" + orderIds,function(ret){
+if(ret.state=='ok'){
+if(ret.payState=='paid'){
+//已经支付成功
+$(".payWayItem.active").parentsUntil(".tab").fadeOut();
+$(".payWayItem.active").parentsUntil(".tab").parent().find(".msgBox").html("已经支付。")
+$("#confirmPaid").hide();
+}
+else{
+$(".payWayItem.active").parentsUntil(".tab").parent().find(".msgBox").html("<p style='color:red'>我们还没有收到您的货款，请尽快支付。</p>");
+$("#confirmPaid").hide();
+}
+}
+},"json");
+});
+$("#cancelButton").click(function(){
+var orderIds = $(".payWayItem.active").attr("orderIds");
+$.post("/buyflowApp/pages/checkPayState.jsx?orderIds=" + orderIds,function(ret){
+if(ret.state=='ok'){
+if(ret.payState=='paid'){
+//已经支付成功
+$(".payWayItem.active").parentsUntil(".tab").fadeOut();
+$(".payWayItem.active").parentsUntil(".tab").parent().find(".msgBox").html("已经支付。")
+$("#confirmPaid").hide();
+}
+else{
+$(".payWayItem.active").parentsUntil(".tab").parent().find(".msgBox").html("<p style='color:red'>我们还没有收到您的货款，请尽快支付。</p>");
+$("#confirmPaid").hide();
+}
+}
+},"json");
+});
+});
+$(document).ready(function(){
+$("ul.headerShoppingStep > li").eq(1).addClass("active");
+$("ul.headerShoppingStep > li").eq(2).addClass("active");
+$(document).attr("title","订单提交成功,请支付");
+});
+</script>
+
+<div class="shopcart_wrap">
+<div class="w">
+<div class="payWay">
+<div class="orderTit">
+收银台
+</div>
+
+<%if(model.payToPlatform.payToPlatformRecs.length>0){%>
+<div id="payToPlatformTab" class="tab">
+<div class="orderStatue clearfix">
+<div class="odNumber fl">
+<div class="ic_ok"></div>
+<h2><%=model.payToPlatform.merNames.join(",")%>订单提交成功，请您尽快付款！订单号：
+<% for(var i=0; i < model.payToPlatform.payToPlatformRecs.length; i++){%>
+<% var payment = model.payToPlatform.payToPlatformRecs[i]; %>
+<span><%=payment.orderAliasCode%>(<%=payment.merchantName%>)</span>&nbsp;&nbsp;&nbsp;
+<%}%>
+</h2>
+<small class="msgBox">请您在订单提交后<%=model.closeTime%>内完成支付，否则订单会自动取消</small>
+
+</div>
+<div class="odTotal fr">
+<h2>应付金额<span>¥<%=model.payToPlatform.totalNeedPayAmount%></span></h2>
+</div>
+</div>
+<div class="payPanel">
+<form action="">
+<input name="bankChoose" type="hidden" class="bankChooseValue"/>
+<input type="hidden" id="payToPlatformOrderIds" value="<%=model.payToPlatform.payToPlatformOrderIds%>"/>
+<input name="costTotal" type="hidden"/>
+<div class="payway_list">
+<ul>
+<%for(var j=0;j < model.payToPlatform.payToPlatformPayments.length;j++){%>
+<% var payment = model.payToPlatform.payToPlatformPayments[j] %>
+<%if(payment.objectMap.payInterface.objectMap.isMobile == 'Y'){continue;}%>
+<li class="payWayItem" payi="<%=payment.objectMap.payInterfaceId%>" orderIds="<%=model.payToPlatform.payToPlatformOrderIds%>">
+<label>
+<i class="radio"></i>
+<img src="<%=payment.objectMap.payInterface.objectMap.logoUrl%>"  alt="" width="140" height="40"/>
+</label>
+<div class="price">
+支付<span>￥<%=model.payToPlatform.totalNeedPayAmount%>元</span>
+</div>
+</li>
+<%}%>
+
+</ul>
+</div>
+<div class="btnbox">
+<a href="#" class="od_btn payBtn">确认支付</a>
+</div>
+</form>
+</div>
+</div>
+<%}%>
+
+<%for(var i=0; i < model.independents.length; i++){%>
+<%
+var payRec = model.independents[i].payRecord;
+var independent = model.independents[i];
+%>
+<div id="<%=payRec.merchantId%>Tab" class="tab">
+<div class="orderStatue clearfix">
+<div class="odNumber fl">
+<div class="ic_ok"></div>
+<h2><%=payRec.merchantName%>订单提交成功，请您尽快付款！订单号：
+<span><%=payRec.orderAliasCode%></span>&nbsp;
+</h2>
+<small class="msgBox">请您在订单提交后<%=model.closeTime%>内完成支付，否则订单会自动取消</small>
+</div>
+<div class="odTotal fr">
+<h2>应付金额<span>¥<%=independent.totalNeedPayAmount%></span></h2>
+</div>
+</div>
+<div class="payPanel">
+<form action="">
+<input name="bankChoose" type="hidden" class="bankChooseValue"/>
+<input type="hidden" id="orderId" value="<%=payRec.orderId%>"/>
+<input name="costTotal" type="hidden"/>
+<div class="payway_list">
+<ul>
+<%for(var j=0;j < independent.payments.length;j++){%>
+<% var payment = independent.payments[j] %>
+<%if(payment.objectMap.payInterface.objectMap.isMobile == 'Y'){continue;}%>
+<li class="payWayItem" payi="<%=payment.objectMap.payInterfaceId%>" orderIds="<%=payRec.orderId%>">
+<label>
+<i class="radio"></i>
+<img src="<%=payment.objectMap.payInterface.objectMap.logoUrl%>"  alt="" width="140" height="40"/>
+</label>
+<div class="price">
+支付<span>￥<%=independent.totalNeedPayAmount%>元</span>
+</div>
+</li>
+<%}%>
+
+</ul>
+</div>
+<div class="btnbox payBtn">
+<a href="#" class="od_btn">确认支付</a>
+</div>
+</form>
+</div>
+</div>
+<%}%>
+
+<%if(model.codPayRecs.length>0){%>
+<div id="codPaymentTab" class="tab">
+<div class="orderStatue clearfix">
+<div class="odNumber fl">
+<div class="ic_ok"></div>
+<h2>订单提交成功，请您尽快付款！订单号：
+<% for(var i=0; i < model.codPayRecs.length; i++){%>
+<% var payment = model.codPayRecs[i]; %>
+<span><%=payment.orderAliasCode%>(<%=payment.merchantName%>)</span>&nbsp;&nbsp;&nbsp;
+<%}%>
+</h2>
+<small>请保持通讯畅通，我们将尽快送货。</small>
+</div>
+</div>
+</div>
+<%}%>
+<!-- 这里会出现在线支付,在订单确认页全部都支付完成的情况(如使用积分或预存款或储值卡全部支付),所以要判断如果待支付金额为0并且是在线支付的订单就显示这个信息 -->
+<%if(model.payToPlatform.totalNeedPayAmount == 0 && model.codPayRecs.length == 0 && model.independents.length == 0){%>
+<%if(model.payToPlatform.isIntegralOrder){%>
+<div class="panelBd">
+<div class="orderStatue">
+<div class="orderStatueNumber float_l">
+<h2>您已成功支付订单，订单号：
+<% for(var i=0; i < model.orders.length; i++){%>
+<% var order = model.orders[i]; %>
+<span><%=order.aliasCode%></span>
+<%}%>
+，感谢您对武商网的支持！
+</h2>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<%} else {%>
+<div class="panelBd">
+<div class="orderStatue">
+<div class="orderStatueNumber float_l">
+<h2>订单已提交，感谢您对我们的支持！！订单号：
+<% for(var i=0; i < model.orders.length; i++){%>
+<% var order = model.orders[i]; %>
+<span><%=order.aliasCode%>(<%=order.sellerInfo.merName%>)</span>&nbsp;&nbsp;&nbsp;
+<%}%>
+</h2>
+<small class="msgBox">你的货款已收到,请保持通讯畅通，我们将尽快送货。</small>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<%}%>
+<%}%>
+</div>
+</div>
+</div>
+<%=#importUrl("/cartFooter.html")%>
+<!-- 提示框 -->
+<div class="msgPanel shanchu" id="confirmPaid" style="display:none">
+<div class="hd">提示</div>
+<div class="bd">
+<div class="schu_con">
+<i class="sc_icon"></i>
+<h2>支付完成前请不要关闭本窗口。</h2>
+</div>
+
+<div class="btnBox">
+<a class="od_btn ml10" id="okButton">我已经完成了支付</a>
+<a class="odgray_btn" id="cancelButton">支付不成功，我要再选其他方式支付</a>
+</div>
+</div>
+</div>
+<!-- end 提示框 -->
+</body>
+</html>

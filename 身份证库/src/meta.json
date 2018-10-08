@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "IDCardLib",
+    "libs": ["services/IDCardLibService.jsx","services/IDCardLibQuery.jsx","services/IDCardLibUtil.jsx"],
+    "obj_prefixes": ["IDCardLibObj"],
+    "list_prefixes": ["IDCardLibList"]
+}

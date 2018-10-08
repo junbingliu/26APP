@@ -1,0 +1,62 @@
+<form class="form-horizontal form-inline">
+    <div class="form-group" style="margin-top:10px">
+        <label class="control-label col-md-5" for="export_fileName" style="float: left;">导出文件名称：</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="export_fileName" name="export_fileName"
+                   placeholder="不填则以导出时间命名">
+        </div>
+
+    </div>
+    <div style="margin-left:10px">
+        <input type="checkbox" onclick="selectAll(this)">全选
+        <div>
+            {{~it.selectProductMess:value:index}}
+            <input style="margin-right: 5px" type="checkbox" class="selectProductMess" {{? value.checked}}checked="checked"{{?}}>{{=value.title}}{{? index%6==0}}<br/>{{?}}
+            {{~}}
+        </div>
+    </div>
+<script>
+    var ifSelsetAll=false;
+    function selectAll(e){
+        ifSelsetAll= e.checked;
+        var obj=document.getElementsByClassName("selectProductMess");
+        for (var i = 0; i < obj.length; i++) {
+            var obj1 = obj[i];
+            obj1.checked=e.checked;
+        }
+    }
+</script>
+
+    <div class="modal-footer">
+        <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+        <button type="button" class="btn btn-primary" id="upload_file_smt"
+                data-loading-text="处理中...">
+            确定
+        </button>
+    </div>
+    <script>
+       $("#upload_file_smt").bind("click",function(){
+           var data=[];
+           var obj=document.getElementsByClassName("selectProductMess");
+           var selectProductMess=JSON.parse('{{=JSON.stringify(it.selectProductMess)}}');
+           for (var i = 0; i < obj.length; i++) {
+               var obj1 = obj[i];
+              if(obj1.checked==true){
+                  var user={};
+                  user.title=selectProductMess[i].title;
+                  user.field=selectProductMess[i].field;
+                  data.push(user)
+              }
+           }
+           $.post("/outProduct/server/outPutProductMessage.jsx",
+                   {titles:JSON.stringify(data),
+                    fileName:$("#export_fileName").val(),
+                    keyword:'{{=it.mess.keyword}}',
+                    endCreateTime:'{{=it.mess.endCreateTime}}',
+                    beginCreateTime:'{{=it.mess.beginCreateTime}}'
+                   },function(res){
+               alert(res.msg);
+           },"json")
+       })
+    </script>
+</form>

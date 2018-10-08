@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="@{static/style/bootstrap-datetimepicker.min.css}@" rel="stylesheet"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script src="@{static/lib/bootstrap-datetimepicker.min.js}@"></script>
+    <script src="@{static/lib/locales/bootstrap-datetimepicker.zh-CN.js}@"></script>
+    <link rel="stylesheet" href="@{static/style/commom.css}@">
+    <link href="/resources/summernote/summernote.css" rel="stylesheet">
+    <script src="/resources/summernote/summernote.js"></script>
+    <script src="/resources/summernote/lang/summernote-zh-CN.js"></script>
+    <script type="text/javascript" src="@{js/memberClass.js}@"></script>
+
+</head>
+<body>
+{{=$.inc("pages/include_nav/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="head-ico">
+                <h1>添加活动</h1>
+            </div>
+            <div class="activityTitle">
+                <div class="input-group">
+                    <span class="input-group-addon">所属俱乐部</span>
+                    <select id="commonSelect">
+                        <option>越秀俱乐部</option>
+                        <option>天河俱乐部</option>
+                        <option>深圳俱乐部</option>
+                    </select>
+                </div>
+            </div>
+            <div class="activityTitle">
+                <div class="input-group">
+                    <span class="input-group-addon">活动标题 </span>
+                    <input type="text" class="form-control" placeholder="请输入活动标题" style="width: 26%" id="activityTitle">
+                </div>
+            </div>
+            <div class="activityTitle">
+                <div class="input-group">
+                    <span><strong>活动头图：</strong></span>
+                    <input type="file" id="inputfile" style="margin-left: 2rem;display: inline">
+                    <img src="" id="activityHeadIco">
+                </div>
+            </div>
+            <div class="activityTitle">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">开始时间</label>
+                    <div class="input-group date form_datetime col-md-3">
+                        <input class="form-control" size="16" type="text" readonly id="beginJoinTime">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">结束时间</label>
+                    <div class="input-group date form_datetime col-md-3">
+                        <input class="form-control" size="16" type="text" readonly id="endJoinTime">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="activityTitle">
+                <div class="input-group">
+                    <span><strong>取消截止：</strong></span>
+                    <span style="margin-left: 1rem">独立活动开课前</span>
+                    <input type="text" id="singleEnd" style="width: 5%" placeholder="1"/> <span>天,系列活动每次子活动开课前</span>
+                    <input
+                            type="text" id="multiEnd" style="width: 5%" placeholder="7"><span>天</span>
+                </div>
+            </div>
+            <div class="activityTitle">
+                <label class="col-sm-2 control-label">图文详情</label>
+                <div class="form-group">
+                    <textarea name="prizeInstructions" id="prizeInstructions"></textarea>
+                </div>
+            </div>
+            <label for="checkRadio">是否单一活动</label>
+            <div id="checkRadio">
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0"> 是
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="1"> 否
+                </label>
+            </div>
+            <div class="activityTitle" style="margin-bottom: 5rem">
+                <div class="alert alert-info" style="width: 30%">
+                    多课堂承办。保存新建活动后，再编辑课堂信息
+                </div>
+                <button type="button" class="btn btn-default" id="submitActivity"> 保存活动</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#prizeInstructions').summernote({
+        lang: 'zh-CN',
+        tabsize: 2,
+        codemirror: {
+            mode: 'text/html',
+            htmlMode: true,
+            lineNumbers: true,
+            theme: 'monokai'
+        },
+        height: 300,
+        minHeight: null,
+        maxHeight: null,
+        width: "70%",
+        focus: true,
+    });
+    $('#prizeInstructions').summernote('code');
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy/mm/dd hh:ii:ss',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        minuteStep: 1
+    });
+
+</script>
+
+</body>
+</html>

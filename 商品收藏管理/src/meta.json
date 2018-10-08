@@ -1,0 +1,7 @@
+{
+    "libs_namespace": "FavoriteProduct",
+    "libs": ["services/FavoriteProductService.jsx","services/FavoriteProductUtil.jsx"],
+    "obj_prefixes": ["favoriteProductObj"],
+    "list_prefixes": ["favoriteProductList"]
+
+}

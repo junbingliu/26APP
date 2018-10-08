@@ -1,0 +1,172 @@
+/* Created by Qianglong Mo 2015 */
+
+/* vip card */
+.vipCard {
+}
+
+.vipCard .panelBd {
+    min-height: 538px;
+}
+
+.vipCardEntry {
+    margin-top: 12px;
+}
+
+.vipCardEntry .btn {
+    margin-right: 15px;
+}
+
+.vipCardEntry .btn:last-child {
+    margin-right: 0;
+}
+
+/* my vip card */
+.myVipCard{
+}
+
+/* vip card apply */
+.myVipCard .panelBd {
+    min-height: 624px;
+}
+
+.vipCardApplyStep {
+    font-size: 14px;
+    color: #555;
+}
+
+.vipCardApplyStep .btnPrimary.btnLg {
+    width: auto;
+    height: 36px;
+    /*line-height: 36px;*/
+    padding: 0 30px;
+}
+
+.vipCardApplyTitle {
+    margin-top: 40px;
+    margin-bottom: 9px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+}
+
+.vipCardApplyStep .offset {
+    margin-left: 107px;
+}
+
+.vipCardApplyStep .formGroupThin {
+    height: 30px;
+    line-height: 30px;
+    padding: 10px 0;
+}
+
+.vipCardApplyStep .formGroup .formRadioGroup {
+    display: inline-block;
+    margin-top: -3px;
+}
+
+.vipCardApplyStep .formGroup * {
+    vertical-align: middle;
+}
+
+.vipCardApplyStep .formGroup label {
+    display: inline-block;
+    width: 98px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: right;
+    vertical-align: middle;
+    color: #333;
+}
+
+.vipCardApplyStep .textInputLong {
+    width: 375px;
+}
+
+.vipCardApplyStep .textInputShort {
+    width: 250px;
+}
+
+.vipCardApplyStep .formRadioWrap {
+    display: inline-block;
+}
+
+.vipCardApplyStep01 {
+    margin: 0 0 0 105px;
+}
+
+.vipCardApplyStep02 {
+    margin: 0 0 0 105px;
+}
+
+.vipCardApplyStep03,
+.vipCardBindStep03
+{
+    color: #333;
+}
+
+.vipCardApplyStep03 h2,
+.vipCardBindStep03 h2{
+    margin: 103px 0 19px 0;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.vipCardApplyStep03 p,
+.vipCardBindStep03 p{
+    font-size: 14px;
+}
+
+.vipCardApplyStep03 p a,
+.vipCardBindStep03 p a{
+    color: #1e589d;
+    text-decoration: underline;
+}
+
+/* bind authorize */
+.bindAuthorize01 {
+    margin: 0 0 0 105px;
+}
+
+.bindAuthorize02 h2 {
+    font-weight: normal;
+}
+
+.bindAuthorize02 .success {
+    padding-top: 10px;
+}
+
+.bindAuthorize02 .success * {vertical-align: middle;}
+
+.bindAuthorize02 .btnPrimary {
+    line-height: 36px;
+}
+
+/* bind authorize */
+
+.applyVipCard {
+    font-size: 14px;
+    color: #555;
+}
+
+.applyVipCard {
+    margin: 0 0 0 105px;
+}
+
+/* my coupon */
+.myCoupon .panelBd {
+    min-height: 624px;
+}
+.couponList .tableBd td { height: 54px;}
+.couponList .tableBd .couponOperate a {
+    color: #1e589c;
+    text-decoration: underline;
+    margin: 0 2px;
+}
+
+.couponTips {
+    line-height: 24px;
+    padding: 0 20px;
+    margin-top:24px;
+    font-size: 14px;
+    color: #666;
+}

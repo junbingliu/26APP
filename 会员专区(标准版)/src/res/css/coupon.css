@@ -1,0 +1,66 @@
+/* created by Qianglong Mo 2014 */
+
+/* myWanjia Card */
+.myCard{
+
+}
+.myCardWrap{
+    min-height: 626px;
+}
+.myCard .btnPrimary{
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    margin-right: 8px;
+}
+.myCard .btn:hover{
+    border: 1px #999 solid;
+}
+.myCardCont{
+    background: #fcfcfc;
+    margin-top: 15px;
+    padding: 25px 37px;
+    border: 1px solid #e7e7e7;
+}
+.myCardCont p{
+    font-size: 14px;
+    color: #555;
+}
+.myCardCont .textInput{
+    padding: 5px 10px;
+    width: 341px;
+}
+.myCardCont .p3{
+    padding-left: 182px;
+    margin-top: 20px;
+}
+.tableBd td{
+    height: 52px;
+}
+.myCardWarp .panelBd {
+    min-height: 624px;
+}
+
+/* coupon page */
+.myCoupon .active {
+    background: #e14041 !important;color: #fff!important;
+}
+.myCoupon .btns .btn{
+    font-size: 14px;
+    margin-right: 1px;
+    height: 27px;
+    line-height: 27px;
+    color: #555;
+    background: #f4f4f4;border: none;
+}
+.myCardCont .btnPrimary {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    margin-right: 8px;
+}
+
+
+
+
+

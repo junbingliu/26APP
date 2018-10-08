@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <link href="../style/app.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container well" style="margin-top:20px">
+    <div class="">
+        这是一个订单事件：当订单确认后，根据卡券商品赠送卡券到购买人的账户上。
+    </div>
+</div>
+
+</body>
+</html>

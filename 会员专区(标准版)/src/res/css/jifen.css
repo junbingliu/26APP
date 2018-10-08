@@ -1,0 +1,90 @@
+/* Created by Qianglong Mo 2015 */
+
+/* my jifen */
+.myJifen {
+}
+
+.myJifenSummary {
+    color: #555;
+    font-size: 14px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.myJifenSummary * {
+    vertical-align: middle;
+}
+
+.myJifenSummaryCurrent {
+    display: inline-block;
+    width: 184px;
+    height: 65px;
+    line-height: 65px;
+    padding: 0 0 0 10px;
+    vertical-align: middle;
+}
+
+.myJifenSummaryCurrent .textPrimary {
+    margin-left: 18px;
+    font-size: 36px;
+}
+
+.myJifenSummaryUseDate {
+    display: inline-block;
+    height: 65px;
+    line-height: 65px;
+    padding: 0 0 0 45px;
+    margin-left: 10px;
+    vertical-align: middle;
+    border-left: 1px solid #ddd;
+}
+
+.myJifenSummaryUseDate .textIgnore {
+    margin: 0 26px;
+    font-size: 36px;
+    color: #555;
+}
+
+.myJifenSummaryUseDate .date {
+    color: #9f9f9f;
+}
+
+
+.myJifenQuery {
+    margin: 30px 0 30px 10px;
+}
+
+.myJifenQuery * {
+    color: #555;
+    font-size: 14px;
+    vertical-align: middle;
+}
+/* my jifen list */
+.myJifenListJifenFilter {
+}
+
+.myJifenListJifenFilter .select {
+    margin-left: 5px;
+}
+
+.myJifenListTable {
+    color: #555;
+    margin-top: 22px;
+}
+
+.myJifenListTable .tableBd td {
+    height: 50px;
+    line-height: 50px;
+}
+
+.myJifenListSource {
+    padding: 0 0 0 62px;
+    text-align: left;
+}
+
+.myJifenListTable .add .score {
+    color: #e14041;
+}
+
+.myJifenListTable .sub .score {
+    color: #5dad00;
+}

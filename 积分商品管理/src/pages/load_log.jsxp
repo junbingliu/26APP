@@ -1,0 +1,49 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <!--<th>ID</th>-->
+        <th>#</th>
+        <th>商品ID</th>
+        <th>商品名称</th>
+        <th>SKU编码</th>
+        <th>商品分类</th>
+        <th>修改前现金</th>
+        <th>修改后现金</th>
+        <th>修改前积分</th>
+        <th>修改后积分</th>
+        <th>操作方式</th>
+        <th>修改人</th>
+        <th>修改时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{each resultList as value i}}
+    {{if value && value.id}}
+    <tr>
+        <input type="hidden" name="id" value="{{#value.id}}"/>
+        <td>{{i+1}}</td>
+        <td>{{#value.productId}}</td>
+        <td>{{#value.name}}</td>
+        <td>{{#value.realSkuId}}</td>
+        <td>{{#value.typeName}}</td>
+        <td>{{#value.beginMoney}}</td>
+        <td>{{#value.endMoney}}</td>
+        <td>{{#value.beginJifen}}</td>
+        <td>{{#value.endJifen}}</td>
+        <td>{{#value.operationTypeName}}</td>
+        <td>{{#value.loginId}}</td>
+        <td>{{#value.createTime}}</td>
+    </tr>
+    {{/if}}
+    {{/each}}
+    </tbody>
+</table>
+<div style="margin-top: 5px;padding-top: 10px;">
+    <div style="float:right;">
+        <div class="pagination_params" id="pagination_params" totalPages="{{pageParams.totalPages}}"
+             currentPage="{{pageParams.currentPage}}" totalRecords="{{pageParams.totalRecords}}"
+             displayNum="{{pageParams.displayNum}}" pageLimit="{{pageParams.pageLimit}}"
+             recordType="{{pageParams.recordType}}">
+        </div>
+    </div>
+</div>

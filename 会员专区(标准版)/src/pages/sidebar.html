@@ -1,0 +1,40 @@
+<div class="sidebarMain">
+    <div class="sidebarMainHd">
+        <h2><a href="/ucenter/index.html">我的专区</a></h2>
+    </div>
+    <div class="sidebarMainBd">
+        <h3>交易管理</h3>
+        <ul>
+            <li><a href="/ucenter/order_list.html">我的订单</a></li>
+            <li><a href="/ucenter/favor.html">我的收藏</a></li>
+        </ul>
+
+        <h3>账户信息</h3>
+        <ul>
+            <li><a href="/ucenter/jifen.html">我的积分</a></li>
+            <li><a href="/ucenter/coupon.html">我的优惠券</a></li>
+        </ul>
+
+        <h3>个人信息</h3>
+        <ul>
+            <li><a href="/ucenter/profile.html">个人资料</a></li>
+            <li><a href="/ucenter/security.html">安全中心</a></li>
+            <li><a href="/ucenter/address.html">地址管理</a></li>
+        </ul>
+
+        <h3>客户服务</h3>
+        <ul>
+            <li><a href="/ucenter/return_order.html">退换货申请</a></li>
+            <li><a href="/ucenter/return_records.html">退换货记录</a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    (function(){
+        var pathName = window.location.pathname;
+        var currLink = $(".sidebarMain .sidebarMainBd a[href='" + pathName + "']");
+        if(currLink){
+            currLink.parent().addClass("active");
+        }
+    })();
+</script>

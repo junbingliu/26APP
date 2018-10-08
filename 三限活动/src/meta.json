@@ -1,0 +1,45 @@
+{
+  "libs_namespace": "limitActivity",
+  "libs": ["services/limitActivity.jsx"],
+  "obj_prefixes": ["limitActivity"],
+  "list_prefixes": ["limitActivity"],
+  "isWidget":true,
+  "productExtra":{
+    "enabled":true,
+    "name" : "限购活动",
+    "homePage" : "pages/extraMain.jsx"
+  },
+  "eventHandlers":[
+      {
+        "eventName":"cart_afterChangeAmount",
+        "pageId":"eventHandlers/checkLimit.jsx",
+        "handlerId":"cart_beforeChangeAmount_checkActivity",
+        "description":"购物车改变时，判断是否超过了限购数量。"
+      },
+      {
+        "eventName":"orderAddBefore",
+        "pageId":"eventHandlers/onBeforeAddOrderHandler.jsx",
+        "throwException":"true",
+        "handlerId":"onBeforeAddOrder_checkActivity",
+        "description":"下单前，判断是否超过了限购数量。"
+      },
+      {
+        "eventName":"orderCancelAfter",
+        "pageId":"eventHandlers/onOrderCancelAfterHandler.jsx",
+        "handlerId":"onOrderBeforeUpdate_rollbackLimitActivity",
+        "description":"订单取消时，退回锁定的限购数量。"
+      },
+      {
+        "eventName":"orderCancelAutoAfter",
+        "pageId":"eventHandlers/onOrderCancelAfterHandler.jsx",
+        "handlerId":"onOrderAutoCancel_rollbackLimitActivity",
+        "description":"订单自动取消，退回锁定的限购数量。"
+      }
+  ],
+  "rules":[{
+              "id":"fullControl",
+              "name":"完全控制",
+              "pattern":".*"
+            }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "libs_namespace": "OmsEsbControlCenter",
+    "libs": ["services/OmsEsbLogService.jsx","services/OmsEsbLogQuery.jsx","services/OmsControlArgService.jsx"],
+    "obj_prefixes": ["omsEsbLog"],
+    "list_prefixes": ["omsEsbLog"]
+
+}

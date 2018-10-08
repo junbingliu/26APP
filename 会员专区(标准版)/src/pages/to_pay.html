@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>去付款 - <%=webName%></title>
+
+</head>
+<body onload="document.getElementById('payOrderForm').submit();">
+<%if(payHtml){%>
+<div style="display:none"><%=#payHtml%></div>
+<%}else{%>
+<script type="text/javascript">
+    document.location.href = "/ucenter/order_detail.html?id=" + "<%=orderId%>";
+</script>
+<%}%>
+<div style="text-align:center;margin:auto;"><img src="@{res/images/ajax_loading.gif}@"/><br/>正在自动跳转请稍候...</div>
+</body>
+</html>

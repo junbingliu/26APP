@@ -1,0 +1,10 @@
+{
+    "eventHandlers":[
+        {
+            "eventName":"realPayChanged",
+            "pageId":"eventHandlers/onRealPayChanged.jsx",
+            "handlerId":"realPayRecordEventHandler_OnRealPayChanged",
+            "description":"支付状态改变后，修改相应的订单状态。"
+        }
+    ]
+}

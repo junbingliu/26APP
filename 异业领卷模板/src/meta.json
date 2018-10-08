@@ -1,0 +1,29 @@
+{
+    "appEditor":{"enabled":true},
+    "renderEngine":"artTemplate",
+    "pages" : [
+        {"url":"/mobile/differentIndustry.html","name":"异业领卷","pageId":"differentIndustry","template":"pages/differentIndustry.html","dataProcessor":"@process/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"h5名称","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"关联店号","value":""},"dataSpec":{"id":"config.keywords","type":"string"}}
+            ]}
+    ],
+    "templates" : [
+        {"template":"pages/differentIndustry.html","name":"异业领卷模版","description":"复杂的页面，可以作为异业领卷，频道页等。","dataProcessor":"@process/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"h5名称","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"关联店号","value":""},"dataSpec":{"id":"config.keywords","type":"string"}}
+
+            ]}
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

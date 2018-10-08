@@ -1,0 +1,17 @@
+<div class="pluginItem" data-bind="with:pluginItems.integralPay">
+    <div class="itemTitle" data-bind="click:toggle">
+        <a href="#" >
+            <b data-bind="css:{expanded:detailVisible}"></b>使用积分
+        </a>
+    </div>
+    <div class="itemBody" data-bind="visible:detailVisible">
+        <!-- ko ifnot:confirmed -->
+        <div>本次用积分抵扣<input type="text" class="integralInput" data-bind="value:useMoney">元支付。<span><button class="btn btn-danger" data-bind="click:setUseMoney">确定</button></span></div>
+        <div class="integralMemo">您有积分<b data-bind="text:integralBalance"></b>个，可以抵扣<b data-bind="text:canUseMoney"></b>元。</div>
+        <!-- /ko -->
+        <!-- ko if:confirmed -->
+        <div>本次用积分抵扣<span class="money" data-bind="text:useMoney"></span>元支付。<span><button class="btn btn-danger" data-bind="click:edit">修改</button></span></div>
+        <div class="integralMemo">您有积分<b data-bind="text:integralBalance"></b>个，可以抵扣<b data-bind="text:canUseMoney"></b>元。</div>
+        <!-- /ko -->
+    </div>
+</div>

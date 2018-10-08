@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="cn" style="height:100%;margin:0px;padding:0px;border:0px">
+<head>
+    <meta charset="utf-8"/>
+    <title>网页编辑</title>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/bootbox.min.js}@"></script>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+</head>
+<body style="margin-top:50px">
+<div class="container">
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>糟糕，出错啦!</strong>{{=it.errorMsg}}
+    </div>
+</div>
+
+</body>
+</html>
+

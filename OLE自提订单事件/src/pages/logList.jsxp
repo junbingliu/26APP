@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/resources/bootstrap3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../style/app.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.7.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.min.js"></script>
+    <script>
+        var merchantId = '{{=it.merchantId}}';
+        var logType = '{{=it.logType}}';
+    </script>
+    <script type="text/javascript" src="@{js/logList.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div class="row" style="display: none;">
+        <form class="form-inline" role="search">
+            <div class="form-group">
+                <label class="sr-only" for="keyword">关键字</label>
+                <input type="text" class="form-control" id="keyword" placeholder="订单号">
+            </div>
+            <button type="button" class="btn btn-default" id="search">搜 索</button>
+        </form>
+    </div>
+    <div class="row">
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

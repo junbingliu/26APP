@@ -1,0 +1,24 @@
+.attrBox{ padding:10px 0 0 0;}
+.attrBox .tips { height:24px; line-height:24px; color:#e60000; padding:10px 0 0 20px;}
+.attrBox li{ width:100%; margin-top:10px; bvertical-align:top; overflow:hidden; }
+.attrBox .frame li span{ float:left; margin-top:20px; width:80px; text-align:right;}
+.attrBox .frame li div{ float:left;}
+.attrBox .frame .color div a{ width:50px; height:50px; overflow:hidden;}
+.attrBox .choose div a{ border:1px solid #cccccc; padding:1px; display:inline-block; margin-right:4px; position:relative;}
+.attrBox .choose div a:hover{ border:2px solid #e60000; padding:0}
+.attrBox .choose div .cur{ border:2px solid #e60000; padding:0}
+.attrBox .choose div .cur i{ background:url(@{res/images/detail_ui.png}@) no-repeat; width:10px; height:10px; position:absolute; right:0; bottom:0; background-position:0 -30px;}
+.attrBox .choose div .disable{ border:1px dashed #cccccc; padding:1px; display:inline-block; margin-right:4px; *margin-right:2px; position:relative;}
+.attrBox .frame .ver span{ margin-top:8px}
+.attrBox .frame .ver div a{ padding:5px 8px; color:#999999;}
+.attrBox .frame .ver div a:hover{ border:2px solid #e60000; padding:4px 7px; text-decoration:none}
+.attrBox .frame .ver div .cur{ border:2px solid #e60000; padding:4px 7px; color:#333333}
+.attrBox .btns{ margin:10px 0 0 56px;}
+.btn_01 { background: url("@{res/images/btn_ui.png}@") repeat-x scroll 0 -234px transparent;border: 1px solid #DF1919;  color: #FFFFFF;  display: inline-block;   padding: 0 15px; text-align: center;  background-position: 0 -234px;font-weight: bold; height: 23px; line-height: 23px;}
+
+.num a, .num input { display: inline-block;ertical-align: middle;}
+.num input {  border: 1px solid #A7A6AA; height: 20px; margin: 5px 3px; text-align: center; width: 38px;}
+.num a { background:url("@{res/images/detail_ui.png}@") no-repeat; background-position: -14px -127px; height: 11px;text-indent: -9999px;width: 11px;}
+.num .add { background-position: 0 -127px;}
+.attrBox .frame .ver .num a:hover{border:0px solid #999999;  padding:0px; text-decoration:none}
+

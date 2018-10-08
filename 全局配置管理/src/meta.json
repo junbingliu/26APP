@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "GlobalVariableManagementApp",
+    "libs": ["services/globalVariableManagementService.jsx","services/countryManagementService.jsx"],
+    "obj_prefixes": ["globalVariableObj","countryObj"],
+    "list_prefixes": ["globalVariableList","countryList"]
+}

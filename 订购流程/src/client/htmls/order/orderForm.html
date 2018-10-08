@@ -1,0 +1,102 @@
+<div class="page" id="orderFormPage" style="display: none">
+    <div class="panel panel-default" id="orderFormMain" data-bind="visible:currentPage() == 'orderFormMain'">
+        <div class="panel-heading"><div class="orderFormTitle">填写并核对订单信息</div></div>
+        <div class="panel-body">
+            <table class="table table-hover" id="orderConfirmTable">
+                <tr>
+                    <td class="orderFormFieldLabel">收货人信息&nbsp;<a href="#" data-bind="click:chooseAddress">[修改]</a></td>
+                    <td>
+                        <div>
+                            <span data-bind="text:deliveryAddress.userName" class="addr_userName"></span>
+                            <span data-bind="text:deliveryAddress.mobile" class="addr_mobile"></span>
+                        </div>
+                        <div>
+                            <span data-bind="text:deliveryAddress.regionName" class="addr_fullAddress"></span>
+                            <span data-bind="text:deliveryAddress.address" class="addr_fullAddress"></span>
+                        </div>
+                    </td>
+                    <td><a href="#" data-bind="click:chooseAddress">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td class="orderFormFieldLabel">配送方式&nbsp;<a href="#" data-bind="click:askForDeliveryRule">[修改]</a></td>
+                    <td>
+                        <div data-bind="visible:selectedDeliveryRuleId()">
+                            <span data-bind="text:selectedDeliveryRuleName"></span><span >,运费：<b>&yen;</b><b data-bind="text:selectedDeliveryRulePrice"></b></span>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="#" data-bind="click:askForDeliveryRule">[修改]</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="orderFormFieldLabel">发票&nbsp;<a href="#" data-bind="click:askForInvoice">[修改]</a></td>
+                    <td>
+                       <span data-bind="html:invoice().shortDesc()"></span>
+                    </td>
+                    <td>
+                        <a href="#" data-bind="click:askForInvoice">[修改]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="orderFormFieldLabel">支付方式&nbsp;<a href="#" data-bind="click:askForPayment">[修改]</a></td>
+                    <td>
+                        <div data-bind="visible:selectedDeliveryRuleId()">
+                            <span  data-bind="text:selectedPayment().name"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="#" data-bind="click:askForPayment">[修改]</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="orderFormFieldLabel">其他要求</td>
+                    <td>
+                        <input type="text" data-bind="value:memo" style="width:95%"/>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="orderFormFieldLabel"></td>
+                    <td style="text-align: right">
+                           <span class="highLightPriceLabel">应付总额：</span><span class="highLightPrice">&yen;<span class="" data-bind="text:finalNeedPayAmount"></span></span><span class="highLightPriceLabel">元</span>
+                           <div>
+                               <a href="#" class="btn btn-danger" data-bind="click:addOrder">立即下单</a>
+                           </div>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="wrapper" id="orderResult" data-bind="visible:currentPage()=='orderResult'">
+        <div class="mt mouTit">
+            <h2>订单成功</h2>
+            <span class="more"><a href="#"></a></span>
+
+        </div>
+        <div class="mc" style="padding-left: 20px;font-size: 14px;color: #d00;">
+            <p class="p1" style="padding: 15px;font-size: 16px"><span style="color: #d00;line-height: 20px">订单号：<b data-bind="text:$root.orderId"></b></span></p>
+        </div>
+    </div>
+
+    <div class="wrapper"id="orderFormMemo" data-bind="visible:currentPage()=='orderFormMemo'">
+        <div class="addressListItem" style="padding:5px 20px">
+            <div><b>备注:</b></div>
+            <div><input style="margin-bottom: 15px;margin-top:10px" type="text"  data-bind="value:memo"/></div>
+        </div>
+        <div data-bind="click:backMain" class="button tiny" style="margin-left:60px">确定</div>
+    </div>
+
+
+
+
+
+
+</div>

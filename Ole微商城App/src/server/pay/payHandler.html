@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>去付款</title>
+    <script type="text/javascript">
+        function submit(){
+            var payOrderForm = document.getElementById('payOrderForm');
+            if(payOrderForm){
+                payOrderForm.submit();
+            }
+        }
+    </script>
+</head>
+<body onload="submit()">
+<div style="display: none">
+    <%=#payHtml%>
+</div>
+<div style="text-align:center;margin:auto;"><br/>正在自动跳转请稍候...</div>
+</body>
+</html>

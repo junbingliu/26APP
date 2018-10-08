@@ -1,0 +1,74 @@
+{
+    "appEditor":{"enabled":true},
+    "renderEngine":"artTemplate",
+    "pages" : [
+        {"url":"/cartHeader.html","name":"购物车页头","pageId":"cartHeaderPage","template":"pages/cartHeader.html","dataProcessor":"@pages/cart_process.jsx","dependsOn":"header",
+          "initData":[
+            {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+            {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+          ]},
+        {"url":"/cartFooter.html","name":"购物车页脚","pageId":"cartFooterPage","template":"pages/cartFooter.html","dataProcessor":"@pages/cart_process.jsx","dependsOn":"header",
+          "initData":[
+            {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+            {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+          ]},
+        {"url":"/cart.html","name":"购物车","pageId":"cartPage","template":"pages/cart.html","dataProcessor":"@pages/cart_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+            ]},
+        {"url":"/orderForm.html","name":"订单结算页","pageId":"orderFormPage","template":"pages/order/orderForm.html","dataProcessor":"@pages/order/order_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+            ]},
+        {"url":"/payOrders.html","name":"收银台","pageId":"payOrders","template":"pages/order/payOrders.html","dataProcessor":"@pages/order/payOrders_process.jsx","dependsOn":"header",
+        "initData":[
+          {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+          {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+        ]}
+    ],
+    "templates" : [
+        {"template":"pages/cartHeader.html","name":"购物车页头","description":"购物车页头","dataProcessor":"@pages/cart_process.jsx",
+          "initData":[
+            {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+            {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+          ]
+        },
+      {"template":"pages/cartFooter.html","name":"购物车页脚","description":"购物车页脚","dataProcessor":"@pages/cart_process.jsx",
+        "initData":[
+          {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+          {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+        ]
+      },
+        {"template":"pages/cart.html","name":"购物车模版","description":"购物车页面","dataProcessor":"@pages/cart_process.jsx",
+            "initData":[
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+                ]},
+        {"template":"pages/order/orderForm.html","name":"订单结算模板","description":"订单结算页","dataProcessor":"@pages/order/order_process.jsx",
+           "initData":[
+                  {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                  {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+           ]
+        },
+      {"template":"pages/order/payOrders.html","name":"收银台","description":"收银台算页","dataProcessor":"@pages/order/payOrders_process.jsx",
+        "initData":[
+          {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+          {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+        ]
+      }
+
+
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

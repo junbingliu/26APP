@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "openAPIManage",
+    "libs": ["services/OpenAPIConfigService.jsx","services/OpenAPIUtil.jsx"],
+    "obj_prefixes": [""],
+    "list_prefixes": [""]
+}

@@ -1,0 +1,107 @@
+{
+  "libs_namespace": "oleMobileApi",
+  "libs": [
+    "services/OrderListQuery.jsx",
+    "server/util/CartUtil.jsx",
+    "services/ArrivalRemindService.jsx",
+    "services/FavoriteGoodsService.jsx",
+    "services/commentLikeService.jsx",
+    "services/commentQuery.jsx",
+    "services/likeQuery.jsx",
+    "services/commentBuildIndex.jsx",
+    "services/likeBuildIndex.jsx",
+    "services/FavoriteProductTypeService.jsx",
+	"services/ProductCommentLikeService.jsx",
+    "server/util/ErrorCode.jsx",
+    "server/util/CommonUtil.jsx",
+    "server/util/MathUtil.jsx",
+    "services/ProductLikeUtilService.jsx",
+    "services/ProductHotValueService.jsx",
+    "services/TrialListService.jsx",
+    "services/ProductLabelService.jsx",
+    "services/FreeGetCardService.jsx",
+    "services/BlackListService.jsx",
+    "services/TrialProductService.jsx",
+    "services/trialProductQuery.jsx",
+    "server/util/TryUseUtil.jsx",
+    "server/util/CommonUtil.jsx",
+    "services/OrderAppraiseService.jsx",
+    "services/SFOrderService.jsx",
+    "services/NearbyMerchantService.jsx",
+    "services/b2cOrderExportHelpService.jsx",
+    "services/OleShopService.jsx",
+    "services/OleShoppingBagService.jsx",
+    "server/util/HttpUrlConnectUtil.jsx",
+    "services/OleScanbuyOrderService.jsx"
+  ],
+  "obj_prefixes": [
+    "arrivalRemind",
+    "favoriteProductCount",
+    "acl_management2",
+    "favoriteProductType",
+	"productSearchAPI",
+    "likes_comment_",
+    "likes_product_",
+    "trial_blackList",
+    "ole_trial_product",
+    "ole_order_appraise",
+    "ole_shop",
+    "ole_bigbag"
+  ],
+  "list_prefixes": [
+    "arrivalRemindList",
+    "favoriteProductCountList",
+    "acl_management2",
+    "favoriteProductTypeList",
+	"productSearchAPI",
+    "trial_blackList",
+    "ole_trial_product",
+    "ole_order_appraise",
+    "ole_shop",
+    "oleshopbag_list"
+  ],
+  "eventHandlers": [
+    {
+      "eventName": "skuRealAmountUpdated",
+      "pageId": "eventHandlers/arrivalRemindEventHandler.jsx",
+      "handlerId": "arrivalRemindEventHandler",
+      "description": "库存修改后触发到货提醒短信"
+    },
+    {
+      "eventName": "orderSignedAfter",
+      "pageId": "eventHandlers/trialProductBlackListHandler.jsx",
+      "handlerId": "trialProductBlackListHandler",
+      "description": "用户签收试用商品之后。"
+    },
+    {
+      "eventName": "TrialApplyNotPass",
+      "pageId": "eventHandlers/addTrialApplyToHistoryHandler.jsx",
+      "handlerId": "addTrialApplyToHistoryHandler",
+      "description": "试用申请不通过则48小时成为历史申请。"
+    },
+    {
+      "eventName": "orderShippingAutoAfter",
+      "pageId": "eventHandlers/createSFOrderHandler.jsx",
+      "handlerId": "addTrialApplyToHistoryHandler",
+      "description": "订单出库后，调用顺丰接口下单。"
+    },
+    {
+      "eventName": "orderShippingAfter",
+      "pageId": "eventHandlers/createSFOrderHandler.jsx",
+      "handlerId": "addTrialApplyToHistoryHandler",
+      "description": "订单出库后，调用顺丰接口下单。"
+    },
+    {
+      "eventName": "orderPaidAutoAfter",
+      "pageId": "eventHandlers/autoShipTryUseOrder.jsx",
+      "handlerId": "orderPaidAutoAfter_autoShipTryUseOrder",
+      "description": "订单支付后，自动将试用订单改成已出库。"
+    },
+    {
+      "eventName": "orderPaidAfter",
+      "pageId": "eventHandlers/autoShipTryUseOrder.jsx",
+      "handlerId": "orderPaidAfter_autoShipTryUseOrder",
+      "description": "订单支付后，自动将试用订单改成已出库。"
+    }
+  ]
+}

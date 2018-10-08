@@ -1,0 +1,60 @@
+<div class="page" id="invoicePage" >
+
+            <div class="orderFormChooser">
+
+                <div class="invoiceList">
+                    <!-- ko foreach:invoiceList -->
+                    <div class="invoiceListItem" data-bind="css:{selected:$parent.selectedInvoiceId()==id()}">
+                        <input type="radio" name="selectedInvoice" data-bind="value:id,checked:$parent.selectedInvoiceId">
+                        <span data-bind="click:$parent.select">
+                            <span class="boldName" data-bind="text:invoiceTitle"></span>
+                            <span data-bind="text:invoiceContent"></span>
+                            <span data-bind="text:invoicePostAddress"></span>
+                            <span class="address_action" data-bind="click:$parent.edit">编辑</span>
+                            <span  class="address_action" data-bind="click:$parent.deleteInvoice">删除</span>
+                        </span>
+                    </div>
+                    <!-- /ko -->
+                    <div class="invoiceListItem" data-bind="css:{selected:selectedInvoiceId()=='none'}">
+                        <input type="radio" name="selectedInvoice" value="none" data-bind="checked:selectedInvoiceId">
+                        <span data-bind="click:$parent.select">
+                            无需发票
+                        </span>
+                    </div>
+
+                    <div class="invoiceListItem" data-bind="css:{selected:selectedInvoiceId()=='newInvoice'}">
+                        <input type="radio" name="selectedInvoice" value="newInvoice" data-bind="checked:selectedInvoiceId">
+                        <span data-bind="click:$parent.select">
+                            使用新发票信息
+                        </span>
+                    </div>
+                </div>
+                <div class="address" data-bind="with:currentInvoice,visible:editFormVisible()" style="margin-top:20px;margin-left:30px">
+                    <table class="table">
+                        <tr>
+                            <td style="width:100px"><span style="color: red;margin-right: 5px">*</span>抬头:</td>
+                            <td><input type="text" data-bind="value:invoiceTitle"/></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: red;margin-right: 5px">*</span>发票内容：</td>
+                            <td>
+                                <input type="text" data-bind="value:invoiceContent" style="width:200px">
+                                <p>提示：发票中的内容，需要根据实际购买的商品确定，并不一定与要求的发票内容一致。</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px"><span style="color: red;margin-right: 5px">*</span>发票地址:</td>
+                            <td><input type="text" data-bind="value:invoicePostAddress"/></td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+                <div class="btn">
+                    <input type="submit" class="btn btn-danger" value="保存发票信息" data-bind="click:saveData">&nbsp;
+                </div>
+
+            </div>
+
+</div>

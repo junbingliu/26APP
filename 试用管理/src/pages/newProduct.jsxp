@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script>var m = '{{=it.merchantId}}';</script>
+    <script src="/fileManager/jsloader.jsx?m={{=it.merchantId}}"></script>
+    <script src="/brandSelector/jsloader.jsx?m={{=it.merchantId}}"></script>
+    <script src="/productSelector/jsloader.jsx?m={{=it.merchantId}}"></script>
+    <script type="text/javascript" src="@{res/js/newProduct.js}@"></script>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<div id="newProduct" style="margin-top: 69px">
+    <div class="container-fluid">
+        <div class="jumbotron" style="font-size: 14px;padding-top: 14px">
+            <div class="form-horizontal" >
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <input id="activeId" type="hidden" value="{{=it.activeId}}"/>
+                        <input id="productObjId" type="hidden" value="{{=it.productObjId}}"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >选择商品:</label>
+                            <div class="col-sm-6">
+                                <button data-bind="click:getProduct">选择商品</button>
+                            </div>
+                            <span style="color: #c8151a;display: inline">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品类别:</label>
+                            <div class="col-sm-6">
+                                <input data-bind="value:columnName" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品名称:</label>
+                            <div class="col-sm-6">
+                                <input data-bind="value:name" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品条码:</label>
+                            <div class="col-sm-6">
+                                <input data-bind="value:barcode" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品原价:</label>
+                            <div class="col-sm-6">
+                                <input data-bind="value:price" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >试用价:</label>
+                            <div class="col-sm-6">
+                                <input type="number" data-bind="value:unitPrice"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >市场价:</label>
+                            <div class="col-sm-6">
+                                <input type="number" data-bind="value:marketPrice"/>
+                            </div>
+                        </div>
+                        <div class="form-group" data-bind="if:details">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品详情:</label>
+                            <div class="col-sm-6" data-bind="foreach:details">
+                                <img data-bind="attr:{'src':url}" style="width: 300px"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品描述:</label>
+                            <div  class="col-sm-6">
+                                <textarea rows="3" cols="60" data-bind="value:productDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >商品数量:</label>
+                            <div class="col-sm-6" data-bind="for:details">
+                                <input type="number" data-bind="value:sellNum"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >是否会员专属:</label>
+                            <div class="col-sm-6">
+                                <input type="checkbox" name="isMember" data-bind="checked:isMember"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >是否需要运费:</label>
+                            <div class="col-sm-6">
+                                <input type="checkbox" name="isFreight" data-bind="checked:isFreight"/>
+                                <div data-bind="visible:isFreight">
+                                <input type="checkbox" data-bind="checked:freight" value="isCash">运费金额
+                                <input type="number" data-bind="value:cash">
+                                <input type="checkbox" data-bind="checked:freight" value="isIntegral">积分
+                                <input type="number" data-bind="value:integral">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >展示优先级:</label>
+                            <div class="col-sm-6">
+                                <input data-bind="value:priority">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="padding-top: 0px;" >状态:</label>
+                            <select data-bind="options:stateList,optionsText:'name',optionsValue:'id',value:state"></select>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <button class="btn btn-default" onclick="goBack()">返回</button>
+                                <button class="btn btn-primary" data-bind="click:saveProduct">保存商品</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

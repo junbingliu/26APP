@@ -1,0 +1,37 @@
+{
+    "appEditor":{"enabled":true},
+    "renderEngine":"artTemplate",
+    "pages" : [
+        {"url":"/mobile/UCenter.html","name":"个人中心","pageId":"homePage","template":"pages/uCenter.html","dataProcessor":"@process/index_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.showLevel","dataValue":{"name":"SHOW区显示楼层","value":"6"},"dataSpec":{"id":"config.showLevel","type":"int"}},
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}},
+                {"dataId":"config.headerCode","dataValue":{"name":"头部统计代码","value":""},"dataSpec":{"id":"config.headerCode","type":"string"}},
+                {"dataId":"config.footerCode","dataValue":{"name":"尾部统计代码","value":""},"dataSpec":{"id":"config.footerCode","type":"string"}}
+
+            ]}
+
+    ],
+    "templates" : [
+        {"template":"pages/uCenter.html","name":"个人中心模版","description":"个人中心","dataProcessor":"@process/ucenter_process.jsx","dependsOn":"header",
+            "initData":[
+                {"dataId":"config.title","dataValue":{"name":"网站标题","value":""},"dataSpec":{"id":"config.title","type":"string"}},
+                {"dataId":"config.keywords","dataValue":{"name":"网站关键字","value":""},"dataSpec":{"id":"config.keywords","type":"string"}},
+                {"dataId":"config.description","dataValue":{"name":"网站描述","value":""},"dataSpec":{"id":"config.description","type":"string"}},
+                {"dataId":"config.updateTime","dataValue":{"name":"数据更新周期(分)","value":"5"},"dataSpec":{"id":"config.updateTime","type":"string"}}
+            ]}
+    ],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

@@ -1,0 +1,22 @@
+<html>
+<head><title>测试签名</title></head>
+<body>
+<form action="testSign.jsx" method="post">
+    <table width="80%">
+        <tr>
+            <td width="80px">merchantId:</td>
+            <td><input type="text" value="<%=merchantId%>" name="merchantId"></td>
+        </tr>
+        <tr>
+            <td width="80px">报文:</td>
+            <td><textarea name="data" style="width: 90%;height: 500px" placeholder="原始报文"><%=data%></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" name="method" value="确定"/></td>
+        </tr>
+    </table>
+</form>
+<%=#msg%>
+</body>
+</html>

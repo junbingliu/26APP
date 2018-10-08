@@ -1,0 +1,193 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+    /*#pushManagementList th {*/
+    /*min-width: 150px;*/
+    /*}*/
+</style>
+<table class="table table-bordered" id="pushManagementList">
+    <tr>
+        <th style="width:100px;min-width: 120px;">推送服务日志ID</th>
+        <th style="width:100px;">基本ID</th>
+        <th style="min-width: 80px;">本次操作</th>
+        <th style="min-width: 80px;">操作者ID</th>
+        <th style="width:50px;min-width: 100px;">操作平台ID</th>
+        <th style="min-width: 150px;">操作时间</th>
+        <!--<th style="max-width: 200px;">推送对象</th>-->
+        <!--<th style="max-width: 200px;">触发状态</th>-->
+        <!--<th style="max-width: 150px;">推送渠道</th>-->
+        <!--<th style="max-width: 200px;">推送内容选择</th>-->
+        <!--<th style="max-width: 150px;">推送状态</th>-->
+        <!--<th style="">推送内容</th>-->
+        <td style="max-width: 150px;">旧数据</td>
+        <td style="max-width: 150px;">新数据</td>
+        <!--<th style="max-width: 200px">操作</th>-->
+    </tr>
+    {{~it.pushManagement:value:index}}
+    <tr>
+        <td class="">{{=value.id}}</td>
+        <td class="">{{=value.pushManagementId}}</td>
+        <td class="">
+            {{? value.operation=="create"}}
+            <label class="label label-success">新建</label>
+            {{?? value.operation=="modify"}}
+            <label class="label label-info">修改</label>
+            {{?? value.operation=="delete"}}
+            <label class="label label-default">删除</label>
+            {{?}}
+        </td>
+        <td class="">{{=value.backEndLoginId}}</td>
+        <td class="">{{=value.merchantId}}</td>
+        <td class="">{{=value.operationTimeString}}</td>
+        <!--<td>-->
+        <!--{{? value.new_data.pushTarget_value=="0"||value.new_data.pushTarget_value===0}}-->
+        <!--线下课堂活动-->
+        <!--{{?? value.new_data.pushTarget_value=="1"||value.new_data.pushTarget_value===1}}-->
+        <!--视频教学-->
+        <!--{{?}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{? value.new_data.toTriggerState_value=="0"||value.new_data.toTriggerState_value===0}}-->
+        <!--开放报名提醒-->
+        <!--{{?? value.new_data.toTriggerState_value=="1"||value.new_data.toTriggerState_value===1}}-->
+        <!--取消截止提醒-->
+        <!--{{?? value.new_data.toTriggerState_value=="2"||value.new_data.toTriggerState_value===2}}-->
+        <!--即将开课提醒-->
+        <!--{{?? value.new_data.toTriggerState_value=="3"||value.new_data.toTriggerState_value===3}}-->
+        <!--报名成功提醒-->
+        <!--{{?? value.new_data.toTriggerState_value=="4"||value.new_data.toTriggerState_value===4}}-->
+        <!--取消报名提醒-->
+        <!--{{?? value.new_data.toTriggerState_value=="5"||value.new_data.toTriggerState_value===5}}-->
+        <!--视频教学暂无状态-->
+        <!--{{?}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{? value.new_data.pushServer_value=="0"||value.new_data.pushServer_value===0}}-->
+        <!--APP推送-->
+        <!--{{?? value.new_data.pushServer_value=="1"||value.new_data.pushServer_value===1}}-->
+        <!--公众号推送-->
+        <!--{{?? value.new_data.pushServer_value=="2"||value.new_data.pushServer_value===2}}-->
+        <!--站内信推送-->
+        <!--{{?}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{? value.new_data.pushContentSetUp_value=="0"||value.new_data.pushContentSetUp_value===0}}-->
+        <!--文字编辑-->
+        <!--{{?? value.new_data.pushContentSetUp_value=="1"||value.new_data.pushContentSetUp_value===1}}-->
+        <!--跳转落地配置-->
+        <!--{{?}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{? value.new_data===false||value.new_data==false}}-->
+        <!--<button class="btn btn-back">已删除</button>-->
+        <!--{{?}}-->
+        <!--{{? value.new_data.pushStatement_value=="0"||value.new_data.pushStatement_value===0}}-->
+        <!--<button class="btn btn-success">已启动</button>-->
+        <!--{{?? value.new_data.pushStatement_value=="1"||value.new_data.pushStatement_value===1}}-->
+        <!--<button class="btn btn-danger">已暂停</button>-->
+        <!--{{?}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{? value.new_data}}-->
+        <!--{{=value.new_data.pushContent_value}}-->
+        <!--{{?}}-->
+        <!--</td>-->
+        <td>
+            <textarea name="" cols="30" rows="5" style="width: 100%;" readonly="readonly">
+            {{? value.old_data}}
+            {{= JSON.stringify(value.old_data)}}
+            {{?}}
+            </textarea>
+        </td>
+        <td>
+            <textarea name="" cols="30" rows="5" style="width: 100%;" readonly="readonly">
+            {{? value.new_data}}
+            {{= JSON.stringify(value.new_data)}}
+            {{?}}
+            </textarea>
+        </td>
+        <!--<td style="text-align: center">-->
+        <!--<button data-id="{{=value.id}}" type="button" class="btn btn-primary btn-sm"-->
+        <!--id="toSystemRecordsDetail">查看详情-->
+        <!--</button>-->
+        <!--<button data-id="{{=value.id}}" type="button" class="btn btn-danger btn-sm"-->
+        <!--id="deletePushManagement">删除-->
+        <!--</button>-->
+        <!--</td>-->
+    </tr>
+    <!--{{? value.old_data===false||value.old_data==="false"}}-->
+    <!--<td colspan="13">-->
+    <!--新建推送服务，没有旧日志-->
+    <!--</td>-->
+    <!--{{?}}-->
+    <!--<tr>-->
+    <!--<td class="" colspan="6">-->
+    <!--操作前数据-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--{{? value.old_data.pushTarget_value=="0"||value.old_data.pushTarget_value===0}}-->
+    <!--线下课堂活动-->
+    <!--{{?? value.old_data.pushTarget_value=="1"||value.old_data.pushTarget_value===1}}-->
+    <!--视频教学-->
+    <!--{{?}}-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--{{? value.old_data.toTriggerState_value=="0"||value.old_data.toTriggerState_value===0}}-->
+    <!--开放报名提醒-->
+    <!--{{?? value.old_data.toTriggerState_value=="1"||value.old_data.toTriggerState_value===1}}-->
+    <!--取消截止提醒-->
+    <!--{{?? value.old_data.toTriggerState_value=="2"||value.old_data.toTriggerState_value===2}}-->
+    <!--即将开课提醒-->
+    <!--{{?? value.old_data.toTriggerState_value=="3"||value.old_data.toTriggerState_value===3}}-->
+    <!--报名成功提醒-->
+    <!--{{?? value.old_data.toTriggerState_value=="4"||value.old_data.toTriggerState_value===4}}-->
+    <!--取消报名提醒-->
+    <!--{{?? value.old_data.toTriggerState_value=="5"||value.old_data.toTriggerState_value===5}}-->
+    <!--视频教学暂无状态-->
+    <!--{{?}}-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--{{? value.old_data.pushServer_value=="0"||value.old_data.pushServer_value===0}}-->
+    <!--APP推送-->
+    <!--{{?? value.old_data.pushServer_value=="1"||value.old_data.pushServer_value===1}}-->
+    <!--公众号推送-->
+    <!--{{?? value.old_data.pushServer_value=="2"||value.old_data.pushServer_value===2}}-->
+    <!--站内信推送-->
+    <!--{{?}}-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--{{? value.old_data.pushContentSetUp_value=="0"||value.old_data.pushContentSetUp_value===0}}-->
+    <!--文字编辑-->
+    <!--{{?? value.old_data.pushContentSetUp_value=="1"||value.old_data.pushContentSetUp_value===1}}-->
+    <!--跳转落地配置-->
+    <!--{{?}}-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--{{? value.old_data.pushStatement_value=="0"||value.old_data.pushStatement_value===0}}-->
+    <!--<button class="btn btn-success">已启动</button>-->
+    <!--{{?? value.old_data.pushStatement_value=="1"||value.old_data.pushStatement_value===1}}-->
+    <!--<button class="btn btn-danger">已暂停</button>-->
+    <!--{{?}}-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--{{? value.old_data}}-->
+    <!--{{=value.old_data.pushContent_value}}-->
+    <!--{{?}}-->
+    <!--</td>-->
+    <!--<td style="text-align: center">-->
+    <!--&lt;!&ndash;<button data-id="{{=value.id}}" type="button" class="btn btn-primary btn-sm"&ndash;&gt;-->
+    <!--&lt;!&ndash;id="">查看详情&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button data-id="{{=value.id}}" type="button" class="btn btn-danger btn-sm"&ndash;&gt;-->
+    <!--&lt;!&ndash;id="deletePushManagement">删除&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--</td>-->
+    <!--</tr>-->
+    {{~}}
+</table>
+
+
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}" enableToPage="false">
+</div>

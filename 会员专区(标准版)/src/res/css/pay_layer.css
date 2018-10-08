@@ -1,0 +1,45 @@
+#pay_box {
+    width: 880px;
+    overflow: hidden;
+    /*background-color: #feffdf;;*/
+    /*border: 1px solid #ffcc7f;*/
+}
+
+#pay_box h4 {
+    margin: 12px;
+    font-size: 14px;
+    background: none;
+}
+
+#pay_box .box1 {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+#pay_box .box1 ul {
+    padding: 0
+}
+
+#pay_box .box1 ul li {
+    height: 42px;
+    width: 142px;
+    float: left;
+    margin-left: 60px;
+    margin-bottom: 26px;
+    overflow: hidden;
+}
+
+
+
+#pay_box .box1 ul li a {
+    /*border: 1px solid #feffdf;*/
+    border: 1px solid #999;
+    height: 40px;
+    width: 140px;
+    display: block;
+}
+
+#pay_box .box1 ul li a:hover {
+    border: 1px solid #f60;
+}

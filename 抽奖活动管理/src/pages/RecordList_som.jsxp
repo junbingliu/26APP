@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="@{js/layDate-v5.0.9/laydate/theme/default/laydate.css}@">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script type="text/javascript" src="@{js/layDate-v5.0.9/laydate/laydate.js}@"></script>
+    <script>
+        var merchantId = '{{=it.merchantId}}';
+        var id = "{{=it.id}}"
+    </script>
+
+    <script type="text/javascript">
+
+    </script>
+
+
+    <script type="text/javascript" src="@{js/RecordList_som.js}@"></script>
+
+
+    <script>
+        $(function () {
+            laydate.render({
+                elem: '#Prize_time'
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#Prize_type").change(function () {
+                if (this.value == "1") {
+                    $("#moou_1").show();
+                    $("#moou_2").hide();
+                    $("#moou_3").hide();
+                    $("#moou_4").hide();
+                } else if (this.value == "2") {
+                    $("#moou_3").show();
+                    $("#moou_1").hide();
+                    $("#moou_2").hide();
+                    $("#moou_4").hide();
+                } else if (this.value == "3") {
+                    $("#moou_4").show();
+                    $("#moou_1").hide();
+                    $("#moou_2").hide();
+                    $("#moou_3").hide();
+                } else if (this.value == "4") {
+                    $("#moou_2").show();
+                    $("#moou_1").hide();
+                    $("#moou_3").hide();
+                    $("#moou_4").hide();
+                } else {
+                    $("#moou_1").hide();
+                    $("#moou_2").hide();
+                    $("#moou_3").hide();
+                    $("#moou_4").hide();
+                }
+            })
+        })
+    </script>
+
+
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div>
+        <div class="row" style="margin-bottom: 10px;">
+
+            <div class="form-group" style="margin-left: 200px">
+                <input list="eventName_btn" id="input" class="col-sm-2 control-label"
+                       for="eventName_btn"></input>
+                <datalist class="col-sm-6" style="min-height: 80px; min-width: 40px" name="eventName_btn"
+                          id="eventName_btn">
+                    {{~it.list:value:index}}
+                    <option value="{{=value.name}}" data-value="{{=value.name}}" data-id="{{=value.id}}"></option>
+                    {{~}}
+                </datalist>
+
+
+                <div class="col-xs-2">
+                    <input type="hidden" value="{{=it.merchantId}}" name="merchantId" id="merchantId">
+                    <button type="button" class="btn btn-default" style="background: #5FBFE7"  id="search_btn">搜 索</button>
+                    <input type="button" class="btn btn-default" style="background: #BDBDBD" id="save_som" value="新增"/>
+                </div>
+            </div>
+
+
+            <div>
+                <!--异步加载数据列表部分-->
+                <div class="row-fluid">
+                    <div id="record_list" class="record_list span12">
+                    </div>
+                </div>
+
+                <!--分页部分-->
+                <div class="row-fluid">
+                    <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: left;">
+                        <div class="pagination" style="margin: 0; ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="myModal_som">
+            <div class="modal-dialog" style="width: 1000px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加奖项设置</h4>
+                    </div>
+                    <div class="modal-body" id="doSave_Feedback">
+                        <div>
+                            <div class="row">
+                                <form class="form-horizontal">
+                                    <fieldset>
+                                        <input type="hidden" class="form-control" name="id" id="id"></input>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label " for="Sweepstakes_activity_type">活动名称</label>
+                                            <select class="col-sm-4 form-control" style="min-height: 40px; width:400px; margin-left: 15px"
+                                                    name="Sweepstakes_activity_type" id="Sweepstakes_activity_type">
+                                                {{~it.lost:value:index}}
+                                                <option value="{{=value.id}}">{{=value.name}}</option>
+                                                {{~}}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Activity_name">奖品名称*</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="Activity_name"
+                                                       id="Activity_name"></input>
+                                            </div>
+                                        </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">上传图片</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="upload_image" name="upload_image"
+                                                           placeholder="未选择文件">
+                                                </div>
+                                            </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Starting_angle">开始角度*</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="Starting_angle"
+                                                       id="Starting_angle"  onkeyup="if(!/^\d+$/.test(this.value)) text1.innerHTML='必须输入数字,且不能有空格。'; else text1.innerHTML='';"></input><span id="text1" style="color: #a60809"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="End_angle">结束角度*</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="End_angle" id="End_angle"
+                                                       onkeyup="if(!/^\d+$/.test(this.value)) text2.innerHTML='必须输入数字,且不能有空格。'; else text2.innerHTML='';"></input><span id="text2" style="color: #a60809"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Prize_number">奖品数量</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="Prize_number"
+                                                       id="Prize_number" onkeyup="if(!/^\d+$/.test(this.value)) text3.innerHTML='必须输入数字,且不能有空格。'; else text3.innerHTML='';"></input><span id="text3" style="color: #a60809"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"
+                                                   for="Maximum_number_prizes">每日最大放奖数量</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="Maximum_number_prizes"
+                                                       id="Maximum_number_prizes" onkeyup="if(!/^\d+$/.test(this.value)) text4.innerHTML='必须输入数字,且不能有空格。'; else text4.innerHTML='';"></input><span id="text4" style="color: #a60809"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Activity_grade">等级</label>
+                                            <select class="col-sm-4 form-control" style="min-height: 40px; width:300px; margin-left: 15px"
+                                                    name="Activity_grade" id="Activity_grade">
+                                                <option value="0">特等奖</option>
+                                                <option value="1">一等奖</option>
+                                                <option value="2">二等奖</option>
+                                                <option value="3">三等奖</option>
+                                                <option value="4">四等奖</option>
+                                                <option value="5">五等奖</option>
+                                                <option value="6">六等奖</option>
+                                                <option value="7">七等奖</option>
+                                                <option value="8">八等奖</option>
+                                                <option value="9">九等奖</option>
+                                                <option value="10">无奖品幸运奖</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Award_notice">奖项通知</label>
+                                            <div class="col-sm-4">
+                                                <textarea class="form-control" rows="5"
+                                                          style="width:400px;padding-top:1px;font-size:14px;"
+                                                          name="Award_notice" id="Award_notice"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Front_end_display_information">前端显示信息</label>
+                                            <div class="col-sm-4">
+                                                <textarea class="form-control" rows="5"
+                                                          style="width:400px;padding-top:1px;font-size:14px;"
+                                                          name="Front_end_display_information"
+                                                          id="Front_end_display_information"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Prize_time">放奖时间</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" name="Prize_time" id="Prize_time"></input>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="Prize_type">奖品类型</label>
+                                            <select class="col-sm-3 form-control" style="min-height: 40px; width:300px; margin-left: 15px"
+                                                    name="Prize_type" id="Prize_type">
+                                                <option value="0">实物</option>
+                                                <option value="1">积分</option>
+                                                <option value="2">VIP优惠券</option>
+                                                <option value="3">CPS优惠券</option>
+                                                <!--  <option value="4">小票积分</option>-->
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="display: none" id="moou_1">
+                                            <label class="col-sm-2 control-label" for="integral">积分</label>
+                                            <div class="col-sm-2">
+                                                <input class="form-control" name="integral" id="integral" onkeyup="if(!/^\d+$/.test(this.value)) text5.innerHTML='必须输入数字,且不能有空格。'; else text5.innerHTML='';"></input><span id="text5" style="color: #a60809"></span>
+                                            </div>
+                                            <div class="col-lg-6 radio">
+                                                <label>
+                                                    输入
+                                                    <strong class="badge bg-success">正数</strong>
+                                                    增加积分，输入
+                                                    <strong class="badge bg-warning">负数</strong>
+                                                    减少积分
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display: none" id="moou_2">
+                                            <label class="col-sm-2 control-label" for="Integral_multiples">积分倍数</label>
+                                            <div class="col-sm-2">
+                                                <input class="form-control" name="Integral_multiples"
+                                                       id="Integral_multiples" value="0.0"></input>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display: none" id="moou_3">
+                                            <label class="col-sm-2 control-label" for="VIP_coupon">VIP优惠券</label>
+                                            <select class="col-sm-3" style="min-height: 40px; min-width: 40px"
+                                                    name="VIP_coupon" id="VIP_coupon">
+                                                {{~it.vipList:value:index}}
+                                                <option value="{{=value.id}}">{{=value.name}}</option>
+                                                {{~}}
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="display: none" id="moou_4">
+                                            <label class="col-sm-2 control-label" for="CPS_coupon">CPS优惠券</label>
+                                            <select class="col-sm-3" style="min-height: 40px; min-width: 40px"
+                                                    name="CPS_coupon" id="CPS_coupon">
+                                                {{~it.cpsList:value:index}}
+                                                <option value="{{=value.id}}">{{=value.name}}</option>
+                                                {{~}}
+                                            </select>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="modal-footer">
+                                        <div class="col-sm-offset-4 col-sm-8" style="margin-left: 200px;">
+                                            <button type="button" class="btn btn-primary" style="width:60px;"
+                                                    id="create_btn_som">创建
+                                            </button>
+                                            <button type="button" class="btn btn-default" style="width:60px;"
+                                                    id="cancel_btn_som" data-dismiss="modal">取 消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>

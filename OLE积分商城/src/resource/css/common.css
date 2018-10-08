@@ -1,0 +1,874 @@
+@charset "utf-8";
+
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html {
+	color: #555;
+	background: #f2f2f2;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: none;
+}
+
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	margin: 0;
+	padding: 0;
+}
+
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* HTML5 媒体文件跟 img 保持一致 */
+audio, canvas, video {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+/* 要注意表单元素并不继承父级 font 的问题 */
+body, button, input, select, textarea {
+	font:500 14px/1.8 Lucida,Verdana,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+}
+
+/* IE6 Button 宽度自适应 */
+button, input {
+	*width: auto;
+	*overflow:visible;
+}
+
+/* 去掉各Table  cell 的边距并让其边重合 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* IE bug fixed: th 不继承 text-align*/
+th {
+	text-align: inherit;
+}
+
+/* 去除默认边框 */
+fieldset, img {
+	border: 0;
+}
+
+/* 解决 IE6-7 图片缩放锯齿问题 */
+img {
+    -ms-interpolation-mode: bicubic;
+}
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+	display: block;
+}
+
+/* 块/段落引用 */
+blockquote {
+	margin: 1em 4em 1em 2em;
+	padding: 0.6em 1em;
+	background: #f1f1f1;
+}
+blockquote blockquote {
+	padding: 0 0 0 1em;
+	margin-left: 2em;
+	border-left: 0.4em solid #ddd;
+}
+
+/* Firefox 以外，元素没有下划线，需添加 */
+acronym, abbr {
+	border-bottom: 1px dotted;
+	font-variant: normal;
+}
+
+input,
+img {
+	vertical-align: middle;
+}
+
+
+/* 添加鼠标问号，进一步确保应用的语义是正确的（要知道，交互他们也有洁癖，如果你不去掉，那得多花点口舌） */
+abbr {
+	cursor: help;
+}
+
+/* 一致的 del 样式 */
+del {
+	text-decoration: line-through;
+}
+
+address, caption, cite, code, dfn, em, th, var {
+	font-style: normal;
+	font-weight: 400;
+}
+
+/* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
+ul, ol {
+	list-style: none;
+}
+em,
+i {
+	font-style: normal
+}
+
+
+/* 对齐是排版最重要的因素, 别让什么都居中 */
+caption, th {
+	text-align: left;
+}
+
+q:before, q:after {
+	content: '';
+}
+
+/* 统一上标和下标 */
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: text-top\9;
+}
+:root sub, :root sup{
+	vertical-align: baseline; /* for ie9 and other mordern browsers */
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+
+/* 让链接在 hover 状态下显示下划线 */
+a:hover {
+}
+
+/* 默认不显示下划线，保持页面简洁 */
+ins, a {
+	text-decoration: none;
+	color: #333;
+}
+
+/* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+ * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+ * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+ * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+ * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
+ */
+u, .typo-u {
+	text-decoration: underline;
+}
+
+/* 标记，类似于手写的荧光笔的作用 */
+mark {
+	background: #fffdd1;
+}
+
+/* 代码片断 */
+pre, code {
+	font-family: "Courier New", Courier, monospace;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+pre {
+	border: 1px solid #ddd;
+	border-left-width: 0.4em;
+	background: #fbfbfb;
+	padding: 10px;
+}
+
+/* 底部印刷体、版本等标记 */
+small {
+	font-size: 12px;
+	color: #888;
+}
+
+.clearfix:before, .clearfix:after {
+	content: "";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both
+}
+
+.clearfix {
+	zoom: 1
+}
+
+/* 保证块/段落之间的空白隔行 */
+.typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr, .typo table,
+.typo-p, .typo-pre, .typo-ul, .typo-ol, .typo-dl, .typo-form, .typo-hr, .typo-table {
+	margin-bottom: 1em;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 500;
+	font-weight: 800\9;
+	color:#333;
+}
+/* 去除 webkit 中 input 和 textarea 的默认样式  */
+
+.typo-input,
+.typo-textarea {
+	-webkit-appearance: none;
+	border-radius: 0;
+}
+
+* {
+	outline: 0;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-box-sizing: border-box;
+}
+
+html {
+	font-size: 20px;
+}
+
+@media (min-width:320px) {
+	html {
+		font-size: 20px;
+	}
+}
+
+@media (min-width:360px) {
+	html {
+		font-size: 23px;
+	}
+}
+
+@media (min-width:375px) {
+	html {
+		font-size: 24px;
+	}
+}
+
+@media (min-width:384px) {
+	html {
+		font-size: 24.5px;
+	}
+}
+
+@media (min-width:400px) {
+	html {
+		font-size: 25px;
+	}
+}
+
+@media (min-width:414px) {
+	html {
+		font-size: 25.875px;
+	}
+}
+
+@media (min-width:424px) {
+	html {
+		font-size: 26.5px;
+	}
+}
+
+@media (min-width:480px) {
+	html {
+		font-size: 30px;
+	}
+}
+
+@media (min-width:540px) {
+	html {
+		font-size: 33.75px;
+	}
+}
+
+@media (min-width:640px) {
+	html {
+		font-size: 40px;
+	}
+}
+
+/* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+.typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6,
+.typo-h1, .typo-h2, .typo-h3, .typo-h4, .typo-h5, .typo-h6 {
+	margin-bottom: 0.4em;
+	line-height: 1.5;
+}
+.typo h1, .typo-h1 {
+	font-size: 1.8em;
+}
+.typo h2, .typo-h2 {
+	font-size: 1.6em;
+}
+.typo h3, .typo-h3 {
+	font-size: 1.4em;
+}
+.typo h4, .typo-h4 {
+	font-size: 1.2em;
+}
+.typo h5, .typo h6, .typo-h5, .typo-h6 {
+	font-size: 1em;
+}
+
+/* 在文章中，应该还原 ul 和 ol 的样式 */
+.typo ul, .typo-ul {
+	margin-left: 1.3em;
+	list-style: disc;
+}
+.typo ol, .typo-ol {
+	list-style: decimal;
+	margin-left: 1.9em;
+}
+.typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 2em;
+}
+.typo li ul, .typo-ul ul, .typo-ol ul {
+	list-style: circle;
+}
+
+/* 同 ul/ol，在文章中应用 table 基本格式 */
+.typo table th, .typo table td, .typo-table th, .typo-table td {
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+}
+.typo table th, .typo-table th {
+	background: #fbfbfb;
+}
+.typo table thead th, .typo-table thead th {
+	background: #f1f1f1;
+}
+
+/* 去除 webkit 中 input 和 textarea 的默认样式  */
+.typo-input, .typo-textarea{
+	-webkit-appearance:none;
+	border-radius:0;
+}
+
+/*
+ * Swiper - Mobile Touch Slider CSS
+ * http://www.idangero.us/sliders/swiper
+ *
+ * Vladimir Kharlampidi, The iDangero.us
+ * http://www.idangero.us/
+ *
+ * Copyright 2012-2013, Vladimir Kharlampidi
+ * The iDangero.us
+ * http://www.idangero.us
+ *
+ * Licensed under GPL & MIT
+ *
+*/
+
+/* ===============================================================
+Basic Swiper Styles
+================================================================*/
+.slide-banner{
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
+	-webkit-backface-visibility:hidden;
+	-moz-backface-visibility:hidden;
+	-ms-backface-visibility:hidden;
+	-o-backface-visibility:hidden;
+	backface-visibility:hidden;
+	/* Fix of Webkit flickering */
+	z-index:1;
+}
+.swiper-wrapper {
+	position:relative;
+	-webkit-transition-property:-webkit-transform, left, top;
+	-webkit-transition-duration:0s;
+	-webkit-transform:translate3d(0px,0,0);
+	-webkit-transition-timing-function:ease;
+
+	-moz-transition-property:-moz-transform, left, top;
+	-moz-transition-duration:0s;
+	-moz-transform:translate3d(0px,0,0);
+	-moz-transition-timing-function:ease;
+
+	-o-transition-property:-o-transform, left, top;
+	-o-transition-duration:0s;
+	-o-transform:translate3d(0px,0,0);
+	-o-transition-timing-function:ease;
+	-o-transform:translate(0px,0px);
+
+	-ms-transition-property:-ms-transform, left, top;
+	-ms-transition-duration:0s;
+	-ms-transform:translate3d(0px,0,0);
+	-ms-transition-timing-function:ease;
+
+	transition-property:transform, left, top;
+	transition-duration:0s;
+	transform:translate3d(0px,0,0);
+	transition-timing-function:ease;
+}
+.swiper-free-mode > .swiper-wrapper {
+	-webkit-transition-timing-function: ease-out;
+	-moz-transition-timing-function: ease-out;
+	-ms-transition-timing-function: ease-out;
+	-o-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+	margin: 0 auto;
+}
+.swiper-slide {
+	float: left;
+}
+
+/* IE10 Windows Phone 8 Fixes */
+.swiper-wp8-horizontal {
+	-ms-touch-action: pan-y;
+}
+.swiper-wp8-vertical {
+	-ms-touch-action: pan-x;
+}
+
+/* ===============================================================
+Your custom styles, here you need to specify container's and slide's
+sizes, pagination, etc.
+================================================================*/
+.swiper-container {
+	/* Specify Swiper's Size: */
+
+	/*width:200px;
+	height: 100px;*/
+}
+.swiper-slide {
+	/* Specify Slides's Size: */
+
+	/*width: 100%;
+	height: 100%;*/
+}
+.swiper-slide-active {
+	/* Specific active slide styling: */
+
+}
+.swiper-slide-visible {
+	/* Specific visible slide styling: */
+
+}
+/* ===============================================================
+Pagination Styles
+================================================================*/
+.swiper-pagination-switch {
+	/* Stylize pagination button: */
+
+}
+.swiper-active-switch {
+	/* Specific active button style: */
+
+}
+.swiper-visible-switch {
+	/* Specific visible button style: */
+
+}
+
+/* TODO: 供着重号使用 */
+.typo-em, .typo em {
+	font-weight: 700;
+}
+
+/* TODO: 供首字下沉使用 */
+.typo-first{
+	position: absolute;
+
+}
+*{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent; /* For some Androids */
+	outline: none;
+}
+input:-moz-placeholder, textarea:-moz-placeholder { color: #ccc; }
+input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #ccc; }
+input:-webkit-input-placeholder, textarea:-webkit-input-placeholder { color: #ccc; }
+
+input{-webkit-appearance:none;/*去除input默认样式*/}
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="input"],
+input{-webkit-appearance:none;}
+
+input{
+	-webkit-appearance:none!important;
+	border-radius:0;
+}
+select{
+	-webkit-appearance:none!important;
+	border-radius:0;
+	-webkit-appearance: menulist;
+	-webkit-box-sizing: border-box;
+	-webkit-box-align: center;
+	border: 1px solid;
+	white-space: pre;
+	-webkit-rtl-ordering: logical;
+	background-color: white;
+	cursor: default;
+}
+
+
+/* 结构类common */
+
+#html{
+	font-size:20px;
+}
+.container{
+	width: 100%;
+	max-width: 540px;
+	min-width: 320px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.rowspace{
+	padding: 0 0.444rem;
+}
+.row{
+	position: relative;
+}
+.E_Footer{
+	padding:.2rem;
+	color: #999;
+}
+
+.BgBlable, .BgGlable, .BgRlable{
+	font-size: 0.355rem;
+	padding: .0rem .25rem;
+	color: #fff;
+	margin-right: .1rem;
+	-webkit-border-radius: .3rem;
+	border-radius: .3rem;
+	line-height: .01rem!important;
+}
+/* 基类样式 shadow */
+.shadow{
+	-moz-box-shadow: 0px 2px 2px #e7e7e7; -webkit-box-shadow: 0px 2px 2px #e7e7e7; box-shadow: 0px 2px 2px #e7e7e7;
+}
+.fl-l{ float: left ;}
+.fl-r{ float: right;}
+
+
+.fz14{ font-size: 0.3111rem;!important; }
+.fz16{ font-size: 0.355rem!important;color: #666}
+.fz18{ font-size: 0.4rem;!important;}
+.fz20{ font-size: 0.444rem; !important; }
+.fz24{ font-size: 0.5333rem!important; }
+.fz26{ font-size: 0.5777rem!important; }
+.fz28{ font-size: 0.6222rem!important; }
+.fz30{ font-size: 0.6666rem!important; }
+.fz34{ font-size: 0.7555rem!important; }
+.fz40{ font-size: 0.8888rem!important; }
+.fz52{ font-size: 1.1555rem!important; }
+
+.renQ{ color: #f3484a; !important;}
+.redS{ color: #e14041; !important; }
+.cor999{ color: #999; }
+.cor555{ color: #555; }
+.cor333{ color: #333; }
+.corbbb{ color: #bbb; }
+.coraaa{ color: #aaa; }
+.Cgray{ color: #aaa;!important; }
+
+.width100{ width: 100%;}
+.width66{ width: 66.37%;}
+.width33{ width: 33%;}
+
+.center{ text-align: center }
+.borLeft  {border-left:1px #e5e5e5 solid;}
+.borBottom{border-bottom:1px #e5e5e5 solid;}
+.borTop   {border-top:1px #e5e5e5 solid;}
+.borRight {border-right:1px #e5e5e5 solid;}
+.border   {border:1px #e5e5e5 solid;}
+.originalPrice{ text-decoration:line-through}
+.noborder{border: none !important;}
+
+.mt30{ margin-top: 0.666rem!important;}
+.mt20{ margin-top: 0.444rem!important;}
+.mt10{ margin-top: 0.222rem!important; }
+.pt12{ padding-top: 0.266rem!important;}
+.pt20{ padding-top: 0.444rem!important;}
+.mt2 { margin-top: 0.044rem!important;}
+.mt3 { margin-top: 0.056rem!important;}
+.mt4 { margin-top: 0.088rem!important;}
+.ml12{ margin-left:0.36rem!important;}
+.ml26{ margin-left:0.5377rem }
+.pbBottom6{ padding-bottom: .3rem }
+
+.BgR{ background-color:#e14041;}
+.BgB{ background-color:#1e589c;}
+.BgG{ background-color:#78b235;}
+/*
+-webkit-transition: all .25s;
+-moz-transition: all .25s;
+-ms-transition: all .25s;
+-o-transition: all .25s;
+transition: all .25s;
+*/
+
+
+.pr {
+	position: relative;
+}
+
+.pa {
+	position: absolute;
+}
+
+.pf {
+	position: fixed;
+}
+.TB_overlayBG {
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.TB_window {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+}
+
+/*页头*/
+ .newHead{
+    width: 100%;
+    margin: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+}
+.w-nav {
+    width: 100%;
+    height: 1.788rem;
+    background:#343434; 
+    position: relative;
+   
+}
+
+.w-nav-my{
+    position: absolute;
+    left: 0;
+    top: 0;
+     width: 1.85rem; 
+    height:1.788rem;
+    z-index: 99;
+}
+.w-nav-my em{
+	width: 0.978rem;
+	height: 0.978rem;
+	background: url(../images/ico-head.png) no-repeat;
+	background-size: 100%;
+	display: inline-block;
+	margin:0.53rem 0 0 0.44rem;
+}
+.w-nav-title {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    line-height: 1.788rem;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.w-nav-r {
+    line-height: 1.788rem;
+    position: absolute;
+    right: 0.44rem;
+    top: 0;
+    height: 1.788rem;
+    color: #fff;
+    font-size: 0.667rem;
+    text-align: center;
+}
+.w-nav-r .ico-navigate{
+	width: 0.8rem;
+	height: 0.978rem;
+	background: url(../images/ico-site.png) no-repeat;
+	background-size: 100%;
+	display: inline-block;
+	margin-right: 0.22rem;
+	vertical-align: middle;
+}
+
+.newHead .search{
+	padding: 0.222rem 0.444rem;
+	
+}
+.newHead .search .seek{
+	background: #888;
+	border-radius: 0.222rem;
+	height: 1.333rem;
+	overflow: hidden;
+	line-height:1.33rem;
+	padding: 0 0.444rem;
+	position: ;
+}
+.newHead .search .seek input{
+	background: none;
+	border: none;
+	color: #fff;
+	height: 100%;
+	margin-top: -1px;
+	width: 93%;
+	font-size: 0.533rem;
+}
+.newHead .search .seek .ico-seek{
+	width:0.667rem ;
+	height: 0.667rem;
+	background: url(@{resource/image/search-ico.png}@) no-repeat;
+	background-size:100%;
+	float: right;
+	margin-top: 0.333rem;
+}
+.rowTop {
+    padding: 1.788rem 0 0 0;
+}
+/*end 页头*/
+
+/* 页脚*/
+
+.home-footer {
+	width: 100%;
+	margin: auto;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index: 99;
+}
+
+.foot-nav {
+	background: #343434;
+	height: 2.178rem;
+	position: relative;
+}
+
+.foot-nav ul {
+	display: -webkit-box;
+}
+
+.foot-nav li {
+	-webkit-box-flex: 1;
+	width: 100%;
+}
+
+.foot-nav li a {
+	display: block;
+	width: 3rem;
+	margin: 0 auto;
+	padding: 0.25rem 0 0 0;
+	text-align: center;
+	font-size: 0.5rem;
+	color: #6a6a6a;
+	position: relative;
+	font-weight: bold;
+}
+
+.foot-nav li a .ico {
+	display: block;
+	width:1rem;
+	height: 1rem;
+	margin: 0 auto;
+}
+
+.foot-nav li .txt {
+	display: block;
+	
+}
+
+.foot-nav li.active a {
+	color: #c59d5f;
+}
+.foot-nav li .ico-home {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position: -1.4rem 0;
+	background-size: 4.444rem 8.889rem;
+}
+
+.foot-nav li.active .ico-home {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position: 0.05rem 0;
+	background-size: 4.444rem 8.889rem;
+}
+
+.foot-nav li .ico-nearby {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position: -1.4rem -2.6rem;
+	background-size: 4.444rem 8.889rem;
+}
+
+.foot-nav li.active .ico-nearby {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position:  0.05rem -2.6rem;
+	background-size: 4.444rem 8.889rem;
+}
+
+
+.foot-nav li .ico-agent {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position:-1.4rem -3.85rem;
+	background-size: 4.444rem 8.889rem;
+}
+
+.foot-nav li.active .ico-agent {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+background-position: 0.05rem -3.85rem;
+	background-size: 4.444rem 8.889rem;
+}
+
+
+.foot-nav li .ico-user {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position:-1.4rem -1.35rem;
+	background-size: 4.444rem 8.889rem;
+}
+
+.foot-nav li.active .ico-user {
+	background: url(@{resource/image/footer_ico.png}@) no-repeat;
+	background-position:-1.4rem -1.35rem;
+	background-size: 4.444rem 8.889rem;
+}
+
+
+.foot-nav li .count {
+	right: 0.25rem;
+	top: 0.25rem;
+}
+
+
+/* end 页脚*/
+.icon-arrows{
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    border: #969696 solid;
+    -webkit-transform: rotate(-45deg);
+    border-width: 0 .075rem .075rem 0;
+}
+.money {
+    font-family: "HELVNMIM";
+    color: #C59D5F;
+    font-weight: 500;
+}
+
+.check {
+    display: inline-block;
+    background: url(@{resource/image/check.png}@) no-repeat;
+    background-size: 100% 100%;
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+.checkcur {
+    background: url(@{resource/image/checkcur.png}@) no-repeat;
+    background-size: 100% 100%;
+}

@@ -1,0 +1,22 @@
+{
+    "libs_namespace": "oleSelfDeliveryOrderEvent",
+    "libs": ["services/DirectFirstOrderHalfOffArgService.jsx","services/DirectFirstOrderHalfOffLogService.jsx","services/DirectFirstOrderHalfOffService.jsx"],
+    "obj_prefixes": ["oleSelfDeliveryOrderEventObj"],
+    "list_prefixes": ["oleSelfDeliveryOrderEventList"],
+    "eventHandlers":[
+        {
+            "eventName":"orderAddBefore",
+            "pageId":"eventHandlers/doCheckItemsEvent.jsx",
+            "handlerId":"oleSelfDeliveryOrderEvent_orderAddBefore_doCheckItemsEvent",
+            "throwException":"true",
+            "description":"下单前，检查自提门店是否有销售该商品"
+        },
+        {
+            "eventName":"orderAddAfter",
+            "pageId":"eventHandlers/doMoveOrderEvent.jsx",
+            "handlerId":"oleSelfDeliveryOrderEvent_orderAddBefore_doMoveOrderEvent",
+            "description":"下单后，检查订单是否是自提门店订单，如果是则把订单分配到门店商家中"
+        }
+    ]
+
+}

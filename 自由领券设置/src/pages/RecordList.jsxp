@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="@{style/app.css}@">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script>
+        var merchantId='{{=it.merchantId}}';
+    </script>
+    <script type="text/javascript" src="@{js/RecordList.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div>
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: left;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form class="form-horizontal" id="updateDataForm">
+                    <div class="form-group">
+                        <label for="inputtitle" class="col-sm-2 control-label">标题</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputtitle" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputduration" class="col-sm-2 control-label">时间</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputduration" placeholder="">
+                            <span class="help-block">格式:2016.09.01-2016.10.01</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputmoney" class="col-sm-2 control-label">金额</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputmoney" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputcoupon"  class="col-sm-2 control-label">领券URL</label>
+                        <div class="col-sm-8">
+                            <input type="text"  class="form-control" id="inputcoupon" placeholder="">
+                            <span class="help-block">默认值:/freeGetCardControl/pages/GetCardHandler.jsx</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputactivityId"  class="col-sm-2 control-label">活动ID</label>
+                        <div class="col-sm-8">
+                            <input type="text"  class="form-control" id="inputactivityId" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputcardBatchId"  class="col-sm-2 control-label">券批次ID</label>
+                        <div class="col-sm-8">
+                            <input type="text"  class="form-control" id="inputcardBatchId" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputcomment"  class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-8">
+                            <textarea rows="3" type="text"  class="form-control" id="inputcomment" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <input type="text"  id="inputid" placeholder="" style="display:none;">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="savemodify">保存修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

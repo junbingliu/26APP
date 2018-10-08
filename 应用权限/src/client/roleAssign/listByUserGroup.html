@@ -1,0 +1,40 @@
+<div id="assignByUserGroupPage" class="page">
+    <div class="panel panel-primary" style="margin:auto;width:100%">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;所有用户组
+                <button class="pull-right btn btn-sm btn-info" data-bind="click:beginEdit,visible:!editing()">编辑
+                </button>
+                <button class="pull-right btn btn-sm btn-danger" data-bind="click:endEdit,visible:editing()">完成
+                </button>
+            </h5>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td style="width:120px">用户组id</td>
+                    <td style="width:180px">用户组名称</td>
+                    <td>拥有的角色</td>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach:memberGroups">
+                <tr data-bind="visible:show">
+                    <td data-bind="text:id"></td>
+                    <td data-bind="text:name"></td>
+                    <td>
+                        <ul data-bind="foreach:roles" style="padding-left: 15px;float: left;list-style: none">
+                            <li style="float: left;margin-top:5px;padding: 0px 10px 0 10px;margin-right:10px;border: 1px solid">
+                                <span data-bind="text:name"></span><i style="color:red;padding-left:8px;" class="glyphicon glyphicon-remove" title="删除"
+                                    data-bind="click:$parent.remove,visible:$root.editing()"></i>
+                            </li>
+                        </ul>
+                        <button style="float: left" class="btn btn-sm btn-info"
+                                data-bind="click:$root.selectRoles,visible:$root.editing()">添加角色
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

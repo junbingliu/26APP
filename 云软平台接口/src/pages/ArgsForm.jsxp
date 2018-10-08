@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/resources/jquery/jqueryui_date/css/redmond/jquery-ui-1.10.3.custom.min.css">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/resources/date.format.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery.ui.datepicker-zh-CN.js"></script>
+    <script>
+    var merchantId = '{{=it.merchantId}}';
+    </script>
+    <script type="text/javascript" src="@{js/ArgsForm.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+
+    <form class="form form-horizontal" role="form">
+        <div class="well">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密钥</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" id="appSecret" value="{{=it.appSecret}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">获取用户信息接口地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" id="getMemberByOpenIdUrl" value="{{=it.getMemberByOpenIdUrl}}">
+                    <span class="help-block">格式如：http://wuliu.crvweixin.crv.com.cn/CrvInterface/impl/actThird!getMemberByOpenId.action</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">根据openid获取用户门店编码</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" id="getCodeByOpenIdUrl" value="{{=it.getCodeByOpenIdUrl}}">
+                    <span class="help-block">格式如：http://wuliu.crvweixin.crv.com.cn/CrvInterface/impl/actThird!getCodeByOpenId.action</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">一键微信登录转发接口地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" id="toActOauthUrl" value="{{=it.toActOauthUrl}}">
+                    <span class="help-block">格式如：http://wuliu.crvweixin.crv.com.cn/CrvInterface/impl/actThird!toActOauth.action</span>
+                </div>
+            </div>
+            <h2>以下是Ole与云软件对接的相关配置</h2>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">OLE-密钥</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" id="oleAppSecret" value="{{=it.oleAppSecret}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">OLE一键微信登录转发接口地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" id="oleToActOauthUrl" value="{{=it.oleToActOauthUrl}}">
+                    <span class="help-block">格式如：http://wuliu.crvweixin.crv.com.cn/CrvInterface/impl/actThird!toActOauth.action</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-8">
+                    <input type="hidden" value="{{=it.merchantId}}" id="merchantId">
+                    <button type="button" id="submit_form" class="btn btn-primary">保 存</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

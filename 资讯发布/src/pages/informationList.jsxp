@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    {{=$.inc("pages/common/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/informationList.js}@"></script>
+    <script type="text/javascript" src="@{res/js/bootstrap-datetimepicker.js}@"></script>
+    <script type="text/javascript" src="@{res/js/bootstrap-datetimepicker.zh-CN.js}@"></script>
+
+</head>
+<body>
+{{=$.inc("pages/common/include_navbar.jsx")}}
+<div class="container-fluid">
+    <div>
+        <hr class="titleHr">
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default" id="del">删 除</button>
+                <button type="button" class="btn btn-default" id="up">上 架</button>
+                <button type="button" class="btn btn-default" id="down">下 架</button>
+            </div>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="keyWord" placeholder="关键字/文章标题">
+                <input id="merchantId" value="{{=it.merchantId}}" type="hidden"/>
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default" id="search">搜 索</button>
+                <button type="button" class="btn btn-default" id="seniorSearch">高 级 搜 索</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid searchView" id="content" style="display:none">
+        <div class="well" id="searchForm">
+            <div class="row">
+                <div class="col-md-3" style="width: auto;margin-bottom: 10px;">
+                    <span class="label_name">文章ID：</span>
+                    <input type="text" id="articleId">
+                </div>
+
+                <div class="col-md-3" style="width: auto;margin-bottom: 10px;">
+                    <span class="label_name">发布渠道：</span>
+                    <select id="channel" class="btn btn-default dropdown-toggle">
+                        <option value="">所有</option>
+                        <option value="app">App</option>
+                        <option value="h5">微商城</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4" style="width: auto;margin-bottom: 10px;">
+                    <span class="label_name">状态：</span>
+                    <select id="state" class="btn btn-default dropdown-toggle">
+                        <option value="">请选择</option>
+                        <option value="1">上架</option>
+                        <option value="0">下架</option>
+                    </select>
+                </div>
+
+                <div class="col-xs-4" style="width: auto;margin-bottom: 10px;">
+                    <span class="date_split" style="padding-top: 5px;">创建时间</span>
+                    <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="beginTime" name="beginCreateTime">
+                    <span class="date_split" style="padding-top: 5px;">至</span>
+                    <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="endTime"  name="endCreateTime">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <button type="button" class="btn btn-default" id="query">查询</button>
+                </div>
+                <div style="float: right;">
+                    <a id="quxiao" style="cursor: pointer">取消高级搜索</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('.date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</html>

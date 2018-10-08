@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc("pages/common/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/down.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/common/include_navbar.jsx")}}
+<div class="container-fluid">
+    <div>
+        <input id="merchantId" value="{{=it.merchantId}}" type="hidden"/>
+        <button type="button" class="btn btn-default down" id="del">下 载 模 板</button>
+    </div>
+</div>
+</body>
+</html>

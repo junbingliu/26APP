@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* CSS Document */
+.mem-recharge{
+   width: 890px;
+    margin: 30px  auto;
+    font: 14px microsoft yahei;
+}
+.recharge-form{
+    width: 100%;
+}
+.recharge-form label{
+    line-height: 32px;
+    width: 210px;
+    text-align: right;
+    padding: 0 5px 0 0;
+}
+.recharge-form .put{
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 5px;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #dadada;
+    width: 170px;
+    color: #333;
+    font: 14px microsoft yahei;
+}
+
+.recharge-form .i-tips{
+    border: 1px solid #D9D9D9;
+    background: #F5F5F5;
+    color: #666666;
+    padding: 3px 8px;
+    font-size: 12px;
+}
+
+.recharge-form .i-tips .icon-info05 {
+    background: url(../images/icon16.png) -64px 0;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 0 5px 2px 0;
+}
+
+.recharge-form .msg-text {
+    color: #999;
+    font-size: 12px;
+    margin: 15px 0 5px;
+}
+.recharge-btn {
+    margin: 20px 0 0 0;
+    color: #fff;
+    background: #30315e;
+    border-right: none;
+    border-left: none;
+    border-top: 1px solid #393a6d;
+    border-bottom: 1px solid #27284e;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 30px;
+    font-size: 16px;
+    text-align: center;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.recharge-btn:hover {
+    color: #fff;
+    background: #3f4077;
+    border-top: 1px solid #3f4077;
+    border-bottom: 1px solid #3f4077;
+}

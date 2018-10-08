@@ -1,0 +1,8 @@
+<html>
+<head></head>
+<body style="background-color:white">
+<ul>
+    <li><a href="/appEditor/index.jsx?url=/{{=it.appId}}/indexDesign.jsx&appId={{=it.appId}}&m={{=it.m}}&pageId=pages/index.html">首页</a></li>
+</ul>
+</body>
+</html>

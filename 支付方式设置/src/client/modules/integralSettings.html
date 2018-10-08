@@ -1,0 +1,35 @@
+<div id="integralSettingsPage" class="page">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>积分相关设置</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="integralMoneyRatio">1积分等于多少元</label>
+                            <input type="text" class="form-control" id="integralMoneyRatio" data-bind="value:integralMoneyRatio">
+                        </div>
+                        <div class="form-group">
+                            <label>是否支持商家负积分</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="supportNegativeIntegral" value="true" data-bind="checked:supportNegativeIntegral">
+                                   是
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="supportNegativeIntegral" value="false" data-bind="checked:supportNegativeIntegral">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                        <button type="button" data-bind="click:save">保存</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

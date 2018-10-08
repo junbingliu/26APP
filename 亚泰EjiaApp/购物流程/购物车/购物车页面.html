@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>购物车页面</title>
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<!-- vendor css -->
+		<link rel="stylesheet" href="../../css/yataijia.css">
+		<!-- js -->
+		<script src="js/jqueyr-2.1.1.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<!--head-->
+			<div class="newHead">
+				<nav class="w-nav shop-cart-nav">
+					<div class="w-nav-back">
+						<a href="#" class="icon-back"></a>
+					</div>
+
+					<div class="w-nav-title">购物车</div>
+					<div class="w-nav-r clearfix">
+						<span class="txt-sea fl">编辑</span>
+						<span class="ico-msg ico-shop fr"></span>
+					</div>
+				</nav>
+			</div>
+			<!--end head-->
+
+			<article class="shop-rowTop rowTop">
+				<div class="yt-shopcart">
+					<!--提示-->
+					<div class="cart-hint">
+						<span class="ico-hint"></span>
+						<span>购物车中有<em>4</em>件商品已降价，快去看看</span>
+						<span class="del"></span>
+					</div>
+					<!--end 提示-->
+
+					<!--当前购物车状态-->
+					<div class="cart-state">
+
+						<div class="item-shop">
+							<div class="checkbox fl">
+								<span class="check checkcur"></span>
+							</div>
+							<h2 class="fz30 fl">亚泰自营</h2>
+							<!--<div class="ico-state fr">
+								<span></span>
+							</div>-->
+							<div class="text cor333 fz24 fr">
+								<a href="">领券</a>
+							</div>
+						</div>
+
+						<!--购物车商品-->
+						<!--满赠-->
+						<div class="item">
+							<div class="item-give clearfix">
+								<div class="coupon-state state-1 fl">
+									满赠
+								</div>
+								<div class="give-cont fz24 fl">
+									已购满<span>299.00</span>元，赠送<em>三只松鼠炭烧腰果185g/袋</em>
+								</div>
+								<!--<div class="give-r fz24 fr">
+									再逛逛<span class="ico-site"></span>
+								</div>-->
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+								</div>
+								<div class="center-r">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<div class="amount fr">
+											<a href="#" class="minus"><span></span></a>
+											<input type="text" value="1">
+											<a href="#" class="add"><span></span><em></em></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item-bottom cor666 clearfix">
+								<p class="donate fl"><em>赠品</em> <i class="m10">购满299.00元赠送三只松鼠炭烧腰果</i></p>
+								<div class="num fr">
+									X<span>1</span>
+								</div>
+							</div>
+						</div>
+						<!--end 满赠-->
+						<!--满减-->
+						<div class="item">
+							<div class="item-give clearfix">
+								<div class="coupon-state state-2 fl">
+									满减
+								</div>
+								<div class="give-cont fz24 fl">
+									满<span>199.00</span>元，可减<em>60</em>元
+								</div>
+								<!--<div class="give-r fz24 fr">
+									去凑单<span class="ico-site"></span>
+								</div>-->
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<div class="amount fr">
+											<a href="#" class="minus"><span></span></a>
+											<input type="text" value="1">
+											<a href="#" class="add"><span></span><em></em></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item-bottom cor666 clearfix" style="display: none;">
+								<p class="donate fl"><em>优惠</em> <i class="m10">购满199.00元，可减60元</i></p>
+								<div class="num fr">
+									<span>修改</span>
+								</div>
+							</div>
+						</div>
+						<!--end 满减-->
+						<!--满折-->
+						<div class="item">
+							<div class="item-give clearfix">
+								<div class="coupon-state state-3 fl">
+									满折
+								</div>
+								<div class="give-cont fz24 fl">
+									购满5件，第三件7.0折；第二件5.0折，每单仅享一次
+								</div>
+								<!--<div class="give-r fz24 fr">
+									去凑单<span class="ico-site"></span>
+								</div>-->
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+									<div class="surplus">仅剩<em>5</em>件</div>
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<div class="amount fr">
+											<a href="#" class="minus"><span></span></a>
+											<input type="text" value="1">
+											<a href="#" class="add"><span></span><em></em></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item-bottom cor666 clearfix" style="display: none;">
+								<p class="donate fl"><em>优惠</em> <i class="m10">够满199.00元，可减60元</i></p>
+								<div class="num fr">
+									<span>修改</span>
+								</div>
+							</div>
+						</div>
+						<!--end 满折-->
+						<!--换购-->
+						<div class="item item-2">
+							<div class="item-give clearfix">
+								<div class="coupon-state state-4 fl">
+									换购
+								</div>
+								<div class="give-cont fz24 fl">
+									已购满<em>35.00</em>元，已换购商品
+								</div>
+								<div class="give-r fz24 fr">
+									重新换购<span class="ico-site"></span>
+								</div>
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+									<!--<div class="surplus">仅剩<em>5</em>件</div>-->
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<div class="amount fr">
+											<a href="#" class="minus"><span></span></a>
+											<input type="text" value="1">
+											<a href="#" class="add"><span></span><em></em></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item-huangou">
+								<div class="h-pic"><img src="../../case/190x190-2.jpg"></div>
+								<div class="h-cont">
+									<p class="h-name"><span class="ico">换购</span><em>澳大利亚澳大利亚进口鲜美牛肉牛腱</em></p>
+
+									<p class="h-price">
+										<i>&yen;</i>59.<em>11</em>
+									</p>
+
+									<p class="h-num">X<em>1</em></p>
+								</div>
+							</div>
+						</div>
+						<!--end 换购-->
+						<!--套餐-->
+						<div class="item  item-2 set-meal pr">
+							<div class="item-give clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class="coupon-state state-4 fl">
+									套餐
+								</div>
+								<div class="give-cont fz24 fl">
+									特价有我，赶快带我走~
+								</div>
+								
+							</div>
+							<div class="item-cneter pr clearfix">
+
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+									<div class="surplus" style="display: none;">仅剩<em>5</em>件</div>
+								</div>
+								<div class="center-r" style="width: 60%;">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<p class="h-num"><i>1</i>件/套X<em>1</em></p>
+
+									</div>
+								</div>
+							</div>
+							<div class="item-cneter pr clearfix">
+
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+									<div class="surplus" style="display: none;">仅剩<em>5</em>件</div>
+								</div>
+								<div class="center-r" style="width: 60%;">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<p class="h-num"><i>1</i>件/套X<em>1</em></p>
+
+									</div>
+								</div>
+							</div>
+							<div class="setmeal-cost clearfix">
+								<div class="cost fl">
+									<i class="fz22">套餐价：&yen;</i>299.<em class="fz24">90</em>
+								</div>
+								<div class="amount fr">
+									<a href="#" class="minus"><span></span></a>
+									<input type="text" value="1">
+									<a href="#" class="add"><span></span><em></em></a>
+								</div>
+							</div>
+						</div>
+						<!--end 套餐-->
+					</div>
+
+					<!--商家旗舰店-->
+					<div class="merchant cart-state">
+						<div class="item-shop">
+							<div class="checkbox fl">
+								<span class="check "></span>
+							</div>
+							<h2 class="fz30 fl">家世比旗舰店</h2>
+
+							<div class="text cor333 fz24 fr">
+								<a href="">领券</a>
+							</div>
+						</div>
+						<div class="sales-hint fz24">
+							<div class="fl">限时促销: <em>满一件商品半价</em></div>
+							<div class="donate fr"><em>距开始</em> <i>01</i>：<i>23</i>：<i>59</i></div>
+						</div>
+						<div class="item">
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<div class="amount fr">
+											<a href="#" class="minus"><span></span></a>
+											<input type="text" value="1">
+											<a href="#" class="add"><span></span><em></em></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									<span class="check "></span>
+								</div>
+								<div class='pic fl'>
+									<img src="../../case/230x230.jpg" />
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										<div class="cost fl">
+											<i class="fz22">&yen;</i>299.<em class="fz24">90</em>
+										</div>
+										<div class="amount fr">
+											<a href="#" class="minus"><span></span></a>
+											<input type="text" value="1">
+											<a href="#" class="add"><span></span><em></em></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--end 商家旗舰店-->
+
+					<!--失效商品-->
+					<div class="failure cart-state">
+						<div class="item-shop">
+
+							<h2 class="fz30 fl">失效商品</h2>
+							<div class="text cor999 fz24 fr">
+								清除失效商品
+							</div>
+							<div class="ico-state fr">
+								<span></span>
+							</div>
+
+						</div>
+						<div class="item">
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									失效
+								</div>
+								<div class="pic fl">
+									<img src="../../case/230x230.jpg">
+									<div class="surplus"></div>
+									<div class="ico-out"></div>
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										无货
+									</div>
+								</div>
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									失效
+								</div>
+								<div class="pic fl">
+									<img src="../../case/230x230.jpg">
+									<div class="surplus"></div>
+									<div class="ico-out"></div>
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										无货
+									</div>
+								</div>
+							</div>
+							<div class="item-cneter clearfix">
+								<div class="checkbox fl">
+									失效
+								</div>
+								<div class="pic fl">
+									<img src="../../case/230x230.jpg">
+									<div class="surplus"></div>
+									<div class="ico-out"></div>
+								</div>
+								<div class="center-r ">
+									<p class="name">美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯</p>
+									<p class="norms"><em>规格：</em>原味清爽冰镇香橙</p>
+									<div class="cost-num clearfix">
+										无货
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--end 失效商品-->
+
+					<!--end 购物车商品-->
+
+					<!--当前购物车状态-->
+
+					<div class="guesslove  cart-choose">
+						<div class="love-tit">
+							<div class="tit">
+								<p class="txt fz30">为你推荐</p>
+							</div>
+						</div>
+						<ul class="ytlove clearfix">
+							<li class="item fl">
+								<a href="">
+									<div class="pic">
+										<img src="../../case/315x315.jpg">
+									</div>
+									<div class="depict fz24">
+										美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯
+									</div>
+									<div class="item-bottom clearfix">
+										<div class="cost fl">
+											<del class="fz24 cor666">参考价¥15.00</del>
+											<strong class="fz30">¥9.90</strong>
+										</div>
+										<div class="ico-join fr"><span></span></div>
+									</div>
+
+								</a>
+
+							</li>
+							<li class="item fr">
+								<a href="">
+									<div class="pic">
+										<img src="../../case/315x315.jpg">
+									</div>
+									<div class="depict fz24">
+										美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯
+									</div>
+									<div class="item-bottom clearfix">
+										<div class="cost fl">
+											<del class="fz24 cor666">参考价¥15.00</del>
+											<strong class="fz30">¥9.90</strong>
+										</div>
+										<div class="ico-join fr"><span></span></div>
+									</div>
+
+								</a>
+
+							</li>
+							<li class="item fl">
+								<a href="">
+									<div class="pic">
+										<img src="../../case/315x315.jpg">
+									</div>
+									<div class="depict fz24">
+										美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯
+									</div>
+									<div class="item-bottom clearfix">
+										<div class="cost fl">
+											<del class="fz24 cor666">参考价¥15.00</del>
+											<strong class="fz30">¥9.90</strong>
+										</div>
+										<div class="ico-join fr"><span></span></div>
+									</div>
+
+								</a>
+
+							</li>
+							<li class="item fr">
+								<a href="">
+									<div class="pic">
+										<img src="../../case/315x315.jpg">
+									</div>
+									<div class="depict fz24">
+										美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯
+									</div>
+									<div class="item-bottom clearfix">
+										<div class="cost fl">
+											<del class="fz24 cor666">参考价¥15.00</del>
+											<strong class="fz30">¥9.90</strong>
+										</div>
+										<div class="ico-join fr"><span></span></div>
+									</div>
+
+								</a>
+
+							</li>
+							<li class="item fl">
+								<a href="">
+									<div class="pic">
+										<img src="../../case/315x315.jpg">
+									</div>
+									<div class="depict fz24">
+										美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯
+									</div>
+									<div class="item-bottom clearfix">
+										<div class="cost fl">
+											<del class="fz24 cor666">参考价¥15.00</del>
+											<strong class="fz30">¥9.90</strong>
+										</div>
+										<div class="ico-join fr"><span></span></div>
+									</div>
+
+								</a>
+
+							</li>
+							<li class="item fr">
+								<a href="">
+									<div class="pic">
+										<img src="../../case/315x315.jpg">
+									</div>
+									<div class="depict fz24">
+										美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯美食嘉休闲食品薯仔饼干小吃办公零食充饥紫薯
+									</div>
+									<div class="item-bottom clearfix">
+										<div class="cost fl">
+											<del class="fz24 cor666">参考价¥15.00</del>
+											<strong class="fz30">¥9.90</strong>
+										</div>
+										<div class="ico-join fr"><span></span></div>
+									</div>
+
+								</a>
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</article>
+			<!--底部结算栏-->
+			<div class="cartFtNav">
+				<span class="check checkcur"></span>
+
+				<div class="fl all">全选</div>
+				<div class="fl total">
+					<span class="price s_price"><em>合计：</em><strong>¥578</strong></span>
+					<span class="price">总额：¥598 立减：¥20</span>
+				</div>
+
+				<a href="#" class="jiesuan"><em>去结算</em><i>(2)</i></a>
+
+			</div>
+			<!--end 底部结算栏-->
+
+			<!--返回顶部-->
+			<div class="side-backtop">
+				<a href="#"></a>
+			</div>
+			<!--返回顶部-->
+
+		</div>
+	</body>
+
+</html>

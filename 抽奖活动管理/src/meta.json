@@ -1,0 +1,11 @@
+{
+    "libs_namespace": "lotteryEventManage",
+    "libs": ["services/LotteryEventManageService.jsx","services/ActivitiesHenService.jsx",
+        "services/LotteryEventManageQuery.jsx","services/ActivitiesHenQuery.jsx",
+        "services/PrizeSettingSomService.jsx","services/PrizeSettingSomQuery.jsx",
+        "services/LotteryLogService.jsx","services/LotteryLogQuery.jsx",
+        "services/VerificationCodeService.jsx","services/VerificationCodeQuery.jsx"
+    ],
+    "obj_prefixes": ["lem_","ati_","Prize_O","LogObj_","vfCode"],
+    "list_prefixes": ["lem_","ati_","Prize_List","LogList_","vfCode"]
+}

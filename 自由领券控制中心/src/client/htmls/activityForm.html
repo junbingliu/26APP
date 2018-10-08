@@ -1,0 +1,76 @@
+
+<div class="page main" id="activityForm" style="display: none">
+    <form  class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-md-2 control-label">活动标题</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="请输入活动的名称" data-bind="value:name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">开始时间</label>
+            <div class="input-group date form_datetime col-md-6"  data-link-field="startDate">
+                    <input  class="form-control" size="16" type="text" value="" readonly data-bind="value:beginTime">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">结束时间</label>
+            <div class="input-group date form_datetime col-md-6"  data-link-field="endDate" >
+                <input  class="form-control" size="16" type="text" value="" readonly data-bind="value:endTime">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">是否生效</label>
+
+            <div class="col-md-6">
+                <label class="radio-inline"><input type="radio" name="type" value="true" checked data-bind="checked:isEnable"/>是</label>
+                <label class="radio-inline"><input type="radio" name="type" value="false" data-bind="checked:isEnable"/>否</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">参与的券批次ID</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" data-bind="value:batchIds">
+                <span class="help-block">当前活动可领的券批次，只能为单个券批次</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">每次领券数量</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" style="width: 185px;" data-bind="value:count">
+                <span class="help-block">会员在点击领券的时候，一次可领取的数量</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">最多领券数量</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" style="width: 185px;" data-bind="value:amount">
+                <span class="help-block">每个会员在本活动中总共最多能领取的券数量</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">领券原因</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" data-bind="value:reason">
+                <span class="help-block">该原因将作为会员绑定卡的原因写到日志中</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">活动备注</label>
+            <div class="col-md-6">
+                <textarea class="form-control" rows="3" data-bind="value:desc"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+        <div class="col-md-6">
+            <button style="float: right;margin-left: 20px" type="button" class="btn btn-default" data-bind="click:back">返回</button>
+            <button style="float: right" type="button" class="btn btn-success" data-bind="click:save">保存</button>
+        </div>
+        </div>
+    </form>
+</div>

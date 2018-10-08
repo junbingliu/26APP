@@ -1,0 +1,18 @@
+<!-- 单品优惠 -->
+<div class="messagePanel information" id="ruleSelectorDialog">
+    <div class="messagePanelHd">选择单品优惠<i class="closeBtn" data-bind="click:close"></i></div>
+    <div class="messagePanelBd">
+        <ul data-bind="foreach:availableRuleResults">
+            <li>
+                <input type="checkbox" data-bind="checked:checked,click:$root.recalculateExclude" >
+                <span data-bind="html:userFriendlyMessageString"></span>
+            </li>
+        </ul>
+
+        <div class="btnGroup textCenter mt15">
+            <button class="btn btnPrimary continue"  data-bind="click:ok">确定</button>
+            <button class="btn btnDefault cancel" data-bind="click:close">取消</button>
+        </div>
+    </div>
+</div>
+<!-- end 单品优惠 -->

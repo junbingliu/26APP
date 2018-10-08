@@ -1,0 +1,81 @@
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Ole会员课堂</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li data-a="activityList.jsx"><a href="./activityList.jsx?m={{=it.merchantId}}">所有活动</a></li>
+                <li data-a="addActivity.jsx"><a href="./addActivity.jsx?m={{=it.merchantId}}">添加活动</a></li>
+                <li class="dropdown" data-a="PushManagement">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        推送管理
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li data-a="PushManagementPage.jsx"><a
+                                href="PushManagementPage.jsx?m={{=it.merchantId}}">推送列表</a></li>
+                        <li class="divider"></li>
+                        <li data-a="AddPushManagementPage.jsx"><a href="AddPushManagementPage.jsx?m={{=it.merchantId}}">新增推送</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var currentUrl = window.location.pathname;
+        $('#navbar').find('li').each(function (item) {
+            var $this = $(this);
+            var href = $this.data('a');
+            var type = $this.data('b');
+            $this.removeClass("active");
+            if(href&&href!=""){
+                var matches = href.split(";");
+                for(var i = 0;i<matches.length;i++){
+                    if (currentUrl.indexOf(matches[i]) > 0) {
+                        if (type) {
+                            var curType = getQueryString("t");
+                            if (type == curType) {
+                                $this.addClass("active");
+                            }
+                        } else {
+                            $this.addClass("active");
+                        }
+                        break;
+                    }
+                }
+            }
+
+        });
+    });
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return decodeURI(r[2]);
+        }
+        return null;
+    }
+</script>
+

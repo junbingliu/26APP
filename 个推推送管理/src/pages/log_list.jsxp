@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script>var m = '{{=it.merchantId}}';</script>
+    <script type="text/javascript" src="@{res/js/log_list.js}@"></script>
+    <title>个推对接日志</title>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<div style="padding-top:60px">
+    <div style="margin: 10px 10px 0 10px">
+        <form class="form-inline" role="search">
+            <div class="form-group">
+                <label class="sr-only" for="keyword">关键字</label>
+                <input type="text" class="form-control" id="keyword" placeholder="关键字">
+            </div>
+            <div class="form-group">
+                <label>日志类型：</label>
+                <select name="logType" id="logType" class="form-control" style="width: 100px;height: 34px;font-size: 12px">
+                    <option value="all">所有</option>
+                    <option value="auth_sign">授权</option>
+                    <option value="auth_close">取消授权</option>
+                    <option value="push_single">发送单个消息</option>
+                    <option value="push_app">群发消息</option>
+                    <option value="set_tags">标签管理</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>成功与否：</label>
+                <select name="isSuccess" id="isSuccess" class="form-control" style="width: 100px;height: 34px;font-size: 12px">
+                    <option value="all">所有</option>
+                    <option value="Y">是</option>
+                    <option value="N">否</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="beginCreateTime">创建时间:</label>
+                <div class="input-group date form_date" style="padding:0px;display: inline-block;">
+                    <input class="form-control" style="width: 150px" name="beginCreateTime" size="16" type="text"  id="beginCreateTime" placeholder="选择开始时间">
+                    <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="endCreateTime">到 :</label>
+                <div class="input-group date form_date" style="display: inline-block;">
+                    <input class="form-control" style="width: 150px" name="endCreateTime" size="16" type="text"  id="endCreateTime" placeholder="选择结束时间">
+                    <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default" id="search">搜 索</button>
+        </form>
+    </div>
+    <div style="margin: 10px 10px 0 10px">
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/*
+    $(".form_datetime").datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date(),
+        minuteStep: 1
+    });*/
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii:ss',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: true,
+        todayHighlight: 1,
+        minuteStep: 1,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

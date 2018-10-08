@@ -1,0 +1,326 @@
+<div class="page" id="cartsPage">
+    <div class="wrapper">
+        <div>
+            <table class="cartHeader">
+                <tr>
+                    <td width="23x" data-bind="visible:!readOnly()"><input type="checkbox" class="check" data-bind="checked:allChecked"></td>
+                    <td width="90px" class="checkCell">全选</td>
+                    <td width="400px">商品</td>
+                    <td width="120px">数量</td>
+                    <td width="80px">单价</td>
+                    <td width="80px">优惠价</td>
+                    <td data-bind="visible:!readOnly()">操作</td>
+                </tr>
+            </table>
+        </div>
+        <!-- ko foreach: carts -->
+        <div>
+            <table class="cartTable">
+                <thead>
+                <tr class="merchantHeader">
+                    <td colspan="2" style="vertical-align: middle">
+                        <span>店铺：</span><span data-bind="text:merchantName" class="merchantName"></span>
+                    </td>
+                    <td colspan="4"><span>总计：<b>&yen;<span style="color:red" data-bind="text:totalPayPrice"></span></b></span>&nbsp;<button  style="margin-left:40px;display:none" class="btn btn-danger"  data-bind="click:$root.checkOut" style="padding-bottom: 2px;padding-top: 2px"><span>去结算</span></button></td>
+                    <td>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- ko foreach:buyItems -->
+                <tr class="productItem">
+                    <td width="23px" data-bind="visible:!$parents[1].readOnly()"><input type="checkbox" class="check" data-bind="checked:checked"></td>
+                    <td width="90px">
+                        <a href="#">
+                            <img data-bind="attr:{src:icon}" >
+                        </a>
+                    </td>
+                    <td width="400px">
+                        <div class="name"><a href="#" data-bind="text:productName,click:$root.toDetail"></a>
+                            &nbsp;<span class="num1">编号：<span data-bind="text:skuId"></span></span>&nbsp;
+                            &nbsp;<span style="color:red" data-bind="text:attrsString"></span>
+                            <!-- ko if:hasMultiSkus -->
+                            &nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+                            <!-- /ko -->
+                            &nbsp;
+                        </div>
+                        <!-- ko foreach:userFriendlyMessages -->
+                        <div class="ruleResultMessage" data-bind="html:$data"></div>
+                        <!-- /ko -->
+
+                        <!-- ko if:numberOfSelectableRules()>0-->
+                        <p>
+                            <a  data-bind="click:chooseRules">请在<span data-bind="text:numberOfSelectableRules"></span>个单品优惠中选择</a>
+                        </p>
+                        <!-- /ko -->
+
+                    </td>
+                    <td width="120px">
+                        <div class="amount">
+                            <div data-bind="click:$root.minus" class="amountChangeSign">-</div>
+                            <input type="text" data-bind="value:acceptedNumber" class="amountInput">
+                            <div data-bind="click:$root.add" class="amountChangeSign">+</div>
+                        </div>
+                    </td>
+                    <td width="80px">
+                        <div class="price"><b>&yen;<span data-bind="text:unitPrice"></span></b></div>
+                    </td>
+                    <td width="80px">
+                        <div class="price"><b>&yen;<span data-bind="text:totalPayPrice"></span></b></div>
+                    </td>
+                    <td style="text-align: center" data-bind="visible:!$parents[1].readOnly()">
+                        <p>
+                            <a data-bind="click:$root.remove" style="cursor:pointer;margin-top:10px;display:inline-block">删除</a>
+                        </p>
+
+                    </td>
+                </tr>
+                <!-- ko foreach: freePresents -->
+                <tr class="presentRow">
+                    <td width="80px"></td>
+                    <td width="400px">
+                        <table style="border: 0px">
+                            <tr>
+                                <td width="80px" style="border: 0px">
+                                    <a href="#" class="thumbnail">
+                                        <img data-bind="attr:{src:icon}">
+                                    </a>
+                                </td>
+                                <td style="border: 0px">
+                                    <div class="name">
+                                        <a href="#" data-bind="text:name"></a>&nbsp;
+                                        <span data-bind="text:skuId"></span>&nbsp;
+                                        <span class="label label-danger">赠品</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                    <td>
+                        <div class="amount" data-bind="text:number"></div>
+                    </td>
+                    <td colspan="4">
+                        <div class="ruleDescription" data-bind="html:$parent.getRule($data)"></div>
+                    </td>
+
+                </tr>
+                <!-- /ko -->
+                <!-- ko foreach:lowPricePresentRuleResults -->
+                <tr class="ruleMessage">
+                    <td colspan="7" style="padding-left:90px">
+                        <span class="label label-success" data-bind="text:actionType"></span><span style="margin-left:10px">你已经满足</span><span  data-bind="text:rule.name"></span>&nbsp;<button class="btn btn-success" data-bind="click:$parent.chooseLowPriceBuyPresents">选择商品...</button>
+                    </td>
+                </tr>
+
+                <!-- ko foreach: selectedPresents -->
+                <tr class="presentRow">
+                    <td width="80px"></td>
+                    <td width="400px">
+                        <table style="border: 0px">
+                            <tr>
+                                <td width="80px" style="border: 0px">
+                                    <a href="#" class="thumbnail">
+                                        <img data-bind="attr:{src:icon}">
+                                    </a>
+                                </td>
+                                <td style="border: 0px">
+                                    <div class="name">
+                                        <a href="#" data-bind="text:name"></a> &nbsp;
+                                        <span data-bind="text:skuId"></span> &nbsp;
+                                        <span class="label label-danger">优惠换购</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                    <td>
+                        <div class="amount" data-bind="text:number"></div>
+                    </td>
+                    <td><div class="price">￥<span data-bind="text:price"></span></div></td>
+                    <td colspan="3">
+                    </td>
+
+                </tr>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- /ko --> <!-- buyItems -->
+
+                <!-- 现在开始订单级别的活动 -->
+                <!-- ko foreach:orderRuleTargets -->
+                <tr class="ruleTargetHeader">
+                    <td colspan="7">
+                        <span class="ttp" data-bind="text:ruleResult.actionType"></span>
+                        <span data-bind="html:userFriendlyMessages"></span>
+                        <!-- ko if:isLowPricePresentRule -->
+                            <a data-bind="click:chooseLowPriceBuyPresents" class="btnSelectPresent">选择赠品</a>
+                            <ul data-bind="foreach:selectedlowPricePresents" class="presents">
+                                <li>
+                                    <span class="presentImg"><img data-bind="attr:{src:icon}"></span>
+                                    <span class="presentName" data-bind="text:name"></span>x
+                                    <span class="presentNumber" data-bind="text:number"></span>
+                                </li>
+                            </ul>
+
+                        <!-- /ko --> <!-- if:islowPricePresentRule -->
+                        <!-- ko foreach:freePresents -->
+                        <ul class="presents">
+                            <li>
+                                <span class="presentImg"><img data-bind="attr:{src:icon}"></span>
+                                <span class="presentName" data-bind="text:name"></span>x
+                                <span class="presentNumber" data-bind="text:number"></span>
+                            </li>
+                        </ul>
+
+                        <!-- /ko --> <!-- if:freePresents -->
+
+
+                    </td>
+                </tr>
+                <!-- ko foreach:items -->
+                <tr class="productItem">
+                    <td width="23px" data-bind="visible:!$parents[2].readOnly()"><input type="checkbox" class="check" data-bind="checked:checked"></td>
+                    <td width="90px">
+                        <a href="#">
+                            <img data-bind="attr:{src:icon}" >
+                        </a>
+                    </td>
+                    <td width="400px">
+                        <div class="name"><a href="#" data-bind="text:productName,click:$root.toDetail"></a>
+                            &nbsp;<span class="num1">编号：<span data-bind="text:skuId"></span></span>&nbsp;
+                            &nbsp;<span style="color:red" data-bind="text:attrsString"></span>
+                            <!-- ko if:hasMultiSkus -->
+                            &nbsp;<a href="javascript:void(0)" data-bind="click:$root.changeSku">[修改]</a>
+                            <!-- /ko -->
+                            &nbsp;
+                        </div>
+                        <!-- ko foreach:userFriendlyMessages -->
+                        <div class="ruleResultMessage">
+                            <span class="title" data-bind="text:actionType"></span>
+                            <span data-bind="html:msg"></span>
+                            <a class="actionLink" data-bind="click:$parent.chooseRules">修改优惠</a>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko if:numberOfSelectableRules()>0-->
+                        <p>
+                            <a  data-bind="click:chooseRules">请在<span data-bind="text:numberOfSelectableRules"></span>个单品优惠中选择</a>
+                        </p>
+                        <!-- /ko -->
+
+                    </td>
+                    <td width="120px">
+                        <div class="amount">
+                            <div data-bind="click:$root.minus" class="amountChangeSign">-</div>
+                            <input type="text" data-bind="value:acceptedNumber" class="amountInput">
+                            <div data-bind="click:$root.add" class="amountChangeSign">+</div>
+                        </div>
+                    </td>
+                    <td width="80px">
+                        <div class="price"><b>&yen;<span data-bind="text:unitPrice"></span></b></div>
+                    </td>
+                    <td width="80px">
+                        <div class="price"><b>&yen;<span data-bind="text:totalPayPrice"></span></b></div>
+                    </td>
+                    <td style="text-align: center" data-bind="visible:!$parents[2].readOnly()">
+                        <p>
+                            <a data-bind="click:$root.remove" style="cursor:pointer;margin-top:10px;display:inline-block">删除</a>
+                            <a data-bind="click:chooseOrderRule" style="cursor:pointer;margin-top:10px;display:inline-block">修改优惠</a>
+                        </p>
+                    </td>
+                </tr>
+                <!-- ko foreach: freePresents -->
+                <tr class="presentRow">
+                    <td width="80px"></td>
+                    <td width="400px">
+                        <table style="border: 0px">
+                            <tr>
+                                <td width="80px" style="border: 0px">
+                                    <a href="#" class="thumbnail">
+                                        <img data-bind="attr:{src:icon}">
+                                    </a>
+                                </td>
+                                <td style="border: 0px">
+                                    <div class="name">
+                                        <a href="#" data-bind="text:name"></a>&nbsp;
+                                        <span data-bind="text:skuId"></span>&nbsp;
+                                        <span class="label label-danger">赠品</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                    <td>
+                        <div class="amount" data-bind="text:number"></div>
+                    </td>
+                    <td colspan="4">
+                        <div class="ruleDescription" data-bind="html:$parent.getRule($data)"></div>
+                    </td>
+
+                </tr>
+                <!-- /ko -->
+                <!-- ko foreach:lowPricePresentRuleResults -->
+                <tr class="ruleMessage">
+                    <td colspan="7" style="padding-left:90px">
+                        <span class="label label-success" data-bind="text:actionType"></span><span style="margin-left:10px">你已经满足</span><span  data-bind="text:rule.name"></span>&nbsp;<button class="btn btn-success" data-bind="click:$parent.chooseLowPriceBuyPresents">选择商品...</button>
+                    </td>
+                </tr>
+
+                <!-- ko foreach: selectedPresents -->
+                <tr class="presentRow">
+                    <td width="80px"></td>
+                    <td width="400px">
+                        <table style="border: 0px">
+                            <tr>
+                                <td width="80px" style="border: 0px">
+                                    <a href="#" class="thumbnail">
+                                        <img data-bind="attr:{src:icon}">
+                                    </a>
+                                </td>
+                                <td style="border: 0px">
+                                    <div class="name">
+                                        <a href="#" data-bind="text:name"></a> &nbsp;
+                                        <span data-bind="text:skuId"></span> &nbsp;
+                                        <span class="label label-danger">优惠换购</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div class="amount" data-bind="text:number"></div>
+                    </td>
+                    <td><div class="price">￥<span data-bind="text:price"></span></div></td>
+                    <td colspan="3">
+                    </td>
+
+                </tr>
+                <!-- /ko --> <!-- selectedPresents -->
+                <!-- /ko --> <!-- lowPricePresentRuleResults -->
+                <!-- /ko --> <!-- items -->
+                <!-- /ko --> <!-- orderRuleTargets -->
+                </tbody>
+            </table>
+        </div>
+        <!-- /ko -->
+    </div>
+    <div class="checkout" data-bind="visible:!readOnly()">
+        <div class="checkout_content">
+            <div class="checkout_label">
+                商品总价（不含运费）：<b class="checkout_price" data-bind="text:totalPayPrice"></b>
+            </div>
+            <a class="pay" data-bind="click:checkOut">结算<span class="ico">✔</span></a>
+        </div>
+    </div>
+
+    <div style="position: absolute;display: none;border:1px silver solid" class="box" id="card_selectPresentBox">
+        <div style="background-color: #dcdcdc;border:1px silver solid">
+            <span style="color:black;font-weight: bold">请选择低价换购商品:</span>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>

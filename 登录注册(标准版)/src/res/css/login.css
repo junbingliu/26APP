@@ -1,0 +1,499 @@
+/* created by Qianglong Mo 2014 */
+
+/* global */
+.signInSignOutPanel .panelBd {
+    min-height: 500px;
+}
+
+.payBg{
+    background: #ededed;
+}
+
+/*login top r*/
+.loginTopR{
+    color: #666;
+    font-size: 12px;
+}
+.loginTopR a{
+    color: #666;
+}
+.loginTopR a:hover{
+    color: #e04040;
+}
+.loginTopR .but{
+    color:#1f5aa0;
+    text-decoration: underline;
+}
+.loginTopR span{
+    padding: 0 14px;
+}
+/* main */
+.panel {
+    margin-top: 40px;
+}
+
+.panelHd {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 30px;
+    background: #fff;
+    position: relative;
+}
+.panelHd .signin{
+    color: #e04040;
+    text-decoration: underline;
+    top:0;
+    position: absolute;
+    right: 26px;
+}
+
+.panelHd h1 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: normal;
+}
+
+.panelBd {
+    padding: 35px 45px 45px 45px;
+    background: #fff url("@{res/images/panelBdBgMask.png}@") repeat-x;
+}
+
+#Loginpage .headerLogo {
+    margin-top: 22px;
+}
+.UserSignIn{
+    /*width:480px;*/
+    display: block;
+    margin-left: 200px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+.UserSignIn label {
+    display: inline-block;
+    width: 145px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+
+.UserSignIn h2 { font-weight: normal;}
+
+/* sign in */
+.UserSignIn.signIn {
+    margin-top: 10px;
+    padding-left: 355px;
+}
+
+.UserSignIn.signIn label {
+    margin-left: -155px;
+}
+.UserLogin p{
+    color: #333;
+}
+.UserSignIn .username,
+.UserSignIn .password
+{
+    width:373px;
+}
+.UserSignIn .textInput{
+    /*margin-left:6px!important;*/
+}
+.UserSignIn .userpassword{
+    width:374px;
+}
+.UserSignIn .aptcha{
+    padding:11px 15px;
+    width: 157px;
+}
+.UserSignIn .captchaImg{
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-left: 6px;
+}
+.UserSignIn .aptchaWrap a{
+    font-size: 12px;color:#aaa;
+}
+.UserSignIn .aptchaWrap a:hover{
+    text-decoration: underline;
+}
+.UserSignIn .operatePw{
+    width: 405px;
+    font-size: 12px;
+}
+.UserSignIn .operatePw .checkbox{
+    vertical-align: middle;
+    position: relative;
+    top:-3px;
+    margin-right: 5px;
+}
+.UserSignIn .operatePw a{
+    float: right;
+    color: #1f589d;
+    text-decoration: underline;
+}
+.UserSignIn .operatePw a:hover {
+    color: #e14041;
+}
+.UserSignIn .SignInBtn{
+    color: #fff;
+    font-size: 24px;
+    background: #e04040;
+    display: inline-block;
+    width:405px;
+    height: 51px;
+    line-height: 51px;
+    border-top: 1px #f0a0a0 solid;
+    border-bottom: 1px #c11f1f solid;
+    text-align: center;
+    padding: 0;
+    /*margin-left: 187px;*/
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.btnPrimary:hover,
+.UserSignIn .SignInBtn:hover{
+    color: #fff;
+    background: #ff5758;
+    border-top: 1px solid #f0a0a0;
+    border-bottom: 1px solid #c21f1f;
+}
+.UserSignIn .UserFt{
+    font-size: 14px;
+    /*margin-left: 68px;*/
+    color: #696969;
+}
+
+.signIn .UserLoginFt {
+    margin-top: 17px;
+}
+
+.signIn .UserLoginFt * {
+    vertical-align: middle;
+}
+
+.UserSignIn .UserLoginFt .qq{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 10px;
+    background: url("@{res/images/loginBg.png}@") no-repeat ;
+    margin-right: 13px;
+    margin-left: 14px;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.UserSignIn .UserLoginFt .xina{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 14px;
+    margin-left: 13px;
+    background: url("@{res/images/loginBg.png}@") no-repeat -46px 0;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+
+.UserSignIn .UserLoginFt .qq:hover{
+    background: url("@{res/images/loginBg.png}@") no-repeat 0 -25px;
+}
+.UserSignIn .UserLoginFt .xina:hover{
+    background: url("@{res/images/loginBg.png}@") no-repeat -46px -25px;
+}
+
+
+/* registerPhone */
+.registerPhone{
+}
+.registerPhone .textInput{
+    width: 374px;
+}
+
+.registerPhone label {
+    width: 86px;
+    margin-left: -96px;
+}
+
+.registerPhone .SignInBtn{
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.registerPhone .operatePw{
+}
+.registerPhone .userphone{
+}
+.registerPhone .aptcha{
+    width: 199px;
+    padding: 17px 15px !important;
+}
+.registerPhone .aptchaWrap .btn{
+    color:#333!important;
+    margin-left: 4px;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+}
+.registerPhone .aptchaWrap .btn:active{
+    color:#999!important;
+}
+.Plink{
+    color: #1f589d;
+    font-size: 14px;text-decoration: underline;
+}
+.Plink:hover{
+    color: #e14041;
+    font-size: 14px;text-decoration: underline;
+}
+.registerPhone .Plink{
+    margin-left: 12px;
+}
+
+/* end registerEmail */
+.registerEmail{
+    /*width: 560px !important;*/
+}
+
+.registerEmail label {
+    width: 86px;
+    margin-left: -96px;
+}
+.registerEmail .useremail{
+    /*margin-left: 7px !important;*/
+}
+.registerEmail .textInput{
+    width: 374px;
+}
+.registerEmail .Plink{
+    margin-left: 12px;
+}
+.registerEmail .aptcha{
+    width: 157px;
+}
+.registerEmail .operatePw{
+    margin-left: 15px;
+}
+.registerEmail .SignInBtn{
+    margin-left: 83px;
+}
+/* end registerEmail */
+
+/* emailVerify */
+.emailVerify{
+    text-align: center;
+}
+.emailVerify{
+    text-align: center;
+    font-size: 20px;
+    padding-top: 27px;
+    color: #555;
+}
+.emailVerify .p2{
+    font-size: 14px;
+}
+.emailVerify  .btn{
+    height: 34px;
+    color: #3d3d3d;
+    font-size: 16px;
+    padding: 0 50px;
+    line-height: 34px;
+    background: url("@{res/images/btnDefaultMdBg.png}@") repeat-x;
+}
+/* end emailVerify */
+
+/* 进度条模块 */
+.ProgressBar{
+}
+.ProgressBar ul{
+    height: 45px;
+    padding-top: 10px;
+}
+.ProgressBar li{
+    display: inline-block;
+    width: 174px;
+    text-align: center;
+    height: 4px;
+    background: #d1d1d1;
+}
+.ProgressBar li{
+    display: inline-block;
+    margin-right: -5px;
+    width: 174px;
+    text-align: center;
+    height: 4px;
+    position: relative;
+    background: #d1d1d1;
+}
+.ProgressBar li span{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    font-size: 12px;
+    color: #fefffe;
+    left: 50%;
+    margin-left: -12px;
+    line-height: 25px;
+    top:-10px;
+    background: #d1d1d1;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    border-radius: 13px;
+    behavior: url(assets/stylesheets/PIE.htc); /*ie Css3 6 7 8*/
+}
+.ProgressBar li p{
+    margin-top: 20px;
+    font-size: 14px;color: #333;
+}
+.ProgressBar .activeOne{
+    background-color: #d2e5bb !important;
+    z-index: 1;
+}
+.ProgressBar .activeOne span{
+    background: url(@{res/images/shopcat_stup.png}@) no-repeat 0 -60px; !important;
+}
+.ProgressBar .activeTwo{
+    background: #79b235 !important;
+}
+.ProgressBar .activeTwo span{
+    background: url(@{res/images/shopcat_stup.png}@) no-repeat -1px -1px; !important;
+}
+.ProgressBar .activeTwo p{
+    color:#79b235;
+}
+/* end 进度条模块 */
+
+/* 找回密码 */
+.PasswordFind{
+    background: #fff !important;
+}
+
+.PasswordFind .passwordFindFormBody {
+    min-height: 200px;
+    padding-bottom: 15px;
+}
+
+.PasswordFind .pt20{
+    padding-top: 20px;
+    padding: 68px;
+}
+.PasswordFindThree .pt20{
+    padding-top: 20px;
+    padding: 68px;
+}
+.PasswordFind .ProgressBar{
+    width: 700px;
+    margin: 0 auto;
+    padding-bottom: 0;
+}
+.PasswordFind .UserSignIn{
+    margin-bottom: 10px;
+}
+.PasswordFind .phoneaptcha input{
+    width: 240px;
+}
+.PasswordFind .phoneaptcha a{
+    font-size: 16px;
+    color: #fff;
+    padding: 15px 18px;
+    background: #777777;
+    position: relative;
+    top:1px;
+}
+.PasswordFind .UserSignIn{
+    /*width: 500px;*/
+}
+.PasswordFind .emailYz{
+
+}
+.PasswordFindThree .UserSignIn{
+    /*width: 580px;*/
+}
+.PasswordFindThree .ProgressBar{
+    width: 700px;
+    margin: 0 auto;
+}
+.PasswordFindThree .UserSignIn .password{
+    width: 371px;
+}
+.PasswordFindThree .UserSignIn .SignInBtn{
+}
+.mt90{
+    margin-top: 80px;
+}
+/* End 找回密码 */
+
+/* 注册协议 */
+.protocolPanel {
+    margin-top: -265px;
+}
+
+.protocolPanel .messagePanelBd {
+    padding: 20px;
+}
+
+.protocolPanel #protocol-con{
+    overflow: auto;
+    max-height: 400px;
+    line-height: 1.45em;
+    font-size: 14px;
+    color: #666;
+}
+
+.protocolPanel .protocol-content {
+    margin-top: -15px;
+}
+
+.protocolPanel .btn {
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+/* registration email success */
+.registrationEmailSuccess { border-image: none; min-height: 367px; background: #fff;}
+.registrationEmailSuccess .panelContent {
+    width: 675px;
+    margin: 0 auto;
+}
+.registrationEmailSuccess .message { padding-top: 70px; font-size: 20px; line-height: 32px; margin-left: 112px;}
+.registrationEmailSuccess .message * {vertical-align: middle; color: #3f403f; }
+.registrationEmailSuccess .btnWrap { margin-left: 167px;}
+.registrationEmailSuccess .btnWrap * {vertical-align: middle;}
+.registrationEmailSuccess .btnPrimary { width: auto; padding: 0 17px 0 20px; height: 28px; line-height: 28px; font-size: 14px;}
+.registrationEmailSuccess .btnDefault30 { width: auto; padding: 0 17px 0 20px;}
+.registrationEmailSuccess .tips {
+    padding: 12px 0 0 167px;
+    margin: 26px 0 0 0;
+    color: #6d6d6d;
+    border-top: 1px dotted #f0f0f0;
+}
+
+/* registration phone success */
+.registrationPhoneSuccess { border-image: none; min-height: 375px;}
+.registrationPhoneSuccess .message { padding-top: 85px;}
+.registrationPhoneSuccess .message * {vertical-align: middle; color: #3f403f; }
+.registrationPhoneSuccess .btnPrimary { width: auto; padding: 0 25px 0 28px; height: 33px; line-height: 33px; font-size: 14px;}
+.registrationPhoneSuccess .tips {
+    width: 574px;
+    padding: 12px 0 0 0;
+    margin: 20px auto 0 auto;
+    color: #6d6d6d;
+    border-top: 1px solid #f0f0f0;
+}

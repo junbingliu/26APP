@@ -1,0 +1,43 @@
+<div id="userGroupList" class="page">
+    <div class="panel panel-primary" style="margin:auto;width:100%">
+        <div class="panel-heading">
+            <h5 class="panel-title"> <i class="glyphicon glyphicon-user"></i>&nbsp;用户组列表
+                <button class="pull-right btn btn-sm btn-info" data-bind="click:beginEdit,visible:!editing()" >编辑</button>
+                <button class="pull-right btn btn-sm btn-danger" data-bind="click:endEdit,visible:editing()">完成</button>
+            </h5>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered dataTable">
+                    <thead class="table-header">
+                    <tr>
+                        <td style="width:20%">组名称</td>
+                        <td style="width:70%">成员</td>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach:userGroups">
+                    <tr data-bind="visible:show">
+                        <td>
+                            <span data-bind="text:name"></span><br><small style="color: #999999" data-bind="text:description"></small>
+                            <a href="#"  title="编辑" class="action" style="float:right" data-bind="visible:$root.editing"><i class="glyphicon glyphicon-tasks" data-bind="click:$root.updateGroupDialog"></i></a>
+                            <a href="#"  title="删除" class="action" style="float:right" data-bind="visible:$root.editing"><i style="color:red" class="glyphicon glyphicon-minus-sign" data-bind="click:$root.deleteGroup"></i></a>
+                        </td>
+                        <td >
+                            <ul data-bind="foreach:users"  class="list-inline">
+                                <li><span data-bind="text:displayName"></span><a href="#" style="color:red;padding-left:8px" data-bind="visible:$root.editing"><i class="glyphicon glyphicon-minus-sign" title="删除" data-bind="click:$parent.remove"></i></a></li>
+                            </ul>
+                            <button  class="btn btn-success"  data-bind="click:$root.addUserDialog,visible:$root.editing">添加</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-large btn-success" data-bind="click:addGroupDialog">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    添加新组
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="ch">
+	<head>
+        <title>我的积分 - 我的专区 - <%=webName%></title>
+        <link rel="stylesheet" type="text/css" href="@{res/css/jifen.css}@" rel="stylesheet" />
+        <script src="/resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="/js/My97DatePicker/WdatePicker.js"></script>
+        <script type="text/javascript" src="@{res/js/jifen.js}@"></script>
+        <script type="text/javascript" src="@{res/js/page.js}@"></script>
+    </head>
+    <body>
+        <%=#importUrl("/ucenter/header.html")%>
+        <link rel="stylesheet" type="text/css" href="@{res/css/page.css}@" rel="stylesheet" />
+        <!-- main -->
+        <div class="center">
+            <!-- sidebar -->
+            <div class="sidebar float_l enableSelect">
+                <div class="crumb">
+                    <a href="/">首页</a><span class="arrow"></span><a href="/ucenter/index.html">我的专区</a><span class="arrow"></span><a class="active">我的积分</a>
+                </div>
+                <%=#importUrl("/ucenter/sidebar.html")%>
+            </div>
+            <!-- sidebar -->
+            <!-- main -->
+            <div class="main float_r">
+                <!-- my jifen -->
+                <div class="panel myJifen">
+                    <div class="panelHd enableSelect">
+                        <h1 class="panelHdTitle">我的积分</h1>
+                    </div>
+                    <div class="panelBd" style="padding-bottom: 90px;">
+
+                        <!-- my jifen summary -->
+                        <div class="myJifenSummary enableSelect">
+                            <div class="myJifenSummaryCurrent" style="width:auto;">
+                                <span>当前可用</span><span class="textPrimary"><%=userAccountAmount%></span>
+                            </div>
+                            <div style="display: inline-block;margin-left: 100px;">
+                                <!--<a href="http://www.ewj.com/help.html?id=a_100000" style="color: #666;">查看积分使用规则</a>-->
+                            </div>
+                        </div><!-- end my jifen summary -->
+
+                        <!-- jifen query -->
+                        <div class="myJifenQuery">
+                            <form id="searchJifenForm" action="<%=requestURI%>" method="get" autocomplete="off">
+                                <span>积分类型：</span>
+                            <span class="mr40">
+                                <select name="direction">
+                                    <option value="" <%= !direction ? 'selected' : ''%>>全部</option>
+                                    <option value="increase" <%=direction == 'increase' ? 'selected' : ''%>>增加</option>
+                                    <option value="reduce" <%=direction == 'reduce' ? 'selected' : ''%>>减少</option>
+                                </select>
+                            </span>
+                                <span>时间：</span>
+                                <!-- 需要插入日期控件 -->
+                                <input type="text" class="datePicker" targetId="beginTime" value="<%=beginTime%>" readonly/>
+                                <input type="hidden" name="beginTime" id="beginTime" value="<%=beginTime%>"/>
+                                <!-- 需要插入日期控件 -->
+                                <span class="ml5 mr5">至</span>
+                                <!-- 需要插入日期控件 -->
+                                <input type="text" class="datePicker" targetId="endTime" value="<%=endTime%>" readonly/>
+                                <input type="hidden" name="endTime" id="endTime" value="<%=endTime%>"/>
+                                <!-- 需要插入日期控件 -->
+                                <a class="btn ml10" href="javascript:;" id="searchRecordBtn">查询</a>
+                            </form>
+                        </div>
+                        <!-- end jifen query -->
+
+
+                        <!-- jifen list -->
+                        <table class="table myJifenListTable">
+                            <tr class="tableHd">
+                                <th width="200">日期</th>
+                                <th>
+                                    <div class="myJifenListJifenFilter">
+                                        积分变化
+                                        <div class="select enableSelect">
+                                            <div class="selectHd">
+                                                <%=direction == 'increase' ? '增加' : direction == 'reduce' ? '减少' : '选择'%><span class="split">|</span>
+                                                <i class="arrow"></i>
+                                            </div>
+                                            <div class="selectBd">
+                                                <!-- 以下时间数值是我随意模拟的,具体值请找你们的策划 -->
+                                                <a href="<%=requestURI%>?direction=increase">增加</a>
+                                                <a href="<%=requestURI%>?direction=reduce">减少</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th width="325">积分说明</th>
+                            </tr>
+
+                            <%if(recordMap && recordMap.rowCount > 0){%>
+                            <%for(var i=0;i< recordMap.lists.length;i++){%>
+                            <%var accountRecord = recordMap.lists[i];%>
+                            <%var transactionAmount = accountRecord.transactionAmount == 0|| !accountRecord.transactionAmount ? 0 : accountRecord.transactionAmount / 100 %>
+                            <tr class="tableBd <%=accountRecord.direction == 'increase' ? 'add' : 'sub'%>">
+                                <td><%=accountRecord.transactionTimeFormat%></td>
+
+                                <td class="score"><%=transactionAmount > 0 ? '+' : ''%><%=transactionAmount%></td>
+                                <td>
+                                    <div><%=accountRecord.transactionReason%></div>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <%}else{%>
+                            <tr>
+                                <td colspan="3" align="center" style="padding: 15px 0px;">目前还没有记录</td>
+                            </tr>
+                            <%}%>
+                        </table><!-- end jifen list -->
+
+                        <!-- pagination -->
+                        <div class="pagination" id="pageList" total="<%= recordMap ? recordMap.rowCount : '0'%>" size="12"></div>
+                        <!-- end pagination -->
+                    </div>
+                </div><!-- end my jifen -->
+            </div><!-- end main -->
+        </div><!-- end main -->
+        <div class="clear"></div>
+
+        <%=#importUrl("/ucenter/footer.html")%>
+    </body>
+</html>

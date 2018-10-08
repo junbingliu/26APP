@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/resources/bootstrap3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/jquery/jqueryui_date/css/redmond/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
+    <link href="@{style/app.css}@" rel="stylesheet">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="@{js/UserList.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div>
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-1" style="width: 80px;padding-top: 5px;">
+                <span>关键字</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="keyword" placeholder="">
+            </div>
+            <div class="col-xs-2">
+                <input type="hidden" value="{{=it.merchantId}}" name="merchantId" id="merchantId">
+                <button type="button" class="btn btn-default" id="search">搜 索</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="doSetValidateTimeModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">预存款可用起止时间</h4>
+            </div>
+            <div class="modal-body" id="doSetValidateTimeModalDiv">
+                <div>
+                    <div class="row">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">有效起止时间</label>
+                                <div class="col-xs-4" style="width: auto;margin-bottom: 10px;">
+                                    <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="beginDate" name="beginDate" value=""><input type="text" style="width: 70px;border-radius: 0 4px 4px 0;border-left-width: 0;display: inline;" class="form-control input-sm" value="00:00:00" id="beginTime" name="beginTime">
+                                    <span class="date_split" style="padding-top: 5px;">至</span>
+                                    <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="endDate" name="endDate" value=""><input type="text" style="width: 80px;border-radius: 0 4px 4px 0;border-left-width: 0;display: inline;" class="form-control input-sm" value="23:59:59" id="endTime" name="endTime">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8" style="margin-left: 240px;">
+                                    <button type="button" class="btn btn-primary" style="width:90px;" id="confirmBtn">确 定</button>
+                                    <button type="button" class="btn btn-default" style="width:90px;" id="cancelBtn">取 消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="doUpdateEWalletAmountModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">预存款充值</h4>
+            </div>
+            <div class="modal-body" id="doUpdateEWalletAmountModalDiv">
+                <div>
+                    <div class="row">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">当前余额</label>
+                                <div class="col-xs-4">
+                                    <input type="text" class="form-control" id="eWalletAmountOld" name="eWalletAmountOld" value="" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">充值金额</label>
+                                <div class="col-xs-4">
+                                    <input type="text" class="form-control" id="eWalletAmount" name="eWalletAmount" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">充值说明</label>
+                                <div class="col-xs-7">
+                                    <textarea class="form-control" rows="3" id="fillReason" name="fillReason" ></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8" style="margin-left: 240px;">
+                                    <button type="button" class="btn btn-primary" style="width:90px;" id="updateEWalletBtn">充 值</button>
+                                    <button type="button" class="btn btn-default" style="width:90px;" id="cancelEWalletBtn">取 消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

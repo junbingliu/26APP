@@ -1,0 +1,58 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr class="active">
+        <th style="width: 70px">
+            <button class="btn btn-default sendMassage">消息推送</button>
+        </th>
+        <th width="70px;">编号</th>
+        <th width="70px;">活动状态</th>
+        <th width="140px;">活动名称</th>
+        <th width="120px;">活动有效时长</th>
+        <th width="120px;">活动生成时间</th>
+        <th width="140px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.resultList:value:index}}
+    <tr>
+        <td><input type="checkbox" name="vehicle" value="{{=value.id}}"></td>
+        <td>{{=value.num}}</td>
+        <td>{{=value.state}}</td>
+        <td>{{=value.title}}</td>
+        <td>{{=value.period}}</td>
+        <td>{{=value.createTime}}</td>
+        <td>
+            <a class="btn btn-default" href="activeEdit.jsx?m={{=it.merchantId}}&activeId={{=value.id}}">编辑</a>
+            <a class="btn btn-default" href="productList.jsx?m={{=it.merchantId}}&activeId={{=value.id}}">商品信息</a>
+            <a class="btn btn-default" href="applicationManage.jsx?m={{=it.merchantId}}&activeId={{=value.id}}">申请名单</a>
+            <a class="btn btn-default" href="trialReportList.jsx?m={{=it.merchantId}}&activeId={{=value.id}}">试用报告</a>
+            <a class="btn btn-default" onclick="deleteActive(this)" data-a="{{=value.id}}">删除</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>
+<script type="text/javascript">
+    function deleteActive(self) {
+        bootbox.confirm("是否删除", function (result) {
+            if(result){
+                var data = {
+                    id:self.getAttribute("data-a")
+                };
+                $.post("../handler/deleteActive.jsx",data,function (res) {
+                    if(res.state == "ok"){
+                        bootbox.alert("成功删除");
+                        pagination.load(searchArgs);
+                    }
+                },"json")
+            }
+
+        })
+    }
+</script>

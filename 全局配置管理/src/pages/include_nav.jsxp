@@ -1,0 +1,38 @@
+<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-6">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">全局配置管理</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav">
+                <li data-a="globalVariableList.jsx" class="active"><a href="globalVariableList.jsx?m={{=it.merchantId}}">全局变量列表</a></li>
+                <li data-a="addGlobalVariable.jsx" class="active"><a href="addGlobalVariable.jsx?m={{=it.merchantId}}">增加变量</a></li>
+                <li data-a="countryList.jsx" class="active"><a href="countryList.jsx?m={{=it.merchantId}}">国家名字中英对照表</a></li>
+                <li data-a="addCountry.jsx" class="active"><a href="addCountry.jsx?m={{=it.merchantId}}">增加国家</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var currentUrl = window.location.pathname;
+        $('#navbar').find('li').each(function (item) {
+            var $this = $(this);
+            var href = $this.data('a');
+            $this.removeClass("active");
+            if (currentUrl.indexOf(href) > 0) {
+                $this.addClass("active");
+            }
+        });
+    });
+</script>

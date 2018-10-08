@@ -1,0 +1,24 @@
+{
+  "libs_namespace": "oleMemberClass",
+  "libs": [
+    "services/OleMemberClassService.jsx",
+    "services/OleMemberClassQuery.jsx",
+    "services/PushManagementService.jsx",
+    "services/PushManagementBuildIndex.jsx",
+    "services/PushManagementQuery.jsx",
+    "services/SystemRecordsBuildIndex.jsx",
+    "services/SystemRecordsQuery.jsx"
+  ],
+  "obj_prefixes": [
+    "memberClassActivityObj",
+    "memberClassObj",
+    "pushManagementObj",
+    "systemRecordObj"
+  ],
+  "list_prefixes": [
+    "memberClassActivityList",
+    "memberClassObjList",
+    "pushManagementList",
+    "systemRecordsList"
+  ]
+}

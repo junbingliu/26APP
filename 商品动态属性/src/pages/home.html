@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/resources/jquery/jqueryui_date/css/redmond/jquery-ui-1.10.3.custom.min.css">
+    <link href="@{style/app.css}@" rel="stylesheet">
+    <!--<script type="text/javascript" src="/resources/jquery-1.7.2.min.js"></script>-->
+    <!--<script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>-->
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery/jqueryui_date/js/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="@{js/productAllList.js}@"></script>
+</head>
+<body>
+{{=$.inc("pages/include_nav.jsx")}}
+<div class="container-fluid">
+    <div class="well" id="searchForm">
+        <div class="row">
+            <div class="col-xs-4" style="width: auto;margin-bottom: 10px;">
+                <span class="date_split" style="padding-top: 5px;">创建时间</span>
+                <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="beginDate" name="beginDate" value=""><input type="text" style="width: 70px;border-radius: 0 4px 4px 0;border-left-width: 0;display: inline;" class="form-control input-sm" value="00:00:00" id="beginTime" name="beginTime">
+                <span class="date_split" style="padding-top: 5px;">至</span>
+                <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="endDate" name="endDate" value=""><input type="text" style="width: 80px;border-radius: 0 4px 4px 0;border-left-width: 0;display: inline;" class="form-control input-sm" value="23:59:59" id="endTime" name="endTime">
+            </div>
+            <div class="col-xs-2" style="width: auto;margin-bottom: 10px;">
+                <span class="label_name">关键字</span>
+                <input type="text" style="float:left;width: 220px;" class="form-control input-sm" id="keyword" placeholder="关键字">
+            </div>
+            <div class="col-xs-1" style="width: auto;">
+                <input type="hidden" value="{{=it.merchantId}}" name="merchantId" id="merchantId">
+                <button type="button" class="btn btn-default input-sm" id="search">搜 索</button>
+            </div>
+            <div class="col-xs-1" style="width: auto;">
+                <a class="btn btn-primary" data-target="#export_data" data-toggle="modal" href="javascript:void(0)">导出商品</a>
+            </div>
+            <div style="float: right">
+                <div class="col-xs-2" style="width: auto;margin-bottom: 10px;">
+                    <span class="label_name">商品ID</span>
+                    <input type="text" style="float:left;width: 220px;" class="form-control input-sm" id="productId" placeholder="商品ID">
+                </div>
+                <div class="col-xs-1" style="width: auto;">
+                    <a class="btn btn-primary" href="javascript:void(0)" onclick="searchAttr()">查看此商品属性</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="">
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                <div class="pagination well" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+<div id="export_data" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h3>导出商品信息</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="exportExcel" href="#tab-content" data-toggle="tab">导出</a></li>
+                    <li><a id="excelListHistory" href="#export_history" data-toggle="tab">导出历史</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="export_tab">
+                    </div>
+                    <div class="tab-pane fade" id="export_history">
+                        <div id="excelListHistoryDiv" style="height: 350px;overflow: hidden;overflow-y: auto;">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#export_data').on('shown.bs.modal', function () {
+        var data={};
+        data.keyword=$("#keyword").val();
+        if($("#endDate").val()!=""){
+            data.endCreateTime=$("#endDate").val()+" "+$("#endTime").val();
+        }
+        else{
+            data.endCreateTime="";
+        }
+        if($("#beginDate").val()!=""){
+            data.beginCreateTime=$("#beginDate").val()+" "+$("#beginTime").val();
+        }
+        else{
+            data.beginCreateTime="";
+        }
+
+        var mess=JSON.stringify(data);
+        $.ajax({
+                    url: "/outProduct/pages/outPutProductMessage.jsx",
+                    data: {mess:mess},
+                    type: "post",
+                    success: function (data) {
+                        var divShow = $("#export_tab");
+                        divShow.html("");
+                        divShow.append(data);
+                    }
+                }
+        );
+    });
+    $('#exportExcel').bind('click',function(){
+        $('.tab-pane').removeClass("active in");
+        $("#export_tab").addClass("active in");
+    });
+    $('#export_data').on('shown.bs.modal', function () {
+        $.ajax({
+                    url: "/outProduct/pages/outPutProductMessageLog.jsx",
+                    data: {},
+                    type: "post",
+                    success: function (data) {
+                        var divShow = $("#excelListHistoryDiv");
+                        divShow.html("");
+                        divShow.append(data);
+                    }
+                }
+        );
+    })
+</script>
+<script>
+    function showAttrs(productId){
+        $.post("loadProductAttrs.jsx",{productId:productId},function(res){
+            if(res.state=="ok"){
+                var html = template('attrTmpl', res);
+                document.getElementById('attrsData').innerHTML = html;
+                $("#attrsModal").modal('show');
+
+            }
+            else if(res.state=="err"){
+                alert(res.msg);
+            }
+            else{
+                alert("异常")
+            }
+        },"json")
+    }
+    function searchAttr(){
+        var productId=$("#productId").val();
+        showAttrs(productId);
+    }
+</script>
+</body>
+</html>
+
+
+
+

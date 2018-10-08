@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cn" style="height:100%;margin:0px;padding:0px;border:0px">
+<head>
+    <meta charset="utf-8"/>
+    <title>网页编辑</title>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="@{client/res/lib/jquery-1.10.2.min.js}@"></script>
+    <script src="@{client/res/lib/bootbox.min.js}@"></script>
+    <script src="@{client/res/lib/knockout-3.0.0.js}@"></script>
+    <script src="@{client/res/lib/knockout.mapping-latest.js}@"></script>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            bootbox.setDefaults({
+                locale: "zh_CN"
+            });
+            $(".del").click(function(){
+                var href = $(this).attr("href");
+                bootbox.confirm("确定删除吗？",function(result){
+                    if(result){
+                        window.location = href;
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+</head>
+<body style="margin-top:50px">
+{{?it.state=='ok'}}
+<div class="panel panel-primary" style="margin:auto;width:95%">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{=it.rapp.name}}</h3>
+    </div>
+    <div class="panel-body">
+        <p>复制成预览页成功，源网页Id:{{=it.origPageId}}，新网页Id:{{=it.page.pageId}}</p>
+    </div>
+</div>
+{{??}}
+<div class="panel panel-primary" style="margin:auto;width:95%">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{=it.rapp.name}}</h3>
+    </div>
+    <div class="panel-body">
+        <p>复制成预览页失败，源网页Id:{{=it.origPageId}}，新网页Id:{{=it.page.pageId}}</p>
+    </div>
+</div>
+{{?}}
+
+<div style="clear: both;height:30px"></div>
+<div >
+    <a class="btn btn-warning" style="margin-left:60px" href="listTemplates.jsx?m={{=it.m}}">返回模版列表</a>
+    <a class="btn btn-primary" style="margin-left:20px" href="listPageVersions.jsx?m={{=it.m}}&rappId={{=it.rappId}}&origPageId={{=it.page.origPageId}}">彩排页列表</a>
+</div>
+</body>
+</html>
+

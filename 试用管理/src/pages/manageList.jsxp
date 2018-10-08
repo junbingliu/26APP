@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script>var m = '{{=it.merchantId}}';</script>
+    <script type="text/javascript" src="@{res/js/tryOutList.js}@"></script>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<div id="goodProductList" style="margin-top: 69px">
+    <form class="form-inline" role="search" style="display: initial">
+        <div class="form-group">
+            <label class="sr-only">活动标题</label>
+            <input type="text" class="form-control" id="numbering" placeholder="活动编号">
+        </div>
+        <div class="form-group">
+            <label class="sr-only">活动标题</label>
+            <input type="text" class="form-control" id="title" placeholder="活动标题">
+        </div>
+        <button type="button" class="btn btn-default" id="search">搜 索</button>
+
+    </form>
+    <button class="btn btn-default"  id="sendList">推送列表</button>
+    <div>
+        <a class="btn btn-primary" href="activeEdit.jsx?m={{=it.merchantId}}">新建活动</a>
+    </div>
+    <div class="row-fluid">
+        <div id="record_list" class="record_list span12">
+        </div>
+    </div>
+
+    <!--分页部分-->
+    <div class="row-fluid">
+        <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+            <div class="pagination" style="margin: 0; ">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

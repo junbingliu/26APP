@@ -1,0 +1,11 @@
+<div class="dialog" id="ruleSelectorDialog" style="display: none">
+    <table style="width:85%;margin: 10px auto" class="table table-striped" >
+        <tbody data-bind="foreach:availableRuleResults" style="overflow: auto">
+            <tr>
+                <td><input type="checkbox" data-bind="checked:checked,click:$root.recalculateExclude" ></td>
+                <td data-bind="html:userFriendlyMessageString"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-success" style="margin-left:40px" data-bind="click:ok">确定</button>
+</div>

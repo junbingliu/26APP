@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>1_商品分类</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<!-- vendor css -->
+<link rel="stylesheet" href="@{resource/css/ole.css}@">
+</head>
+
+<body>
+<div class="container">
+<div class="newHead">
+<div class="w-nav">
+<div class="class-tit">
+<ul class="clearfix" data-type="textLinkList" data-id="goods_classify">
+<%if(goods_classify && goods_classify.length>0){%>
+<%for(var i=0;i < goods_classify.length;i++){%>
+<%var value=goods_classify[i];%>
+<li class="item">
+<a href="<%=value.linkTo%>"><%=value.content%></a>
+</li>
+<%}%>
+<%}else{%>
+<li class="item active">
+<a href="">全部商品</a>
+</li>
+<li class="item">
+<a href="">个护美妆 </a>
+</li>
+<li class="item">
+<a href="">小食饮料 </a>
+</li>
+<li class="item">
+<a href="">健康活力 </a>
+</li>
+<li class="item">
+<a href="">厨房组合 </a>
+</li>
+<li class="item">
+<a href="">同城购买 </a>
+</li>
+<li class="item">
+<a href="">家居用品 </a>
+</li>
+<li class="item">
+<a href="">母婴商品 </a>
+</li>
+<li class="item">
+<a href="">个人清洁 </a>
+</li>
+<li class="item">
+<a href="">生鲜水产 </a>
+</li>
+<li class="item">
+<a href="">顶级酒窖 </a>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+
+</html>

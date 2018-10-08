@@ -1,0 +1,17 @@
+{
+    "libs_namespace": "oleTrialReport",
+    "libs": [
+        "services/TrialReportService.jsx"
+    ],
+    "obj_prefixes": [
+        "ole_productTrial_reports_"
+    ],
+    "list_prefixes": [
+        "ole_productTrial_reports_"
+    ],
+    "appEditor": {
+        "enabled": false
+    },
+    "pages": [
+    ]
+}

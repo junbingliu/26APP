@@ -1,0 +1,27 @@
+{
+    "libs_namespace": "GiveCardByOrderItem",
+    "libs": [],
+    "obj_prefixes": ["GiveCardByOrderItem"],
+    "list_prefixes": ["GiveCardByOrderItem"],
+    "eventHandlers":[
+        {
+            "eventName":"orderConfirmAfter",
+            "pageId":"eventHandlers/doGiveCardByOrderItemEvent.jsx",
+            "handlerId":"orderConfirmAfter_doGiveCardByOrderItemEvent",
+            "description":"订单手工确认后，根据卡券商品赠送卡券。"
+        },
+        {
+            "eventName":"orderConfirmAutoAfter",
+            "pageId":"eventHandlers/doGiveCardByOrderItemEvent.jsx",
+            "handlerId":"orderConfirmAutoAfter_doGiveCardByOrderItemEvent",
+            "description":"订单自动确认后，根据卡券商品赠送卡券。"
+        },
+        {
+            "eventName":"orderAddAfter",
+            "pageId":"eventHandlers/doGiveCardByOrderItemEventForAdd.jsx",
+            "handlerId":"orderAddAfter_doGiveCardByOrderItemEventForAdd",
+            "description":"订单添加后（有可能是全额用券或者预存款支付），判断是否全额支付然后根据卡券商品赠送卡券。"
+        }
+    ]
+
+}

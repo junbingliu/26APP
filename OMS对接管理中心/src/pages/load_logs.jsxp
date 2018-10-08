@@ -1,0 +1,28 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="160px;">ID</th>
+        <th width="160px;">时间</th>
+        <th width="150px;">对接服务ID</th>
+        <th width="150px;">对接序列号</th>
+        <th>内容</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.logList:value:index}}
+    <tr>
+        <td >{{=value.id}}</td>
+        <td>{{=value.formatCreateTime}}</td>
+        <td>{{=value.serviceId}}</td>
+        <td>{{=value.serialNumber}}</td>
+        <td>{{=value.content}}</td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

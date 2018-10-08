@@ -1,0 +1,6 @@
+{
+  "libs_namespace": "yunruanInterface",
+  "libs": ["services/YunruanService.jsx","services/YunruanArgService.jsx"],
+  "obj_prefixes": ["yunruanInterfaceObj"],
+  "list_prefixes": ["yunruanInterfaceList"]
+}

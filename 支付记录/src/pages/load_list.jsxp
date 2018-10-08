@@ -1,0 +1,63 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>支付单号</th>
+        <th>对应订单号</th>
+        <th>支付方式</th>
+        <th>支付金额</th>
+        <th>生成时间</th>
+        <th>支付时间</th>
+        <th>状态</th>
+        <th>交易流水</th>
+        <th>已付金额</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{each resultList as value i}}
+    <tr>
+        <td><div style="width: 100px;word-wrap: break-word">{{value.id}}</div></td>
+        <td><div style="width: 155px;word-wrap: break-word">{{value.outerId}}</div></td>
+        <td><div style="width: 157px;word-wrap: break-word">{{value.orderAliasCodes}}</div></td>
+        <td><div style="width: 100px;word-wrap: break-word">{{value.paymentName + '('+value.payInterfaceId+')'}}</div></td>
+        <td><div style="width: 100px;word-wrap: break-word">{{value.needPayMoneyAmount}}</div></td>
+        <td><div style="width: 100px;word-wrap: break-word">{{value.createTimeString}}</div></td>
+        <td><div style="width: 100px;word-wrap: break-word">{{value.paidTimeString}}</div></td>
+        <td><div style="width: 50px;word-wrap: break-word">{{value.payStateString}}</div></td>
+        <td><div style="width: 200px;word-wrap: break-word">{{value.bankSN}}</div></td>
+        <td><div style="width: 50px;word-wrap: break-word">{{value.paidMoneyAmount}}</div></td>
+        <td>
+            {{if value.payState != 'paid'}}
+            <div><a href="javascript:void(0)" class="updateClass" data-a="{{value.id}}">修改</a></div>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+<div class="pagination_params" id="pagination_params" totalPages="{{pageParams.totalPages}}"
+     currentPage="{{pageParams.currentPage}}" totalRecords="{{pageParams.totalRecords}}"
+     displayNum="{{pageParams.displayNum}}" pageLimit="{{pageParams.pageLimit}}"
+     recordType="{{pageParams.recordType}}">
+</div>
+<script>
+
+    $(".updateClass").on("click", function () {
+        var id = $(this).data("a");
+        document.getElementById("addForm").reset();
+        $.get("handler/get_by_id.jsx", {id: id}, function (result) {
+            if (result.state == "ok") {
+                var needPayAmount = result.data.needPayMoneyAmount && (Number(result.data.needPayMoneyAmount) /100).toFixed(2);
+                $("#id").val(id);
+                $("#updateOuterId").val(result.data.outerId || "");
+                $("#updateNeedPayMoneyAmount").val(needPayAmount);
+                $("#updatePaidMoneyAmount").val(needPayAmount);
+                $("#updatePaymentName").val(result.data.paymentName || "");
+                $("#myModal").modal("show");
+            } else {
+                bootbox.alert(result.msg);
+            }
+        }, "json");
+    });
+</script>

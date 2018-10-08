@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>1_商品分类</title>
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<!-- vendor css -->
+		<link rel="stylesheet" href="@{resource/css/ole.css}@">
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="newHead">
+				<div class="w-nav">
+					<div class="class-tit">
+						<ul class="clearfix" data-type="textLinkList" data-id="goods_classify">
+							<%if(goods_classify && goods_classify.length>0){%>
+								<%for(var i=0;i < goods_classify.length;i++){%>
+									<%var value=goods_classify[i];%>
+									<li class="item">
+										<a href="<%=value.linkTo%>"><%=value.content%></a>
+									</li>
+								<%}%>
+							<%}else{%>
+							<li class="item active">
+								<a href="">全部商品</a>
+							</li>
+							<li class="item">
+								<a href="">个护美妆 </a>
+							</li>
+							<li class="item">
+								<a href="">小食饮料 </a>
+							</li>
+							<li class="item">
+								<a href="">健康活力 </a>
+							</li>
+							<li class="item">
+								<a href="">厨房组合 </a>
+							</li>
+							<li class="item">
+								<a href="">同城购买 </a>
+							</li>
+							<li class="item">
+								<a href="">家居用品 </a>
+							</li>
+							<li class="item">
+								<a href="">母婴商品 </a>
+							</li>
+							<li class="item">
+								<a href="">个人清洁 </a>
+							</li>
+							<li class="item">
+								<a href="">生鲜水产 </a>
+							</li>
+							<li class="item">
+								<a href="">顶级酒窖 </a>
+							</li>
+							<%}%>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<article class="rowTop">
+
+				<div class=" category">
+					<div class="catgory-mt">
+						<ul class="clearfix"  data-type="productGroup" data-id="goods">
+							<%if(goods && goods.length>0){%>
+								<%for(var y=0;y< goods.length;y++){%>
+									<% var value = goods[y];%>
+									<li class="item">
+										<a href="#/productDetailPage/<%=value.id%>">
+											<div class="pic"><img src="<%=value.imgUrl%>"></div>
+											<p class="goods-name"><%=value.name%> </p>
+											<div class="money">¥<%=value.memberPrice%></div>
+										</a>
+									</li>
+								<%}%>
+							<%}else{%>
+							<li class="item bor">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+								<div class="sell-out ">卖光了</div>
+							</li>
+							<li class="item">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<li class="item bor">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<li class="item">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<li class="item bor">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<li class="item">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<li class="item bor">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<li class="item">
+								<a href="">
+									<div class="pic"><img src="@{resource/case/800x800.jpg}@"></div>
+									<p class="goods-name">花王婴儿纸尿裤大号54片花王婴儿纸尿裤大号54片 </p>
+									<div class="money">¥288.00</div>
+								</a>
+							</li>
+							<%}%>
+						</ul>
+						<div class="cart-icon pf">
+							<a class="icon-cart" href=""><img src="@{resource/image/cart-ico.png}@"/></a>
+							<span class="num ">1</span>
+						</div>
+					</div>
+
+				</div>
+
+			</article>
+
+		</div>
+	</body>
+
+</html>

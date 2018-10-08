@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>支付记录列表</title>
+    {{#inc("pages/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/list.js}@"></script>
+    <style>
+    .container{
+        max-width: 100%;
+    }
+</style>
+</head>
+<body>
+{{#inc("pages/include_navbar.jsx")}}
+<div class="container" style="padding-top:10px">
+    <div class="row">
+        <i class="glyphicon glyphicon-home"></i>
+        <span class="titleSpan">支付记录列表</span>
+        <hr class="titleHr">
+    </div>
+    <div role="presentation"
+         style="padding: 20px;border: 1px solid #e6e6e6;color: #000000;background:#e6e6e6;font-size: 12px;">
+        <form class="form-inline" action="realPayRec_list.jsx">
+            <div class="form-group">
+                <div style="margin:0px 5px;">
+                    <label>关键字：</label>
+                    <input class="form-control" style="width: 180px" id="keyword" name="keyword" placeholder="支付单号/订单号/交易流水">
+                    <label>支付方式：</label>
+                    <select id="payInterfaceId" name="payInterfaceId" class="form-control" style="width: 100px;height: 34px;font-size: 12px">
+                        <option selected value="-1">所有</option>
+                        {{each paymentList as value i}}
+                        <option value="{{value.payInterfaceId}}">{{value.name}}({{value.payInterfaceId}})</option>
+                        {{/each}}
+                    </select>
+                    <label>支付状态：</label>
+                    <select id="payState" name="payState" class="form-control" style="width: 100px;height: 34px;font-size: 12px">
+                        <option selected value="-1">所有</option>
+                        <option value="paid">已支付</option>
+                        <option value="uncertain">未支付</option>
+                    </select>
+                    <label for="accountBeginDate">支付日期从:</label>
+                    <div class="input-group date form_date" style="padding:0px;width: 200px;display: inline-block;" data-date=""
+                         data-date-format="dd MM yyyy" data-link-field="accountBeginDate"
+                         data-link-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" style="width: 130px"  name="accountBeginDate" id="accountBeginDate" placeholder="选择开始时间">
+                        <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                    <label for="accountEndDate">到 :</label>
+                    <div class="input-group date form_date" style="width: 200px;display: inline-block;" data-date=""
+                         data-date-format="dd MM yyyy" data-link-field="accountEndDate"
+                         data-link-format="yyyy-mm-dd">
+                        <input type="text" class="form-control" style="width: 130px" name="accountEndDate" id="accountEndDate" placeholder="选择结束时间">
+                        <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="search">搜索</button>
+        </form>
+    </div>
+    <hr class="titleHr">
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="member">
+            <!--异步加载数据列表部分-->
+            <div class="row-fluid">
+                <div id="record_list" class="record_list span12"></div>
+            </div>
+
+            <!--分页部分-->
+            <div class="row-fluid">
+                <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                    <div style="float:left;text-align: left;width: 300px;margin-top:20px">
+                        <a class="btn btn-primary" data-target="#export_data" data-toggle="modal" href="#">导 出</a>
+                    </div>
+                    <div class="pagination" id="pagination" style="margin: 0;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="export_data" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h3>支付记录导出</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="exportExcel" href="#export_tab" data-toggle="tab">导出</a></li>
+                    <li><a id="excelListHistory" href="#export_history" data-toggle="tab">导出历史</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="export_tab">
+                        <form class="form-horizontal form-inline">
+                            <div class="form-group" style="margin-top:10px">
+                                <label class="control-label col-md-5" for="export_fileName" style="float: left;">导出文件名称：</label>
+
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="export_fileName" name="export_fileName"
+                                           placeholder="不填则以导出时间命名">
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                                <button type="button" class="btn btn-primary" id="upload_file_smt"
+                                        data-loading-text="处理中...">
+                                    确定
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="export_history">
+                        <div id="excelListHistoryDiv" style="height: 350px;overflow: hidden;overflow-y: auto;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改支付记录</h4>
+            </div>
+            <form id="addForm" class="form-horizontal" action="../server/updateRecord.jsx" method="post"
+                  enctype="multipart/form-data" target="resultFrame">
+                <input type="hidden" name="id" id="id"/>
+                <div class="modal-body" id="addPatchDiv">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">支付单号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="updateOuterId" name="updateOuterId" placeholder="支付单号" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">支付方式</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="updatePaymentName" name="updatePaymentName" placeholder="支付方式" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">需支付金额</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="updateNeedPayMoneyAmount" name="updateNeedPayMoneyAmount" placeholder="需支付金额(单位：元)" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">支付状态</label>
+                        <div class="col-sm-7">
+                            <select id="updatePayState"  name="updatePayState" class="form-control" placeholder="支付状态">
+                                <option value="uncertain">未支付</option>
+                                <option value="paid">已支付</option>
+                                <option value="failed">支付失败</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">支付流水号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="updateBankSN" name="updateBankSN" placeholder="支付流水号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">已支付金额</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="updatePaidMoneyAmount" name="updatePaidMoneyAmount" placeholder="已支付金额(单位：元)">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="submitBtn" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $("#upload_file_smt").bind("click", function () {
+            $(this).button('loading');
+
+            var payInterfaceId = $("#payInterfaceId").find("option:selected").val();
+            var payState = $("#payState").find("option:selected").val();
+            var keyword = $("#keyword").val();
+            var export_fileName = $("#export_fileName").val();
+            var accountBeginDate = $("#accountBeginDate").val();
+            var accountEndDate = $("#accountEndDate").val();
+
+            var postData = {
+                export_fileName: export_fileName,
+                payInterfaceId: payInterfaceId,
+                payState: payState,
+                accountBeginDate: accountBeginDate,
+                accountEndDate: accountEndDate,
+                keyword: keyword
+            };
+            $.post("handler/doExportExchangeRecord.jsx", postData, function (data) {
+                if (data.state == "ok") {
+                    alert(data.msg + "　您可以在【导出历史】中查看并下载。");
+                } else {
+                    alert(data.msg);
+                }
+                $('#upload_file_smt').button('reset');
+            }, "json");
+        });
+
+        $("#excelListHistory").bind("click", function () {
+            $.ajax({
+                        url: "load_export_histories.jsx",
+                        data: {t: "realPayRec"},
+                        type: "post",
+                        success: function (data) {
+                            var divShow = $("#excelListHistoryDiv");
+                            divShow.html("");
+                            divShow.append(data);
+                        }
+                    }
+            );
+        });
+    });
+</script>
+<script>
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

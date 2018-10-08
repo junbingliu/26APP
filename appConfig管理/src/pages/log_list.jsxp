@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>修改日志列表</title>
+    {{#inc("pages/include_base.jsx")}}
+    <script type="text/javascript" src="@{res/js/list.js}@"></script>
+</head>
+<body>
+{{#inc("pages/include_navbar.jsx")}}
+<div style="padding-top:55px">
+    <div class="tab-content" style="margin: 0 10px 0 10px">
+        <div class="tab-pane fade in active" id="member">
+            <!--异步加载数据列表部分-->
+            <div class="row-fluid">
+                <div id="record_list" class="record_list span12"></div>
+            </div>
+
+            <!--分页部分-->
+            <div class="row-fluid">
+                <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+                    <div class="pagination" id="pagination" style="margin: 0;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+</body>
+</html>

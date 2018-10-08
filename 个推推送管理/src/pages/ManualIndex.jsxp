@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/resources/bootstrap300/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../style/app.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.7.2.min.js"></script>
+    <script src="/resources/bootstrap300/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@{res/js/ManualIndex.js}@"></script>
+    <title>手工操作相关</title>
+</head>
+<body>
+{{=$.inc("pages/common/include_navbar.jsx")}}
+<div class="jumbotron" style="margin-top:60px">
+    <div style="line-height: 20px;">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label for="orderId" class="col-sm-2 control-label">订单号/拣货、配送员ID</label>
+
+                        <div class="col-sm-3">
+                            <textarea class="form-control" name="orderId" id="orderId" rows="10" cols="50" placeholder="订单内部ID或者外部ID"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderId" class="col-sm-2 control-label">对接方式</label>
+
+                        <div class="col-sm-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="type" value="picking" checked>推送拣货信息
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="type" value="delivery">推送配送信息
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="type" value="setTag">设置标签
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <a class="btn btn-primary" href="javascript:;" id="doReSendOrderByConfirm">确定</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="msg"></div>
+</body>
+</html>
+
+

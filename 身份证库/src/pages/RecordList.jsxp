@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/resources/bootstrap3.3.4/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="@{style/app.css}@">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script>
+        var merchantId='{{=it.merchantId}}';
+        var t='{{=it.t}}';
+    </script>
+    <script type="text/javascript" src="@{js/RecordList.js}@"></script>
+</head>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid">
+    <div >
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-1" style="width: 80px;padding-top: 5px;">
+                <span>关键字</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="keyword" placeholder="姓名/身份证号">
+            </div>
+            <div class="col-xs-2">
+                <input type="hidden" value="{{=it.merchantId}}" name="merchantId" id="merchantId">
+                <button type="button" class="btn btn-default" id="search">搜 索</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12">
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: left;">
+                <div class="pagination" style="margin: 0; ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="doUpdateStateModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">审核新照片</h4>
+            </div>
+            <div class="modal-body" id="doUpdateStateModalDiv">
+                <div>
+                    <div class="row">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">处理方式</label>
+
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="recordState">
+                                        <option value="-1">请选择</option>
+                                        <option value="1">审核通过。新照片覆盖旧照片</option>
+                                        <option value="2">审核不通过。移除新照片</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8" style="margin-left: 240px;">
+                                    <button type="button" class="btn btn-primary" style="width:90px;" id="updateStateBtn">确 定</button>
+                                    <button type="button" class="btn btn-default" style="width:90px;" id="cancelStateBtn">取 消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

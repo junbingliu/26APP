@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{=$.inc('pages/common/include_base.jsx')}}
+    <script>var m = '{{=it.merchantId}}';</script>
+    <script type="text/javascript" src="@{res/js/applicationManage.js}@"></script>
+</head>
+<body>
+{{=$.inc('pages/common/include_navbar.jsx')}}
+<div id="goodProductList" style="margin-top: 69px">
+    <input id="activeId" value="{{=it.activeId}}" type="hidden">
+    <form class="form-inline" role="search">
+        <div class="form-group">
+            <label style="margin-left: 10px">试用商品:</label>
+            <select id="selectL" class="form-control" style="width: 150px;height: 34px;font-size: 12px">
+                <option value="-1">全部</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>审核结果:</label>
+            <select  class="form-control" style="width: 100px;height: 34px;font-size: 12px" id="state">
+                <option value="-1">全部</option>
+                <option value="0">审核未通过</option>
+                <option value="1">审核通过</option>
+                <option value="2">待审核</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-default" id="search">搜 索</button>
+        <div style="display: inline;margin-left: 100px">
+        导出文件名称：<input id="exportName"/>
+        <button type="button" class="btn btn-default" id="export">导出</button>
+        <a style="text-decoration:underline" data-toggle="modal" data-target="#myModal1" id="getHistory" data-a="applicationProductExport">导出历史记录</a>
+        </div>
+        <div style="margin: 20px">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#qualificationsTable">生成试用白名单</button>
+        <a style="text-decoration:underline" data-toggle="modal" data-target="#myModal1" id="successList" >试用白名单历史记录</a>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#blackList" style="margin-left: 100px">生成试用黑名单</button>
+        <a style="text-decoration:underline" data-toggle="modal" data-target="#myModal1" id="blackDown">试用黑名单历史记录</a>
+        </div>
+        <div style="margin: 20px">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#successUp">批量审核通过</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#refuse">批量审核拒绝</button>
+        </div>
+    </form>
+    <div class="row-fluid">
+        <div id="record_list" class="record_list span12">
+        </div>
+    </div>
+
+    <!--分页部分-->
+    <div class="row-fluid">
+        <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+            <div class="pagination" style="margin: 0; ">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">
+                    导出历史列表
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-condensed table-bordered table-hover">
+                    <thead>
+                    <th>文件名</th>
+                    <th>导出时间</th>
+                    <th>操作</th>
+                    </thead>
+                    <tbody id="historyList">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="qualificationsTable" tabindex="-5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">
+                    生成试用资格名单
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div>
+                        <select class="form-control dropdown-toggle" id="selectA"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label" style="padding-top: 0px;">人数:</label>
+                    </div>
+                    <div>
+                        <input id="Number"/>
+                    </div>
+                </div>
+                筛选条件：
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label" style="padding-top: 0px;">条件1</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="condition1"/>包含曾经有过申请记录的用户
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label>条件2:</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="condition2"/>
+                        包含有申请成功记录的用户<input class="form-control input-sm" id="successNum"/></div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label>条件3：</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="condition3"/>
+                        需单独剔除的用户
+                        <button class="btn btn-default" data-toggle="modal" data-target="#myModalUpdate">上传</button>
+                        <a href="http://10.0.147.163/resources/batch_templates/limitListTemplate.xlsx">下载模板</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>导出文件名：</label>
+                    <input id="fileName" />
+                </div>
+                <div class="form-group">
+                    备注：
+                    所有条件默认为非选中状态；
+                    条件3与其他条件无关，单独存在；
+                    在条件1勾选的前提下，才能勾选条件2，即，条件2作为条件1的补充；
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button class="btn btn-default" id="qualificationsUp">生成名单</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >导入剔除名单</h4>
+            </div>
+            <form class="form-horizontal" action="../handler/upload.jsx" method="post"
+                  enctype="multipart/form-data" target="resultFrame2">
+                <input type="hidden" name="m" value="{{=it.merchantId}}"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择文件</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" name="file"
+                                   placeholder="选择需要导入的文件">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">上传</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">批量审核</h4>
+            </div>
+            <form class="form-horizontal" action="../handler/uploadWinning.jsx" method="post"
+                  enctype="multipart/form-data" target="resultFrame" id="successForm">
+                <input type="hidden" name="m" value="{{=it.merchantId}}"/>
+                <div class="modal-body" id="addPatchDiv">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择文件</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="file" name="file"
+                                   placeholder="选择需要导入的文件">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="successBtn" class="btn btn-primary">上传</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="refuse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">批量审核拒绝</h4>
+            </div>
+            <form class="form-horizontal" action="../handler/uploadRefuse.jsx" method="post"
+                  enctype="multipart/form-data" target="resultFrame" id="refuseForm">
+                <input type="hidden" name="m" value="{{=it.merchantId}}"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择文件</label>
+                        <div class="col-sm-10">
+                            <input type="hidden" value="" name="state">
+                            <input type="file" class="form-control" name="file"
+                                   placeholder="选择需要导入的文件">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="refuseBtn" class="btn btn-primary">上传</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="blackList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">导出黑名单</h4>
+            </div>
+            <form class="form-horizontal">
+                <input type="hidden" name="m" value="{{=it.merchantId}}"/>
+                <div class="modal-body">
+                    <select id="selectAi">
+                        <option value="-1">全部</option>
+                    </select>
+                    <label>文件名：</label><input id="fileName1"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-primary blackExport">导出</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function frameLoaded() {
+        var resultFrame = document.getElementById("resultFrame");
+        var result = $("#resultFrame").contents().find("body").html();
+        if (result) {
+            result = JSON.parse(result);
+            if (result.state == "ok") {
+                bootbox.alert(result.msg, function () {
+                    $(".modal.fade").modal("hide");
+                    $("#search").click();
+                });
+            } else {
+                bootbox.alert("上传失败,"+result.msg, function () {
+                });
+            }
+        }
+    }
+
+    $("#successBtn").click(function () {
+        var isEnable = $("#successForm input[type='file']").val();
+        if (!isEnable) {
+            bootbox.alert("请选择需要上传的文件");
+            return;
+        }
+        $("#successForm").submit();
+    });
+
+    $("#refuseBtn").click(function () {
+        var isEnable = $("#refuseForm input[type='file']").val();
+        if (!isEnable) {
+            bootbox.alert("请选择需要上传的文件");
+            return;
+        }
+        $("#refuseForm").submit();
+    });
+</script>
+
+<iframe id="resultFrame" name="resultFrame" style="display: none" onload="frameLoaded()"></iframe>

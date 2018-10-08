@@ -1,0 +1,16 @@
+{
+    "libs_namespace": "NormalBuyFlow",
+    "libs": ["service/SettingService.jsx"],
+    "obj_prefixes": ["NormalBuyFlow"],
+    "list_prefixes": ["NormalBuyFlow"],
+    "rules":[{
+        "id":"fullControl",
+        "name":"完全控制",
+        "pattern":".*"
+    },{
+        "id":"readOnly",
+        "name":"查看权限",
+        "pattern":"(pages/viewAppPrivilege/.*)|(pages/viewUserPrivilege/.*)|(pages/home.jsx)"
+    }]
+
+}

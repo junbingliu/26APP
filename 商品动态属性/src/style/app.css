@@ -1,0 +1,9 @@
+.dateTime_date {width: 70px;float: left;}
+.dateTime_time {width: 50px;float: left;}
+
+.label_name{float: left;padding-top: 5px;padding-right: 10px;}
+.valuePrice{color:#FF6600;}
+.valueTitle{color:#999999;}
+.valueTitle_padding{color:#999999;padding-left:20px;}
+
+.orderState{color:#FF3300;}

@@ -1,0 +1,29 @@
+{
+  "buildTime": "$now",
+  "isWidget":true,
+  "buildVersion" : "$svnversion",
+  "libs_namespace": "combiproduct",
+  "libs": ["services/CombiProductService.jsx","services/ComMerchantService.jsx"],
+  "obj_prefixes": ["combiProduct","combiPart"],
+  "list_prefixes": ["combiProduct"],
+  "eventHandlers":[
+    {
+    "eventName": "merchantUpdated",
+    "pageId": "eventHandlers/BuildMerchantUpdatedIndexEvent.jsx",
+    "handlerId": "BuildMerchantUpdatedIndex_OnMerchantChanged",
+    "description": "商家信息变动，设计师商家重建索引"
+    },
+    {
+    "eventName": "merchantPosUpdated",
+    "pageId": "eventHandlers/BuildMerchantUpdatedIndexEvent.jsx",
+    "handlerId": "BuildMerchantUpdatedIndex_OnMerchantPosChanged",
+    "description": "商家排序变动，设计师商家重建索引"
+    },
+    {
+      "eventName": "priceChanged",
+      "pageId": "eventHandlers/PriceChangeUpdateIndexEvent.jsx",
+      "handlerId": "BuildPriceChangeIndex_OnPriceChanged",
+      "description": "商品价格变更,组合商品价格变化"
+    }
+  ]
+}

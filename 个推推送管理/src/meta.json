@@ -1,0 +1,32 @@
+{
+    "libs_namespace": "getui",
+    "libs": ["services/GetuiService.jsx","services/GetuiArgService.jsx","services/GetuiExchangeUtil.jsx","services/GetuiLogQuery.jsx"],
+    "obj_prefixes": ["getui"],
+    "list_prefixes": ["getui"],
+    "eventHandlers":[
+        {
+            "eventName":"orderConfirmAfter",
+            "pageId":"eventHandlers/sendPickingInfo.jsx",
+            "handlerId":"getui_OnOrderConfirmAfter",
+            "description":"订单手工确认后，推送消息给APP。"
+        },
+        {
+            "eventName":"orderConfirmAutoAfter",
+            "pageId":"eventHandlers/sendPickingInfo.jsx",
+            "handlerId":"getui_OnOrderConfirmAutoAfter",
+            "description":"订单自动确认后，推送消息给APP。"
+        },
+        {
+            "eventName":"orderShippingAfter",
+            "pageId":"eventHandlers/sendDeliveryInfo.jsx",
+            "handlerId":"getui_OnOrderShippingAfter",
+            "description":"订单出库后，推送消息给APP。"
+        },
+        {
+            "eventName":"orderShippingAutoAfter",
+            "pageId":"eventHandlers/sendDeliveryInfo.jsx",
+            "handlerId":"getui_OnOrderShippingAutoAfter",
+            "description":"订单出库后，推送消息给APP。"
+        }
+    ]
+}

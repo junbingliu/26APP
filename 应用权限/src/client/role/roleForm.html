@@ -1,0 +1,104 @@
+<div id="addRolePage" class="page">
+    <div class="panel panel-primary" style="margin:auto;width:100%">
+
+    <div class="panel-heading">
+        <h5>
+            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;新建角色
+            <button class="btn btn-sm btn-success pull-right" data-bind="click:save" style="margin-left: 5px" >
+                <i class="glyphicon glyphicon-save"></i>&nbsp;
+                确定保存
+            </button>
+            <button class="btn btn-sm btn-success pull-right" data-bind="click:returnList" style="margin-left: 5px">
+                <i class="glyphicon glyphicon-align-justify"></i>&nbsp;
+                返回列表
+            </button>
+        </h5>
+
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" >
+            <fieldset>
+                <div class="form-group">
+                    <!-- Text input-->
+                    <label class="col-sm-1 control-label">名称：</label>
+                    <div class="col-sm-11">
+                        <input type="text" placeholder="输入代表工作性质的名词，例如订单管理员，打单员，首页装修员等" class="form-control" data-bind="value:name">
+                        <p class="help-block">角色名称</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- Textarea -->
+                    <label class="col-sm-1 control-label">说明</label>
+                    <div class="col-sm-11">
+                        <div class="textarea">
+                            <textarea type="" class="form-control" data-bind="value:description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                </div>
+
+
+            </fieldset>
+        </form>
+
+        <div class="col-sm-6">
+            <div class="table-header" id="pinedBox1" style="width:375px;z-index: 999">
+                    <span>
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;未拥有应用
+                    </span>
+            </div>
+
+            <table class="table table-bordered table-striped" style="width:98%">
+                <thead>
+                <tr>
+                    <td style="width:120px">名称</td>
+                    <td>功能组</td>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach:apps">
+                <tr>
+                    <!-- ko if :$data.name().indexOf('已分配') == -1 -->
+                    <td data-bind="text:name" ></td>
+                    <td>
+                        <p data-bind="foreach:actionGroups" class="roleAction" style="list-style: none">
+                            <button class="btn btn-sm btn-primary" data-bind="click:$root.add" style="margin-left: 3px"><span data-bind="text:name" title="加入角色权限组"></span><i class="glyphicon glyphicon-plus"></i></button>
+                        </p>
+                    </td>
+                    <!--/ko-->
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="col-sm-6" id="pinedBox">
+            <div class="table-header" style="width:375px">
+                    <span>
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;拥有的权限
+                    </span>
+            </div>
+            <table class="table table-bordered table-striped" style="width:98%">
+                <thead>
+                <tr>
+                    <td style="width:120px">名称</td>
+                    <td >功能组</td>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach:selectedApps">
+                <tr>
+                    <td data-bind="text:name"></td>
+                    <td>
+                        <p data-bind="foreach:actionGroups" class="roleAction" style="list-style: none">
+                            <button class="btn btn-sm btn-success" data-bind="click:$root.delete" style="margin-left: 3px"><span data-bind="text:name" title="移除权限"></span><i class="glyphicon glyphicon-minus"></i></button>
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div></div>
+    </div>
+    </div>
+</div>

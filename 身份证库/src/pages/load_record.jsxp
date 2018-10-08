@@ -1,0 +1,97 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<table class="table table-striped table-bordered table-over" id="record_table">
+    <thead>
+    <tr>
+        <th width="100px;">内部ID</th>
+        <th width="120px;">姓名</th>
+        <th width="180px;">身份证号</th>
+        <th width="160px;">身份证照片</th>
+        <!--<th width="140px;">待审身份证照片</th>-->
+        <th width="100px;">所属用户</th>
+        <!--<th width="120px;">身份证照状态</th>-->
+        <th width="160px;">创建时间</th>
+        <th width="100px;">创建人</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.recordList:value:index}}
+    <tr>
+        <td >{{=value.id}}</td>
+        <td >{{=value.name}}</td>
+        <td >{{=value.idCard}}</td>
+        <td >
+            <div style="width: 160px;float: left;">
+                {{? value.idCardFrontPic60}}
+                <div class="thumbnail" style="float: left;margin-bottom: 0;">
+                    <a href="{{=value.idCardFrontPic}}" target="_blank">
+                        <img src="{{=value.idCardFrontPic60}}">
+                    </a>
+                    <div class="caption">
+                        <p class="id_name">正面照</p>
+                    </div>
+                </div>
+                {{?}}
+                {{? value.idCardBackPic60}}
+                <div class="thumbnail" style="float: left;margin: 0 0 0 10px;">
+                    <a href="{{=value.idCardBackPic}}" target="_blank">
+                        <img src="{{=value.idCardBackPic60}}">
+                    </a>
+                    <div class="caption">
+                        <p class="id_name">反面照</p>
+                    </div>
+                </div>
+                {{?}}
+            </div>
+        </td>
+        <!--<td >-->
+            <!--<div style="width: 160px;float: left;">-->
+                <!--{{? value.newIdCardFrontPic60}}-->
+                <!--<div class="thumbnail" style="float: left;margin-bottom: 0;">-->
+                    <!--<a href="{{=value.newIdCardFrontPic}}" target="_blank">-->
+                        <!--<img src="{{=value.newIdCardFrontPic60}}">-->
+                    <!--</a>-->
+                    <!--<div class="caption">-->
+                        <!--<p class="id_name">正面照</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--{{?}}-->
+                <!--{{? value.newIdCardBackPic60}}-->
+                <!--<div class="thumbnail" style="float: left;margin: 0 0 0 10px;">-->
+                    <!--<a href="{{=value.newIdCardBackPic}}" target="_blank">-->
+                        <!--<img src="{{=value.newIdCardBackPic60}}">-->
+                    <!--</a>-->
+                    <!--<div class="caption">-->
+                        <!--<p class="id_name">反面照</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--{{?}}-->
+            <!--</div>-->
+        <!--</td>-->
+        <td >{{=value.userId}}</td>
+        <!--<td >-->
+            <!--{{? value.state == '1'}}-->
+            <!--<span style="color: #0b70af">审核通过</span>-->
+            <!--{{?? value.state == '2'}}-->
+            <!--<span style="color: #FF0033">审核不通过</span>-->
+            <!--{{??}}-->
+            <!--初始-->
+            <!--{{?}}-->
+        <!--</td>-->
+        <td >{{=value.formatCreateTime}}</td>
+        <td >{{=value.createUserName}}</td>
+        <td>
+            <a class="btn btn-success btn-sm" href="RecordForm.jsx?id={{=value.id}}&&m={{=it.merchantId}}&&t={{=it.t}}">修改</a>
+            <!--{{? value.isDeedCertify}}-->
+            <!--<a class="btn btn-primary btn-sm doUpdateState" href="javascript:;" data-a="{{=value.id}}">审核新照片</a>-->
+            <!--{{?}}-->
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>

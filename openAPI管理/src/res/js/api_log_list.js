@@ -1,0 +1,54 @@
+$(document).ready(function () {
+    var initconfig = {
+        bsV: "3",
+        paginationId: "p1",
+        ajaxUrl: "load_api_log.jsx",
+        data_container: "#record_list",
+        pagination_container: "#pagination",
+        pagination_params: "#pagination_params"
+    };
+    var pagination = new $.IsoneAjaxPagination(initconfig);
+    pagination.load({});
+
+    var loadData = function () {
+        var api_id = $.trim($("#api_id").val());
+        var api_name = $.trim($("#api_name").val());
+        var serial_no = $.trim($("#serial_no").val());
+        var beginCallTime = $.trim($("#beginCallTime").val());
+        var endCallTime = $.trim($("#endCallTime").val());
+        var searchArgs = {};
+        if (api_id) {
+            searchArgs.api_id = api_id;
+        }
+        if (api_name) {
+            searchArgs.api_name = api_name;
+        }
+        if (serial_no) {
+            searchArgs.serial_no = serial_no;
+        }
+        if (beginCallTime) {
+            searchArgs.beginCallTime = beginCallTime;
+        }
+        if (endCallTime) {
+            searchArgs.endCallTime = endCallTime;
+        }
+        pagination.load(searchArgs);
+    };
+    $("#search").on("click", function () {
+        loadData();
+    });
+    $("#api_id").on("keydown",function(event){
+        if(event.keyCode == '13'){
+            loadData();
+        }
+    });
+    $("#api_name").on("keydown",function(event){
+        if(event.keyCode == '13'){
+            loadData();
+        }
+    });
+});
+
+function reloadList() {
+    window.location.reload();
+}

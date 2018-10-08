@@ -1,0 +1,13 @@
+{
+    "libs_namespace": "tryOutManage",
+    "libs": ["services/tryOutManageServices.jsx",
+        "services/tryOutManageQuery.jsx",
+        "services/tryOutManageBuildIndex.jsx",
+        "services/tryOutProductQuery.jsx",
+        "services/tryOutProductBuildIndex.jsx",
+        "services/reportModelBuildIndex.jsx",
+        "services/reportModelQuery.jsx"
+    ],
+    "obj_prefixes": ["tryOutManage"],
+    "list_prefixes": ["tryOutManage"]
+}

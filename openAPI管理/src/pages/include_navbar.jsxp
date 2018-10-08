@@ -1,0 +1,189 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header pull-right">
+            <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-cog">OPEN API管理</i></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar">
+                <li data-a="api_log_list"><a href="api_log_list.jsx?m={{m}}"><i class="glyphicon glyphicon-list">&nbsp;查看API调用日志</i></a></li>
+                <li data-a="api_list"><a href="api_list.jsx?m={{m}}" id="addSubscribe"><i class="glyphicon glyphicon-list">查看API接口</i></a></li>
+                <li data-a="addApi"><a href="javascript:void(0)" id="addApi"><i class="glyphicon glyphicon-plus">增加API接口</i></a></li>
+                <li data-a="chart"><a href="chart.jsx?m={{m}}" id="chart"><i class="glyphicon glyphicon-plus">查看统计数据</i></a></li>
+                <li data-a="setArgs"><a href="javascript:void(0)" id="setArgs"><i class="glyphicon glyphicon-cog">参数设置</i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">增加API接口</h4>
+            </div>
+            <form id="addForm" class="form-horizontal" action="handler/add_api.jsx" method="post" target="resultFrame">
+                <input type="hidden" name="id" value="" id="id"/>
+                <div class="modal-body" id="addPatchDiv">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Api_ID<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="apiId" id="apiId" value="{{apiId}}" placeholder="ApiID,格式如：crv.ole.user.login"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Api名称<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="apiName" id="apiName" value="{{apiName}}" placeholder="API名称"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">API调用URL<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="apiUrl" id="apiUrl" value="{{apiUrl}}" placeholder="API调用地址，不需要带域名，如:/ewjMobileApi/server/user/login.jsx"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">API备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" name="content" id="content" placeholder="API备注"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="submitBtn" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="apiTokenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="apiTokenModalLabel">增加Token</h4>
+            </div>
+            <form id="apiTokenAddForm" class="form-horizontal" action="handler/add_api_token.jsx" method="post" target="resultFrame4">
+                <input type="hidden" name="id" value="" id="apiTokenId"/>
+                <div class="modal-body" id="addApiTokeDiv">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Token<span style="color: red">*</span></label>
+                        <div class="col-sm-10 input-group">
+                            <input class="form-control" type="text" name="token" id="apiToken" value="{{apiToken}}" size="32"
+                                   placeholder="token,格式如：32位字母和数字的随机数"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary gen" type="button">点击随机生成</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Sign<span style="color: red">*</span></label>
+                        <div class="col-sm-10 input-group">
+                            <input class="form-control" type="text" name="sign" id="sign" value="{{sign}}" size="32"
+                                   placeholder="token对应的密钥，用于对报文进行加密，格式如：32位字母和数字的随机数"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary gen" type="button">点击随机生成</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属系统<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="sys" id="sys" value="{{sys}}" placeholder="所属系统"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">渠道<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="channel" id="channel" value="{{channel}}" placeholder="渠道"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">有效期从<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <div class="input-group date form_date" style="padding:0px;display: inline-block;" data-date=""
+                                 data-date-format="dd MM yyyy" data-link-field="beginTime"
+                                 data-link-format="yyyy-mm-dd">
+                                <input type="text" class="form-control" style="width: 110px"  name="beginTime" id="beginTime" placeholder="选择开始时间">
+                                <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">至 <span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <div class="input-group date form_date" style="padding:0px;display: inline-block;" data-date=""
+                                 data-date-format="dd MM yyyy" data-link-field="endTime"
+                                 data-link-format="yyyy-mm-dd">
+                                <input type="text" class="form-control" style="width: 110px"  name="endTime" id="endTime" placeholder="选择开始时间">
+                                <span class="input-group-addon" style="display: inline-block;width: 40px;"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">可用状态</label>
+                        <div class="col-sm-10">
+                            <select name="state" class="form-control" id="state">
+                                <option value="1">1.可用</option>
+                                <option value="0">0.不可用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="remark" id="remark"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="apiTokenSubmitBtn" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel3">参数配置</h4>
+            </div>
+            <form id="addForm3" class="form-horizontal" action="handler/saveConfig.jsx" method="post" target="resultFrame3">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="url" class="col-sm-2 control-label">API接口管理url</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="url" id="url" value="{{url}}" placeholder="API接口管理url"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="url" class="col-sm-2 control-label">访问token</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="token" id="token" value="{{token}}"
+                                   placeholder="访问token"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="submitBtn3" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@{res/js/nav.js}@"></script>
+<iframe id="resultFrame" name="resultFrame" style="display: none" onload="frameLoaded()"></iframe>
+<!--<iframe id="resultFrame2" name="resultFrame2" style="display: none" onload="frameLoaded2()"></iframe>-->
+<!--<iframe id="resultFrame3" name="resultFrame3" style="display: none" onload="frameLoaded3()"></iframe>-->
+<iframe id="resultFrame4" name="resultFrame4" style="display: none" onload="frameLoaded4()"></iframe>

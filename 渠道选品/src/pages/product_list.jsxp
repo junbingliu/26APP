@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    {{=$.inc("pages/common/include_base.jsx")}}
+    <script>
+        var merchantId = "{{=it.merchantId}}";
+    </script>
+    <script type="text/javascript" src="@{js/product_list.js}@"></script>
+    <script type="text/javascript" src="@{js/bootstrap-datetimepicker.js}@"></script>
+    <script type="text/javascript" src="@{js/bootstrap-datetimepicker.zh-CN.js}@"></script>
+
+</head>
+<body>
+{{=$.inc("pages/common/include_navbar.jsx")}}
+
+<div role="presentation"
+     style="padding: 14px;border-color:#e6e6e6;color: #000000;font-size: 12px;margin-top: -20px;">
+    <form class="form-inline">
+        <div class="form-group" style="width: 100%;">
+            <div style="float:left;text-align: left;width: auto;">
+                <a class="btn btn-success" style="margin-left: 25px;width: 63px;" href="javascript:void(0)" id="putawayAll"
+                   data-loading-text="正在同步,请稍候...">上架</a>
+                <a class="btn btn-success" style="margin-left: 25px;width: 63px;" href="javascript:void(0)" id="soldOutAll"
+                   data-loading-text="正在同步,请稍候...">下架</a>
+                <a class="btn btn-primary" style="margin-left: 25px;width: 83px;" data-target="#export_data" data-toggle="modal" href="#">导出商品</a>
+            </div>
+            <div style="float:right;text-align: right;width: auto;">
+                <input class="form-control" style="width: 194px;" id="keyword" name="keyword">
+                <button type="button" class="btn btn-primary" style="width: 91px;margin-left: 1px;" id="search">搜索</button>
+                <button type="button" class="btn btn-info" style="margin-left: 1px;width: 110px;" id="advancedSearch">高级搜索</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div id="show" role="presentation"
+     style="padding: 20px;border:1px solid #000;border-color:#e6e6e6;color: #000000;background:#e6e6e6;font-size: 12px;display: none">
+    <form class="form-inline">
+        <div class="form-group">
+            <div style="margin:0px 5px;">
+                <span class="date_split" style="padding-top: 5px;font-size: 14px;">商品Id：</span>
+                <input class="form-control" style="width: 91px" id="productId" name="productId">
+                <span class="date_split" style="padding-top: 5px;margin-left: 10px;font-size: 14px;">发布渠道：</span>
+                <select name="channel" id="channel" class="form-control"
+                        style="width: 100px;height: 34px;font-size: 12px">
+                    <option value="" checked>所有</option>
+                    <option value="NO">不含渠道</option>
+                    <option value="h5">微商城</option>
+                    <option value="app">APP</option>
+                </select>
+                <span class="date_split" style="padding-top: 5px;margin-left: 10px;font-size: 14px;">是否在售：</span>
+                <select name="publishState" id="publishState" class="form-control"
+                        style="width: 100px;height: 34px;font-size: 12px">
+                    <option value="">所有</option>
+                    <option value="1">在售中</option>
+                    <option value="0">待上架</option>
+                </select>
+
+                <span class="date_split" style="padding-top: 5px;margin-left: 10px;font-size: 14px;">创建时间:</span>
+                <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="beginTime" name="beginCreateTime">
+                <span class="date_split" style="padding-top: 5px;">至</span>
+                <input type="text" style="width: 90px;border-radius: 4px 0 0 4px;display: inline;" class="date form-control input-sm" id="endTime"  name="endCreateTime">
+                <button type="button" class="btn btn-primary" style="width: 91px;margin-left: 1px;" id="search2">搜索</button>
+            </div>
+
+        </div>
+        <input type="hidden" id="merchantId" value="{{=it.merchantId}}" name="merchantId">
+    </form>
+</div>
+
+<hr class="titleHr">
+<div class="tab-content" style="margin: 0 10px 0 10px">
+    <div class="tab-pane fade in active" id="member">
+        <!--异步加载数据列表部分-->
+        <div class="row-fluid">
+            <div id="record_list" class="record_list span12"></div>
+        </div>
+
+        <!--分页部分-->
+        <div class="row-fluid">
+            <div style="margin-top: 5px;padding-top: 10px; border-top: 1px solid #DDDDDD;text-align: right;">
+
+                <div class="pagination" id="pagination" style="margin: 0;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="export_data" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h3>导出数据</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="exportExcel" href="#export_tab" data-toggle="tab">导出</a></li>
+                    <li><a id="excelListHistory" href="#export_history" data-toggle="tab">导出历史</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="export_tab">
+                        <form class="form-horizontal form-inline">
+                            <div class="form-group" style="margin-top:10px">
+                                <label class="control-label col-md-5" for="export_fileName"
+                                       style="float: left;">导出文件名称：</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="export_fileName" name="export_fileName"
+                                           placeholder="不填则以导出时间命名">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                                <button type="button" class="btn btn-primary" id="upload_file_smt"
+                                        data-loading-text="处理中...">
+                                    确定
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="export_history">
+                        <div id="excelListHistoryDiv" style="height: 350px;overflow: hidden;overflow-y: auto;">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <td>文件名</td>
+                                    <td>操作</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

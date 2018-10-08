@@ -1,0 +1,18 @@
+<div class="wbox footer">
+    <div class="copyright" data-type="html" data-id="footer">
+        <%if(footer && footer.length>0){%>
+        <%=#footer%>
+        <%}else{%>
+        版权所有 武汉武商电子商务有限公司 All Rights Reserved 2013-2015
+        ICP证：鄂ICP备13014517号 增值电信业务经营许可证：鄂B2-20100129
+        技术支持：<a href="http://www.infoscape.com.cn/">广州市信景技术有限公司</a>
+        <%}%>
+    </div>
+</div>
+<%if(productionMode){%>
+<%if(config){%>
+<%if(config.footerCode){%>
+<%=#config.footerCode.value%>
+<%}%>
+<%}%>
+<%}%>

@@ -1,0 +1,50 @@
+<table class="table table-bordered table-over">
+    <thead>
+    <tr class="active">
+        <th width="160px;">ID</th>
+        <th width="160px;">商家名称</th>
+        <th width="150px;">ShipNode</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it.logList:value:index}}
+    <tr>
+        <td>{{=value.merchantId}}</td>
+        <td>{{=value.name_cn}}</td>
+        <td><input type="text" name="shipNode" value="{{=value.shipNode}}" id="{{=value.merchantId+'_shipNode'}}"></td>
+        <td>
+            <a href="javascript:void(0)" class="saveBtn" data-mid="{{=value.merchantId}}">保存</a>
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>
+<div class="pagination_params" totalPages="{{=it.pageParams.totalPages}}"
+     currentPage="{{=it.pageParams.currentPage}}" totalRecords="{{=it.pageParams.totalRecords}}"
+     displayNum="{{=it.pageParams.displayNum}}" pageLimit="{{=it.pageParams.pageLimit}}"
+     recordType="{{=it.pageParams.recordType}}">
+</div>
+<script>
+    $('.saveBtn').click(function () {
+        doSave($(this));
+    });
+    function doSave(el) {
+        var $that = $(el);
+        var mid = $that.data("mid");
+        var shipNode = $("#" + mid + "_shipNode").val();
+        $.post("handler/save.jsx", {
+            shipNode: shipNode,
+            mid: mid
+        }, function (result) {
+            if (result.state == "ok") {
+                alert("保存成功!");
+                if (typeof loadData == "function") {
+                    loadData();
+                }
+            } else {
+                alert("保存失败!" + result.msg);
+            }
+        }, "JSON");
+    }
+</script>

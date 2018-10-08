@@ -1,0 +1,115 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th><input type="checkbox" id="checkboxAll"></th>
+        <th>商品ID</th>
+        <th>商品名称</th>
+        <th>商品分类</th>
+        <th>市场价</th>
+        <th>现金</th>
+        <th>积分值</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{each resultList as value i}}
+    <tr>
+        <td><input type="checkbox" name="subcheck" value="{{value.id}}"></td>
+        <td>{{value.productId}}</td>
+        <td>{{value.name}}</td>
+        <td>{{value.typeName}}</td>
+        <td>{{value.marketPrice}}</td>
+        <td>{{value.money}}</td>
+        <td>{{value.jifen}}</td>
+        <td>
+            <a href="javascript:void(0)" class="updateBtn" data-id="{{value.id}}">修改</a>
+            <a href="javascript:void(0)" class="delBtn" data-id="{{value.id}}">删除</a>
+        </td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+<div class="pagination_params" id="pagination_params" totalPages="{{pageParams.totalPages}}"
+     currentPage="{{pageParams.currentPage}}" totalRecords="{{pageParams.totalRecords}}"
+     displayNum="{{pageParams.displayNum}}" pageLimit="{{pageParams.pageLimit}}" recordType="{{pageParams.recordType}}">
+</div>
+<script>
+    //绑定全选的事件
+    $('#checkboxAll').click(function () {
+        $("input[name='subcheck']:checkbox").prop("checked", $(this).is(':checked'));
+    });
+
+    //绑定单个复选框的事件
+    $('input[name="subcheck"]').click(function () {
+        var $chk = $("[name = subcheck]:checkbox");
+        $("#checkboxAll").prop("checked", $chk.length == $chk.filter(":checked").length);
+    });
+    $('.saveBtn').click(function () {
+        doUpdate($(this), false);
+    });
+
+    $('.delBtn').click(function () {
+        doDelete($(this));
+    });
+    $(".updateBtn").on("click", function () {
+        var $that = $(this);
+        var id = $that.data("id");
+        $.layer({
+            type: 2,
+            shadeClose: true,
+            title: false,
+            closeBtn: [0, false],
+            shade: [0.8, '#000'],
+            border: [0],
+            offset: ['20px', ''],
+            area: ['800px',  '460px'],
+            iframe: {src: 'product_detail.jsx?m=' + merchantId + "&id=" + id, scrolling: 'no'}
+        });
+    });
+
+    function doUpdate(el, isSend) {
+        var $that = $(el);
+        var productId = $that.data("productid");
+        var skuId = $that.data("skuid");
+        var merchantId = $that.data("merchantid");
+        var realAmount = $("#" + skuId + "_realAmount").val();
+        var zeroSellableCount = $("#" + skuId + "_zeroSellableCount").val();
+        $.post("handler/saveAmount.jsx", {
+            productId: productId,
+            skuId: skuId,
+            merchantId: merchantId,
+            realAmount: realAmount,
+            zeroSellableCount: zeroSellableCount,
+            isSend: isSend
+        }, function (result) {
+            if (result.state == "ok") {
+                alert("保存成功!");
+                if (typeof loadData == "function") {
+                    loadData();
+                }
+            } else {
+                alert("保存失败!" + result.msg);
+            }
+        }, "JSON");
+    }
+
+    function doDelete(el) {
+        var $that = $(el);
+        var id = $that.data("id");
+        bootbox.confirm("确定删除该商品？", function (result) {
+            if (result) {
+                $.post("handler/delete_rule.jsx", {
+                    id: id,
+                    merchantId: merchantId
+                }, function (result) {
+                    if (result.code == "0") {
+                        bootbox.alert("保存成功!");
+                        loadData();
+                    } else {
+                        bootbox.alert("保存失败!" + result.msg);
+                    }
+                }, "JSON");
+            }
+        });
+    }
+</script>

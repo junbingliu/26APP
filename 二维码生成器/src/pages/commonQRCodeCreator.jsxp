@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="/resources/bootstrap3.3.5/css/bootstrap.min.css" >
+    <link href="@{style/app.css}@" rel="stylesheet">
+    <script src="/resources/jquery-1.10.2.min.js"></script>
+    <script src="/resources/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/pagination/IsoneAjaxPagination-1.10.js"></script>
+    <script type="text/javascript" src="/resources/layer/layer.min.js"></script>
+    <script>
+        var merchantId = "{{=it.merchantId}}";
+    </script>
+    <script type="text/javascript" src="@{js/jquery-qrcode-0.14.0.min.js}@" ></script>
+
+</head>
+<body>
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div class="container-fluid" id="content">
+    <div class="well">
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">请输入二维码的链接</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="6" style="height: 50px" id="QRCodeUrl" placeholder="请输入要生成二维码的链接，多个链接用“|”隔开"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary btn-sm" id="search">生成二维码</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--异步加载数据列表部分-->
+    <div class="row-fluid">
+        <div id="record_list" class="record_list span12">
+
+            <div class="row" id="QRCodeHtml">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript" src="@{js/commonQRCodeCreator.js}@"></script>
+</body>
+</html>

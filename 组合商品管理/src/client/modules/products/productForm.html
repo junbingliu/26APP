@@ -1,0 +1,151 @@
+<div class="page" id="productFormPage">
+    <div class="userNotification" data-bind="visible:showNotification">
+        <span>系统消息：</span>
+        <span data-bind="text:notification"></span>
+    </div>
+    <form>
+        <div class="input-with-icon w-full m-t">
+            <input type="text" data-bind="value:title" class="form-control" placeholder="请输入组合商品的名称">
+            <span class="icon icon-flow-tree"></span>
+        </div>
+
+        <div class="form-group m-t">
+            <label>所属分类(用于优惠规则选择)：</label>
+            <input type="text" class="form-control" placeholder="用于优惠规则选择" data-bind="value:columnIds">
+            <button class="btn btn-primary" data-bind="click:chooseCategory">选择...</button>
+        </div>
+
+
+        <div class="form-group m-t">
+            <label>系列编码：</label>
+            <input type="text" data-bind="value:seriesCode" class="form-control" placeholder="同系列编码相同">
+        </div>
+
+        <div class="form-group">
+            <label>系列内名称：</label>
+            <input type="text" data-bind="value:seriesDiffName" class="form-control" placeholder="如红色">
+        </div>
+
+
+        <div id="extendedFormsWrapper" class="form-group m-t">
+            <extended-forms params="type:'combiProduct',viewModel:extendedForms"></extended-forms>
+        </div>
+
+
+        <div class="form-group">
+            <label>系列内介绍：</label>
+            <input type="text" data-bind="value:seriesInfoAbout" class="form-control" placeholder="如:现代感十足，简约又大方">
+        </div>
+        <!-- ko if: parts().length > 0 -->
+        <div id="productsContainer" class="w-full m-t p-a" style="float: left;">
+            <div data-bind="foreach: parts">
+                <hr class="m-t-0 m-b-l clearfix">
+                <div class="row" style="margin: 10px 0;">
+                    <label>部件名称：</label>
+                    <input type="text" data-bind="value:name">
+
+                    <label>标签：</label>
+                    <!--<input type="text" data-bind="value:tag">-->
+                    <select data-bind="value:tag">
+                        <option data-bind="value:tag">  <!-- ko text:tag -->  <!-- /ko --></option>
+                        <option value="全屋">全屋</option>
+                        <option value="客厅">客厅</option>
+                        <option value="餐厅">餐厅</option>
+                        <option value="主卧">主卧</option>
+                        <option value="次卧">次卧</option>
+                        <option value="客房">客房</option>
+                        <option value="书房">书房</option>
+                        <option value="儿童房">儿童房</option>
+                        <option value="厨房">厨房</option>
+                        <option value="卫生间">卫生间</option>
+                        <option value="阳台">阳台</option>
+                        <option value="花园">花园</option>
+                        <option value="多功能房">多功能房</option>
+                    </select>
+                    <button class="btn btn-primary-outline" data-bind="click:$root.removePart" style="margin: 0 6px;">
+                        删除部件
+                    </button>
+                </div>
+
+                <div class="row" style="margin: 10px 0;">
+                    <label>商品列表：</label>
+                    <product-list params="productItems:options,viewModel:$root.productListViewModel,merchantId:'head_merchant'"></product-list>
+
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: parts().length == 0 -->
+        <div data-bind="visible:false">
+        <product-list params="productItems:productItems,viewModel:productListViewModel,merchantId:'head_merchant'"></product-list>
+        </div>
+        <!-- /ko -->
+        <div div id="priceInfo" class="w-full  p-a" style="margin-top: 10px;display:inline-flex;border: 1px solid #A0A523;margin-top:-1px;">
+            <label>部件总价：</label>
+            <div class="totalPrice statcard p-a-md" style="float: left;width: 200px; height: 60px">
+                <h3 class="statcard-number">￥<span data-bind="text:marketPriceTotal"></span></h3>
+                <span class="statcard-desc">市场价总价</span>
+            </div>
+            <div class="totalPrice statcard p-a-md" style="float: left;width: 200px; height: 60px">
+                <h3 class="statcard-number">￥<span data-bind="text:memberPriceTotal"></span></h3>
+                <span class="statcard-desc">普通会员价总价</span>
+            </div>
+            <div class="totalPrice statcard p-a-md" style="float: left;width: 200px; height: 60px">
+                <h3 class="statcard-number">￥<span data-bind="text:totalPrice"></span></h3>
+                <span class="statcard-desc">组合套餐总价</span>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div id="partOperation" class="w-full m-t" style="margin-top:10px;display: inline-flex;">
+            <div style="display: block;line-height:35px; margin: 0 5px;">
+                <input type="checkbox" data-bind="checked:fixedPrice"> 是否一口价
+            </div>
+            <div style="display: block;line-height:35px; margin: 0 5px;">
+                <button class="btn btn-primary-outline" data-bind="click:addPart">增加部件</button>
+            </div>
+        </div>
+
+        <div id="priceEditor" class="w-full m-t p-a" >
+            <label>编辑价格：</label>
+            <price-editor params="priceList:priceList,viewModel:priceEditor,basePrice:totalPrice"></price-editor>
+        </div>
+
+        <div id="picturesContainer" class="w-full m-t p-a">
+            <label>商品主图：</label>
+            <file-list params="fileItems:images,spec:'150X150',viewModel:fileListViewModel"></file-list>
+        </div>
+
+        <div id="videoContainer">
+        </div>
+
+        <ul class="nav nav-bordered m-t m-b-0">
+            <li data-bind="css:{active:currentDetailView()=='pc'}">
+                <a href="javascript:void(0)" data-bind="click:function(){currentDetailView('pc')}">pc版详描</a>
+            </li>
+            <li data-bind="css:{active:currentDetailView()=='phone'}">
+                <a href="javascript:void(0)" data-bind="click:function(){currentDetailView('phone')}">phone版详描</a>
+            </li>
+            <li data-bind="css:{active:currentDetailView()=='pad'}">
+                <a href="javascript:void(0)" data-bind="click:function(){currentDetailView('pad')}">pad版详描</a>
+            </li>
+        </ul>
+        <hr class="m-t-0 m-b-l">
+        <div id="pcDetailEditor" data-bind="visible:currentDetailView()=='pc'">
+            <html-editor params="html:pcHtml,w:800,h:400"></html-editor>
+        </div>
+        <div id="phoneDetailEditor" data-bind="visible:currentDetailView()=='phone'">
+            <html-editor params="html:phoneHtml,w:800,h:400"></html-editor>
+        </div>
+        <div id="padDetailEditor" data-bind="visible:currentDetailView()=='pad'">
+            <html-editor params="html:padHtml,w:800,h:400"></html-editor>
+        </div>
+
+        <hr class="m-t-0 m-b-l">
+
+        <iframe style="width:100%; height:500px" data-bind="attr:{src:productExtraUrl},visible:productExtraVisible">
+        </iframe>
+        <button class="btn btn-primary-outline" data-bind="click:save">保存组合商品</button>
+
+    </form>
+</div>

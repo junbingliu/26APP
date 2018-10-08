@@ -1,0 +1,42 @@
+<ul class="addrs_list">
+    <!-- ko foreach:consigneeList -->
+    <li>
+        <label><input type="radio"  data-bind="value:id,checked:$parent.selectedAddressId"/></label>
+        <span><em><!-- ko text:userName --><!-- /ko --></em><em data-bind="text:fullAddress"></em><!-- ko text:mobile --><!-- /ko --></span>
+        <a href="#">设为默认地址</a>
+        <a href="#" data-bind="click:$parent.edit">编辑</a>
+        <a href="#" data-bind="click:$parent.deleteAddress,clickBubble:false">删除</a>
+    </li>
+    <!-- /ko -->
+    <li>
+        <label><input type="radio"  value="none" data-bind="checked:selectedAddressId"/></label>
+        <span><em>使用新地址</em></span>
+    </li>
+</ul>
+
+<div class="new_addrs" data-bind="with: currConsignee,visible:editFormVisible()">
+    <div class="item">
+        <label><i>*</i>收件人：</label>
+        <div class="fl"><input type="text" class="put" data-bind="value:userName"/></div>
+    </div>
+    <div class="item">
+        <label><i>*</i>所在地区：</label>
+        <div class="fl">
+            <!--选择地区层-->
+            <div class="region_list"><!--点击时添加 "active" 样式-->
+                <!--  ko foreach: $parent.regionSelector.optionLevels() -->
+                <select style="display:inline-block;margin-right:10px; padding:6px 5px; border:#d9d9d9 1px solid;"  data-bind="options:options,optionsText:'name',optionsValue:'id',optionsCaption:'请选择...',value:currentOptionId"></select>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="item">
+        <label><i>*</i>详细地址：</label>
+        <div class="fl"><input type="text" class="put putAdd" data-bind="value:address"/></div>
+    </div>
+    <div class="item">
+        <label><i>*</i>手机号码：</label>
+        <div class="fl"><input type="text" data-bind="value:mobile" class="put" /></div>
+    </div>
+</div>
+<div class="btn_save"><a href="#" class="od_btn" data-bind="click:saveData">保存收货人信息</a> </div>

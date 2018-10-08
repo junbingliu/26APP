@@ -1,0 +1,21 @@
+
+        <!--购物车为空-->
+        <div class="cartEmptyTips">
+            <div class="fl cartImg"></div>
+            <div class="fl info">
+                <dl>
+                    <dt>温馨提示！</dt>
+                    <dd>您的购物车内暂时没有您的商品
+                        <% if (!alreadyLogin) {%>
+                        ,
+                        <a href="/login/sign_in.jsp" class="c_blue tdu">登录</a>后，将显示您之前加入的商品</dd>
+                    <%}%>
+                    </dd>
+                </dl>
+                <div class="btnGroup">
+                    <a class="btnDefault" href="/">去首页看看</a>
+                </div>
+            </div>
+        </div>
+        <!--end 购物车为空-->
+

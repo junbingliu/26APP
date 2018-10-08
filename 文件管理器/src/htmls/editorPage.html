@@ -1,0 +1,54 @@
+    <div class="modal" id="PhotoGallery" style="left: -400px">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 1100px">
+                <div class="modal-header" style="height: 55px">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click:closeSelectImg">×</button>
+                    <h5 class="modal-title" style="float:left;line-height: 30px">选择图片</h5>
+
+                    <div class="input-group" style="margin-right: 20px;float: right;width: 200px;">
+                        <input type="text" class="form-control search-query" placeholder="关键字" data-bind="value:searchKeyWord,valueUpdate: 'afterkeydown'">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-bind="click:search">搜!</button>
+                        </span>
+                    </div>
+                    <div class="input-group" style="float: right;margin-right: 20px">
+                        <button type="button" class="btn btn-success" data-bind="click:uploadImgEditor.showUploadImgEditor"><i class="glyphicon glyphicon-plus"></i>上传</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2" style="padding-left: 0px;overflow: auto;height: 450px">
+                            <ul id="imgFileTree" class="ztree"></ul>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="panel panel-default" style="height: 450px;overflow: auto;">
+                                <div id="loading" data-bind="visible:displayLoading()">
+                                    <img src="res/image/loading.gif" style="margin:150px 0 0 250px"/>
+                                </div>
+                                <div class="panel-body" id="imgList" data-bind="foreach:imgList,visible:!displayLoading()">
+                                    <div class="col-md-2"  style="text-align: center">
+                                        <div data-bind="click:$root.selectImg,css:{selected:selected}" style="padding: 10px;margin-bottom:10px">
+                                        <div style="height: 100px"><img style="max-height: 100px" data-bind="attr:{src:imgUrl},event: { dblclick:$root.confirmSelect }" alt="..." class="img-thumbnail"></div>
+                                        <span style="text-align: center;display: block;font-size: 12px;height: 35px;overflow: hidden" data-bind="text:name">这是名字</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="position: absolute;bottom: 0px;text-align: center; width: 100%;">
+                                    <ul class="pagination" >
+                                        <li data-bind="click:$root.prePage" ><a style="height:45px;color:white;background-color: black" href="#">«</a></li>
+                                        <li><a href="javascript:void(0)" style="height:45px;color:white;background-color: black" href="#">当前第&nbsp;<input data-bind="value:currPage,event:{change:$root.toPage},valueUpdate:'afterkeydown'" type="text" style="color:black;height: 25px;text-align: center;width:25px;">&nbsp;页/共&nbsp;<!-- ko text: pageCount --><!-- /ko -->&nbsp;页</a></li>
+                                        <li data-bind="click:$root.nextPage"><a  style="height:45px;color:white;background-color: black" href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" data-bind="click:closeSelectImg">取消</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-bind="click:confirmSelect">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+

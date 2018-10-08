@@ -1,0 +1,62 @@
+<div class="page" id="consigneePage">
+        <div class="address">
+           <div class="consigneeList">
+               <!-- ko foreach:consigneeList -->
+               <div data-bind="css:{selected:$parent.selectedAddressId()==id()}" class="consigneeListItem">
+                   <input type="radio" name="selectedAddress" data-bind="value:id,checked:$parent.selectedAddressId" >
+                   <span data-bind="click:$parent.selectConsignee">
+                       <span class="addr_userName" data-bind="text:userName"></span>
+                       <span class="addr_fullAddress" data-bind="text:fullAddress"></span>
+                       <span class="addr_mobile" data-bind="text:mobile"></span>
+                       <span class="address_action" data-bind="click:$parent.edit">编辑</span>
+                       <span  class="address_action" data-bind="click:$parent.deleteAddress">删除</span>
+                   </span>
+               </div>
+               <!-- /ko -->
+
+               <div class="consigneeListItem" data-bind="css:{selected:selectedAddressId()=='none'}">
+                   <input type="radio" name="selectedAddress" value="none" data-bind="checked:selectedAddressId" >
+                   <span class="addr_userName">使用新地址</span>
+               </div>
+           </div>
+
+
+            <p data-bind="visible:!editFormVisible()">
+                <button type="button" class="btn btn-danger" data-bind="click:confirmSelection"><span class="glyphicon glyphicon-thumbs-up"></span>保存收件人信息</button>&nbsp;
+                <button type="button" class="btn btn-default btn-sm" data-bind="click:newConsignee"><span class="glyphicon glyphicon-plus"></span>新地址</button>
+            </p>
+        </div>
+        <div class="address" data-bind="with: currConsignee,visible:editFormVisible()" style="margin-top:20px;margin-left:30px">
+            <table class="table">
+                <tr>
+                    <td style="width:100px"><span style="color: red;margin-right: 5px">*</span>收货人：</td>
+                    <td><input type="text" data-bind="value:userName" style="width:200px"></td>
+                </tr>
+                <tr>
+                    <td><span style="color: red;margin-right: 5px">*</span>手机号码：</td>
+                    <td><input type="text" data-bind="value:mobile" style="width:200px"></td>
+                </tr>
+                <tr>
+                    <td><span style="color: red;margin-right: 5px">*</span>所在地区：</td>
+                    <td>
+                        <!--  ko foreach: $parent.regionSelector.optionLevels() -->
+                         <select style="display:inline-block;margin-right:10px;width:120px" class="form-control" data-bind="options:options,optionsText:'name',optionsValue:'id',optionsCaption:'请选择...',value:currentOptionId"></select>
+                        <!-- /ko -->
+                    </td>
+                </tr>
+                <tr>
+                    <td><span style="color: red;margin-right: 5px">*</span>详细地址：</td>
+                    <td><span data-bind="text: $parent.regionSelector.currentOptionPathName" style="margin-right: 3px"></span><input type="text" data-bind="value:address" style="width:300px"></td>
+                </tr>
+                <tr>
+                    <td><span style="color: red;margin-right: 5px">*</span>邮政编码：</td>
+                    <td><input type="text" data-bind="value:postalCode" style="width:200px"></td>
+                </tr>
+            </table>
+            <div>
+                <input type="button" class="btn btn-danger" value="保存收货人信息" data-bind="click:$parent.saveData">
+            </div>
+        </div>
+
+</div>
+

@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "freeGetCardControl",
+    "libs": ["services/FreeGetCardService.jsx","services/FreeGetCardUtil.jsx","services/FreeGetCpsCardUtil.jsx"],
+    "obj_prefixes": ["freeGetCard"],
+    "list_prefixes": ["freeGetCard"]
+}

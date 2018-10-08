@@ -1,0 +1,45 @@
+<div class="page" id="activityListPage">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div style="margin-bottom:30px">
+                <button class="btn btn-success" data-bind="click:add">添加活动...</button>
+            </div>
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>名称</th>
+                        <th>活动编号</th>
+                        <th>起止时间</th>
+                        <th>每人限购</th>
+                        <th>总限购</th>
+                        <th>已购买数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:activityList">
+                    <tr>
+                        <td data-bind="text:id"></td>
+                        <td data-bind="text:name"></td>
+                        <td data-bind="text:code"></td>
+                        <td><span data-bind="text:beginDateString"></span>到<span data-bind="text:endDateString"></span></td>
+                        <td data-bind="text:numberPerUser"></td>
+                        <td data-bind="text:numberPerActivity"></td>
+                        <td data-bind="text:activityBoughtNumber"></td>
+                        <td>
+                            <button class="btn btn-warning" data-bind="click:$parent.edit">编辑</button>&nbsp;
+                            <button class="btn btn-success" data-bind="click:$parent.viewLog">日志</button>&nbsp;
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination" >
+                <!-- ko foreach:$root.pager.pages -->
+                <li data-bind="css:{active:isCurrent},click:$root.pager.onPage"><a href="#" data-bind="text:pageName,click:$root.pager.onPage"></a></li>
+                <!-- /ko -->
+                <li style="margin-left:10px;margin-top:5px"><span>共<span data-bind="text:pager.total"></span>条</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

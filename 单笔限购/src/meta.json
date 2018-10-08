@@ -1,0 +1,33 @@
+{
+  "libs_namespace": "limitBuy",
+  "libs": ["services/limitBuyService.jsx"],
+  "obj_prefixes": ["limitBuy"],
+  "list_prefixes": ["limitBuy"],
+  "isWidget":true,
+  "productExtra":{
+    "enabled":true,
+    "name" : "单笔限购",
+    "homePage" : "pages/extraMain.jsx"
+  },
+  "eventHandlers":[
+    {
+      "eventName":"cart_afterChangeAmount",
+      "pageId":"eventHandlers/checkLimit.jsx",
+      "handlerId":"cart_beforeChangeAmount_checkSingleLimit",
+      "description":"单笔订单限购。"
+    },
+    {
+      "eventName":"orderAddBefore",
+      "pageId":"eventHandlers/checkOrderLimit.jsx",
+      "throwException":"true",
+      "handlerId":"orderAddBefore_checkOrderProductLimit",
+      "description":"单笔订单商品限购判断。"
+    }
+  ],
+  "rules":[{
+             "id":"fullControl",
+             "name":"完全控制",
+             "pattern":".*"
+           }
+  ]
+}

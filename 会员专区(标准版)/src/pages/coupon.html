@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="ch">
+	<head>
+        <title>我的优惠券 - 我的专区 - <%=webName%></title>
+        <link rel="stylesheet" type="text/css" href="@{res/css/coupon.css}@" rel="stylesheet" />
+        <script src="/resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/resources/jquery.validate.min.js"></script>
+        <script src="/resources/jquery.form.js" type="text/javascript"></script>
+        <script type="text/javascript" src="@{res/js/page.js}@"></script>
+        <script>var rappId = "<%=rappId%>";</script>
+        <script type="text/javascript" src="@{res/js/coupon.js}@"></script>
+    </head>
+    <body>
+        <%=#importUrl("/ucenter/header.html")%>
+        <link rel="stylesheet" type="text/css" href="@{res/css/page.css}@" rel="stylesheet" />
+        <!-- main -->
+        <div class="center">
+            <!-- sidebar -->
+            <div class="sidebar float_l enableSelect">
+                <div class="crumb">
+                    <a href="/">首页</a><span class="arrow"></span><a href="/ucenter/index.html">我的专区</a><span class="arrow"></span><a class="active">我的优惠券</a>
+                </div>
+                <%=#importUrl("/ucenter/sidebar.html")%>
+            </div>
+            <!-- sidebar -->
+            <!-- main -->
+            <div class="main float_r">
+                <!-- panel -->
+                <div class="panel enableSelect myCouponWarp ">
+                    <div class="panelHd">
+                        <h2 class="panelHdTitle ">我的优惠券</h2>
+                    </div>
+                    <!-- panelBd-->
+                    <div class="panelBd" style="padding-bottom: 90px;">
+                        <div class="myCoupon">
+                            <P class="btns">
+                                <a href="<%=requestURI%>" class="btn <%=tp=='unuse' ? 'active' : ''%>">未使用</a><a href="<%=requestURI%>?tp=used" class="btn <%=tp=='used' ? 'active' : ''%>">已使用</a><a href="<%=requestURI%>?tp=exipred" class="btn <%=tp=='exipred' ? 'active' : ''%>">已过期</a>
+                                <a href="javascript:;" style="float:right;" class="btn active" id="bindNewBtn">优惠券兑换</a>
+                            </P>
+                            <div id="myCardCont" class="myCardCont" style="display: none;">
+                                <form method="post" id="bindCardForm" action="" autocomplete="off">
+                                    <input type="hidden" name="token" value="<%=token%>"/>
+                                    <p class="mt10">请输入兑换码：<input class="textInput" name="cardNo"></p>
+                                    <p class="mt10">&emsp;请输入密码：<input type="password" class="textInput" name="cardPwd"></p>
+                                    <p class="p3"><a href="javascript:;" class="btnPrimary" id="bindCardSubmit">确认</a><a href="javascript:;" class="btn" id="bindCardCancel">取消</a></p>
+                                </form>
+                            </div>
+                            <table class="table">
+                                <table class="table Applyfortable mt20">
+                                    <tbody>
+                                    <tr class="tableHd">
+                                        <th width="200">优惠券号</th>
+                                        <th width="151">面值</th>
+                                        <th width="345">使用说明</th>
+                                        <th >有效期</th>
+                                    </tr>
+                                    <%if(cardMap && cardMap.rowCount > 0){%>
+                                    <%for(var i=0;i< cardMap.lists.length;i++){%>
+                                    <%var card = cardMap.lists[i];%>
+                                    <tr class="tableBd">
+                                        <td><%=card.cardNumber%></td>
+                                        <td><%=card.amount%></td>
+                                        <td><%=card.description%></td>
+                                        <td><%=card.exipredStr%></td>
+                                    </tr>
+                                    <%}%>
+                                    <%}else{%>
+                                    <tr>
+                                        <td colspan="4" style="padding: 15px 0;">您没有<%=tp == "unuse" ? '未使用' : tp == "used" ? "已使用" : "已过期"%>优惠券！</td>
+                                    </tr>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+
+                            </table>
+                        </div>
+                        <!-- pagination -->
+                        <div class="pagination" id="pageList" total="<%= cardMap ? cardMap.rowCount : '0'%>" size="15"></div>
+                        <!-- end pagination -->
+                    </div><!-- end panelBd-->
+                </div><!-- end panel-->
+            </div><!-- end main -->
+        </div><!-- end main -->
+        <div class="clear"></div>
+
+        <%=#importUrl("/ucenter/footer.html")%>
+    </body>
+</html>

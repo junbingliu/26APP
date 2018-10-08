@@ -1,0 +1,53 @@
+<!-- ko with:pluginItems.useTicket -->
+<div class="item" data-bind="css:{active:detailVisible}">
+    <div class="tit" data-bind="click:toggle" style="color: #e60000;">
+        <span class="os_ico"></span>使用优惠券
+    </div>
+    <div class="user_card user_coupon" data-bind="visible:detailVisible">
+        <table width="90%" cellpadding="0" cellspacing="0">
+            <tr>
+                <th align="left" width="100">&nbsp;
+                </th>
+                <th width="310">
+                    面值
+                </th>
+                <th width="135">
+                    可用张数
+                </th>
+                <th width="135">
+                    类别
+                </th>
+                <th>
+                    有效期
+                </th>
+            </tr>
+            <!-- ko foreach:maxAvailableCardBatches -->
+            <tr>
+                <td align="left">
+                    <input type="checkbox" data-bind="checkedValue:$data,checked:checked,disable:disabled">
+                </td>
+                <td>
+                    ￥<!-- ko text:faceValue --><!-- /ko -->
+                </td>
+                <td>
+                    <span><select data-bind="options:options,value:selectedNumber"></select></span>
+                </td>
+                <td data-bind="text:name">
+                </td>
+                <td>
+                    <span data-bind="text:begin"></span>-<span data-bind="text:end"></span>
+                </td>
+            </tr>
+            <!-- /ko -->
+            <!-- ko if:noAvailableCards -->
+            <tr>
+                <td colspan="7">本次支付没有可用的优惠券。</td>
+            </tr>
+            <!-- /ko -->
+        </table>
+        <div class="v_tit">
+            共使用了<span data-bind="text:totalUsedNumber"></span>张优惠券，可以优惠<span data-bind="text:totalUsedMoney"></span>元
+        </div>
+    </div>
+</div>
+<!-- /ko -->

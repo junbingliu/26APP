@@ -1,0 +1,75 @@
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">渠道选品</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li data-a="product_list"><a href="product_list.jsx?m={{=it.m}}"><i class="glyphicon glyphicon-list">所有商品</i></a></li>
+                <li data-a="BatchUploadProduct.jsx"><a href="BatchUploadProduct.jsx?m={{=it.m}}"><i class="glyphicon glyphicon-list">批量调整</i></a></li>
+                <li data-a="LogView.jsx"><a href="LogView.jsx?m={{=it.m}}"><i class="glyphicon glyphicon-list">上传日志</i></a></li>
+                <li data-a="DownloadTemplate.jsx"><a href="DownloadTemplate.jsx?m={{=it.m}}"><i class="glyphicon glyphicon-list">下载模板</i></a></li>
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var currentUrl = window.location.href;
+        $('#navbar').find('li').each(function (item) {
+            var $this = $(this);
+            var href = $this.data('a');
+            if (currentUrl.indexOf(href) > 0) {
+                $this.addClass("active");
+            }
+        });
+    });
+    $("#upload").on("click",function(){
+        document.getElementById("addForm").reset();
+        $("#myModal").modal("show");
+    });
+
+    $("#submitBtn").click(function () {
+        var file = $("#file").val();
+        if (!file) {
+            bootbox.alert("文件不能为空");
+            return;
+        }
+
+        var prefix = file.substring(file.lastIndexOf(".") + 1, file.length);
+        if (prefix == "xls" || prefix == "xlsx" ) {
+        } else {
+            bootbox.alert("文件类型只能是xls或xlsx");
+            return;
+        }
+        $("#addForm").submit();
+    });
+    function frameLoaded() {
+        var resultFrame = document.getElementById("resultFrame");
+        var result = $("#resultFrame").contents().find("body").html();
+        if (result) {
+            result = JSON.parse(result);
+            if (result.state == "ok") {
+                bootbox.alert(result.msg, function () {
+                    window.location.reload();
+                });
+                $("#myModal").modal("hide");
+            } else {
+                bootbox.alert(result.msg, function () {
+                });
+            }
+        }
+    }
+</script>
+<iframe id="resultFrame" name="resultFrame" style="display: none" onload="frameLoaded()"></iframe>
